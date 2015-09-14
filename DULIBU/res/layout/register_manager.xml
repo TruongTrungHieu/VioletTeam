@@ -1,0 +1,164 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_top_bg"
+        android:hint="Email"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/edittext_default_bg"
+        android:hint="Username"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/edittext_default_bg"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+    
+    <EditText
+        android:id="@+id/txtRePassword"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/edittext_bottom_bg"
+        android:hint="Nhập lại password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Tên đầy đủ" />
+
+    <EditText
+        android:id="@+id/txtFullname"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edittext_default_bg"
+        android:hint="Full name"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Ngày sinh" />
+
+    <EditText
+        android:id="@+id/txtBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edittext_default_bg"
+        android:hint="dd/mm/yyyy"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:id="@+id/radiosex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rbmale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/custom_checkbox_selector"
+            android:checked="true"
+            android:layout_marginRight="20dp"
+            android:text="  Nam" />
+
+        <RadioButton
+            android:id="@+id/rbfemale"
+            android:layout_width="wrap_content"
+            android:button="@drawable/custom_checkbox_selector"
+            android:layout_height="wrap_content"
+            android:text="  Nữ" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/custom_checkbox_selector"
+            android:text=" Tôi đồng ý với các " />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="điều khoản sử dụng"
+            android:textColor="#0aae44" />
+    </LinearLayout>
+    <Button
+            android:id="@+id/btnRegister"
+            style="@style/DefaultButtonText"
+            android:layout_gravity="right"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/button_default_bg"
+            android:layout_marginRight="30dp"
+            android:text="Đăng ký" />
+
+</LinearLayout>

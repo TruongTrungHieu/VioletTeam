@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/rllTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:background="#0CAD45"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/logoApp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logologin" />
+
+        <TextView
+            android:id="@+id/tvNameApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="DULIBU"
+            android:textColor="#FFF"
+            android:textSize="16pt" />
+
+        <EditText
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_top_bg"
+            android:hint="Username"
+            android:padding="10dp"
+            android:textColorHint="#bbbbbb"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/edittext_bottom_bg"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textColorHint="#bbbbbb"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/DefaultButtonText"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_default_bg"
+            android:text="Đăng nhập" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rllBottom"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="0.3"
+        android:background="@drawable/bglogin"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/lnrBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/btnFacebook"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="50dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Facebook"
+                android:scaleType="centerInside"
+                android:src="@drawable/imgfacebook" />
+
+            <ImageButton
+                android:id="@+id/btnTwitter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="50dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Twitter"
+                android:scaleType="centerInside"
+                android:src="@drawable/imgtwitter" />
+
+            <ImageButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Google+"
+                android:scaleType="centerInside"
+                android:src="@drawable/imggoogle" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnRegister"
+            style="@style/DefaultButtonText"
+            android:layout_width="170dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="40dp"
+            android:onClick="RegisterClicked"
+            android:background="@drawable/button_login_dangky"
+            android:text="Đăng Ký " />
+    </LinearLayout>
+
+</LinearLayout>
