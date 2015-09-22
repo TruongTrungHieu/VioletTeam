@@ -28,6 +28,8 @@ public class LoginManagerActivity extends ActionBarActivity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				/*GCMService g = new GCMService();
+				g.getRegId();*/
 				Intent intent = new Intent(LoginManagerActivity.this, ProfileManagerActivity.class);
 				startActivity(intent);
 			}

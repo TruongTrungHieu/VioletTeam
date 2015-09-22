@@ -40,7 +40,7 @@
             android:textColor="#505050" />
     </LinearLayout>
 
-    <TextView
+    <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#dadada" />
@@ -557,6 +557,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#dadada" />
+        android:background="#dadada" /> -->
+        <ListView 
+            android:id="@+id/lvTripList"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"></ListView>
 
 </LinearLayout>
