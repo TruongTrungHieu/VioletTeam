@@ -28,10 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainManagerActivity"
-            android:label="@string/title_activity_main_manager" >
-        </activity>
-        <activity
             android:name=".ProfileManagerActivity"
             android:label="@string/title_activity_profile_manager"
             android:theme="@style/AccountsLight" >

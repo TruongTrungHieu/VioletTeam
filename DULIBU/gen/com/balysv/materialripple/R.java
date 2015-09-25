@@ -8,24 +8,24 @@ package com.balysv.materialripple;
 
 public final class R {
 	public static final class attr {
-		public static final int mrl_rippleAlpha = 0x7f0100d2;
-		public static final int mrl_rippleBackground = 0x7f0100d6;
-		public static final int mrl_rippleColor = 0x7f0100cf;
-		public static final int mrl_rippleDelayClick = 0x7f0100d7;
-		public static final int mrl_rippleDimension = 0x7f0100d0;
-		public static final int mrl_rippleDuration = 0x7f0100d3;
-		public static final int mrl_rippleFadeDuration = 0x7f0100d4;
-		public static final int mrl_rippleHover = 0x7f0100d5;
-		public static final int mrl_rippleInAdapter = 0x7f0100d9;
-		public static final int mrl_rippleOverlay = 0x7f0100d1;
-		public static final int mrl_ripplePersistent = 0x7f0100d8;
-		public static final int mrl_rippleRoundedCorners = 0x7f0100da;
+		public static final int mrl_rippleAlpha = 0x7f0100ee;
+		public static final int mrl_rippleBackground = 0x7f0100f2;
+		public static final int mrl_rippleColor = 0x7f0100eb;
+		public static final int mrl_rippleDelayClick = 0x7f0100f3;
+		public static final int mrl_rippleDimension = 0x7f0100ec;
+		public static final int mrl_rippleDuration = 0x7f0100ef;
+		public static final int mrl_rippleFadeDuration = 0x7f0100f0;
+		public static final int mrl_rippleHover = 0x7f0100f1;
+		public static final int mrl_rippleInAdapter = 0x7f0100f5;
+		public static final int mrl_rippleOverlay = 0x7f0100ed;
+		public static final int mrl_ripplePersistent = 0x7f0100f4;
+		public static final int mrl_rippleRoundedCorners = 0x7f0100f6;
 	}
 	public static final class color {
 		public static final int transparent = 0x7f090048;
 	}
 	public static final class styleable {
-		public static final int[] MaterialRippleLayout = { 0x7f0100cf, 0x7f0100d0, 0x7f0100d1, 0x7f0100d2, 0x7f0100d3, 0x7f0100d4, 0x7f0100d5, 0x7f0100d6, 0x7f0100d7, 0x7f0100d8, 0x7f0100d9, 0x7f0100da };
+		public static final int[] MaterialRippleLayout = { 0x7f0100eb, 0x7f0100ec, 0x7f0100ed, 0x7f0100ee, 0x7f0100ef, 0x7f0100f0, 0x7f0100f1, 0x7f0100f2, 0x7f0100f3, 0x7f0100f4, 0x7f0100f5, 0x7f0100f6 };
 		public static final int MaterialRippleLayout_mrl_rippleAlpha = 3;
 		public static final int MaterialRippleLayout_mrl_rippleBackground = 7;
 		public static final int MaterialRippleLayout_mrl_rippleColor = 0;

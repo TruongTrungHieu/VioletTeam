@@ -2,7 +2,6 @@ package com.hou.GCM;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hou.dulibu.LoginManagerActivity;
-import com.hou.dulibu.MainManagerActivity;
 
 import android.app.IntentService;
 import android.app.Notification;
