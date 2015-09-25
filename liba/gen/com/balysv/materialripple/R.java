@@ -166,7 +166,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleAlpha
         */
-        public static final int MaterialRippleLayout_mrl_rippleAlpha = 3;
+        public static int MaterialRippleLayout_mrl_rippleAlpha = 3;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleBackground}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -181,7 +181,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleBackground
         */
-        public static final int MaterialRippleLayout_mrl_rippleBackground = 7;
+        public static int MaterialRippleLayout_mrl_rippleBackground = 7;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleColor}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -196,7 +196,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleColor
         */
-        public static final int MaterialRippleLayout_mrl_rippleColor = 0;
+        public static int MaterialRippleLayout_mrl_rippleColor = 0;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleDelayClick}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -210,7 +210,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleDelayClick
         */
-        public static final int MaterialRippleLayout_mrl_rippleDelayClick = 8;
+        public static int MaterialRippleLayout_mrl_rippleDelayClick = 8;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleDimension}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -226,7 +226,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleDimension
         */
-        public static final int MaterialRippleLayout_mrl_rippleDimension = 1;
+        public static int MaterialRippleLayout_mrl_rippleDimension = 1;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleDuration}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -240,7 +240,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleDuration
         */
-        public static final int MaterialRippleLayout_mrl_rippleDuration = 4;
+        public static int MaterialRippleLayout_mrl_rippleDuration = 4;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleFadeDuration}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -254,7 +254,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleFadeDuration
         */
-        public static final int MaterialRippleLayout_mrl_rippleFadeDuration = 5;
+        public static int MaterialRippleLayout_mrl_rippleFadeDuration = 5;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleHover}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -268,7 +268,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleHover
         */
-        public static final int MaterialRippleLayout_mrl_rippleHover = 6;
+        public static int MaterialRippleLayout_mrl_rippleHover = 6;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleInAdapter}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -282,7 +282,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleInAdapter
         */
-        public static final int MaterialRippleLayout_mrl_rippleInAdapter = 10;
+        public static int MaterialRippleLayout_mrl_rippleInAdapter = 10;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleOverlay}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -296,7 +296,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleOverlay
         */
-        public static final int MaterialRippleLayout_mrl_rippleOverlay = 2;
+        public static int MaterialRippleLayout_mrl_rippleOverlay = 2;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_ripplePersistent}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -310,7 +310,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_ripplePersistent
         */
-        public static final int MaterialRippleLayout_mrl_ripplePersistent = 9;
+        public static int MaterialRippleLayout_mrl_ripplePersistent = 9;
         /**
           <p>This symbol is the offset where the {@link com.balysv.materialripple.R.attr#mrl_rippleRoundedCorners}
           attribute's value can be found in the {@link #MaterialRippleLayout} array.
@@ -326,6 +326,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.balysv.materialripple:mrl_rippleRoundedCorners
         */
-        public static final int MaterialRippleLayout_mrl_rippleRoundedCorners = 11;
+        public static int MaterialRippleLayout_mrl_rippleRoundedCorners = 11;
     };
 }

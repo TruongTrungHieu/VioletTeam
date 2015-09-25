@@ -7,5 +7,9 @@
     <string name="title_activity_profile_manager">ProfileManagerActivity</string>
     <string name="title_activity_register_manager">Đăng ký</string>
     <string name="title_activity_trip_detail_manager">Chi tiết chuyến đi</string>
+    <string name="txtConDu">Số tiền còn dư </string>
+    <string name="txtTongThu">Tổng thu</string>
+    <string name="txtChiTiet">Chi tiết</string>
+    
 
 </resources>
