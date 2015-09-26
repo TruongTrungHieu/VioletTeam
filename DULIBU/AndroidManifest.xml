@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -43,16 +45,20 @@
             android:theme="@style/AccountsLightActivities" >
         </activity>
         <activity
-            android:name=".TripDetailInfoActivity"
+            android:name="com.hou.fragment.TripDetailInfoActivity"
             android:label="@string/title_activity_trip_detail_info" >
         </activity>
         <activity
-            android:name=".TripDetailMemberActivity"
+            android:name="com.hou.fragment.TripDetailMemberActivity"
             android:label="@string/title_activity_trip_detail_member" >
         </activity>
         <activity
-            android:name=".TripDetailMessageActivity"
+            android:name="com.hou.fragment.TripDetailMessageActivity"
             android:label="@string/title_activity_trip_detail_message" >
+        </activity>
+        <activity
+            android:name="com.hou.fragment.TripDetailTripActivity"
+            android:label="@string/title_activity_trip_detail_trip" >
         </activity>
     </application>
 

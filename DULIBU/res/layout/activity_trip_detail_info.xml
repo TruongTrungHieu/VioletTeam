@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="com.hou.dulibu.TripDetailInfoActivity" >
+    tools:context="com.hou.fragment.TripDetailInfoActivity" >
 
     <ScrollView
         android:id="@+id/scvBody"

@@ -1,9 +1,9 @@
 package com.hou.adapters;
 
-import com.hou.dulibu.TripDetailInfoActivity;
-import com.hou.dulibu.TripDetailMemberActivity;
-import com.hou.dulibu.TripDetailMessageActivity;
-import com.hou.dulibu.TripDetailTripActivity;
+import com.hou.fragment.TripDetailInfoActivity;
+import com.hou.fragment.TripDetailMemberActivity;
+import com.hou.fragment.TripDetailMessageActivity;
+import com.hou.fragment.TripDetailTripActivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

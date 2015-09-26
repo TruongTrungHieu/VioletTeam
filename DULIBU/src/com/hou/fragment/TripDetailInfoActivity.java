@@ -1,5 +1,10 @@
-package com.hou.dulibu;
+package com.hou.fragment;
 
+
+
+
+import com.hou.dulibu.R;
+import com.hou.dulibu.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,10 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TripDetailMemberActivity extends Fragment {
+public class TripDetailInfoActivity extends Fragment {
+
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_trip_detail_member,container,false);
+        View v =inflater.inflate(R.layout.activity_trip_detail_info,container,false);
         return v;
     }
 }

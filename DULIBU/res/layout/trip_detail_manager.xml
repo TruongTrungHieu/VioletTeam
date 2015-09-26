@@ -3,34 +3,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    
-    
-    
-   
-
-	<include
+    <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        />
- 
+        android:layout_height="wrap_content"
+        layout="@layout/tool_bar" />
+
     <com.hou.dulibu.SlidingTabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ActionBarColor"
-        android:elevation="2dp"/>
- 
+        android:elevation="2dp" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
- 
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        ></android.support.v4.view.ViewPager>
-	<!-- Mới -->
-    <!-- <TabHost 
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
+    <!-- Mới -->
+    <!--
+    <TabHost 
         android:id="@android:id/tabhost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -48,9 +42,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></FrameLayout>
         </LinearLayout>
-    </TabHost> -->
+    </TabHost>
+    -->
     <!-- Cũ -->
-    <!-- <LinearLayout
+    <!--
+    <LinearLayout
         android:id="@+id/LnMenuBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -333,6 +329,7 @@
                     android:text="Tất cả các thành đoàn yêu cầu có mặt đúng thời gian và địa điểm theo quy định.. đoàn không chờ bất cứ ai... Mọi thành viên tham gia vui lòng chuyển khoản theo số tài khoản ngân hàng Agribank" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView> -->
+    </ScrollView>
+    -->
 
 </LinearLayout>

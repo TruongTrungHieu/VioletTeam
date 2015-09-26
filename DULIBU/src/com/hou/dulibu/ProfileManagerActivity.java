@@ -1,5 +1,6 @@
 package com.hou.dulibu;
 
+import com.hou.fragment.ListPhuotFragment;
 import com.hou.fragment.ListTripFragment;
 import com.hou.fragment.ProfileFragment;
 
@@ -13,52 +14,56 @@ import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 import it.neokree.materialnavigationdrawer.elements.listeners.MaterialAccountListener;
 
 @SuppressWarnings("rawtypes")
-public class ProfileManagerActivity extends MaterialNavigationDrawer implements MaterialAccountListener{
+public class ProfileManagerActivity extends MaterialNavigationDrawer implements MaterialAccountListener {
 
 	private MaterialAccount account;
-	private MaterialSection<Fragment> mnuInfo,mnuMyMap,mnuMyTrip,mnuLogout, mnuAbout, mnuLstTrip;
-	
+	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip, mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip;
+
 	@Override
 	public void init(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		account = new MaterialAccount(this.getResources(), "DULIBU", "FITHOU-2015", R.drawable.default_avartar, R.drawable.default_bg);
+		account = new MaterialAccount(this.getResources(), "DULIBU", "FITHOU-2015", R.drawable.default_avartar,
+				R.drawable.default_bg);
 		this.addAccount(account);
-				this.disableLearningPattern();
-		
+		this.disableLearningPattern();
+
 		mnuInfo = newSection("Thông tin cá nhân", R.drawable.icon_profile, new ProfileFragment());
 		this.addSection(mnuInfo);
+
+		// Intent mnuLstTrip = new Intent(ProfileManagerActivity.this,
+		// ListTripFragment.class);
+		// mnuLstTrip.putExtra("NameIntent", "mnuLstTrip");
+
+		this.addSection(newSection("Danh sách chuyến đi", R.drawable.icon_list_trip, new ListTripFragment()));
 		
-//		Intent mnuLstTrip = new Intent(ProfileManagerActivity.this,
-//			 ListTripFragment.class);
-//		mnuLstTrip.putExtra("NameIntent", "mnuLstTrip");
+		this.addSection(newSection("Danh sách điểm phượt", R.drawable.icon_list_trip, new ListPhuotFragment()));
 		
-		this.addSection(newSection("Danh sách chuyến đi", R.drawable.icon_list_trip,
-				new ListTripFragment()));
 		mnuMyTrip = newSection("Chuyến đi của tôi", R.drawable.icon_heart, new ProfileFragment());
 		this.addSection(mnuMyTrip);
+		
 		mnuMyMap = newSection("Bản đồ", R.drawable.icon_map, new ProfileFragment());
 		this.addSection(mnuMyMap);
+		
 		mnuLogout = newSection("Đăng xuất", R.drawable.icon_logout, new ProfileFragment());
 		this.addSection(mnuLogout);
+		
 		mnuAbout = newSection("Thông tin ứng dụng", R.drawable.icon_about, new ProfileFragment());
 		this.addSection(mnuAbout);
-		
-		
-		
-		
+
 	}
-	
+
 	@Override
 	public void onAccountOpening(MaterialAccount account) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onChangeAccount(MaterialAccount newAccount) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -77,5 +82,5 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 }
