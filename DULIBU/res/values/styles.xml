@@ -41,6 +41,7 @@
     </style>
     <style name="AccountsLightActivities" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#0aae44</item>
+        <item name="windowActionBar">false</item>
         <item name="colorPrimaryDark">#2E7D32</item>
         <!-- <item name="colorAccent">#000000</item> -->
         
