@@ -1,161 +1,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/lnHeader"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:background="@drawable/default_bg_detail"
-        android:gravity="bottom"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tvTitleTrip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="10dp"
-            android:text="Hà Nội - Hà Giang"
-            android:textColor="#FFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnMaybeJoin"
-            style="@style/DefaultButtonText"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/button_login_dangky"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Có thể "
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnCancelJoin"
-            style="@style/DefaultButtonText"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_login_dangky"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Hủy Tham gia "
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/btnJoin"
-            style="@style/DefaultButtonText"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@id/btnMaybeJoin"
-            android:background="@drawable/button_login_dangky"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Tham gia "
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <TabHost 
-        android:id="@android:id/tabhost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout 
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TabWidget 
-                android:id="@android:id/tabs"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_width="match_parent"></TabWidget>
-            <FrameLayout 
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></FrameLayout>
-        </LinearLayout>
-    </TabHost>
-    <!-- Cũ -->
-    <!-- <LinearLayout
-        android:id="@+id/LnMenuBar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnInfo"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/icon_info"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Thông tin"
-            android:textAllCaps="false"
-            android:textColor="#505050" />
-
-        <Button
-            android:id="@+id/btnMember"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/users"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Thành viên"
-            android:textAllCaps="false"
-            android:textColor="#505050" />
-
-        <Button
-            android:id="@+id/btnMessages"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/icon_message"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Tin nhắn"
-            android:textAllCaps="false"
-            android:textColor="#505050" />
-
-        <Button
-            android:id="@+id/btnMyLocation"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/icon_position"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Lộ trình"
-            android:textAllCaps="false"
-            android:textColor="#505050" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#d2d2d2" />
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.hou.dulibu.TripDetailInfoActivity" >
 
     <ScrollView
         android:id="@+id/scvBody"
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -352,11 +210,12 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical" >
-                <TextView
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#0aae44"
                     android:text="Ghi chú"
+                    android:textColor="#0aae44"
                     android:textSize="15sp" />
 
                 <TextView
@@ -373,6 +232,7 @@
                     android:text="Tất cả các thành đoàn yêu cầu có mặt đúng thời gian và địa điểm theo quy định.. đoàn không chờ bất cứ ai... Mọi thành viên tham gia vui lòng chuyển khoản theo số tài khoản ngân hàng Agribank" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView> -->
+    </ScrollView>
+ -->
 
 </LinearLayout>
