@@ -1,0 +1,162 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.chiphi_activity.MainActivity"
+    android:background="#FFFFFF" >
+
+<!--    <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/action_bar_color">
+      <ImageButton 
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back"
+            />
+        <ImageButton 
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/btn_plus"/>
+    </RelativeLayout>  -->
+
+    <RelativeLayout
+        android:layout_below="@+id/actionBar"
+        android:id="@+id/rowConDu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/txtConDu"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtConDu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:maxLength="15"
+            android:text="1000"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txtConDu"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#000000"
+            android:paddingTop="5dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/rowConDu"
+        android:id="@+id/rowTongThu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/txtTongThu"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtTongThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:maxLength="15"
+            android:numeric="integer"
+            android:text="1000"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txtTongThu"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#000000" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/rowTongThu"
+        android:id="@+id/rowChiTiet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/txtChiTiet"
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <!--
+          <TextView 
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/txtChiTiet"
+        android:background="#000000"/>
+        -->
+
+        <ListView
+            
+            android:id="@+id/lvChiTietTieu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            
+             >
+        </ListView>
+    </LinearLayout>
+
+   <!--  <RelativeLayout
+        android:layout_below="@+id/rowChiTiet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Má»—i ngÆ°á»i cĂ²n"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtConDuMoiNguoi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:maxLength="15"
+            android:numeric="integer"
+            android:text="150.000.000 vnd"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </RelativeLayout> -->
+
+</RelativeLayout>

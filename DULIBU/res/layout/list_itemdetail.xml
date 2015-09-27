@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:minHeight="80dp"
+    android:id="@+id/list_item_layout"
+    android:background="@drawable/shadow_attachment"
+     >
+   <TextView
+       
+        android:id="@+id/txtTenKhoanChi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"        
+        android:text="Thuê Lều"
+        android:textColor="#000"
+        
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/txtSoTien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentRight="true"
+        android:text="1.000.000 vnd"
+        android:maxLength="15"
+        
+        android:textColor="@color/accent_material_light"
+        android:textSize="15sp" />
+    <TextView 
+        android:layout_below="@+id/txtTenKhoanChi"
+        android:id="@+id/txtThoiGian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="16h - 27-9-2015"
+        android:textColor="@color/ActionBarColor"
+        android:textSize="15sp"/>
+
+</RelativeLayout>
