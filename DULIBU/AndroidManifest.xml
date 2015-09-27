@@ -60,6 +60,12 @@
             android:name="com.hou.fragment.TripDetailTripActivity"
             android:label="@string/title_activity_trip_detail_trip" >
         </activity>
+        <activity
+            android:name=".ChiTieu_Activity"
+            android:label="@string/title_activity_chi_tieu_"
+            android:theme="@style/CustomActionBarTheme" >
+        </activity>
+        
     </application>
 
 </manifest>
