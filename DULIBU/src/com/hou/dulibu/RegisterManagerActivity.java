@@ -1,17 +1,32 @@
 package com.hou.dulibu;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.TextureView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterManagerActivity extends ActionBarActivity {
-	RadioGroup radiosex;
-	RadioButton rbButton;
+	private RadioGroup radiosex;
+	private RadioButton rbButton;
+	private EditText email,username,pass,ck_pass,fullname,ngaysinh;
+	private Button sumit;
+	private CheckBox ck_dieukhoan;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +38,58 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+		email = (EditText) findViewById(R.id.txtEmail);
+		username = (EditText) findViewById(R.id.txtUsername);
+		pass = (EditText) findViewById(R.id.txtPassword);
+		ck_pass = (EditText) findViewById(R.id.txtRePassword);
+		fullname = (EditText) findViewById(R.id.txtFullname);
+		ngaysinh = (EditText) findViewById(R.id.txtBirthday);
 		radiosex = (RadioGroup) findViewById(R.id.radiosex);
+		sumit = (Button) findViewById(R.id.btnRegister);
+		sumit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			CheckboxSelected();	
+			}
+		});
+		ck_dieukhoan = (CheckBox) findViewById(R.id.ck_dieukhoan);
 		int rbSelected = radiosex.getCheckedRadioButtonId();
 		rbButton = (RadioButton) findViewById(rbSelected);
 		
 	}
-	
 	public void CheckboxSelected(){
+		if(email.getText().toString().equals("")||username.getText().toString().equals("")||pass.getText().toString().equals("")
+				|| ck_pass.getText().toString().equals("")||fullname.getText().toString().equals("")||ngaysinh.getText().toString().equals("")){
+			Toast.makeText(getApplicationContext(),"Nhập thông tin chưa đầy đủ",Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+     		 if (email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") && email.getText().length() > 0)
+				        { 
+				        	if(pass.getText().toString().equals(ck_pass.getText().toString())){
+								if(ck_dieukhoan.isChecked()){
+									sumit.setEnabled(false);
+									Toast.makeText(getApplication(), "a", Toast.LENGTH_SHORT).show();
+								}
+								else{
+									sumit.setEnabled(true);
+									Toast.makeText(getApplicationContext(),"Chưa xác nhận điều khoản",Toast.LENGTH_SHORT).show();
+							    }
+							}
+							else{
+								Toast.makeText(getApplicationContext(),"Xác nhận pass không trùng",Toast.LENGTH_SHORT).show();
+								pass.setText("");
+								ck_pass.setText("");
+							}
+				        }
+				        else
+				        {
+				             Toast.makeText(getApplicationContext(),"Nhập mail sai định dạng",Toast.LENGTH_SHORT).show();
+				        }
+				}
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
