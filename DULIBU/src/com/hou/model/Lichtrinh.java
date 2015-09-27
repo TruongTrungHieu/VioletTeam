@@ -24,6 +24,7 @@ public class Lichtrinh implements Serializable {
 	private double chiphicanhan;
 	private double chiphicadoan;
 	private String thuquy;
+	private String image;
 	
 	public Lichtrinh() {
 		
@@ -34,7 +35,7 @@ public class Lichtrinh implements Serializable {
 			String tgKetthuc, String trangthai_hienthi,
 			String trangthai_hoatdong, String trangthai_sos, String admin,
 			String tg_checkserver, String m_checkserver, double chiphicanhan,
-			double chiphicadoan, String thuquy) {
+			double chiphicadoan, String thuquy, String image) {
 		super();
 		this.maLichtrinh = maLichtrinh;
 		this.tenLichtrinh = tenLichtrinh;
@@ -51,6 +52,7 @@ public class Lichtrinh implements Serializable {
 		this.chiphicanhan = chiphicanhan;
 		this.chiphicadoan = chiphicadoan;
 		this.thuquy = thuquy;
+		this.image = image;
 	}
 
 	public String getMaLichtrinh() {
@@ -173,6 +175,14 @@ public class Lichtrinh implements Serializable {
 		this.thuquy = thuquy;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.thuquy = image;
+	}	
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

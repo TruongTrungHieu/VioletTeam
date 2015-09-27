@@ -13,7 +13,7 @@ public class Chitieu implements Serializable{
 	private String maLichtrinh;
 	private String tenChitieu;
 	private String thoigian;
-	private String sotien;
+	private double sotien;
 	private String filedinhkem;
 	private String maUser;
 	
@@ -22,7 +22,7 @@ public class Chitieu implements Serializable{
 	}
 
 	public Chitieu(String maChitieu, String maLichtrinh, String tenChitieu,
-			String thoigian, String sotien, String filedinhkem, String maUser) {
+			String thoigian, double sotien, String filedinhkem, String maUser) {
 		super();
 		this.maChitieu = maChitieu;
 		this.maLichtrinh = maLichtrinh;
@@ -65,11 +65,11 @@ public class Chitieu implements Serializable{
 		this.thoigian = thoigian;
 	}
 
-	public String getSotien() {
+	public double getSotien() {
 		return sotien;
 	}
 
-	public void setSotien(String sotien) {
+	public void setSotien(double sotien) {
 		this.sotien = sotien;
 	}
 
