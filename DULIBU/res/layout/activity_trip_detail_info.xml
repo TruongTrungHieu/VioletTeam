@@ -230,6 +230,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tvKinhPhi"
                         android:layout_width="50dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="20dp"
