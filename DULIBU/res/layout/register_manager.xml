@@ -142,6 +142,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/ck_dieukhoan"
             android:button="@drawable/custom_checkbox_selector"
             android:text=" Tôi đồng ý với các " />
 
