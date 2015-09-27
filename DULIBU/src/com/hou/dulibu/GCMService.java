@@ -3,15 +3,8 @@ package com.hou.dulibu;
 import java.io.IOException;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 
 /*
  * Created by: Uong Thanh Tung

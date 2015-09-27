@@ -21,9 +21,9 @@ public class ImageUltiFunctions {
 		} catch (Exception e) {
 			return null;
 		}
-
 		return null;
 	}
+	
 	public static Bitmap decodeSampledBitmapFromFile(File file, int reqWidth,
 			int reqHeight) {
 		// TODO Auto-generated method stub
@@ -31,15 +31,14 @@ public class ImageUltiFunctions {
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-
 		// Calculate inSampleSize
 		options.inSampleSize = calculateInSampleSize(options, reqWidth,
 				reqHeight);
-
 		// Decode bitmap with inSampleSize set
 		options.inJustDecodeBounds = false;
 		return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
 	}
+	
 	/** Calculate the scaling factor */
 	public static int calculateInSampleSize(BitmapFactory.Options options,
 			int reqWidth, int reqHeight) {
@@ -47,9 +46,7 @@ public class ImageUltiFunctions {
 		final int height = options.outHeight;
 		final int width = options.outWidth;
 		int inSampleSize = 1;
-
 		if (height > reqHeight || width > reqWidth) {
-
 			// Calculate ratios of height and width to requested height and
 			// width
 			final int heightRatio = Math.round((float) height
@@ -62,7 +59,6 @@ public class ImageUltiFunctions {
 			// requested height and width.
 			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
 		}
-
 		return inSampleSize;
 	}
 }

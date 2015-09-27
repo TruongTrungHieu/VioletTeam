@@ -1,9 +1,6 @@
 package com.hou.fragment;
 
 
-
-
-
 import com.hou.dulibu.ChiTieu_Activity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;

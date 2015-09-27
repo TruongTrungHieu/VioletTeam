@@ -29,7 +29,7 @@
             android:textSize="16pt" />
 
         <EditText
-            android:id="@+id/txtUsername"
+            android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|center_horizontal"
@@ -43,7 +43,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/txtPassword"
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|center_horizontal"

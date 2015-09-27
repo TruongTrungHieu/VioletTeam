@@ -20,9 +20,28 @@ public class Global {
 	public static String DULIBU = "DULIBU";
 	
 	/*
+	 * URI
+	 */
+	public static String BASE_URI = "http://api.dulibu.com";
+	public static String URI_DANGNHAP_PATH  = "user/login";
+	
+	/*
 	 * ShareReferences
 	 */
 	public static String XML_FILE_NAME = "DULIBU_XML";
+	
+	// User
+	public static String USER_MAUSER = "mauser";
+	public static String USER_USERNAME = "username";
+	public static String USER_FULLNAME = "fullname";
+	public static String USER_EMAIL = "email";
+	public static String USER_NGAYSINH = "ngaysinh";
+	public static String USER_SDT = "sdt";
+	public static String USER_GIOITINH = "gioitinh";
+	public static String USER_SDT_LIENHE = "sdt_lienhe";
+	public static String USER_AVATAR = "avatar";
+	public static String USER_GHICHU = "ghichu";
+	public static String USER_ACCESS_TOKEN = "access_token";
 	
 	// Multi language
 	public static String MULTI_LANGUAGE = "multi_language";

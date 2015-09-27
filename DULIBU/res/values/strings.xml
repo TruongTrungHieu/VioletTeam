@@ -16,6 +16,11 @@
     <string name="txtTongThu">Tổng thu</string>
     <string name="txtChiTiet">Chi tiết</string>
 
+    <!-- LoginManagerActivity -->
+    <string name="validator_login">Thiếu tên đăng nhập hoặc mật khẩu</string>
+    <string name="login_fail">Sai tên đăng nhập hoặc mật khẩu</string>
+    <string name="login_again">Đăng nhập lại -_-</string>
+
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
