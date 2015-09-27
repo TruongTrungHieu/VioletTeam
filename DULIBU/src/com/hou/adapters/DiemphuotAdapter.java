@@ -87,7 +87,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// startDiemDL(position);
-				Toast.makeText(context, "ID diem: " + ((Diemphuot) phuots.get(position)).getImage(),
+				Toast.makeText(context, "ID diem: " + ((Diemphuot) phuots.get(position)).getMaDiemphuot(),
 						Toast.LENGTH_SHORT).show();
 			}
 		});

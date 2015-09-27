@@ -2,14 +2,12 @@ package com.hou.fragment;
 
 import java.util.ArrayList;
 
-
 import com.hou.adapters.DiemphuotAdapter;
 import com.hou.app.Global;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.model.Diemphuot;
-
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,7 +21,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ListPhuotFragment extends Fragment{
+public class ListPhuotFragment extends Fragment {
 	ProgressDialog pDialog;
 	ArrayList<Diemphuot> phuots;
 	ListView lvListTrip;
@@ -37,30 +35,34 @@ public class ListPhuotFragment extends Fragment{
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.list_phuot_manager, container, false);
-		/*final ListView lvListTrip = (ListView) view.findViewById(R.id.lvTripList);
-		DeviceStatus ds = new DeviceStatus();
-		
-		Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "note", "phuot1.jpg", "Khó đấy :v", "Recommended");
-		diemphuot = new ArrayList<Diemphuot>();
-		diemphuot.add(phuot1);
-		DiemphuotAdapter adapter = new DiemphuotAdapter(getActivity(), R.layout.list_phuot_item, diemphuot);
-		lvListTrip.setAdapter(adapter);
-		lvListTrip.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// TODO Auto-generated method stub
-				
-				Toast.makeText(getActivity(), "" + diemphuot.get(position).getMadiemphuot(), Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(getActivity(), TripDetailManagerActivity.class);
-				startActivity(intent);
-			}
-		});*/
-		Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "note", "phuot1.jpg", "Khó đấy :v", "Recommended");
-		Global.LIST_DIEMPHUOT.add(phuot1);
+		/*
+		 * final ListView lvListTrip = (ListView)
+		 * view.findViewById(R.id.lvTripList); DeviceStatus ds = new
+		 * DeviceStatus();
+		 * 
+		 * Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat",
+		 * "long", "YB", "Yên Bái", "note", "phuot1.jpg", "Khó đấy :v",
+		 * "Recommended"); diemphuot = new ArrayList<Diemphuot>();
+		 * diemphuot.add(phuot1); DiemphuotAdapter adapter = new
+		 * DiemphuotAdapter(getActivity(), R.layout.list_phuot_item, diemphuot);
+		 * lvListTrip.setAdapter(adapter); lvListTrip.setOnItemClickListener(new
+		 * android.widget.AdapterView.OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> parent, View view,
+		 * int position, long id) { // TODO Auto-generated method stub
+		 * 
+		 * Toast.makeText(getActivity(), "" +
+		 * diemphuot.get(position).getMadiemphuot(), Toast.LENGTH_SHORT).show();
+		 * Intent intent = new Intent(getActivity(),
+		 * TripDetailManagerActivity.class); startActivity(intent); } });
+		 */
+		if (Global.LIST_DIEMPHUOT.isEmpty()) {
+			Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "note",
+					"phuot1.jpg", "Khó đấy :v", "Recommended");
+			Global.LIST_DIEMPHUOT.add(phuot1);
+		}
 
 		// showSlideImage(SlideImageArr);
 
@@ -69,6 +71,7 @@ public class ListPhuotFragment extends Fragment{
 		return view;
 
 	}
+
 	void initGridView(View view) {
 		gv_phuot = (GridView) view.findViewById(R.id.gvPhuotGrid);
 
@@ -87,9 +90,11 @@ public class ListPhuotFragment extends Fragment{
 			diemphuot.setImage(Global.LIST_DIEMPHUOT.get(i).getImage());
 			diemphuot.setDokho(Global.LIST_DIEMPHUOT.get(i).getDokho());
 			diemphuot.setTrangthaiChuan(Global.LIST_DIEMPHUOT.get(i).getTrangthaiChuan());
-			
-/*				diemphuot.setImage(Global.LIST_DIEMPHUOT.get(i)
-					.getIddiem() + ".jpg");*/
+
+			/*
+			 * diemphuot.setImage(Global.LIST_DIEMPHUOT.get(i) .getIddiem() +
+			 * ".jpg");
+			 */
 			phuots.add(diemphuot);
 		}
 		gv_phuot.setAdapter(new DiemphuotAdapter(getActivity(), phuots));
@@ -97,8 +102,7 @@ public class ListPhuotFragment extends Fragment{
 
 	int getImageId(String imageName) {
 		imageName = imageName.substring(3);
-		return this.getResources().getIdentifier(imageName, "drawable",
-				getActivity().getPackageName());
+		return this.getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName());
 	}
 
 	@Override
@@ -121,4 +125,3 @@ public class ListPhuotFragment extends Fragment{
 
 	}
 }
-

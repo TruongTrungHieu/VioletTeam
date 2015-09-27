@@ -26,7 +26,7 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 	ViewPager pager;
 	ViewPagerAdapter adapter;
 	SlidingTabLayout tabs;
-	CharSequence Titles[] = { "Thông tin", "Thành viên", "Tin nhắn", "Lộ trình" };
+	CharSequence Titles[] = { "Info", "Members", "Message", "Trip" };
 	int Numboftabs = 4;
 
 	@Override
