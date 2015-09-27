@@ -79,7 +79,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 
 		tv_name.setText(((Diemphuot) phuots.get(position)).getTenDiemphuot());
 		tv_address.setText(((Diemphuot) phuots.get(position)).getDiachi());
-		tv_hardlevel.setText(((Diemphuot) phuots.get(position)).getDokho());
+//		tv_hardlevel.setText(((Diemphuot) phuots.get(position)).getDokho());
 		/*Toast.makeText(context, "ID diem: " + ((Diemphuot) phuots.get(position)).getDokho(),
 				Toast.LENGTH_SHORT).show();*/
 		v.setOnClickListener(new OnClickListener() {

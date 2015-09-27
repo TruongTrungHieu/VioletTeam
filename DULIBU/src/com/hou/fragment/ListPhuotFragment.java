@@ -60,7 +60,7 @@ public class ListPhuotFragment extends Fragment {
 		 */
 		if (Global.LIST_DIEMPHUOT.isEmpty()) {
 			Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "note",
-					"phuot1.jpg", "Khó đấy :v", "Recommended");
+					"phuot1.jpg", "Recommended");
 			Global.LIST_DIEMPHUOT.add(phuot1);
 		}
 
@@ -88,7 +88,6 @@ public class ListPhuotFragment extends Fragment {
 			diemphuot.setDiachi(Global.LIST_DIEMPHUOT.get(i).getDiachi());
 			diemphuot.setGhichu(Global.LIST_DIEMPHUOT.get(i).getGhichu());
 			diemphuot.setImage(Global.LIST_DIEMPHUOT.get(i).getImage());
-			diemphuot.setDokho(Global.LIST_DIEMPHUOT.get(i).getDokho());
 			diemphuot.setTrangthaiChuan(Global.LIST_DIEMPHUOT.get(i).getTrangthaiChuan());
 
 			/*

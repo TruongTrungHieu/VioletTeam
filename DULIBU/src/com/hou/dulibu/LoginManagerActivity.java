@@ -1,5 +1,7 @@
 package com.hou.dulibu;
 
+import com.hou.app.Global;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -41,6 +43,7 @@ public class LoginManagerActivity extends ActionBarActivity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Global.createFolderDULIBU();
 				Intent intent = new Intent(LoginManagerActivity.this, RegisterManagerActivity.class);
 				startActivity(intent);
 			}

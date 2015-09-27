@@ -38,7 +38,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		final ListView lvListTrip = (ListView) view.findViewById(R.id.lvTripList);
 		DeviceStatus ds = new DeviceStatus();
 		
-		Lichtrinh trip1 = new Lichtrinh("trip1", "HÃ  Ná»™i - HÃ  Giang", "HÃ  Ná»™i", "HÃ  Giang", "18/11/2015", "20/11/2015", "Public", "Ä�ang diá»…n ra", "Safe", "UTT", "4 sao", "20 phÃºt", "100m");
+		Lichtrinh trip1 = new Lichtrinh("trip1", "Hà Nội - Hà Giang", "Hà Nội", "Hà Giang", "a", "1", "1", "1", "1", "1", "1", "1", 1, 1, "1");
 		lichtrinh = new ArrayList<Lichtrinh>();
 		lichtrinh.add(trip1);
 		LichtrinhAdapter adapter = new LichtrinhAdapter(getActivity(), R.layout.list_trip_item, lichtrinh);

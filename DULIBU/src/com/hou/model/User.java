@@ -12,6 +12,7 @@ public class User implements Serializable {
 	private String maUser;
 	private String fullname;
 	private String email;
+	private String username;
 	private String ngaysinh;
 	private String sdt;
 	private int gioitinh;
@@ -23,12 +24,14 @@ public class User implements Serializable {
 		
 	}
 
-	public User(String fullname, String email, String ngaysinh,
-			String sdt, int gioitinh, String sdt_lienhe, String avatar,
-			String ghichu) {
+	public User(String maUser, String fullname, String email, String username,
+			String ngaysinh, String sdt, int gioitinh, String sdt_lienhe,
+			String avatar, String ghichu) {
 		super();
+		this.maUser = maUser;
 		this.fullname = fullname;
 		this.email = email;
+		this.username = username;
 		this.ngaysinh = ngaysinh;
 		this.sdt = sdt;
 		this.gioitinh = gioitinh;
@@ -36,14 +39,14 @@ public class User implements Serializable {
 		this.avatar = avatar;
 		this.ghichu = ghichu;
 	}
-	
-	public User(String maUser, String fullname, String email, String ngaysinh,
-			String sdt, int gioitinh, String sdt_lienhe, String avatar,
-			String ghichu) {
+
+	public User(String fullname, String email, String username,
+			String ngaysinh, String sdt, int gioitinh, String sdt_lienhe,
+			String avatar, String ghichu) {
 		super();
-		this.maUser = maUser;
 		this.fullname = fullname;
 		this.email = email;
+		this.username = username;
 		this.ngaysinh = ngaysinh;
 		this.sdt = sdt;
 		this.gioitinh = gioitinh;
@@ -74,6 +77,14 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getNgaysinh() {

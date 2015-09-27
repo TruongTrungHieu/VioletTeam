@@ -19,9 +19,11 @@ public class Lichtrinh implements Serializable {
 	private String trangthai_hoatdong;
 	private String trangthai_sos;
 	private String admin;
-	private String chatluong_lichtrinh;
 	private String tg_checkserver;
 	private String m_checkserver;
+	private double chiphicanhan;
+	private double chiphicadoan;
+	private String thuquy;
 	
 	public Lichtrinh() {
 		
@@ -31,8 +33,8 @@ public class Lichtrinh implements Serializable {
 			String diemBatdau, String diemKetthuc, String tbBatdau,
 			String tgKetthuc, String trangthai_hienthi,
 			String trangthai_hoatdong, String trangthai_sos, String admin,
-			String chatluong_lichtrinh, String tg_checkserver,
-			String m_checkserver) {
+			String tg_checkserver, String m_checkserver, double chiphicanhan,
+			double chiphicadoan, String thuquy) {
 		super();
 		this.maLichtrinh = maLichtrinh;
 		this.tenLichtrinh = tenLichtrinh;
@@ -44,9 +46,11 @@ public class Lichtrinh implements Serializable {
 		this.trangthai_hoatdong = trangthai_hoatdong;
 		this.trangthai_sos = trangthai_sos;
 		this.admin = admin;
-		this.chatluong_lichtrinh = chatluong_lichtrinh;
 		this.tg_checkserver = tg_checkserver;
 		this.m_checkserver = m_checkserver;
+		this.chiphicanhan = chiphicanhan;
+		this.chiphicadoan = chiphicadoan;
+		this.thuquy = thuquy;
 	}
 
 	public String getMaLichtrinh() {
@@ -129,14 +133,6 @@ public class Lichtrinh implements Serializable {
 		this.admin = admin;
 	}
 
-	public String getChatluong_lichtrinh() {
-		return chatluong_lichtrinh;
-	}
-
-	public void setChatluong_lichtrinh(String chatluong_lichtrinh) {
-		this.chatluong_lichtrinh = chatluong_lichtrinh;
-	}
-
 	public String getTg_checkserver() {
 		return tg_checkserver;
 	}
@@ -153,8 +149,32 @@ public class Lichtrinh implements Serializable {
 		this.m_checkserver = m_checkserver;
 	}
 
+	public double getChiphicanhan() {
+		return chiphicanhan;
+	}
+
+	public void setChiphicanhan(double chiphicanhan) {
+		this.chiphicanhan = chiphicanhan;
+	}
+
+	public double getChiphicadoan() {
+		return chiphicadoan;
+	}
+
+	public void setChiphicadoan(double chiphicadoan) {
+		this.chiphicadoan = chiphicadoan;
+	}
+
+	public String getThuquy() {
+		return thuquy;
+	}
+
+	public void setThuquy(String thuquy) {
+		this.thuquy = thuquy;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 }

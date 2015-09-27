@@ -9,6 +9,7 @@ public class Checkpoint_User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String ma_checkpoint_user;
 	private String maLichtrinh;
 	private String maUser;
 	private String lat;
@@ -19,10 +20,12 @@ public class Checkpoint_User implements Serializable {
 	public Checkpoint_User() {
 		
 	}
-
-	public Checkpoint_User(String maLichtrinh, String maUser, String lat,
-			String lon, String thoigian, String ghichu) {
+	
+	public Checkpoint_User(String ma_checkpoint_user, String maLichtrinh,
+			String maUser, String lat, String lon, String thoigian,
+			String ghichu) {
 		super();
+		this.ma_checkpoint_user = ma_checkpoint_user;
 		this.maLichtrinh = maLichtrinh;
 		this.maUser = maUser;
 		this.lat = lat;
@@ -81,6 +84,14 @@ public class Checkpoint_User implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getMa_checkpoint_user() {
+		return ma_checkpoint_user;
+	}
+
+	public void setMa_checkpoint_user(String ma_checkpoint_user) {
+		this.ma_checkpoint_user = ma_checkpoint_user;
 	}
 	
 }

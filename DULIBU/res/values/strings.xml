@@ -7,9 +7,12 @@
     <string name="title_activity_profile_manager">ProfileManagerActivity</string>
     <string name="title_activity_register_manager">Đăng ký</string>
     <string name="title_activity_trip_detail_manager">Chi tiết chuyến đi</string>
+    <string name="title_activity_trip_detail_info">TripDetailInfoActivity</string>
+    <string name="title_activity_trip_detail_member">TripDetailMemberActivity</string>
+    <string name="title_activity_trip_detail_message">TripDetailMessageActivity</string>
+    <string name="title_activity_trip_detail_trip">TripDetailTripActivity</string>
     <string name="txtConDu">Số tiền còn dư </string>
     <string name="txtTongThu">Tổng thu</string>
     <string name="txtChiTiet">Chi tiết</string>
-    
 
 </resources>
