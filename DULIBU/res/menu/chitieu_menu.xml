@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.chiphi_activity.MainActivity" >
+
+   
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/plus16"
+        app:showAsAction="always"
+        android:title="Add "/>
+
+    
+    
+</menu>
