@@ -15,4 +15,8 @@
     <string name="txtTongThu">Tổng thu</string>
     <string name="txtChiTiet">Chi tiết</string>
 
+    <!--   profileFragment -->
+    <string name="edit_profile_actionbar"></string>
+    <string name="done_profile_actionbar"></string>
+    
 </resources>

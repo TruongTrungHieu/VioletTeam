@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.hou.fragment.ProfileFragment" >
+
+  <item
+        android:id="@+id/editting_actionbar"
+        android:icon="@drawable/edit_actionbar"
+        android:title="@string/edit_profile_actionbar"
+        app:showAsAction="always"/>
+  <item
+        android:id="@+id/done_setting_actionbar"
+        android:icon="@drawable/done_setting"
+        android:title="@string/done_profile_actionbar"
+        app:showAsAction="always"/>
+</menu>
