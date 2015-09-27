@@ -2,7 +2,7 @@ package com.hou.adapters;
 
 import java.util.ArrayList;
 
-import com.hou.dulibu.KhoanChi;
+
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.id;
 import com.hou.model.Chitieu;
