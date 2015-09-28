@@ -1,52 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="match_parent"
     android:background="#EEEEEE"
+    android:elevation="3dp"
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:weightSum="100" >
 
-    <ImageView
-        android:id="@+id/ivPhuot"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_weight="70"
-        android:scaleType="centerCrop" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvPhuotName"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:layout_weight="15"
-        android:paddingLeft="10dp"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        android:textStyle="normal" />
+        <ImageView
+            android:id="@+id/ivPhuot"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/trip1" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvAddress"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="15"
-        android:paddingLeft="10dp"
-        android:text="Text"
-        android:textColor="#000000"
-        android:textSize="12sp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingBottom="5dp">
 
-    <TextView
-        android:id="@+id/tvHardLevel"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="15"
-        android:paddingLeft="10dp"
-        android:text="Text"
-        android:textColor="#000000"
-        android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tvPhuotName"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Title"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColorHighlight="@color/black"
+            android:textColor="@color/black"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="Address"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/tvHardLevel"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="Hard"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="11dp" />
+    </LinearLayout>
 
 </LinearLayout>

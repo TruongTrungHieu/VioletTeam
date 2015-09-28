@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:background="@drawable/default_bg_detail"
+                android:scaleType="centerInside"
                 android:gravity="bottom"
                 android:orientation="horizontal" >
 
@@ -230,7 +231,6 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tvKinhPhi"
                         android:layout_width="50dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="20dp"
@@ -299,7 +299,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:lineSpacingMultiplier="1.2"
-                        android:text="Tất cả các thành đoàn yêu cầu có mặt đúng thời gian và địa điểm theo quy định.. đoàn không chờ bất cứ ai... Mọi thành viên tham gia vui lòng chuyển khoản theo số tài khoản ngân hàng Agribank" />
+                        android:text="Tất cả các thành đoàn yêu cầu có mặt đúng thời gian và địa điểm theo quy định.. đoàn không chờ bất cứ ai... Mọi thành viên tham gia vui lòng chuyển khoản theo số tài khoản ngân hàng Agribank"
+                         />
                 </LinearLayout>
             </LinearLayout>
     </LinearLayout>
