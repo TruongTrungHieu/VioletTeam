@@ -22,6 +22,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 	@Override
 	public void init(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		this.getSupportActionBar().setElevation(20);
 		account = new MaterialAccount(this.getResources(), "DULIBU", "FITHOU-2015", R.drawable.default_avartar,
 				R.drawable.default_bg);
 		this.addAccount(account);

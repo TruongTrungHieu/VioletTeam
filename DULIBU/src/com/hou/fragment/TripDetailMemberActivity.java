@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 public class TripDetailMemberActivity extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_trip_detail_member,container,false);
+        View v =inflater.inflate(R.layout.trip_detail_member,container,false);
         return v;
     }
 }

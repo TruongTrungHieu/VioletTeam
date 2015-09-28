@@ -3,20 +3,27 @@ package com.hou.fragment;
 import java.util.ArrayList;
 
 import com.hou.adapters.DiemphuotAdapter;
+import com.hou.adapters.LichtrinhViewPagerAdapter;
 import com.hou.app.Global;
 import com.hou.dulibu.DeviceStatus;
+import com.hou.dulibu.PhuotDetailManager;
+import com.hou.dulibu.PhuotDetailOverview;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.model.Diemphuot;
+import com.hou.sliding_tab.LichTrinhSlidingTabLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,12 +33,21 @@ public class ListPhuotFragment extends Fragment {
 	ArrayList<Diemphuot> phuots;
 	ListView lvListTrip;
 	GridView gv_phuot;
+	
+	LichTrinhSlidingTabLayout tabs;
+	//Toolbar toolbar;
+	LichtrinhViewPagerAdapter adapter;
+	ViewPager pager;
+	CharSequence Titles[] = { "Tất cả", "Mới", "Tỉnh-TP", "Độ khó" };
+	int Numboftabs = 4;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
+		//toolbar = (Toolbar) findViewById(R.id.tool_bar);
+		//setSupportActionBar(toolbar);
+		
 	}
 
 	@Override
@@ -58,10 +74,73 @@ public class ListPhuotFragment extends Fragment {
 		 * Intent intent = new Intent(getActivity(),
 		 * TripDetailManagerActivity.class); startActivity(intent); } });
 		 */
+		
+		
+		//slydingtab
+		/*adapter = new LichtrinhViewPagerAdapter(getChildFragmentManager(), Titles, Numboftabs);
+
+		// Assigning ViewPager View and setting the adapter
+		pager = (ViewPager) view.findViewById(R.id.pager);
+		pager.setAdapter(adapter);
+
+		// Assiging the Sliding Tab Layout View
+		tabs = (SlidingTabLayout) view.findViewById(R.id.tabs);
+		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
+										// This makes the tabs Space Evenly in
+										// Available width
+
+		// Setting Custom Color for the Scroll bar indicator of the Tab View
+		tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+			@Override
+			public int getIndicatorColor(int position) {
+				return getResources().getColor(R.color.StatusBarColor);
+			}
+		});
+
+		// Setting the ViewPager For the SlidingTabsLayout
+		tabs.setViewPager(pager);*/
+		
+		
 		if (Global.LIST_DIEMPHUOT.isEmpty()) {
-			Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "note",
-					"phuot1.jpg", "Recommended");
+			Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "Mù Cang Chải là 1 huyện vùng cao của tỉnh Yên Bái, cách Hà Nội khoảng 280 Km, nổi tiếng với danh thắng ruộng bậc thang",
+					"phuot1.jpg", "1");
 			Global.LIST_DIEMPHUOT.add(phuot1);
+			Diemphuot phuot2 = new Diemphuot("phuot2", "Hồ Gươm", "lat", "long", "HN", "Hà Nội", "note",
+					"phuot1.jpg", "0");
+			Global.LIST_DIEMPHUOT.add(phuot2);
+			Diemphuot phuot3 = new Diemphuot("phuot3", "Khoa CNTT - Viện Đại học Mở Hà Nội", "lat", "long", "HN", "Hà Nội", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot3);
+			Diemphuot phuot4 = new Diemphuot("phuot4", "Đảo Sinh Tồn", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot4);
+			Diemphuot phuot5 = new Diemphuot("phuot5", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot5);
+			Diemphuot phuot6 = new Diemphuot("phuot6", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot6);
+			Diemphuot phuot7 = new Diemphuot("phuot7", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot7);
+			Diemphuot phuot8 = new Diemphuot("phuot8", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot8);
+			Diemphuot phuot9 = new Diemphuot("phuot9", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot9);
+			Diemphuot phuot10 = new Diemphuot("phuot10", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot10);
+			Diemphuot phuot11 = new Diemphuot("phuot11", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot11);
+			Diemphuot phuot12 = new Diemphuot("phuot12", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot12);
+			Diemphuot phuot13 = new Diemphuot("phuot13", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
+					"phuot1.jpg", "1");
+			Global.LIST_DIEMPHUOT.add(phuot13);
 		}
 
 		// showSlideImage(SlideImageArr);
@@ -97,6 +176,27 @@ public class ListPhuotFragment extends Fragment {
 			phuots.add(diemphuot);
 		}
 		gv_phuot.setAdapter(new DiemphuotAdapter(getActivity(), phuots));
+		gv_phuot.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getActivity(), "" + phuots.get(position).getGhichu(), Toast.LENGTH_SHORT).show();
+				/*ListPhuotFragment f = new ListPhuotFragment();
+				Bundle b = new Bundle();
+				b.putString("maDiemPhuot", phuots.get(position).getMaDiemphuot());
+				b.putString("tenDiemPhuot", phuots.get(position).getTenDiemphuot());
+				b.putString("ghiChu", phuots.get(position).getGhichu());
+				b.putString("trangThaiChuan", phuots.get(position).getTrangthaiChuan());
+				f.setArguments(b);*/
+				Intent intent = new Intent(getActivity(), PhuotDetailManager.class);
+				/*intent.putExtra("maDiemPhuot", phuots.get(position).getMaDiemphuot());
+				intent.putExtra("tenDiemPhuot", phuots.get(position).getTenDiemphuot());
+				intent.putExtra("ghiChu", phuots.get(position).getGhichu());
+				intent.putExtra("trangThaiChuan", phuots.get(position).getTrangthaiChuan());*/
+				startActivity(intent);
+			}
+		});
 	}
 
 	int getImageId(String imageName) {

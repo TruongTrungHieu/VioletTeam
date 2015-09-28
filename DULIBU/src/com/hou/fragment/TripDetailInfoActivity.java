@@ -24,7 +24,7 @@ public class TripDetailInfoActivity extends Fragment  implements OnClickListener
 
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_trip_detail_info,container,false);
+        View v =inflater.inflate(R.layout.trip_detail_info,container,false);
         findViewById(v);
         tvKinhPhi.setOnClickListener(this);
         return v;

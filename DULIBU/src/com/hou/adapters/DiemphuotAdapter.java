@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hou.app.Global;
+import com.hou.dulibu.PhuotDetailOverview;
 import com.hou.dulibu.R;
 import com.hou.model.Diemphuot;
 import com.hou.model.Lichtrinh;
@@ -12,6 +13,7 @@ import com.hou.ultis.ImageUltiFunctions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -82,15 +84,17 @@ public class DiemphuotAdapter extends BaseAdapter {
 //		tv_hardlevel.setText(((Diemphuot) phuots.get(position)).getDokho());
 		/*Toast.makeText(context, "ID diem: " + ((Diemphuot) phuots.get(position)).getDokho(),
 				Toast.LENGTH_SHORT).show();*/
-		v.setOnClickListener(new OnClickListener() {
+		/*v.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// startDiemDL(position);
 				Toast.makeText(context, "ID diem: " + ((Diemphuot) phuots.get(position)).getMaDiemphuot(),
 						Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(context, PhuotDetailOverview.class);
+				sta
 			}
-		});
+		});*/
 
 		return v;
 	}

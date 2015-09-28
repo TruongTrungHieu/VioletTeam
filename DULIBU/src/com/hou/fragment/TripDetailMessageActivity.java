@@ -18,7 +18,7 @@ public class TripDetailMessageActivity extends Fragment {
 
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_trip_detail_message,container,false);
+        View v =inflater.inflate(R.layout.trip_detail_message,container,false);
         return v;
     }
 }
