@@ -86,6 +86,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 				        else
 				        {
 				             Toast.makeText(getApplicationContext(),"Nhập mail sai định dạng",Toast.LENGTH_SHORT).show();
+				             email.setText("");
 				        }
 				}
 	}
