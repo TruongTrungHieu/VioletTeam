@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hou.dulibu.TripDetailManagerForUser" >
+
+    <include
+        android:id="@+id/trip_for_user_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/tool_bar" />
+
+    <com.hou.sliding_tab.TripForUserSlidingTabLayout
+        android:id="@+id/trip_for_user_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ActionBarColor"
+        android:elevation="4dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/trip_for_user_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

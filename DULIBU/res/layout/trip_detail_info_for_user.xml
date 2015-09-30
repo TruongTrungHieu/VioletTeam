@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <ScrollView
+        android:id="@+id/scvBodyForUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/lnHeaderForUser"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@drawable/default_bg_detail"
+                android:scaleType="centerInside"
+                android:gravity="bottom"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tvTitleTripForUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Hà Nội - Hà Giang"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnJoinForUser"
+                    style="@style/DefaultButtonText"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_login_dangky"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Tham gia"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnLeaveForUser"
+                    style="@style/DefaultButtonText"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:layout_alignLeft="@+id/btnJoinForUser"
+                    android:layout_alignTop="@+id/btnJoinForUser"
+                    android:background="@drawable/button_login_dangky"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Hủy Tham gia"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:background="#0aae44"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="LEADER"
+                        android:textColor="#FFF"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvleaderForUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Nguyễn Văn Tuấn"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:background="#0aae44"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="thời gian"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvTimeTripForUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="20/4/2015 - 30/4/2015"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:background="#0aae44"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="offline"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvOfflineForUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="19:20 - 18/4 - 106 phố huế / Hà Nội"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:background="#0aae44"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="khởi hành"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvTimeStartForUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="18:00 - 20/4 - Công viên hòa bình / Hà Nội"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:background="#0aae44"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Kinh phí"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="11sp"  />
+
+                    <TextView
+                        android:id="@+id/tvMoneyTripForUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="500.000"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" VND/người"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvKinhPhiForUser"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="#EA4335"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Chi tiết"
+                        android:textColor="#FFF"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:background="#0aae44"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="offline2"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvTimeOffLateForUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="18:00 - 30/4 - 96 Định công / Hà Nội"
+                        android:textColor="#505050"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#d2d2d2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ghi chú"
+                        android:textColor="#0aae44"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="3px"
+                        android:background="#0aae44" />
+
+                    <TextView
+                        android:id="@+id/tvNotesForUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Tất cả các thành đoàn yêu cầu có mặt đúng thời gian và địa điểm theo quy định.. đoàn không chờ bất cứ ai... Mọi thành viên tham gia vui lòng chuyển khoản theo số tài khoản ngân hàng Agribank"
+                         />
+                </LinearLayout>
+            </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+    
+
+</LinearLayout>

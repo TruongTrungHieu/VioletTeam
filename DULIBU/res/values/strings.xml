@@ -29,4 +29,17 @@
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
 
+    <!-- Thông tin ứng dụng -->
+    <string name="appNameTT">Dulibu</string>
+    <string name="developer">Nhóm tác giả</string>
+    <string name="develpedBy">Giảng viên, sinh viên Khoa CNTT - Viện Đại học Mở Hà Nội</string>
+    <string name="contact">Thông tin liên lạc</string>
+    <string name="contactInfo">Email: </string>
+    <string name="nhaTaiTro">Huawei</string>
+    <string name="title_activity_trip_detail_manager_for_user">TripDetailManagerForUser</string>
+
+    <!-- TripDetailManagerForUser -->
+    <string name="save_trip"></string>
+    <string name="actionSave">Trip được thêm vào ưu thích</string>
+    <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
 </resources>
