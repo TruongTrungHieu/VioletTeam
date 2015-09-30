@@ -239,8 +239,7 @@
                         android:gravity="center_vertical|center_horizontal"
                         android:text="Chi tiết"
                         android:textColor="#FFF"
-                        android:textSize="11sp" 
-                        android:id="tvKinhPhi"/>
+                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <LinearLayout
