@@ -212,7 +212,7 @@
                         android:text="Kinh phí"
                         android:textAllCaps="true"
                         android:textColor="#FFF"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"  />
 
                     <TextView
                         android:id="@+id/tvMoneyTrip"
@@ -231,6 +231,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tvKinhPhi"
                         android:layout_width="50dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="20dp"
@@ -238,7 +239,8 @@
                         android:gravity="center_vertical|center_horizontal"
                         android:text="Chi tiết"
                         android:textColor="#FFF"
-                        android:textSize="11sp" />
+                        android:textSize="11sp" 
+                        android:id="tvKinhPhi"/>
                 </LinearLayout>
 
                 <LinearLayout
