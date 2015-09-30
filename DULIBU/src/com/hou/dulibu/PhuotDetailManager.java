@@ -24,7 +24,6 @@ public class PhuotDetailManager extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phuot_detail_manager);
-
 		/*
 		 * Intent intent = getIntent(); String maDiemP =
 		 * intent.getStringExtra("maDiemPhuot"); String tenDiemP =
@@ -85,9 +84,10 @@ public class PhuotDetailManager extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
