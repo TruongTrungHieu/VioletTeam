@@ -4,48 +4,48 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.hou.adapters.LichtrinhViewPagerAdapter;
 import com.hou.adapters.PhuotViewPagerAdapter;
-import com.hou.sliding_tab.LichTrinhSlidingTabLayout;
+import com.hou.sliding_tab.PhuotSlidingTabLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class PhuotDetailManager extends ActionBarActivity {
-	
+
 	Toolbar toolbar;
 	ViewPager pager;
 	PhuotViewPagerAdapter adapter;
-	LichTrinhSlidingTabLayout tabs;
-	CharSequence Titles[] = { "Overview", "Comment" };
+	PhuotSlidingTabLayout tabs;
+	CharSequence Titles[] = { "Overview", "Location" };
 	int Numboftabs = 2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phuot_detail_manager);
-		
-		/*Intent intent = getIntent();
-		String maDiemP = intent.getStringExtra("maDiemPhuot");
-		String tenDiemP = intent.getStringExtra("tenDiemPhuot");
-		String ghiChu = intent.getStringExtra("ghiChu");
-		String trangThaiChuan = intent.getStringExtra("trangThaiChuan");
-		
-		Bundle b = new Bundle();
-		b.putString("maDiemPhuot", maDiemP);
-		b.putString("tenDiemPhuot", tenDiemP);
-		b.putString("ghiChu", ghiChu);
-		b.putString("trangThaiChuan", trangThaiChuan);
-		
-		PhuotDetailOverview fo = new PhuotDetailOverview();
-		fo.setArguments(b);*/
-		
+
+		/*
+		 * Intent intent = getIntent(); String maDiemP =
+		 * intent.getStringExtra("maDiemPhuot"); String tenDiemP =
+		 * intent.getStringExtra("tenDiemPhuot"); String ghiChu =
+		 * intent.getStringExtra("ghiChu"); String trangThaiChuan =
+		 * intent.getStringExtra("trangThaiChuan");
+		 * 
+		 * Bundle b = new Bundle(); b.putString("maDiemPhuot", maDiemP);
+		 * b.putString("tenDiemPhuot", tenDiemP); b.putString("ghiChu", ghiChu);
+		 * b.putString("trangThaiChuan", trangThaiChuan);
+		 * 
+		 * PhuotDetailOverview fo = new PhuotDetailOverview();
+		 * fo.setArguments(b);
+		 */
+
 		toolbar = (Toolbar) findViewById(R.id.Phuottool_bar);
 		setSupportActionBar(toolbar);
 
 		if (getSupportActionBar() != null) {
-			//getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
+			// getSupportActionBar().setBackgroundDrawable(new
+			// ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		adapter = new PhuotViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
@@ -55,13 +55,13 @@ public class PhuotDetailManager extends ActionBarActivity {
 		pager.setAdapter(adapter);
 
 		// Assiging the Sliding Tab Layout View
-		tabs = (LichTrinhSlidingTabLayout) findViewById(R.id.Phuottabs);
+		tabs = (PhuotSlidingTabLayout) findViewById(R.id.Phuottabs);
 		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
 										// This makes the tabs Space Evenly in
 										// Available width
 
 		// Setting Custom Color for the Scroll bar indicator of the Tab View
-		tabs.setCustomTabColorizer(new LichTrinhSlidingTabLayout.TabColorizer() {
+		tabs.setCustomTabColorizer(new PhuotSlidingTabLayout.TabColorizer() {
 			@Override
 			public int getIndicatorColor(int position) {
 				return getResources().getColor(R.color.StatusBarColor);

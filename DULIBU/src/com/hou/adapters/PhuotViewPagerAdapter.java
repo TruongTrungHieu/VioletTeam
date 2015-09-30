@@ -1,7 +1,7 @@
 package com.hou.adapters;
 
-import com.hou.dulibu.PhuotDetailComment;
-import com.hou.dulibu.PhuotDetailOverview;
+import com.hou.fragment.PhuotDetailLocation;
+import com.hou.fragment.PhuotDetailOverview;
 import com.hou.fragment.TripDetailInfoActivity;
 import com.hou.fragment.TripDetailMemberActivity;
 import com.hou.fragment.TripDetailMessageActivity;
@@ -37,7 +37,7 @@ public class PhuotViewPagerAdapter extends FragmentStatePagerAdapter {
         }
         else            // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            PhuotDetailComment pc = new PhuotDetailComment();
+            PhuotDetailLocation pc = new PhuotDetailLocation();
             return pc;
         }
  

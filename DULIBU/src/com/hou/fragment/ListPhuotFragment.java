@@ -7,7 +7,6 @@ import com.hou.adapters.LichtrinhViewPagerAdapter;
 import com.hou.app.Global;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.PhuotDetailManager;
-import com.hou.dulibu.PhuotDetailOverview;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.model.Diemphuot;
