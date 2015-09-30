@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         layout="@layout/tool_bar" />
 
-    <com.hou.sliding_tab.LichTrinhSlidingTabLayout
+    <com.hou.sliding_tab.PhuotSlidingTabLayout
         android:id="@+id/Phuottabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

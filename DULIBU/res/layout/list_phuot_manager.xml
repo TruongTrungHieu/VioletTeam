@@ -30,12 +30,13 @@
             android:layout_marginTop="0dp"
             android:background="@color/gray"
             android:gravity="center_vertical"
-            android:horizontalSpacing="6dp"
+            android:horizontalSpacing="8dp"
             android:numColumns="3"
 			android:paddingLeft="6dp"
+			
 			android:paddingRight="6dp"
 			android:paddingBottom="0dp"
-            android:verticalSpacing="6dp"
+            android:verticalSpacing="4dp"
             android:smoothScrollbar="true"
             android:scrollbars="none" >
         </GridView>

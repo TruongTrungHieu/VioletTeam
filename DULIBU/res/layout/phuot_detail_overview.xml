@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hou.dulibu.PhuotDetailOverview" >
+    tools:context="com.hou.fragment.PhuotDetailOverview" >
 
     <ScrollView
         android:id="@+id/svScrollv"
@@ -23,9 +23,11 @@
 
                 <ImageView
                     android:id="@+id/ivPhuotImage"
+                    android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:background="@drawable/default_bg_detail" />
+                    android:background="@drawable/default_bg_detail"
+                     />
 
                 <TextView
                     android:id="@+id/tvDoKho"
@@ -41,14 +43,7 @@
                     android:text="Độ khó: 8.5/10 from 100 users"
                     android:textColor="@color/white" />
 
-                <ImageView
-                    android:id="@+id/ivTrangThaiChuan"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="top|right"
-                    android:background="@drawable/ic_done_black_48dp"
-                    android:paddingBottom="100dp"
-                    android:scaleType="fitXY" />
+                
             </FrameLayout>
 
             <TableLayout
@@ -58,48 +53,201 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:weightSum="100" >
+                    android:weightSum="100"
+                    android:layout_marginTop="5dp" >
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:orientation="vertical"
-                        android:layout_weight="20"
                         android:layout_height="match_parent"
-                        android:layout_gravity="top">
+                        android:layout_gravity="top"
+                        android:layout_weight="10"
+                        android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/ivInfo"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/ic_description_black_48dp"
-                            android:scaleType="fitXY"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="10dp" />
+                            
+                            android:background="@drawable/ic_info_green"
+                            android:scaleType="fitXY" />
                     </LinearLayout>
-                    <TextView 
-                        android:layout_height="match_parent"
-                        android:layout_width="1dp"
-                        android:background="@color/black"
-                        android:layout_margin="5dp"/>
-                    <LinearLayout 
-                        android:orientation="vertical"
+
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="80"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="90"
+                        android:orientation="vertical" >
+
                         <TextView
                             android:id="@+id/tvPhuotName"
-                            android:text="Mù Cang Chải"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="19dp"
+                            android:maxLines="2"
                             android:padding="4dp"
-                            android:maxLines="2"/>
-                        <TextView 
+                            android:text="Mù Cang Chải"
+                            android:textSize="19dp" />
+
+                        <TextView
                             android:id="@+id/tvGhiChu"
-                            android:text="@string/MCC_note"
-                            android:padding="4dp"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_width="fill_parent"/>
+                            android:padding="4dp"
+                            android:text="@string/MCC_note" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="10" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="5dp"
+                        
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="90"
+                        android:background="@color/ActionBarColor" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="10"
+                        android:orientation="vertical" >
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/ic_trangthaichuan_green"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="90"
+                        android:orientation="vertical" >
+
+                        <TextView 
+                            android:id="@+id/tvTrangThaiChuan"
+                            android:text="Recommended"
+                            android:layout_height="wrap_content"
+                            android:layout_width="fill_parent"
+                            android:padding="4dp"
+                            android:gravity="center_vertical"/>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="10" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="90"
+                        android:background="@color/ActionBarColor" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="10"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_horizontal"
+                            
+                            android:background="@drawable/ic_comment_green"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="90"
+                        android:orientation="vertical" >
+						<LinearLayout 
+						    android:orientation="vertical"
+						    android:layout_height="wrap_content"
+						    android:layout_width="match_parent"
+						    android:gravity="center_vertical"
+						    >
+						    <EditText 
+						        android:layout_marginRight="5dp"
+						        android:padding="5dp"
+                        		android:layout_weight="80"
+						        android:id="@+id/txtComment"
+						        android:background="@drawable/comment_edittext"
+						        android:layout_width="fill_parent"
+						        android:layout_height="100dp"
+						        android:textSize="13dp"
+						        android:text="Write a comment..."
+						        />
+						    <LinearLayout 
+						        android:orientation="horizontal"
+						        android:layout_marginRight="5dp"
+						        android:layout_width="match_parent"
+						        android:layout_height="wrap_content"
+						        android:background="@color/ActionBarColor">
+						        <TextView
+						            android:id="@+id/btnPostCmt"
+						            android:text="Comment"
+						            android:textColor="@color/white"
+						            android:gravity="center"
+						            android:padding="5dp"
+						            android:layout_gravity="right"
+						            android:layout_height="wrap_content"
+						            android:layout_width="0dp"
+						            android:layout_weight="20"
+						            />
+						        <TextView 
+						            android:layout_height="match_parent"
+						            android:layout_width="1dp"
+						            android:background="@color/ActionBarColor"/>
+						        <TextView
+						            android:id="@+id/btnClearCmt"
+						            android:text="Clear"
+						            android:padding="5dp"
+						            android:gravity="center"
+						            android:textColor="@color/white"
+						            android:layout_gravity="right"
+						            android:layout_height="wrap_content"
+						            android:layout_width="0dp"
+						            android:layout_weight="20"
+						            />
+						    </LinearLayout>
+						</LinearLayout>
+                        <ListView
+                            android:id="@+id/lvComments"
+                            android:layout_width="match_parent"
+                            android:layout_height="500dp"
+                             >
+                        </ListView>
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
