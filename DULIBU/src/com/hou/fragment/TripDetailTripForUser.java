@@ -17,7 +17,7 @@ public class TripDetailTripForUser extends Fragment{
 	//setHasOptionsMenu(true);
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.trip_detail_info_for_user,container,false);
+        View v =inflater.inflate(R.layout.trip_detail_trip_for_user,container,false);
         return v;
     }
 }

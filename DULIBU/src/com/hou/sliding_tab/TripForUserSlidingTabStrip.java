@@ -30,6 +30,8 @@ class TripForUserSlidingTabStrip extends LinearLayout {
 
     private TripForUserSlidingTabLayout.TabColorizer mCustomTabColorizer;
     private final SimpleTabColorizer mDefaultTabColorizer;
+    
+    
 
     TripForUserSlidingTabStrip(Context context) {
         this(context, null);

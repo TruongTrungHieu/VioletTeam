@@ -47,7 +47,7 @@ public class PhuotDetailManager extends ActionBarActivity {
 			// ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-		adapter = new PhuotViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
+		adapter = new PhuotViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs, getBaseContext());
 
 		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) findViewById(R.id.Phuotpager);
@@ -66,7 +66,7 @@ public class PhuotDetailManager extends ActionBarActivity {
 				return getResources().getColor(R.color.StatusBarColor);
 			}
 		});
-
+		tabs.setCustomTabView(R.layout.custom_tab, 0);
 		// Setting the ViewPager For the SlidingTabsLayout
 		tabs.setViewPager(pager);
 

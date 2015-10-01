@@ -4,8 +4,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.hou.adapters.TripForUserPagerAdapter;
-import com.hou.adapters.TripForUserPagerAdapter;
+import com.hou.adapters.TripForUserViewPagerAdapter;
+import com.hou.adapters.TripForUserViewPagerAdapter;
+import com.hou.adapters.TripForUserViewPagerAdapter;
 import com.hou.sliding_tab.TripForUserSlidingTabLayout;
 import com.hou.sliding_tab.TripForUserSlidingTabLayout;
 
@@ -24,7 +25,7 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 
 	Toolbar toolbar;
 	ViewPager pager;
-	TripForUserPagerAdapter adapter;
+	TripForUserViewPagerAdapter adapter;
 	TripForUserSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Info", "Trip" };
 	int Numboftabs = 2;
@@ -32,7 +33,6 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.trip_detail_manager_for_user);
 
 		toolbar = (Toolbar) findViewById(R.id.trip_for_user_tool_bar);
@@ -47,12 +47,12 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 
 		// Creating The ViewPagerAdapter and Passing Fragment Manager, Titles
 		// fot the Tabs and Number Of Tabs.
-		adapter = new TripForUserPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
+		adapter = new TripForUserViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs, getBaseContext());
 
 		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) findViewById(R.id.trip_for_user_pager);
 		pager.setAdapter(adapter);
-
+		Toast.makeText(getBaseContext(), "ok", Toast.LENGTH_SHORT).show();
 		// Assiging the Sliding Tab Layout View
 		tabs = (TripForUserSlidingTabLayout) findViewById(R.id.trip_for_user_tabs);
 		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
@@ -67,6 +67,7 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 			}
 		});
 
+		tabs.setCustomTabView(R.layout.custom_tab, 0);//test
 		// Setting the ViewPager For the SlidingTabsLayout
 		tabs.setViewPager(pager);
 
@@ -112,7 +113,7 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.trip_detail_manager_for_user, menu);
+		getMenuInflater().inflate(R.menu.trip_detail_manager_for_user_menu, menu);
 		
 		currentMenu = menu;
 		currentMenu.getItem(0).setVisible(true);

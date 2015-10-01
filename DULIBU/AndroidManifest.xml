@@ -65,7 +65,16 @@
             android:label="@string/title_activity_chi_tieu_"
             android:theme="@style/CustomActionBarTheme" >
         </activity>
-        
+        <activity
+            android:name=".PhuotDetailManager"
+            android:label="@string/title_activity_phuot_detail_manager"
+            android:theme="@style/AccountsLightActivities" >
+        </activity>
+        <activity
+            android:name=".TripDetailManagerForUser"
+            android:label="@string/title_activity_trip_detail_manager_for_user"
+            android:theme="@style/AccountsLightActivities" >
+        </activity>
     </application>
 
 </manifest>
