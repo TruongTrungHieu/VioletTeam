@@ -42,4 +42,30 @@
     <string name="save_trip"></string>
     <string name="actionSave">Trip được thêm vào ưu thích</string>
     <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
+    
+    
+    <!-- Tạo chuyến đi -->
+    <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
+    <string name="name_trip">Tên chuyến đi</string>
+    <string name="startDay">Ngày đi</string>
+    <string name="endDay">Ngày về</string>
+    <string name="startTime">Giờ đi</string>
+    <string name="endTime">Giờ về</string>
+    <string name="chiphi">Kinh phí dự kiến</string>
+    <string name="chooseTrip">Lịch trình</string>
+    <string name="create_trip">Tạo lịch trình</string>
+    <string name="fomatDate">dd/mm/yyyy</string>
+    <string name="fomatTime">00:00</string>
+    <string name="chooseImage">Chọn ảnh</string>
+    <string name="create_place">Chọn địa điểm</string>
+    <string name="suggest_place">Gợi ý lịch trình</string>
+    <string name="offline">offline</string>
+    <string name="timeOff">Thời gian</string>
+    <string name="place_off">Địa điểm</string>
+    <string name="place_start">Tập trung</string>
+    <string name="note">Ghi chú</string>
+    <string name="creatTrip">Tạo mới</string>
+    <string name="maps_actionbar">Map</string>
+    <string name="messages_actionbar">Message</string>
+
 </resources>

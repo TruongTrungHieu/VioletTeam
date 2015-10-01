@@ -41,40 +41,16 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btnInfo"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/icon_info"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Thông tin"
-            android:textAllCaps="false"
-            android:textColor="#505050" />
-
-        <Button
             android:id="@+id/btnMessages"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/icon_message"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="Tin nhắn"
+            android:background="@drawable/custom_button_sos_bg"
+            android:text="SOS"
+            android:textColor="#FFF"
             android:textAllCaps="false"
-            android:textColor="#505050" />
-
-        <Button
-            android:id="@+id/btnMyLocation"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_tab_profile_bg"
-            android:drawableTop="@drawable/icon_position"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="Vị trí"
-            android:textAllCaps="false"
-            android:textColor="#505050" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout

@@ -2,6 +2,7 @@ package com.hou.dulibu;
 
 import com.hou.fragment.ListPhuotFragment;
 import com.hou.fragment.ListTripFragment;
+import com.hou.fragment.MapFragment;
 import com.hou.fragment.ProfileFragment;
 
 import android.app.Fragment;
@@ -42,7 +43,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 		mnuMyTrip = newSection("Chuyến đi của tôi", R.drawable.icon_heart, new ProfileFragment());
 		this.addSection(mnuMyTrip);
 		
-		mnuMyMap = newSection("Bản đồ", R.drawable.icon_map, new ProfileFragment());
+		mnuMyMap = newSection("Bản đồ", R.drawable.icon_map, new MapFragment());
 		this.addSection(mnuMyMap);
 		
 		mnuLogout = newSection("Đăng xuất", R.drawable.icon_logout, new ProfileFragment());

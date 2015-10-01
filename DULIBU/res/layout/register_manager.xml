@@ -101,7 +101,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/edittext_default_bg"
-        android:hint="dd/mm/yyyy"
+        android:hint="@string/fomatDate"
         android:inputType="text"
         android:padding="10dp"
         android:textColorHint="#bbbbbb"
