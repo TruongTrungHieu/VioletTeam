@@ -38,7 +38,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 
 		this.addSection(newSection("Danh sách chuyến đi", R.drawable.icon_list_trip, new ListTripFragment()));
 		
-		this.addSection(newSection("Danh sách điểm phượt", R.drawable.icon_list_trip, new ListPhuotFragment()));
+		this.addSection(newSection("Điểm phượt", R.drawable.icon_place, new ListPhuotFragment()));
 		
 		mnuMyTrip = newSection("Chuyến đi của tôi", R.drawable.icon_heart, new ProfileFragment());
 		this.addSection(mnuMyTrip);

@@ -36,7 +36,7 @@
     <string name="contact">Thông tin liên lạc</string>
     <string name="contactInfo">Email: </string>
     <string name="nhaTaiTro">Huawei</string>
-    <string name="title_activity_trip_detail_manager_for_user">TripDetailManagerForUser</string>
+    <string name="title_activity_trip_detail_manager_for_user">Chi tiết lịch trình</string>
 
     <!-- TripDetailManagerForUser -->
     <string name="save_trip"></string>

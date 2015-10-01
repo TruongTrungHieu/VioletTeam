@@ -3,6 +3,7 @@ package com.hou.dulibu;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 
 import com.hou.adapters.TripForUserViewPagerAdapter;
 import com.hou.adapters.TripForUserViewPagerAdapter;
@@ -10,6 +11,8 @@ import com.hou.adapters.TripForUserViewPagerAdapter;
 import com.hou.sliding_tab.TripForUserSlidingTabLayout;
 import com.hou.sliding_tab.TripForUserSlidingTabLayout;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,9 +40,10 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 
 		toolbar = (Toolbar) findViewById(R.id.trip_for_user_tool_bar);
 		setSupportActionBar(toolbar);
-
 		if (getSupportActionBar() != null) {
-			//getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
+			getSupportActionBar().setDisplayShowCustomEnabled(true);
+			getSupportActionBar().setBackgroundDrawable(
+					new ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
@@ -71,15 +75,15 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 		// Setting the ViewPager For the SlidingTabsLayout
 		tabs.setViewPager(pager);
 
-		// tabhost cũ
+		// tabhost cÅ©
 		/*
 		 * LocalActivityManager lam = new LocalActivityManager(this, false);
 		 * 
 		 * tabHost = (TabHost) findViewById(android.R.id.tabhost);
 		 * lam.dispatchCreate(savedInstanceState); tabHost.setup(lam);
 		 * tabHost.getTabWidget().getLayoutParams().height = 80; // Tab for
-		 * infoSpec = tabHost.newTabSpec("Thông tin"); infoSpec.setIndicator(
-		 * "Thông tin", getResources().getDrawable(R.drawable.icon_info));
+		 * infoSpec = tabHost.newTabSpec("ThÃ´ng tin"); infoSpec.setIndicator(
+		 * "ThÃ´ng tin", getResources().getDrawable(R.drawable.icon_info));
 		 * Intent infoIntent = new Intent(this, TripDetailInfoActivity.class);
 		 * infoSpec.setContent(infoIntent); tabHost.addTab(infoSpec);
 		 * 
@@ -125,13 +129,13 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 		currentMenu = menu;
 		currentMenu.getItem(0).setVisible(false);
 		currentMenu.getItem(1).setVisible(true);
-		Toast.makeText(getBaseContext(), "trip được thêm vào ưa thích", Toast.LENGTH_LONG).show();
+		Toast.makeText(getBaseContext(), "trip Ä‘Æ°á»£c thÃªm vÃ o Æ°a thÃ­ch", Toast.LENGTH_LONG).show();
 	}
 	private void UndoSaveAction(Menu menu){
 		currentMenu = menu;
 		currentMenu.getItem(0).setVisible(true);
 		currentMenu.getItem(1).setVisible(false);
-		Toast.makeText(getBaseContext(), "trip được loại khỏi ưa thích", Toast.LENGTH_LONG).show();
+		Toast.makeText(getBaseContext(), "trip Ä‘Æ°á»£c loáº¡i khá»�i Æ°a thÃ­ch", Toast.LENGTH_LONG).show();
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
