@@ -58,7 +58,7 @@ public class TripForUserViewPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public CharSequence getPageTitle(int position) {
 		Drawable image = context.getResources().getDrawable(imageResId[position]);
-		image.setBounds(0, 0, 30, 30);
+		image.setBounds(0, 0, 10, 10);
 		SpannableString sb = new SpannableString(" ");
 		ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
 		sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

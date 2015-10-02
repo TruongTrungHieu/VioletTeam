@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TripDetailInfoForUser extends Fragment implements OnClickListener{
-	TextView tvKinhPhiForUser;
+	TextView tvKinhPhiForUser, tvBtnOfflineForUser;
 	Button btnJoinUser, btnLeaveUser;
 
 	@Override
@@ -27,6 +27,7 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener{
         tvKinhPhiForUser.setOnClickListener(this);
         btnJoinUser.setOnClickListener(this);
         btnLeaveUser.setOnClickListener(this);
+        tvBtnOfflineForUser.setOnClickListener(this);
         return v;
     }
 	
@@ -34,6 +35,7 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener{
 		tvKinhPhiForUser = (TextView) v.findViewById(R.id.tvKinhPhiForUser);
 		btnJoinUser = (Button) v.findViewById(R.id.btnJoinForUser);
 		btnLeaveUser = (Button) v.findViewById(R.id.btnLeaveForUser);
+		tvBtnOfflineForUser = (TextView) v.findViewById(R.id.tvBtnOfflineForUser);
 	}
 
 	@Override
@@ -52,6 +54,8 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener{
 			btnJoinUser.setVisibility(View.VISIBLE);
 			btnLeaveUser.setVisibility(View.GONE);
 			Toast.makeText(getActivity(), "not ok", Toast.LENGTH_SHORT).show();
+		case R.id.tvBtnOfflineForUser:
+			Toast.makeText(getActivity(), "Offline Events", Toast.LENGTH_SHORT).show();
 		default:
 			break;
 		} 

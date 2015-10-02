@@ -3,7 +3,7 @@ package com.hou.fragment;
 import java.util.ArrayList;
 
 import com.hou.adapters.LichtrinhAdapter;
-import com.hou.dulibu.CreateTripManagerActivity;
+//import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
@@ -40,7 +40,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.listtrip_manager, container,
+		View view = inflater.inflate(R.layout.list_trip_manager, container,
 				false);
 		final ListView lvListTrip = (ListView) view
 				.findViewById(R.id.lvTripList);
@@ -102,20 +102,20 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
-		inflater.inflate(R.menu.fragment_list_trip, menu);
+		//inflater.inflate(R.menu.fragment_list_trip, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
-		switch (id) {
-		case R.id.addTripActionBar:
-			Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
-			startActivity(intent);
-		default:
+		//switch (id) {
+		//case R.id.addTripActionBar:
+		//	Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
+		//	startActivity(intent);
+		//default:
 			return super.onOptionsItemSelected(item);
 
-		}
+		//}
 	}
 }

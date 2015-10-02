@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TripDetailInfoActivity extends Fragment  implements OnClickListener{
-	TextView tvKinhPhi;
+	TextView tvKinhPhi, tvBtnOffline;
 
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class TripDetailInfoActivity extends Fragment  implements OnClickListener
 	
 	public void findViewById(View v){
 		tvKinhPhi = (TextView) v.findViewById(R.id.tvKinhPhi);
+		tvBtnOffline = (TextView) v.findViewById(R.id.tvBtnOffline);
 	}
 
 	@Override
@@ -39,12 +40,11 @@ public class TripDetailInfoActivity extends Fragment  implements OnClickListener
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.tvKinhPhi:
-			
-			
 			Intent i = new Intent(getActivity(),ChiTieu_Activity.class);
 			startActivity(i);
 			break;
-
+		case R.id.tvBtnOffline:
+			Toast.makeText(getActivity(), "Offline Events", Toast.LENGTH_SHORT).show();
 		default:
 			break;
 		} 

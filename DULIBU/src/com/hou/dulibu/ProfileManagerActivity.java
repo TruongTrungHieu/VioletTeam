@@ -2,8 +2,9 @@ package com.hou.dulibu;
 
 import com.hou.fragment.ListPhuotFragment;
 import com.hou.fragment.ListTripFragment;
-import com.hou.fragment.MapFragment;
+
 import com.hou.fragment.ProfileFragment;
+import com.hou.fragment.ThongTinUngDung;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 	@Override
 	public void init(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		this.getSupportActionBar().setElevation(20);
+		//this.getSupportActionBar().setElevation(20);
 		account = new MaterialAccount(this.getResources(), "DULIBU", "FITHOU-2015", R.drawable.default_avartar,
 				R.drawable.default_bg);
 		this.addAccount(account);
@@ -38,18 +39,18 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 
 		this.addSection(newSection("Danh sách chuyến đi", R.drawable.icon_list_trip, new ListTripFragment()));
 		
-		this.addSection(newSection("Điểm phượt", R.drawable.icon_place, new ListPhuotFragment()));
+		this.addSection(newSection("Điểm phượt", R.drawable.icon_list_trip, new ListPhuotFragment()));
 		
 		mnuMyTrip = newSection("Chuyến đi của tôi", R.drawable.icon_heart, new ProfileFragment());
 		this.addSection(mnuMyTrip);
 		
-		mnuMyMap = newSection("Bản đồ", R.drawable.icon_map, new MapFragment());
+		mnuMyMap = newSection("Bản đồ", R.drawable.icon_map, new ProfileFragment());
 		this.addSection(mnuMyMap);
 		
 		mnuLogout = newSection("Đăng xuất", R.drawable.icon_logout, new ProfileFragment());
 		this.addSection(mnuLogout);
 		
-		mnuAbout = newSection("Thông tin ứng dụng", R.drawable.icon_about, new ProfileFragment());
+		mnuAbout = newSection("Thông tin ứng dụng", R.drawable.icon_about, new ThongTinUngDung());
 		this.addSection(mnuAbout);
 
 	}
