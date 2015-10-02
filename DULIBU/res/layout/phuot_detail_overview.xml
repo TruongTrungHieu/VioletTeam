@@ -23,11 +23,10 @@
 
                 <ImageView
                     android:id="@+id/ivPhuotImage"
-                    android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:background="@drawable/default_bg_detail"
-                     />
+                    android:focusable="true" />
 
                 <TextView
                     android:id="@+id/tvDoKho"
@@ -42,8 +41,6 @@
                     android:paddingTop="3dp"
                     android:text="Độ khó: 8.5/10 from 100 users"
                     android:textColor="@color/white" />
-
-                
             </FrameLayout>
 
             <TableLayout
@@ -53,8 +50,8 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:weightSum="100"
-                    android:layout_marginTop="5dp" >
+                    android:layout_marginTop="5dp"
+                    android:weightSum="100" >
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -66,8 +63,8 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
+                            android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
-                            
                             android:background="@drawable/ic_info_green"
                             android:scaleType="fitXY" />
                     </LinearLayout>
@@ -84,8 +81,9 @@
                             android:layout_height="wrap_content"
                             android:maxLines="2"
                             android:padding="4dp"
+                            android:textColor="@color/black"
                             android:text="Mù Cang Chải"
-                            android:textSize="19dp" />
+                            android:textSize="20dp" />
 
                         <TextView
                             android:id="@+id/tvGhiChu"
@@ -109,9 +107,9 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_gravity="right"
-                        android:layout_marginTop="5dp"
-                        
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="90"
                         android:background="@color/ActionBarColor" />
                 </TableRow>
@@ -126,6 +124,7 @@
                         android:layout_gravity="top"
                         android:layout_weight="10"
                         android:orientation="vertical" >
+
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
@@ -133,21 +132,23 @@
                             android:background="@drawable/ic_trangthaichuan_green"
                             android:scaleType="fitXY" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="90"
                         android:orientation="vertical" >
 
-                        <TextView 
+                        <TextView
                             android:id="@+id/tvTrangThaiChuan"
-                            android:text="Recommended"
-                            android:layout_height="wrap_content"
                             android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:padding="4dp"
-                            android:gravity="center_vertical"/>
+                            android:text="Recommended" />
                     </LinearLayout>
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
@@ -161,12 +162,14 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_gravity="right"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="90"
                         android:background="@color/ActionBarColor" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
@@ -182,71 +185,77 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center_horizontal"
-                            
+                            android:layout_marginTop="4dp"
                             android:background="@drawable/ic_comment_green"
                             android:scaleType="fitXY" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="90"
                         android:orientation="vertical" >
-						<LinearLayout 
-						    android:orientation="vertical"
-						    android:layout_height="wrap_content"
-						    android:layout_width="match_parent"
-						    android:gravity="center_vertical"
-						    >
-						    <EditText 
-						        android:layout_marginRight="5dp"
-						        android:padding="5dp"
-                        		android:layout_weight="80"
-						        android:id="@+id/txtComment"
-						        android:background="@drawable/comment_edittext"
-						        android:layout_width="fill_parent"
-						        android:layout_height="100dp"
-						        android:textSize="13dp"
-						        android:text="Write a comment..."
-						        />
-						    <LinearLayout 
-						        android:orientation="horizontal"
-						        android:layout_marginRight="5dp"
-						        android:layout_width="match_parent"
-						        android:layout_height="wrap_content"
-						        android:background="@color/ActionBarColor">
-						        <TextView
-						            android:id="@+id/btnPostCmt"
-						            android:text="Comment"
-						            android:textColor="@color/white"
-						            android:gravity="center"
-						            android:padding="5dp"
-						            android:layout_gravity="right"
-						            android:layout_height="wrap_content"
-						            android:layout_width="0dp"
-						            android:layout_weight="20"
-						            />
-						        <TextView 
-						            android:layout_height="match_parent"
-						            android:layout_width="1dp"
-						            android:background="@color/ActionBarColor"/>
-						        <TextView
-						            android:id="@+id/btnClearCmt"
-						            android:text="Clear"
-						            android:padding="5dp"
-						            android:gravity="center"
-						            android:textColor="@color/white"
-						            android:layout_gravity="right"
-						            android:layout_height="wrap_content"
-						            android:layout_width="0dp"
-						            android:layout_weight="20"
-						            />
-						    </LinearLayout>
-						</LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical" >
+
+                            <EditText
+                                android:textCursorDrawable="@null"
+                                android:id="@+id/txtComment"
+                                android:layout_width="fill_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="80"
+                                android:background="@drawable/comment_edittext"
+                                android:padding="5dp"
+                                android:hint="Write a comment..."
+                                android:textSize="13dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@color/ActionBarColor"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/btnClearCmt"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:layout_weight="20"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="Clear"
+                                    android:textColor="@color/white" />
+
+                                <TextView
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/ActionBarColor" />
+
+                                <TextView
+                                    android:id="@+id/btnPostCmt"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:layout_weight="20"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="Comment"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
+                        </LinearLayout>
+
                         <ListView
                             android:id="@+id/lvComments"
                             android:layout_width="match_parent"
-                            android:layout_height="500dp"
-                             >
+                            android:layout_height="500dp" >
                         </ListView>
                     </LinearLayout>
                 </TableRow>

@@ -36,9 +36,10 @@
 			
 			android:paddingRight="6dp"
 			android:paddingBottom="0dp"
-            android:verticalSpacing="4dp"
+            android:verticalSpacing="2dp"
             android:smoothScrollbar="true"
             android:scrollbars="none" >
+            
         </GridView>
 
 </LinearLayout>
