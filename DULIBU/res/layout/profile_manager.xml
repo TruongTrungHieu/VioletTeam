@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:background="@drawable/custom_button_sos_bg"
+            
             android:text="SOS"
             android:textColor="#FFF"
             android:textAllCaps="false"

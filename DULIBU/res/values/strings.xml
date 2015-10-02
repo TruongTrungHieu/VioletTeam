@@ -30,12 +30,17 @@
     <string name="done_profile_actionbar"></string>
 
     <!-- Thông tin ứng dụng -->
-    <string name="appNameTT">Dulibu</string>
-    <string name="developer">Nhóm tác giả</string>
-    <string name="develpedBy">Giảng viên, sinh viên Khoa CNTT - Viện Đại học Mở Hà Nội</string>
-    <string name="contact">Thông tin liên lạc</string>
-    <string name="contactInfo">Email: </string>
+    <string name="app_name_tt">Dulibu</string>
+    <string name="madeBy">Thiết kế &amp; Phát triển bởi</string>
+    <string name="developed_by">Nhóm giảng viên, sinh viên\nKhoa CNTT - Viện Đại học Mở Hà Nội</string>
+    <string name="tv_version">Phiên bản</string>
+    <string name="tvcontact">Liên lạc</string>
+    <string name="contactInfo">Email: abc@gmail.com</string>
     <string name="nhaTaiTro">Huawei</string>
+    <string name="version_number">0.1</string>
+    <string name="tvDescription">Mô tả</string>
+    <string name="tvTermsOfService">Điều khoản sử dụng</string>
+    <string name="description">Sản phẩm tham gia Cuộc thi Sáng tạo Ứng dụng Di động 2015 do Huawei và Hội Tin học Việt Nam cùng VNG tổ chức.</string>
     <string name="title_activity_trip_detail_manager_for_user">Chi tiết lịch trình</string>
 
     <!-- TripDetailManagerForUser -->

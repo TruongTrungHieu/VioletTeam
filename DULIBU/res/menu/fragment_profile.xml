@@ -15,12 +15,12 @@
         app:showAsAction="always"/>
   <item
         android:id="@+id/maps"
-        android:icon="@drawable/mapx"
+        
         android:title="@string/maps_actionbar"
         app:showAsAction="always"/>
     <item
         android:id="@+id/messages"
-        android:icon="@drawable/message"
+        
         android:title="@string/messages_actionbar"
         app:showAsAction="always"/>
 </menu>

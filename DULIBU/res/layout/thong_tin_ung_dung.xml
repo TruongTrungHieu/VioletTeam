@@ -2,7 +2,119 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:background="@color/ActionBarColor"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="20dp" >
+
+    <!-- Header -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+	<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_launcher_text_only" />
+        <LinearLayout
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvTitleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+            <!-- Version -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_version"
+                android:textColor="@color/gray"
+                android:textSize="10dp"
+                android:paddingLeft="3dp" />
+
+            <TextView
+                android:id="@+id/tvVersionNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/version_number"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:paddingLeft="3dp" />
+        </LinearLayout>
+
+        
+    </LinearLayout>
+
+    <!-- DevelopedBy -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/madeBy"
+        android:textColor="@color/gray"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/tvDevelopedBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/developed_by"
+        android:textColor="@color/white"
+        android:textSize="13dp" />
+    <!-- Contact -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/tvcontact"
+        android:textColor="@color/gray"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/tvContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contactInfo"
+        android:textColor="@color/white"
+        android:textSize="13dp" />
+    <!-- Description -->
+    <TextView
+        android:layout_marginTop="30dp" 
+        android:text="@string/tvDescription"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@color/gray"
+        android:textSize="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:textColor="@color/white"
+        android:textSize="13dp" />
+
+    <!-- Terms -->
+
+    <TextView
+        android:id="@+id/tvTerms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/tvTermsOfService"
+        android:textColor="@color/white"
+        android:textSize="13dp" />
 
 </LinearLayout>
