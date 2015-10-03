@@ -12,10 +12,10 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:alpha="50"
             android:background="@android:color/transparent"
             android:src="@drawable/default_avartar_info" />
@@ -33,7 +33,8 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
+    <!--
+    LinearLayout
         android:id="@+id/LnMenuBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -51,17 +52,17 @@
             android:textColor="#FFF"
             android:textAllCaps="false"
             android:textSize="18sp" />
-    </LinearLayout>
+    </LinearLayout-->
 
     <LinearLayout
         android:id="@+id/lnInfomation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:background="#5bc0de"
             android:gravity="center"
             android:orientation="horizontal" >
@@ -83,87 +84,97 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/etFullName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginRight="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/abc_btn_check_material"
+            android:drawablePadding="50dp"
+            android:paddingLeft="15dp"
+            android:text="Full Name"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/imgBirthday"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="50dp"
-                android:src="@drawable/icon_bday" />
-
-            <TextView
-                android:id="@+id/tvBirthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20/12/2015"
-                android:textColor="#505050" />
-        </LinearLayout>
-
-        <TextView
+        <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#dadada" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/etUserName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/abc_btn_check_material"
+            android:drawablePadding="50dp"
+            android:paddingLeft="15dp"
+            android:text="User Name"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/imgAddress"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="50dp"
-                android:src="@drawable/icon_address" />
-
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hà Nội - Việt Nam"
-                android:textColor="#505050" />
-        </LinearLayout>
-
-        <TextView
+        <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#dadada" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/abc_btn_check_material"
+            android:drawablePadding="50dp"
+            android:paddingLeft="15dp"
+            android:text="Email"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/imgPhonenumber"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="50dp"
-                android:src="@drawable/icon_phone" />
-
-            <TextView
-                android:id="@+id/tvPhonenumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0977 468 888"
-                android:textColor="#505050" />
-        </LinearLayout>
-
-        <TextView
+        <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#dadada" />
+
+        <EditText
+            android:id="@+id/etBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/abc_btn_check_material"
+            android:drawablePadding="50dp"
+            android:paddingLeft="15dp"
+            android:text="Birthday"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#dadada" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/abc_btn_check_material"
+            android:drawablePadding="50dp"
+            android:paddingLeft="15dp"
+            android:text="Phone"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#dadada" />
+
+        <EditText
+            android:id="@+id/etContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/abc_btn_check_material"
+            android:drawablePadding="50dp"
+            android:drawableRight="@drawable/abc_btn_check_material"
+            android:paddingLeft="15dp"
+            android:text="Contact"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>
