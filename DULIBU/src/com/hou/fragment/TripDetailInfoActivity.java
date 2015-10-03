@@ -42,8 +42,8 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.tvKinhPhi:
-			Intent i = new Intent(getActivity(),ChiTieu_Activity.class);
-			startActivity(i);
+//			Intent i = new Intent(getActivity(),ChiTieu_Activity.class);
+//			startActivity(i);
 			break;
 		case R.id.tvBtnOffline:
 			Intent offline = new Intent(getActivity(),Offline_Activity.class);

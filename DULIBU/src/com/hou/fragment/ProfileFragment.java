@@ -13,15 +13,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements OnClickListener {
 	private ProgressDialog pDialog;
 	private Menu currentMenu;
 	public static Point screenSize = new Point();
+	LinearLayout lnImgInfo;
+	ImageView ivProfile;
+	TextView tvUserName;
+	EditText etFullName, etUserName, etEmail, etBirthday, etPhone, etContact;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -35,7 +44,10 @@ public class ProfileFragment extends Fragment {
 		// TODO Auto-generated method stub
 		View view = inflater
 				.inflate(R.layout.profile_manager, container, false);
-		getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+		getActivity().getWindowManager().getDefaultDisplay()
+				.getSize(screenSize);
+
+		findViewById(view);
 		// showSlideImage(SlideImageArr);
 
 		// initGridView(view);
@@ -44,22 +56,19 @@ public class ProfileFragment extends Fragment {
 		return view;
 	}
 
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		if (pDialog != null) {
-			pDialog.dismiss();
-		}
-	}
-
-	@Override
-	public void onDestroyView() {
-		// TODO Auto-generated method stub
-		super.onDestroyView();
-		if (pDialog != null) {
-			pDialog.dismiss();
-		}
+	public void findViewById(View view) {
+		lnImgInfo = (LinearLayout) view.findViewById(R.id.lnImgInfo);
+		ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
+		tvUserName = (TextView) view.findViewById(R.id.tvUserName);
+		etFullName = (EditText) view.findViewById(R.id.etFullName);
+		etUserName = (EditText) view.findViewById(R.id.etUserName);
+		etEmail = (EditText) view.findViewById(R.id.etEmail);
+		etBirthday = (EditText) view.findViewById(R.id.etBirthday);
+		etPhone = (EditText) view.findViewById(R.id.etPhone);
+		etContact = (EditText) view.findViewById(R.id.etContact);
+		
+		
+		ivProfile.setOnClickListener(this);
 	}
 
 	@Override
@@ -79,15 +88,29 @@ public class ProfileFragment extends Fragment {
 		case R.id.editting_actionbar:
 			currentMenu.getItem(0).setVisible(false);
 			currentMenu.getItem(1).setVisible(true);
-			//Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
+			// Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
 			break;
 		case R.id.done_setting_actionbar:
 			currentMenu.getItem(0).setVisible(true);
 			currentMenu.getItem(1).setVisible(false);
-			//Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
+			// Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
+			break;
+		case R.id.setting:
+			break;
+		case R.id.messages:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.ivProfile:
+
+			break;
+		}
 	}
 
 	public class ImageDialog extends Dialog implements View.OnClickListener {
@@ -112,34 +135,34 @@ public class ProfileFragment extends Fragment {
 
 		@Override
 		public void onClick(View v) {
-//			switch (v.getId()) {
-//			case R.id.tvFromGallery:
-//				Intent cameraIntent = new Intent();
-//				cameraIntent.setType("image/*");
-//				cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
-//				startActivityForResult(Intent.createChooser(cameraIntent,
-//						"Complete action using"), PICK_FROM_FILE);
-//				this.cancel();
-//				break;
-//			case R.id.tvFromCamera:
-//				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//				fromCameraFile = new File(
-//						Environment.getExternalStorageDirectory(),
-//						"tmp_avatar_"
-//								+ String.valueOf(System.currentTimeMillis())
-//								+ ".jpg");
-//				mImageCaptureUri = Uri.fromFile(fromCameraFile);
-//				try {
-//					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
-//							mImageCaptureUri);
-//					intent.putExtra("return-data", true);
-//					startActivityForResult(intent, PICK_FROM_CAMERA);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				this.cancel();
-//				break;
-//			}
+			// switch (v.getId()) {
+			// case R.id.tvFromGallery:
+			// Intent cameraIntent = new Intent();
+			// cameraIntent.setType("image/*");
+			// cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
+			// startActivityForResult(Intent.createChooser(cameraIntent,
+			// "Complete action using"), PICK_FROM_FILE);
+			// this.cancel();
+			// break;
+			// case R.id.tvFromCamera:
+			// Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			// fromCameraFile = new File(
+			// Environment.getExternalStorageDirectory(),
+			// "tmp_avatar_"
+			// + String.valueOf(System.currentTimeMillis())
+			// + ".jpg");
+			// mImageCaptureUri = Uri.fromFile(fromCameraFile);
+			// try {
+			// intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
+			// mImageCaptureUri);
+			// intent.putExtra("return-data", true);
+			// startActivityForResult(intent, PICK_FROM_CAMERA);
+			// } catch (Exception e) {
+			// e.printStackTrace();
+			// }
+			// this.cancel();
+			// break;
+			// }
 		}
 	}
 	//

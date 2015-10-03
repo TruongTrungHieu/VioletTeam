@@ -5,6 +5,16 @@
     tools:context="com.hou.fragment.ProfileFragment" >
 
     <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_settings_applications_white_18dp"
+        android:title="@string/maps_actionbar"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/messages"
+        android:icon="@drawable/ic_message_white_18dp"
+        android:title="@string/messages_actionbar"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/editting_actionbar"
         android:icon="@drawable/edit_actionbar"
         android:title="@string/edit_profile_actionbar"
@@ -13,16 +23,6 @@
         android:id="@+id/done_setting_actionbar"
         android:icon="@drawable/done_setting"
         android:title="@string/done_profile_actionbar"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/maps"
-        android:icon="@drawable/icon_map"
-        android:title="@string/maps_actionbar"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/messages"
-        android:icon="@drawable/icon_message"
-        android:title="@string/messages_actionbar"
         app:showAsAction="always"/>
 
 </menu>
