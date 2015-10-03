@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btnSubmitPlace"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_place_maps_bg"
+        android:text="OK"
+        android:textColor="#FFF"
+        android:textSize="16sp" />
+    <ImageButton
+        android:id="@+id/btnImDeletePlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnSubmitPlace"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_add_place_bg"
+        android:src="@drawable/icon_subtract"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/btnImAddPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnImDeletePlace"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button_add_place_bg"
+        android:src="@drawable/icon_plus"
+        android:visibility="visible" />
+
+</RelativeLayout>
