@@ -3,24 +3,20 @@
     <item  android:state_pressed="true" >
         <shape>
             <solid
-                android:color="#d2d2d2" />
+                android:color="#669CF5" />
             <corners
                 android:radius="0dp" />
-            
 
         </shape>
     </item>
     <item>
         <shape>
             <gradient
-                android:startColor="@android:color/transparent"
-                android:endColor="@android:color/transparent"
+                android:startColor="#4285F4"
+                android:endColor="#4285F4"
                 android:angle="270" />
             <corners
                 android:radius="0dp" />
-            <stroke 
-                android:width="3px" 
-                android:color="#FFF"/>
 
         </shape>
     </item>
