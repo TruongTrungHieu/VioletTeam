@@ -12,6 +12,7 @@ import com.hou.dulibu.R.layout;
 import com.hou.model.PhuotDetailComment;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,8 +30,10 @@ public class PhuotDetailOverview extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.phuot_detail_overview,container,false);
-        /*tvPhuotName = (TextView)v.findViewById(R.id.tvPhuotName);
-        tvGhiChu = (TextView)v.findViewById(R.id.tvGhiChu);
+        tvPhuotName = (TextView)v.findViewById(R.id.tvPhuotName);
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Light.ttf");
+        tvPhuotName.setTypeface(tf);
+        /*tvGhiChu = (TextView)v.findViewById(R.id.tvGhiChu);
         tvTrangThaiChuan = (TextView)v.findViewById(R.id.tvDoKho);
         
         Bundle b = this.getArguments();
