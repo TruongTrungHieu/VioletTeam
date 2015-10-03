@@ -47,8 +47,7 @@
     <string name="save_trip"></string>
     <string name="actionSave">Trip được thêm vào ưu thích</string>
     <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
-    
-    
+
     <!-- Tạo chuyến đi -->
     <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
     <string name="name_trip">Tên chuyến đi</string>
@@ -72,5 +71,6 @@
     <string name="creatTrip">Tạo mới</string>
     <string name="maps_actionbar">Map</string>
     <string name="messages_actionbar">Message</string>
+    <string name="title_activity_offline_">Offline_Activity</string>
 
 </resources>

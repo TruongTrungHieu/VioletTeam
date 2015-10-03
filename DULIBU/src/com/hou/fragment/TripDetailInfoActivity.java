@@ -2,6 +2,7 @@ package com.hou.fragment;
 
 
 import com.hou.dulibu.ChiTieu_Activity;
+import com.hou.dulibu.Offline_Activity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
 
@@ -19,7 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TripDetailInfoActivity extends Fragment  implements OnClickListener{
+public class TripDetailInfoActivity extends Fragment implements OnClickListener{
 	TextView tvKinhPhi, tvBtnOffline;
 
 	@Override
@@ -44,7 +45,10 @@ public class TripDetailInfoActivity extends Fragment  implements OnClickListener
 			startActivity(i);
 			break;
 		case R.id.tvBtnOffline:
-			Toast.makeText(getActivity(), "Offline Events", Toast.LENGTH_SHORT).show();
+			Intent offline = new Intent(getActivity(),Offline_Activity.class);
+			startActivity(offline);
+			break;
+	//		Toast.makeText(getActivity(), "Offline Events Viet day", Toast.LENGTH_SHORT).show();
 		default:
 			break;
 		} 
