@@ -28,6 +28,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener{
         View v =inflater.inflate(R.layout.trip_detail_info,container,false);
         findViewById(v);
         tvKinhPhi.setOnClickListener(this);
+        tvBtnOffline.setOnClickListener(this);
         return v;
     }
 	
