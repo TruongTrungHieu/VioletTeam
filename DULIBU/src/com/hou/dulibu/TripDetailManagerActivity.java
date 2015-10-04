@@ -47,7 +47,7 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 
 		// Creating The ViewPagerAdapter and Passing Fragment Manager, Titles
 		// fot the Tabs and Number Of Tabs.
-		adapter = new LichtrinhViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
+		adapter = new LichtrinhViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs, getBaseContext());
 
 		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) findViewById(R.id.pager);
@@ -66,7 +66,7 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 				return getResources().getColor(R.color.StatusBarColor);
 			}
 		});
-
+		tabs.setCustomTabView(R.layout.custom_tab, 0);
 		// Setting the ViewPager For the SlidingTabsLayout
 		tabs.setViewPager(pager);
 

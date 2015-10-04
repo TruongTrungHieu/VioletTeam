@@ -3,17 +3,15 @@ package com.hou.fragment;
 import java.util.ArrayList;
 
 import com.hou.adapters.LichtrinhAdapter;
-//import com.hou.dulibu.CreateTripManagerActivity;
+import com.hou.adapters.MyTripAdapter;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
-import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
 import com.hou.model.Lichtrinh;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ListTripFragment extends android.support.v4.app.Fragment {
+public class MyTrips extends android.support.v4.app.Fragment {
 	ProgressDialog pDialog;
 	ArrayList<Lichtrinh> lichtrinh;
 	ListView lvListTrip;
@@ -40,10 +38,10 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.list_trip_manager, container,
+		View view = inflater.inflate(R.layout.my_trip, container,
 				false);
 		final ListView lvListTrip = (ListView) view
-				.findViewById(R.id.lvTripList);
+				.findViewById(R.id.lvMyTripList);
 		DeviceStatus ds = new DeviceStatus();
 
 		Lichtrinh trip1 = new Lichtrinh("trip1", "Hà Nội - Hà Giang", "Hà Nội",
@@ -55,7 +53,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		lichtrinh = new ArrayList<Lichtrinh>();
 		lichtrinh.add(trip1);
 		lichtrinh.add(trip2);
-		LichtrinhAdapter adapter = new LichtrinhAdapter(getActivity(),
+		MyTripAdapter adapter = new MyTripAdapter(getActivity(),
 				R.layout.list_trip_item, lichtrinh);
 		lvListTrip.setAdapter(adapter);
 		lvListTrip

@@ -56,7 +56,6 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) findViewById(R.id.trip_for_user_pager);
 		pager.setAdapter(adapter);
-		Toast.makeText(getBaseContext(), "ok", Toast.LENGTH_SHORT).show();
 		// Assiging the Sliding Tab Layout View
 		tabs = (TripForUserSlidingTabLayout) findViewById(R.id.trip_for_user_tabs);
 		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,

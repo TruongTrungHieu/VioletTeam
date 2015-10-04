@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
 		tvUserName = (TextView) view.findViewById(R.id.tvUserName);
 		etFullName = (EditText) view.findViewById(R.id.etFullName);
-		etUserName = (EditText) view.findViewById(R.id.etUserName);
+		
 		etEmail = (EditText) view.findViewById(R.id.etEmail);
 		etBirthday = (EditText) view.findViewById(R.id.etBirthday);
 		etPhone = (EditText) view.findViewById(R.id.etPhone);
@@ -76,8 +76,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		inflater.inflate(R.menu.fragment_profile, menu);
 		currentMenu = menu;
-		currentMenu.getItem(0).setVisible(true);
-		currentMenu.getItem(1).setVisible(false);
+		currentMenu.getItem(2).setVisible(true);
+		currentMenu.getItem(3).setVisible(false);
 	}
 
 	@Override
@@ -86,13 +86,13 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.editting_actionbar:
-			currentMenu.getItem(0).setVisible(false);
-			currentMenu.getItem(1).setVisible(true);
+			currentMenu.getItem(2).setVisible(false);
+			currentMenu.getItem(3).setVisible(true);
 			// Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
 			break;
 		case R.id.done_setting_actionbar:
-			currentMenu.getItem(0).setVisible(true);
-			currentMenu.getItem(1).setVisible(false);
+			currentMenu.getItem(2).setVisible(true);
+			currentMenu.getItem(3).setVisible(false);
 			// Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
 			break;
 		case R.id.setting:

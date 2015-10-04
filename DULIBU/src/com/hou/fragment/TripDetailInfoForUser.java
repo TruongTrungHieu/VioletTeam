@@ -47,13 +47,15 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener{
 			startActivity(i);
 			break;
 		case R.id.btnJoinForUser:
-			btnJoinUser.setVisibility(View.GONE);
+			btnJoinUser.setVisibility(View.INVISIBLE);
 			btnLeaveUser.setVisibility(View.VISIBLE);
-			Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "join", Toast.LENGTH_SHORT).show();
+			break;
 		case R.id.btnLeaveForUser:
 			btnJoinUser.setVisibility(View.VISIBLE);
-			btnLeaveUser.setVisibility(View.GONE);
-			Toast.makeText(getActivity(), "not ok", Toast.LENGTH_SHORT).show();
+			btnLeaveUser.setVisibility(View.INVISIBLE);
+			Toast.makeText(getActivity(), "leave", Toast.LENGTH_SHORT).show();
+			break;
 		case R.id.tvBtnOfflineForUser:
 			Toast.makeText(getActivity(), "Offline Events", Toast.LENGTH_SHORT).show();
 		default:

@@ -1,7 +1,11 @@
 package com.hou.sliding_tab;
 
+import com.hou.adapters.LichtrinhViewPagerAdapter;
+import com.hou.adapters.TripForUserViewPagerAdapter;
+import com.hou.adapters.TripViewPagerAdapter;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
+
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -16,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,7 +55,7 @@ public class LichTrinhSlidingTabLayout extends HorizontalScrollView {
     }
 
     private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 16;
+    private static final int TAB_VIEW_PADDING_DIPS = 12;
     private static final int TAB_VIEW_TEXT_SIZE_SP = 11;
 
     private int mTitleOffset;
@@ -150,6 +155,19 @@ public class LichTrinhSlidingTabLayout extends HorizontalScrollView {
      * Create a default view to be used for tabs. This is called if a custom tab view is not set via
      * {@link #setCustomTabView(int, int)}.
      */
+    protected ImageView createDefaultImageView(Context context) {
+	    ImageView imageView = new ImageView(context);
+
+	    int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
+	    imageView.setPadding(padding, padding, padding, padding);
+
+	    int width = (int) (getResources().getDisplayMetrics().widthPixels / mViewPager.getAdapter().getCount());
+	    //int height = (int) (getResources().getDisplayMetrics().heightPixels / 20);
+	    imageView.setMinimumWidth(width);
+	    //imageView.setMaxHeight(height);
+
+	    return imageView;
+	}
     protected TextView createDefaultTabView(Context context) {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
@@ -171,7 +189,7 @@ public class LichTrinhSlidingTabLayout extends HorizontalScrollView {
     }
 
     private void populateTabStrip() {
-        final PagerAdapter adapter = mViewPager.getAdapter();
+        /*final PagerAdapter adapter = mViewPager.getAdapter();
         final View.OnClickListener tabClickListener = new TabClickListener();
 
         for (int i = 0; i < adapter.getCount(); i++) {
@@ -211,7 +229,46 @@ public class LichTrinhSlidingTabLayout extends HorizontalScrollView {
                 tabView.setSelected(true);
             }
             tabTitleView.setTextColor(getResources().getColorStateList(R.drawable.selector));
-            tabTitleView.setTextSize(11);
+            tabTitleView.setTextSize(11);*/
+    	final LichtrinhViewPagerAdapter adapter = (LichtrinhViewPagerAdapter) mViewPager.getAdapter();
+	    final View.OnClickListener tabClickListener = new TabClickListener();
+
+	    for (int i = 0; i < adapter.getCount(); i++) {
+	        View tabView = null;
+	        //TextView tabTitleView = null;
+	        ImageView tabIconView = null;
+
+	        /*if (mTabViewLayoutId != 0) {
+	            // If there is a custom tab view layout id set, try and inflate it
+	            tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip,
+	                    false);
+	            tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
+	        }
+
+	        if (tabView == null) {
+	            tabView = createDefaultTabView(getContext());
+	        }
+
+	        if (tabTitleView == null && TextView.class.isInstance(tabView)) {
+	            tabTitleView = (TextView) tabView;
+	        }*/
+
+	        if (tabView == null) {
+	            tabView = createDefaultImageView(getContext());
+	        }
+
+	        if (tabIconView == null && ImageView.class.isInstance(tabView)) {
+	            tabIconView = (ImageView) tabView;
+	        }
+
+	        tabIconView.setImageDrawable(getResources().getDrawable(adapter.getDrawableId(i))); 
+	        if (mViewPager.getCurrentItem() == i) {
+	            tabIconView.setSelected(true);
+	        }
+	        //tabTitleView.setText(adapter.getPageTitle(i));
+	        tabView.setOnClickListener(tabClickListener);
+
+	        mTabStrip.addView(tabView);
         }
     }
 
@@ -282,16 +339,19 @@ public class LichTrinhSlidingTabLayout extends HorizontalScrollView {
 
         @Override
         public void onPageSelected(int position) {
-            if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
-                mTabStrip.onViewPagerPageChanged(position, 0f);
-                scrollToTab(position, 0);
-            }
-            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                mTabStrip.getChildAt(i).setSelected(position == i);
-            }
-            if (mViewPagerPageChangeListener != null) {
-                mViewPagerPageChangeListener.onPageSelected(position);
-            }
+        	for(int i = 0; i < mTabStrip.getChildCount(); i ++){
+	            mTabStrip.getChildAt(i).setSelected(false);
+	        }
+	        mTabStrip.getChildAt(position).setSelected(true);
+
+	        if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+	            mTabStrip.onViewPagerPageChanged(position, 0f);
+	            scrollToTab(position, 0);
+	        }
+
+	        if (mViewPagerPageChangeListener != null) {
+	            mViewPagerPageChangeListener.onPageSelected(position);
+	        }
         }
 
     }
