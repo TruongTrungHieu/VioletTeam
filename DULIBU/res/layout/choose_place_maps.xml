@@ -28,6 +28,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_add_place_bg"
         android:src="@drawable/icon_subtract"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
         android:visibility="visible" />
 
     <ImageButton
@@ -37,6 +39,7 @@
         android:layout_above="@id/btnImDeletePlace"
         android:layout_alignParentRight="true"
         android:background="@drawable/button_add_place_bg"
+        android:layout_marginRight="10dp"
         android:src="@drawable/icon_plus"
         android:visibility="visible" />
 
