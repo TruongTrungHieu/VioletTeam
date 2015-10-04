@@ -15,7 +15,7 @@
     <string name="txtConDu">Số tiền còn dư </string>
     <string name="txtTongThu">Tổng thu</string>
     <string name="txtChiTiet">Chi tiết</string>
-    <string name="title_activity_phuot_detail_manager">PhuotDetailManager</string>
+    <string name="title_activity_phuot_detail_manager">Chi tiết điểm phượt</string>
     <string name="title_activity_phuot_detail_overview">PhuotDetailOverview</string>
     <string name="title_activity_phuot_detail_comment">PhuotDetailComment</string>
     <string name="MCC_note">Mù Cang Chải là 1 huyện vùng cao của tỉnh Yên Bái, cách Hà Nội khoảng 280 Km, nổi tiếng với danh thắng ruộng bậc thang</string>
