@@ -89,5 +89,6 @@
     <string name="str_tensukien">Tên sự kiện</string>
     <string name="str_thoigian">Thời gian cụ thể </string>
   
-
+    <string name="str_dieukhoan1">Vui lòng đọc kĩ các thỏa thuận sử dụng này trước khi tiến hành tải, cài đặt, đăng ký tài khoản và sử dụng “DULIBU”. Bạn chấp thuận và đồng ý xác nhận bị ràng buộc bởi các điều khoản dưới đây khi sử dụng. Nếu trường hợp bạn không đồng ý với bất cứ điều khoản sử dụng nào của chúng tôi, làm ơn vui lòng không cài đặt, sử dụng, đăng ký ứng dụng trên thiết bị di động của bạn: </string>
+    <string name="str_dieukhoan2">Điều 1: Quyền riêng tư </string>
 </resources>
