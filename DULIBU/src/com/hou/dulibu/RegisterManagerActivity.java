@@ -105,7 +105,6 @@ public class RegisterManagerActivity extends ActionBarActivity {
 	
 	 public void showDialog(){
          final AlertDialog dialog=new AlertDialog.Builder(context).create();
-        dialog.setTitle("Điều khoản sử dụng");
         LayoutInflater inflater=(LayoutInflater)
                                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view=inflater.inflate(R.layout.dieukhoan_dialog, null);
