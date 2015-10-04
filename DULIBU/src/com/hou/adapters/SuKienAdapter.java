@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.hou.dulibu.R;
 import com.hou.model.Sukien;
 
@@ -89,10 +90,19 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 		// gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 		gMap.clear();
+	//	gMap.addMarker(new MarkerOptions().position(sydney));
+	//	gMap.addMarker(new MarkerOptions().position(sydney));
 
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
 				sydney, 10f);
+		
 		gMap.moveCamera(cameraUpdate);
+//	//	gMap.addMarker(new MarkerOptions().position(sydney));
+
+		
+//		 map.addMarker(new MarkerOptions()
+//	        .position(new LatLng(10, 10))
+//	        .title("Hello world"));
 
 	}
 }

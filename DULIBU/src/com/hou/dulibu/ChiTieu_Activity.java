@@ -53,7 +53,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 ////
 ////		actionBar.setDisplayHomeAsUpEnabled(true);
 ////		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("TĂªn");
+//		actionBar.setTitle("TÄ‚Âªn");
 //		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 //		actionBar.setDisplayHomeAsUpEnabled(true);
 		
@@ -61,7 +61,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	
 		
 		
-//		actionBar.setTitle("Chi tiết kinh phí");
+//		actionBar.setTitle("Chi tiáº¿t kinh phĂ­");
 //		
 
 		txtConDu = (TextView) findViewById(R.id.txtConDu);
@@ -168,6 +168,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 			// Toast.LENGTH_SHORT).show();
 			final Dialog dialog = new Dialog(context);
 			dialog.setContentView(R.layout.dialog_khoanchi);
+			dialog.setTitle("Thông tin khoản chi");
 			
 			//dialog.setTitle("Title Khoan Chi ");
 
@@ -206,7 +207,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					
 					if (ten.equals("") || tien.equals("")) {
 						Toast.makeText(getApplication(),
-								"Äiá»u thiáº¿u thĂ´ng tin", Toast.LENGTH_SHORT)
+								"Ă„Â�iĂ¡Â»Â�u thiĂ¡ÂºÂ¿u thÄ‚Â´ng tin", Toast.LENGTH_SHORT)
 								.show();
 						return;
 					}

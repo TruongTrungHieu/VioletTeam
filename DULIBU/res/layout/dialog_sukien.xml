@@ -18,17 +18,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/str_tensukien"
+            android:text="@string/str_ten"
             android:textSize="18dp"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/txtTenMucChi"
+            android:id="@+id/txtTenSuKien"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="10" 
-            android:maxLines="1">
+            android:ems="10"
+            android:maxLines="1" >
 
             <requestFocus />
         </EditText>
@@ -51,18 +51,43 @@
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/txtSoTien"
+            android:id="@+id/txtThoiGian"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:ems="10"
-            android:maxLines="1">
+            android:maxLines="1" >
 
            
         </EditText>
     </TableRow>
-    
+        <TableRow
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/str_diadiem"
+            android:textSize="18dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/txtDiadiem"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:maxLines="1" >
+
+           
+        </EditText>
+    </TableRow>
 	<TableRow 
 	    android:layout_height="60dp"
 	    android:layout_width="match_parent"
