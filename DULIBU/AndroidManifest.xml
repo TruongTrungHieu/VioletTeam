@@ -107,7 +107,7 @@
         <activity
             android:name=".Setting"
             android:label="@string/title_activity_setting"
-            android:theme="@style/AccountsLight" >
+            android:theme="@style/AccountsLightActivities2" >
         </activity>
     </application>
 
