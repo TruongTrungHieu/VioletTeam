@@ -2,10 +2,12 @@ package com.hou.dulibu;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.widget.Button;
 public class CreateTripManagerActivity extends ActionBarActivity {
 	public Context context = this;
 	Button btnCreatePlace;
+	AlertDialog alertDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +29,35 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 					new ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-		
+
 		btnCreatePlace = (Button) findViewById(R.id.btnCreatePlace);
 		btnCreatePlace.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showChoosePlace();
+				
+			}
+		});
+	}
+
+	public void showChoosePlace() {
+		LayoutInflater li = LayoutInflater.from(context);
+		View promptsView = li.inflate(R.layout.choose_place_maps, null);
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				context);
+		alertDialogBuilder.setView(promptsView);
+		alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+		final Button btnSubmitPlace = (Button) promptsView.findViewById(R.id.btnSubmitPlace);
+		btnSubmitPlace.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				LayoutInflater li = LayoutInflater.from(context);
-				View promptsView = li.inflate(R.layout.choose_place_maps, null);
-
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						context);
-				alertDialogBuilder.setView(promptsView);
-				alertDialogBuilder.show();
+				alertDialog.dismiss();
 			}
 		});
 	}
@@ -49,6 +67,13 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.create_trip_manager, menu);
 		return true;
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		alertDialog.dismiss();
+		super.onBackPressed();
 	}
 
 	@Override
