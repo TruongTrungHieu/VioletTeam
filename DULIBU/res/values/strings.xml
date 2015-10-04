@@ -47,7 +47,16 @@
     <string name="save_trip"></string>
     <string name="actionSave">Trip được thêm vào ưu thích</string>
     <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
-
+    
+    <!-- Setting -->
+    <string name="tvNgonNgu">Ngôn ngữ</string>
+    <string name="tvDanhSachNguoiNhan">Danh sách người nhận</string>
+	<string name="title_activity_setting">Cài đặt</string>
+	<string name="tvAccount">Account</string>
+	<string name="tvChangePassword">Đổi mật khẩu</string>
+	<string name="tvAbout">About</string>
+	<string name="tvAboutTermsOfServices">Điều khoản sử dụng</string>
+    
     <!-- Tạo chuyến đi -->
     <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
     <string name="name_trip">Tên chuyến đi</string>
