@@ -1,30 +1,32 @@
 package com.hou.dulibu;
 
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Criteria;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
-public class CreateTripManagerActivity extends FragmentActivity implements
+public class CreateTripManagerActivity extends ActionBarActivity implements
 		OnMapReadyCallback {
+	private Spinner spStartPlace;
+	private Spinner spEndPlace;
 	Button btnCreatePlace;
 	GoogleMap mMap;
 
@@ -32,13 +34,15 @@ public class CreateTripManagerActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_trip_manager);
-		// if (getSupportActionBar() != null) {
-		// getSupportActionBar().setDisplayShowCustomEnabled(true);
-		// getSupportActionBar().setBackgroundDrawable(
-		// new ColorDrawable(Color.parseColor("#0aae44")));
-		// getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		// }
+		 if (getSupportActionBar() != null) {
+		 getSupportActionBar().setDisplayShowCustomEnabled(true);
+		 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
+		 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		 }
 		// GPS when leave
+		spStartPlace = (Spinner) findViewById(R.id.spStartPlace);
+		spEndPlace = (Spinner) findViewById(R.id.spEndPlace);
+		
 		btnCreatePlace = (Button) findViewById(R.id.btnCreatePlace);
 		btnCreatePlace.setOnClickListener(new View.OnClickListener() {
 
@@ -70,7 +74,8 @@ public class CreateTripManagerActivity extends FragmentActivity implements
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						mMap.clear();
+						dialog.dismiss();
+						removeFragmentMaps();
 						return;
 						
 					}
@@ -80,33 +85,13 @@ public class CreateTripManagerActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				mMap.clear();
+				removeFragmentMaps();
 				return;
 			}
 		});
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
-
-	// public void showChoosePlace() {
-	// LayoutInflater li = LayoutInflater.from(context);
-	// View promptsView = li.inflate(R.layout.choose_place_maps, null);
-	// AlertDialog.Builder alertDialogBuilder = new
-	// AlertDialog.Builder(context);
-	// alertDialogBuilder.setView(promptsView);
-	// alertDialog = alertDialogBuilder.create();
-	// alertDialog.show();
-	// final Button btnSubmitPlace = (Button)
-	// promptsView.findViewById(R.id.btnSubmitPlace);
-	// btnSubmitPlace.setOnClickListener(new View.OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// // TODO Auto-generated method stub
-	// alertDialog.dismiss();
-	// }
-	// });
-	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,4 +123,13 @@ public class CreateTripManagerActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
+	private void removeFragmentMaps(){
+		FragmentManager fm = getFragmentManager();
+	    Fragment fragment = (fm.findFragmentById(R.id.map));
+	    FragmentTransaction ft = fm.beginTransaction();
+	    ft.remove(fragment);
+	    ft.commit();
+	}
+	
+	
 }
