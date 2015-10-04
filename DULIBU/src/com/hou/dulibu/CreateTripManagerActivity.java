@@ -1,18 +1,21 @@
 package com.hou.dulibu;
 
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,21 +23,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class CreateTripManagerActivity extends ActionBarActivity {
+public class CreateTripManagerActivity extends FragmentActivity implements
+		OnMapReadyCallback {
 	Button btnCreatePlace;
-	GoogleMap supportMap;
+	GoogleMap mMap;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_trip_manager);
-		if (getSupportActionBar() != null) {
-			getSupportActionBar().setDisplayShowCustomEnabled(true);
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(Color.parseColor("#0aae44")));
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-
+		// if (getSupportActionBar() != null) {
+		// getSupportActionBar().setDisplayShowCustomEnabled(true);
+		// getSupportActionBar().setBackgroundDrawable(
+		// new ColorDrawable(Color.parseColor("#0aae44")));
+		// getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		// }
+		// GPS when leave
 		btnCreatePlace = (Button) findViewById(R.id.btnCreatePlace);
 		btnCreatePlace.setOnClickListener(new View.OnClickListener() {
 
@@ -49,19 +53,26 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 	public void displayAlertDialog() {
 		LayoutInflater inflater = getLayoutInflater();
 		View alertLayout = inflater.inflate(R.layout.choose_place_maps, null);
-
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setView(alertLayout);
-		SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager()
-	            .findFragmentById(R.id.mapView);
-	    supportMap = fm.getMap();
+		MapFragment mapFragment = (MapFragment) getFragmentManager()
+				.findFragmentById(R.id.map);
+		mapFragment.getMapAsync(this);
+		mMap = mapFragment.getMap();
+		mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		mMap.getUiSettings().setMyLocationButtonEnabled(true);
+		mMap.setMyLocationEnabled(true);
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.028860,
+				105.852330), 14));
 		alert.setCancelable(false);
 		alert.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						mMap.clear();
 						return;
+						
 					}
 				});
 
@@ -69,6 +80,7 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				mMap.clear();
 				return;
 			}
 		});
@@ -119,5 +131,11 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 			onBackPressed();
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onMapReady(GoogleMap arg0) {
+		// TODO Auto-generated method stub
+
 	}
 }
