@@ -10,26 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnSubmitPlace"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/button_place_maps_bg"
-        android:text="OK"
-        android:textColor="#FFF"
-        android:textSize="16sp" />
-    <ImageButton
+    <ImageButton
         android:id="@+id/btnImDeletePlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btnSubmitPlace"
+		android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/button_add_place_bg"
         android:src="@drawable/icon_subtract"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
         android:visibility="visible" />
 
     <ImageButton
@@ -38,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/btnImDeletePlace"
         android:layout_alignParentRight="true"
-        android:background="@drawable/button_add_place_bg"
         android:layout_marginRight="10dp"
+        android:background="@drawable/button_add_place_bg"
         android:src="@drawable/icon_plus"
         android:visibility="visible" />
 
