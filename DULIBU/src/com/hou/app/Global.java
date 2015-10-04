@@ -22,7 +22,8 @@ public class Global {
 	/*
 	 * URI
 	 */
-	public static String BASE_URI = "http://api.dulibu.com";
+//	public static String BASE_URI = "http://api.dulibu.com";
+	public static String BASE_URI = "http://192.168.100.36";
 	public static String URI_DANGNHAP_PATH  = "user/login";
 	
 	/*

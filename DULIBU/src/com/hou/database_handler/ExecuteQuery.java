@@ -3,6 +3,7 @@ package com.hou.database_handler;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hou.model.Chatluong_Lichtrinh;
 import com.hou.model.Lichtrinh;
 import com.hou.model.User;
 
@@ -47,6 +48,55 @@ public class ExecuteQuery {
 
 	public void close() {
 		mDbHelper.close();
+	}
+
+	/*
+	 * tbl_chatluong_lichtrinh
+	 */
+
+	// select * from dm_chatluong_lichtrinh
+	public ArrayList<Chatluong_Lichtrinh> getAllChatluongLichtrinh() {
+		ArrayList<Chatluong_Lichtrinh> list = new ArrayList<Chatluong_Lichtrinh>();
+		String selectQuery = "SELECT * FROM "
+				+ ColumnName.DM_CHATLUONG_LICHTRINH_TABLE;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Chatluong_Lichtrinh cl = new Chatluong_Lichtrinh();
+
+				cl.setMaChatluong(cursor.getColumnName(0));
+				cl.setTenChatluong(cursor.getColumnName(1));
+				cl.setGhichu(cursor.getColumnName(2));
+
+				list.add(cl);
+			} while (cursor.moveToNext());
+		}
+		return list;
+	}
+
+	// insert multi record
+	public boolean insert_dm_chatluong_lichtrinh_multi(
+			ArrayList<Chatluong_Lichtrinh> list) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			for (Chatluong_Lichtrinh cl : list) {
+				ContentValues cv = new ContentValues();
+
+				cv.put(ColumnName.DM_CHATLUONG_LICHTRINH_MACHATLUONG,
+						cl.getMaChatluong());
+				cv.put(ColumnName.DM_CHATLUONG_LICHTRINH_TENCHATLUONG,
+						cl.getTenChatluong());
+				cv.put(ColumnName.DM_CHATLUONG_LICHTRINH_GHICHU, cl.getGhichu());
+
+				database.insert(ColumnName.DM_CHATLUONG_LICHTRINH_TABLE, null,
+						cv);
+			}
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("insert_dm_chatluong_lichtrinh_multi", e.getMessage());
+			return false;
+		}
 	}
 
 	/*
@@ -109,7 +159,6 @@ public class ExecuteQuery {
 	public boolean insert_tbl_user_multi(ArrayList<User> listU) {
 		try {
 			database = mDbHelper.getWritableDatabase();
-
 			for (User u : listU) {
 				ContentValues cv = new ContentValues();
 
@@ -132,10 +181,9 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
-	
+
 	/*
 	 * tbl_lichtrinh
 	 */
-	
-	
+
 }

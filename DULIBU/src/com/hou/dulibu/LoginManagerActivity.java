@@ -42,6 +42,9 @@ public class LoginManagerActivity extends ActionBarActivity {
 		edtUsername = (EditText) findViewById(R.id.edtUsername);
 		edtPassword = (EditText) findViewById(R.id.edtPassword);
 
+		edtUsername.setText("quantri");
+		edtPassword.setText("12Aa");
+
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -50,20 +53,20 @@ public class LoginManagerActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				username = edtUsername.getText().toString();
 				password = edtPassword.getText().toString();
-//				if (username != null && edtPassword != null
-//						&& username.trim().length() > 0
-//						&& password.trim().length() > 0) {
-//					// send request login to server
-//					loginToServer();
-//				} else {
-//					Toast.makeText(getApplicationContext(),
-//							getResources().getString(R.string.validator_login),
-//							Toast.LENGTH_LONG).show();
-//				}
-				Intent intent = new Intent(
-						LoginManagerActivity.this,
-						ProfileManagerActivity.class);
-				startActivity(intent);
+				if (username != null && edtPassword != null
+						&& username.trim().length() > 0
+						&& password.trim().length() > 0) {
+					// send request login to server
+					loginToServer();
+				} else {
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.validator_login),
+							Toast.LENGTH_LONG).show();
+				}
+				// Intent intent = new Intent(
+				// LoginManagerActivity.this,
+				// ProfileManagerActivity.class);
+				// startActivity(intent);
 			}
 		});
 
@@ -109,6 +112,8 @@ public class LoginManagerActivity extends ActionBarActivity {
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("loginToServer", response);
+						Toast.makeText(getApplicationContext(), response,
+								Toast.LENGTH_LONG).show();
 						if (executeWhenLoginSuccess(response)) {
 							Intent intent = new Intent(
 									LoginManagerActivity.this,
@@ -128,6 +133,8 @@ public class LoginManagerActivity extends ActionBarActivity {
 							String content) {
 						edtPassword.setText(null);
 						edtUsername.setText(null);
+						Toast.makeText(getApplicationContext(),
+								statusCode + "", Toast.LENGTH_LONG).show();
 						switch (statusCode) {
 						case 200:
 							Toast.makeText(getApplicationContext(), "200",
@@ -170,6 +177,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 			String gioitinh = userJson.getString("gioitinh");
 			String sdt_lienhe = userJson.getString("sdt_lienhe");
 			String ghichu = userJson.getString("ghichu");
+			String avatar = userJson.getString("avatar");
 
 			Global.savePreference(getApplicationContext(), Global.USER_MAUSER,
 					_id);
@@ -186,8 +194,8 @@ public class LoginManagerActivity extends ActionBarActivity {
 					Global.USER_GIOITINH, gioitinh);
 			Global.savePreference(getApplicationContext(),
 					Global.USER_SDT_LIENHE, sdt_lienhe);
-			// Global.savePreference(getApplicationContext(),
-			// Global.USER_AVATAR, );
+			Global.savePreference(getApplicationContext(), Global.USER_AVATAR,
+					avatar);
 			Global.savePreference(getApplicationContext(), Global.USER_GHICHU,
 					ghichu);
 			Global.savePreference(getApplicationContext(),
