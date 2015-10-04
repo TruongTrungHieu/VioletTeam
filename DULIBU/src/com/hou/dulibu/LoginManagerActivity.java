@@ -53,20 +53,19 @@ public class LoginManagerActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				username = edtUsername.getText().toString();
 				password = edtPassword.getText().toString();
-				if (username != null && edtPassword != null
-						&& username.trim().length() > 0
-						&& password.trim().length() > 0) {
-					// send request login to server
-					loginToServer();
-				} else {
-					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.validator_login),
-							Toast.LENGTH_LONG).show();
-				}
-				// Intent intent = new Intent(
-				// LoginManagerActivity.this,
-				// ProfileManagerActivity.class);
-				// startActivity(intent);
+//				if (username != null && edtPassword != null
+//						&& username.trim().length() > 0
+//						&& password.trim().length() > 0) {
+//					// send request login to server
+//					loginToServer();
+//				} else {
+//					Toast.makeText(getApplicationContext(),
+//							getResources().getString(R.string.validator_login),
+//							Toast.LENGTH_LONG).show();
+//				}
+				Intent intent = new Intent(LoginManagerActivity.this,
+						ProfileManagerActivity.class);
+				startActivity(intent);
 			}
 		});
 
