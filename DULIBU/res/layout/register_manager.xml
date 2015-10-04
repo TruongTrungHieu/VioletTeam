@@ -150,7 +150,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="điều khoản sử dụng"
-            android:textColor="#0aae44" />
+            android:textColor="#0aae44" 
+            android:id="@+id/dieukhoan"/>
     </LinearLayout>
     <Button
             android:id="@+id/btnRegister"
