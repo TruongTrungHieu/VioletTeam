@@ -28,6 +28,64 @@
             android:padding="10dp"
             android:textColorHint="#bbbbbb"
             android:textSize="14sp" />
+        
+        <LinearLayout
+            android:id="@+id/LnStartEndPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/LnStartPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/startPlace"
+                    android:textColor="#000" />
+
+                <Spinner
+                android:id="@+id/spStartPlace"
+                android:prompt="@string/country_prompt"
+                android:entries="@array/country_arrays"
+                android:layout_width="match_parent"
+                android:popupBackground="#FFF"
+                android:background="#FFF"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LnEndPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/endPlace"
+                    android:textColor="#000" />
+
+                <Spinner
+                android:id="@+id/spEndPlace"
+                android:prompt="@string/country_prompt"
+                android:entries="@array/country_arrays"
+                android:popupBackground="#FFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
 
         <LinearLayout
             android:id="@+id/LnNgaydiNgayve"
@@ -429,8 +487,8 @@
                 android:maxLines="10"
                 android:minLines="6"
                 android:padding="10dp"
-                android:textColorHint="#bbbbbb"
                 android:scrollbars="vertical"
+                android:textColorHint="#bbbbbb"
                 android:textSize="14sp" />
         </LinearLayout>
 
