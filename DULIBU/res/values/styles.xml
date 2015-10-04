@@ -48,6 +48,14 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textAppearance">@style/TitleStyle</item>
     </style>
+    <style name="AccountsLightActivities2" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#0aae44</item>
+        
+        <item name="colorPrimaryDark">#2E7D32</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textAppearance">@style/TitleStyle</item>
+    </style>
 
     <style name="TitleStyle" parent="AppBaseTheme">
         <item name="android:textColor">@color/white</item>
