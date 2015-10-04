@@ -27,7 +27,7 @@ public class CustomItem extends FrameLayout {
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
-        FrameLayout view = (FrameLayout) inflater.inflate(R.layout.my_custom_item,null);
+        FrameLayout view = (FrameLayout) inflater.inflate(R.layout.sukien_item,null);
         FrameLayout frame = new FrameLayout(context);
         frame.setId(myGeneratedFrameLayoutId);
 

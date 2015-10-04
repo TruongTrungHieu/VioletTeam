@@ -1,6 +1,7 @@
 package com.hou.fragment;
 
 import com.hou.dulibu.ChiTieu_Activity;
+import com.hou.dulibu.Offline_Activity;
 import com.hou.dulibu.R;
 
 import android.content.Intent;
@@ -57,7 +58,10 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener{
 			Toast.makeText(getActivity(), "leave", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.tvBtnOfflineForUser:
-			Toast.makeText(getActivity(), "Offline Events", Toast.LENGTH_SHORT).show();
+			Intent offline = new Intent(getActivity(),Offline_Activity.class);
+			startActivity(offline);
+			break;
+			//Toast.makeText(getActivity(), "Offline Events", Toast.LENGTH_SHORT).show();
 		default:
 			break;
 		} 

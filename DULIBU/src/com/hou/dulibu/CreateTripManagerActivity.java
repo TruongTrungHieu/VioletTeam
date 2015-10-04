@@ -43,13 +43,18 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 	}
 
 	public void showChoosePlace() {
+		
+	
 		LayoutInflater li = LayoutInflater.from(context);
 		View promptsView = li.inflate(R.layout.choose_place_maps, null);
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				context);
 		alertDialogBuilder.setView(promptsView);
+	
 		alertDialog = alertDialogBuilder.create();
+	
+		
 		alertDialog.show();
 		final Button btnSubmitPlace = (Button) promptsView.findViewById(R.id.btnSubmitPlace);
 		btnSubmitPlace.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +62,9 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
 				alertDialog.dismiss();
+				
 			}
 		});
 	}

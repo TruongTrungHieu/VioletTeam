@@ -31,22 +31,22 @@ public class KhoanChiArrayAdapter extends ArrayAdapter<Chitieu> {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-//		LayoutInflater inflater = context.getLayoutInflater();
-//		convertView = inflater.inflate(layoutId, null);
-//
-//		if (myArray.size() > 0 && position >= 0) {
-//
-//			final TextView txtTenKhoanChi = (TextView) convertView
-//					.findViewById(R.id.txtTenKhoanChi);
-//			final TextView txtSoTien = (TextView) convertView
-//					.findViewById(R.id.txtSoTien);
-//
-//			final Chitieu kc = myArray.get(position);
-//
-//			txtTenKhoanChi.setText(kc.getTenChitieu());
-//
-//			txtSoTien.setText(kc.getSotien()+"");
-//		}
+		LayoutInflater inflater = context.getLayoutInflater();
+		convertView = inflater.inflate(layoutId, null);
+
+		if (myArray.size() > 0 && position >= 0) {
+
+			final TextView txtTenKhoanChi = (TextView) convertView
+					.findViewById(R.id.txtTenKhoanChi);
+			final TextView txtSoTien = (TextView) convertView
+					.findViewById(R.id.txtSoTien);
+
+			final Chitieu kc = myArray.get(position);
+
+			txtTenKhoanChi.setText(kc.getTenChitieu());
+
+			txtSoTien.setText(kc.getSotien()+"");
+		}
 
 		return convertView;
 

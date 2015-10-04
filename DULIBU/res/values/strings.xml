@@ -72,5 +72,13 @@
     <string name="maps_actionbar">Map</string>
     <string name="messages_actionbar">Message</string>
     <string name="title_activity_offline_">Offline_Activity</string>
+    <string name="title_activity_list__sukien_">List_Sukien_Activity</string>
+    
+    <string name="str_ten">Tên</string>
+    <string name="str_tg">Thời gian</string>
+    <string name="str_bando">Bản đồ</string>
+    <string name="str_tensukien">Tên sự kiện</string>
+    <string name="str_thoigian">Thời gian cụ thể </string>
+  
 
 </resources>

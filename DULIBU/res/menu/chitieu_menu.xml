@@ -8,7 +8,7 @@
         android:id="@+id/action_add"
         android:icon="@drawable/plus16"
         app:showAsAction="always"
-        android:title="Add "/>
+        android:title="Add"/>
 
     
     
