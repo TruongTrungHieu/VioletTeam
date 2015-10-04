@@ -1,6 +1,7 @@
 package com.hou.dulibu;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.TextureView;
@@ -27,6 +29,8 @@ public class RegisterManagerActivity extends ActionBarActivity {
 	private EditText email,username,pass,ck_pass,fullname,ngaysinh;
 	private Button sumit;
 	private CheckBox ck_dieukhoan;
+	private TextView dieukhoan;
+	private Context context=this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +60,20 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		ck_dieukhoan = (CheckBox) findViewById(R.id.ck_dieukhoan);
 		int rbSelected = radiosex.getCheckedRadioButtonId();
 		rbButton = (RadioButton) findViewById(rbSelected);
-		
+		dieukhoan = (TextView) findViewById(R.id.dieukhoan);
+		dieukhoan.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showDialog();
+			}
+		});
 	}
 	public void CheckboxSelected(){
 		if(email.getText().toString().equals("")||username.getText().toString().equals("")||pass.getText().toString().equals("")
 				|| ck_pass.getText().toString().equals("")||fullname.getText().toString().equals("")||ngaysinh.getText().toString().equals("")){
-			Toast.makeText(getApplicationContext(),"Nhập thông tin chưa đầy đủ",Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),"Nháº­p thÃ´ng tin chÆ°a Ä‘áº§y Ä‘á»§",Toast.LENGTH_SHORT).show();
 		}
 		else
 		{
@@ -74,23 +86,34 @@ public class RegisterManagerActivity extends ActionBarActivity {
 								}
 								else{
 									sumit.setEnabled(true);
-									Toast.makeText(getApplicationContext(),"Chưa xác nhận điều khoản",Toast.LENGTH_SHORT).show();
+									Toast.makeText(getApplicationContext(),"ChÆ°a xÃ¡c nháº­n Ä‘iá»�u khoáº£n",Toast.LENGTH_SHORT).show();
 							    }
 							}
 							else{
-								Toast.makeText(getApplicationContext(),"Xác nhận pass không trùng",Toast.LENGTH_SHORT).show();
+								Toast.makeText(getApplicationContext(),"XÃ¡c nháº­n pass khÃ´ng trÃ¹ng",Toast.LENGTH_SHORT).show();
 								pass.setText("");
 								ck_pass.setText("");
 							}
 				        }
 				        else
 				        {
-				             Toast.makeText(getApplicationContext(),"Nhập mail sai định dạng",Toast.LENGTH_SHORT).show();
+				             Toast.makeText(getApplicationContext(),"Nháº­p mail sai Ä‘á»‹nh dáº¡ng",Toast.LENGTH_SHORT).show();
 				             email.setText("");
 				        }
 				}
 	}
 	
+	 public void showDialog(){
+         final AlertDialog dialog=new AlertDialog.Builder(context).create();
+        dialog.setTitle("Điều khoản sử dụng");
+        LayoutInflater inflater=(LayoutInflater)
+                                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view=inflater.inflate(R.layout.dieukhoan_dialog, null);
+       
+        dialog.setView(view);  
+       
+        dialog.show();
+    }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
