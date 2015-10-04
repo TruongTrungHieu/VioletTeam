@@ -45,18 +45,10 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 			}
 		});
 	}
+
 	public void displayAlertDialog() {
 		LayoutInflater inflater = getLayoutInflater();
 		View alertLayout = inflater.inflate(R.layout.choose_place_maps, null);
-
-	public void showChoosePlace() {
-		LayoutInflater li = LayoutInflater.from(context);
-		View promptsView = li.inflate(R.layout.choose_place_maps, null);
-	public void showChoosePlace() {
-		
-	
-		LayoutInflater li = LayoutInflater.from(context);
-		View promptsView = li.inflate(R.layout.choose_place_maps, null);
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setView(alertLayout);
@@ -75,37 +67,9 @@ public class CreateTripManagerActivity extends ActionBarActivity {
 
 		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				context);
-		alertDialogBuilder.setView(promptsView);
-		alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
-		final Button btnSubmitPlace = (Button) promptsView.findViewById(R.id.btnSubmitPlace);
-		btnSubmitPlace.setOnClickListener(new View.OnClickListener() {
-			
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				context);
-		alertDialogBuilder.setView(promptsView);
-	
-		alertDialog = alertDialogBuilder.create();
-	
-		
-		alertDialog.show();
-		final Button btnSubmitPlace = (Button) promptsView.findViewById(R.id.btnSubmitPlace);
-		btnSubmitPlace.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
-
 			public void onClick(DialogInterface dialog, int which) {
 				return;
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				alertDialog.dismiss();
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				alertDialog.dismiss();
-				
 			}
 		});
 		AlertDialog dialog = alert.create();
