@@ -2,6 +2,9 @@ package com.hou.fragment;
 
 import com.hou.dulibu.R;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +44,15 @@ public class ThongTinUngDung extends Fragment implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.tvTerms:
 			Toast.makeText(getActivity(), "Ok show terms", Toast.LENGTH_SHORT).show();
+			showDialog();
 		default:
 			break;
 		}
 	}
+	 public void showDialog(){
+		 final Dialog dialog = new Dialog(getActivity());
+         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+         dialog.setContentView(R.layout.dieukhoan_dialog);
+         dialog.show();
+    }
 }
