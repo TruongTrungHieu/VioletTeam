@@ -36,7 +36,7 @@
         android:theme="@style/DLBTheme" >
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyD077ViEDGH6EJ-odldEEABFoh5eyf_g5c" />
+            android:value="AIzaSyCV_sND3UkBW8i3KzPWRJ7C452g2Ao4seg" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -98,7 +98,8 @@
         </activity>
         <activity
             android:name=".Offline_Activity"
-            android:label="@string/title_activity_offline_" >
+            android:label="@string/title_activity_offline_"
+            android:theme="@style/CustomActionBarTheme" >
         </activity>
         <activity
             android:name=".CreateTripManagerActivity"
