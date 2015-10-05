@@ -108,9 +108,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
         LayoutInflater inflater=(LayoutInflater)
                                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view=inflater.inflate(R.layout.dieukhoan_dialog, null);
-       
-        dialog.setView(view);  
-       
+        dialog.setView(view);         
         dialog.show();
     }
 	@Override
