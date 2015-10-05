@@ -91,9 +91,11 @@
     <string name="str_sotien">Số tiền </string>
     <string name="str_diadiem">Địa điểm </string>
     
-  
+    <!-- Điều khoản -->
+    <string name="str_dieukhoan">ĐIỀU KHOẢN SỬ DỤNG </string>
     <string name="str_dieukhoan1">Vui lòng đọc kĩ các thỏa thuận sử dụng này trước khi tiến hành tải, cài đặt, đăng ký tài khoản và sử dụng “DULIBU”. Bạn chấp thuận và đồng ý xác nhận bị ràng buộc bởi các điều khoản dưới đây khi sử dụng. Nếu trường hợp bạn không đồng ý với bất cứ điều khoản sử dụng nào của chúng tôi, làm ơn vui lòng không cài đặt, sử dụng, đăng ký ứng dụng trên thiết bị di động của bạn: </string>
     <string name="str_dieukhoan2">Điều 1: Quyền riêng tư </string>
+   
     <string name="startPlace">Điểm đầu</string>
     <string name="endPlace">Điểm cuối</string>
     
