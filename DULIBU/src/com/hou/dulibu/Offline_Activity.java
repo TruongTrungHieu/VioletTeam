@@ -59,7 +59,8 @@ public class Offline_Activity extends ActionBarActivity {
 			final Dialog dialog = new Dialog(context);
 			dialog.setContentView(R.layout.dialog_sukien);
 			dialog.setTitle("Thông tin sự kiện");
-
+			
+	    
 			Button btnOK = (Button) dialog.findViewById(R.id.btnAdd);
 			// if button is clicked, close the custom dialog
 			btnOK.setOnClickListener(new OnClickListener() {
@@ -68,6 +69,8 @@ public class Offline_Activity extends ActionBarActivity {
 				public void onClick(View arg0) {
 
 					xulyNhap();
+					Toast.makeText(getApplication(), "Click on button ADD",
+							Toast.LENGTH_SHORT).show();
 					dialog.dismiss();
 				}
 
@@ -95,6 +98,11 @@ public class Offline_Activity extends ActionBarActivity {
 					sk.setTenSukien(ten);
 					sk.setThoigian(thoigian);
 					sk.setDiadiem(diadiem);
+//					Sukien sk = new Sukien();
+//					sk.setTenSukien("96 Dinh Cong");
+//					sk.setThoigian("16h");
+//					sk.setDiadiem("96 dinh cong");
+
 
 					arrSuKien.add(sk);
 
@@ -103,7 +111,7 @@ public class Offline_Activity extends ActionBarActivity {
 
 					adapter.notifyDataSetChanged();
 					
-					dialog.dismiss();
+					//dialog.dismiss();
 
 				}
 			});
