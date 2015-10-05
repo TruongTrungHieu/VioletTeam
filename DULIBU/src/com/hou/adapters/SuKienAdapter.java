@@ -90,11 +90,12 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 		// gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 		gMap.clear();
+		gMap.addMarker(new MarkerOptions().position(sydney));
 	//	gMap.addMarker(new MarkerOptions().position(sydney));
-	//	gMap.addMarker(new MarkerOptions().position(sydney));
+		
 
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-				sydney, 10f);
+				sydney, 15f);
 		
 		gMap.moveCamera(cameraUpdate);
 //	//	gMap.addMarker(new MarkerOptions().position(sydney));
