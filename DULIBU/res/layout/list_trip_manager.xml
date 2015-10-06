@@ -4,7 +4,7 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/lnFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:button="@drawable/custom_checkbox_selector"
             android:text=" Nhiều ngày"
             android:textColor="#505050" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <!--
     <TextView
@@ -560,13 +560,11 @@
         android:layout_height="1px"
         android:background="#dadada" />
     -->
-
     <ListView
         android:id="@+id/lvTripList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5.0sp" >
+        android:divider="@android:color/transparent" >
     </ListView>
 
 </LinearLayout>

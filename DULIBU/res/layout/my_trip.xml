@@ -4,7 +4,7 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/lnFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:button="@drawable/custom_checkbox_selector"
             android:text=" Nhiều ngày"
             android:textColor="#505050" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <!--
     <TextView

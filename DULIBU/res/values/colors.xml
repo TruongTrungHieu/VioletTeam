@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="SoftGreen">#66BB6A</color>
-    <color name="GrayLine">#9e9e9e</color>
+    <color name="GrayLine">#E0E0E0</color>
 	<color name="StatusBarColor">#2E7D32</color>
     <color name="ActionBarColor">#0aae44</color>
     <color name="holo_blue_dark">#ff0099cc</color>

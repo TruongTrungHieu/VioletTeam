@@ -38,13 +38,17 @@ public class LichtrinhAdapter extends ArrayAdapter<Lichtrinh>{
 			final TextView txtTripTitle = (TextView) convertView.findViewById(R.id.titleTrip);
 			final TextView txtTripTimeBegin = (TextView) convertView.findViewById(R.id.tvTimeBeginTrip);
 			final TextView txtTripTimeEnd = (TextView) convertView.findViewById(R.id.tvTimeEndTrip);
-			final TextView txtTripNumberMember = (TextView) convertView.findViewById(R.id.tvCountMember);
+			//final TextView txtTripNumberMember = (TextView) convertView.findViewById(R.id.tvCountMember);
+			final TextView txtBeginPoint = (TextView) convertView.findViewById(R.id.tvBeginPoint);
+			final TextView txtEndPoint = (TextView) convertView.findViewById(R.id.tvEndPoint);
 			
 			final Lichtrinh sTrip = myArray.get(position);
 
 			txtTripTitle.setText(sTrip.getTenLichtrinh().toString());
 			txtTripTimeBegin.setText(sTrip.getTbBatdau().toString());
 			txtTripTimeEnd.setText(sTrip.getTgKetthuc().toString());
+			txtBeginPoint.setText(sTrip.getDiemBatdau().toString());
+			txtEndPoint.setText(sTrip.getDiemKetthuc().toString());
 			//txtTripNumberMember.setText(sTrip.getTripNumberMember().toString());
 			
 			final ImageView imgTrip = (ImageView) convertView.findViewById(R.id.imgTrip);

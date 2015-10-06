@@ -44,11 +44,11 @@ public class MyTrips extends android.support.v4.app.Fragment {
 				.findViewById(R.id.lvMyTripList);
 		DeviceStatus ds = new DeviceStatus();
 
-		Lichtrinh trip1 = new Lichtrinh("trip1", "Hà Nội - Hà Giang", "Hà Nội",
-				"Hà Giang", "a", "1", "1", "1", "1", "1", "1", "1", 1, 1, "1",
+		Lichtrinh trip1 = new Lichtrinh("trip1", "DulibuTeam's Trip", "Hà Nội",
+				"Hà Giang", "01/05/2015", "03/05/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
 				"image");
-		Lichtrinh trip2 = new Lichtrinh("trip2", "Hà Nội - Hà Giang", "Hà Nội",
-				"Hà Giang", "a", "1", "1", "1", "1", "1", "1", "1", 1, 1, "1",
+		Lichtrinh trip2 = new Lichtrinh("trip2", "VioletTeam's Trip", "Hà Nội",
+				"Hà Giang", "28/09/2015", "29/09/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
 				"image");
 		lichtrinh = new ArrayList<Lichtrinh>();
 		lichtrinh.add(trip1);

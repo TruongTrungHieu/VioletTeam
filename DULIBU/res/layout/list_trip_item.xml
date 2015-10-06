@@ -2,82 +2,123 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lnListTrip"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:elevation="1dp" >
-
-    <ImageView
-        android:id="@+id/imgTrip"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/trip1" />
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/lnTripInfo"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginLeft="15dp"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/titleTrip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hà Nội - Hà Giang"
-            android:textColor="#505050"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/imgTrip"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:paddingLeft="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/trip1" />
 
-        <LinearLayout
-            android:id="@+id/lnTimeTrip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/calendar"
-                android:text="  Từ"
-                android:textColor="#878787"
-                android:textSize="13sp" />
+        <RelativeLayout
+            android:id="@+id/lnTripInfo"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/tvTimeBeginTrip"
+                android:id="@+id/titleTrip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  18/11/2015"
-                android:textColor="#878787"
-                android:textSize="13sp" />
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Hà Nội - Hà Giang"
+                android:textColor="#505050"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-            <TextView
+            <RelativeLayout
+                android:id="@+id/lnTime"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true" >
+
+                <LinearLayout
+                    android:id="@+id/lnTimeTrip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/tvTimeBeginTrip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18/11/2015"
+                        android:textColor="#878787"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="#878787"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvTimeEndTrip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20/11/2015"
+                        android:textColor="#878787"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lnPointTrip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  Đến"
-                android:textColor="#878787"
-                android:textSize="13sp" />
+                android:layout_above="@id/lnTime"
+                android:gravity="center"
+                android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/tvTimeEndTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  20/11/2015"
-                android:textColor="#878787"
-                android:textSize="13sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvBeginPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hà Nội" />
 
-        <TextView
-            android:id="@+id/tvCountMember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/users"
-            android:text="  12+"
-            android:textColor="#878787"
-            android:textSize="13sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="to"
+                    android:textColor="#878787" />
+
+                <TextView
+                    android:id="@+id/tvEndPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bắc Giang" />
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/StatusBarColor" />
 
 </LinearLayout>
