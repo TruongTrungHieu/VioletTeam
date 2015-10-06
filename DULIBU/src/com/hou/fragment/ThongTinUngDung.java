@@ -43,7 +43,6 @@ public class ThongTinUngDung extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.tvTerms:
-			Toast.makeText(getActivity(), "Ok show terms", Toast.LENGTH_SHORT).show();
 			showDialog();
 		default:
 			break;
