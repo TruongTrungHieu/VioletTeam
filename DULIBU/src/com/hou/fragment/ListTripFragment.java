@@ -71,7 +71,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 								"" + lichtrinh.get(position).getMaLichtrinh(),
 								Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(getActivity(),
-								TripDetailManagerForUser.class);
+								TripDetailManagerActivity.class);
 						startActivity(intent);
 					}
 				});

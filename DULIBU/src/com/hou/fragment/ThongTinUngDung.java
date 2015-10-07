@@ -24,13 +24,12 @@ public class ThongTinUngDung extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		View view = inflater
 				.inflate(R.layout.thong_tin_ung_dung, container, false);
-		tvAppName = (TextView) view.findViewById(R.id.tvTitleName);
-		tvTerms = (TextView) view.findViewById(R.id.tvTerms);
+		tvAppName = (TextView) view.findViewById(R.id.tvTitleName);		
 		
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Thin.ttf");
 		tvAppName.setTypeface(tf);
 		
-		tvTerms.setOnClickListener(this);
+		//tvTerms.setOnClickListener(this);
 		// showSlideImage(SlideImageArr);
 
 		// initGridView(view);
@@ -42,8 +41,8 @@ public class ThongTinUngDung extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.tvTerms:
-			showDialog();
+		/*case R.id.tvTerms:
+			showDialog();*/
 		default:
 			break;
 		}

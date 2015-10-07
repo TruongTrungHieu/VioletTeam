@@ -112,13 +112,4 @@
 
     <!-- Terms -->
 
-    <TextView
-        android:id="@+id/tvTerms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/tvTermsOfService"
-        android:textColor="@color/black"
-        android:textSize="13dp" />
-
 </LinearLayout>

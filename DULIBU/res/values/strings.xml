@@ -58,6 +58,7 @@
 	<string name="tvAboutTermsOfServices">Điều khoản sử dụng</string>
 	<string name="tvMap">Bản đồ</string>
 	<string name="tvMapChange">Đổi kiểu bản đồ</string>
+	<string name="tvDieuKhoan">Điều khoản sử dụng</string>
     
     <!-- Tạo chuyến đi -->
     <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
