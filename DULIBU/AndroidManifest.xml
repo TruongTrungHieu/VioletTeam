@@ -106,9 +106,9 @@
             android:label="@string/create_trip" >
         </activity>
         <activity
-            android:name=".Setting"
+            android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@style/AccountsLightActivities2" >
+            android:theme="@style/CustomActionBarTheme" >
         </activity>
     </application>
 
