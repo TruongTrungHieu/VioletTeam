@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/str_tensukien"
+            android:text="@string/str_ten"
             android:textSize="18dp"
             android:textColor="#000000" />
 
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/str_tg"
+            android:text="@string/str_sotien"
             android:textSize="18dp"
             android:textColor="#000000" />
 
