@@ -1,10 +1,12 @@
 package com.hou.fragment;
 
 import com.hou.dulibu.R;
+import com.hou.dulibu.SettingActivity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -96,6 +98,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			// Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
 			break;
 		case R.id.setting:
+			Intent intent = new Intent(getActivity(), SettingActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.messages:
 			break;
