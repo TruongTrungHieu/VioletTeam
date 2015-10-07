@@ -96,9 +96,25 @@
     
     <!-- Điều khoản -->
     <string name="str_dieukhoan">ĐIỀU KHOẢN SỬ DỤNG </string>
-    <string name="str_dieukhoan1">Vui lòng đọc kĩ các thỏa thuận sử dụng này trước khi tiến hành tải, cài đặt, đăng ký tài khoản và sử dụng “DULIBU”. Bạn chấp thuận và đồng ý xác nhận bị ràng buộc bởi các điều khoản dưới đây khi sử dụng. Nếu trường hợp bạn không đồng ý với bất cứ điều khoản sử dụng nào của chúng tôi, làm ơn vui lòng không cài đặt, sử dụng, đăng ký ứng dụng trên thiết bị di động của bạn: </string>
+    <string name="str_dieukhoan1">\t Vui lòng đọc kĩ các thỏa thuận sử dụng này trước khi tiến hành tải, cài đặt, đăng ký tài khoản và sử dụng “DULIBU”. Bạn chấp thuận và đồng ý xác nhận bị ràng buộc bởi các điều khoản dưới đây khi sử dụng. Nếu trường hợp bạn không đồng ý với bất cứ điều khoản sử dụng nào của chúng tôi, làm ơn vui lòng không cài đặt, sử dụng, đăng ký ứng dụng trên thiết bị di động của bạn: </string>
     <string name="str_dieukhoan2">Điều 1: Quyền riêng tư </string>
-   
+    <string name="str_dieukhoan3">\tCác thông tin khai báo của bạn rất quan trọng với DULIBU, mọi quyền lợi và nghĩa vụ đều căn cứ vào những điều khoản mà bạn đăng ký. Do đó bất cứ thông tin sai lệch khi khai báo chúng tôi sẽ không chịu trách nhiệm nếu nó ảnh hưởng đến quyền lợi cá nhân của bạn. Các thông tin khai báo đều được giữ bảo mật và an toàn, chúng chỉ được công khai dưới sự cho phép của chủ thể cũng nhưng những trường hợp cần thiết ảnh hưởng đến chủ thể.</string>
+    <string name="str_dieukhoan4">Điều 2: Cập nhật </string>
+    <string name="str_dieukhoan5">\t Các điều khoản có thể được chúng tôi cập nhật thường xuyên, có thể thay thế 1 vài nội dung ban đầu. Bạn có thể truy cập ứng dụng để theo dõi những thay đổi này.</string>
+    <string name="str_dieukhoan6">Điều 3: Quyền sở hữu </string>
+    <string name="str_dieukhoan7">\t Ứng dụng này thuộc quyền sở hữu trí tuệ của DULIBU  TEAM, tất cả các ứng dụng (bao gồm mã nguồn, hình ảnh, dữ liệu, các sửa đổi, bổ sung, cập nhật phần mềm,…) và các tài liệu liên quan (nếu có) sẽ không được bất cứ cá nhân (hay tổ chức) sao chép, tái tạo, phân phối, hoặc hình thức xâm phạm khác liên quan tới bản quyền nếu chưa có sự cho phép của chúng tôi.</string>
+    <string name="str_dieukhoan8">Điều 4: Tài khoản</string>
+    <string name="str_dieukhoan9">\t Bạn có toàn quyền sử dụng DULIBU, cũng như các ứng dụng mà chúng tôi cung cấp. Tuy nhiên, chúng sẽ không bao gồm các hành vi dưới đây nếu không có sự đồng ý của chúng tôi: 
+\n_ Sử dụng, sao chép ứng dụng để tạo ra một sản phẩm mới.
+\n_ Sử dụng dịch vụ với mục đích thương mại với bên thứ ba.
+\n_ Hủy bỏ, sửa chữa so với trạng thái ban đầu của ứng dụng.
+\n_ Sử dụng với mục đích tuyên truyền các thông tin vi phạm pháp luật, vi phạm thuần phong mĩ tục.
+\n_ Các hình thức vi phạm khác.
+</string>
+    <string name="str_dieukhoan10">Điều 5: Xử lý vi phạm</string>
+    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.
+</string>
+    
     <string name="startPlace">Điểm đầu</string>
     <string name="endPlace">Điểm cuối</string>
     
