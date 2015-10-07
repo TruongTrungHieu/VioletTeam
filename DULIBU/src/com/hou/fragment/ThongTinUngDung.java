@@ -28,21 +28,12 @@ public class ThongTinUngDung extends Fragment implements OnClickListener{
 		
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Thin.ttf");
 		tvAppName.setTypeface(tf);
-		
-		//tvTerms.setOnClickListener(this);
-		// showSlideImage(SlideImageArr);
-
-		// initGridView(view);
-		// showSlideImage(SlideImageArr);
-		// initGridView(view);
 		return view;
 	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		/*case R.id.tvTerms:
-			showDialog();*/
 		default:
 			break;
 		}
