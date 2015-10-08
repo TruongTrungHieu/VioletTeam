@@ -103,7 +103,8 @@
         </activity>
         <activity
             android:name=".CreateTripManagerActivity"
-            android:label="@string/create_trip" >
+            android:label="@string/create_trip"
+            android:theme="@style/CustomActionBarTheme" >
         </activity>
         <activity
             android:name=".SettingActivity"

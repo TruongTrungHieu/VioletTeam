@@ -68,6 +68,7 @@
 	<string name="tvLastLocation">Vị trí cuối cùng</string>
 	<string name="tvListConfirm">Danh sách cảnh báo</string>
 	<string name="title_activity_user_secure_confirm">Cảnh báo thành viên mất tích</string>
+	
     
     <!-- Tạo chuyến đi -->
     <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
@@ -94,6 +95,12 @@
     <string name="messages_actionbar">Message</string>
     <string name="title_activity_offline_">Sự kiện</string>
     <string name="title_activity_list__sukien_">List_Sukien_Activity</string>
+    <string name="textHintTitleTrip">Đặt tên chuyến đi</string>
+    <string name="textHintDayStart">Thời gian bắt đầu</string>
+    <string name="textHintDayEnd">Thời gian kết thúc</string>
+    <string name="textHintKinhPhi">Kinh phí</string>
+    <string name="textHintPlaceStart">Điểm xuất phát</string>
+    <string name="textHintTimeStart">Thời gian tập trung</string>
     
     <string name="str_ten">Tên</string>
     <string name="str_tg">Thời gian</string>

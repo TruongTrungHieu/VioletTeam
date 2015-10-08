@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:scrollbars="none"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:scrollbars="none" >
 
     <LinearLayout
         android:id="@+id/LnContainer"
@@ -58,10 +58,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/custom_spiner_bg"
-                    android:dropDownSelector="#FFF"
                     android:dropDownHeight="150dp"
-                    android:popupBackground="#FFF"
+                    android:dropDownSelector="#FFF"
                     android:entries="@array/country_arrays"
+                    android:popupBackground="#FFF"
                     android:prompt="@string/country_prompt" />
             </LinearLayout>
 
@@ -84,10 +84,10 @@
                     android:id="@+id/spEndPlace"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:background="@drawable/custom_spiner_bg"
+                    android:dropDownHeight="150dp"
                     android:entries="@array/country_arrays"
                     android:popupBackground="#FFF"
-                    android:dropDownHeight="150dp"
-                    android:background="@drawable/custom_spiner_bg"
                     android:prompt="@string/country_prompt" />
             </LinearLayout>
         </LinearLayout>
@@ -309,7 +309,7 @@
                     android:layout_weight="0.4"
                     android:background="@drawable/button_default_bg"
                     android:text="@string/suggest_place"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false" />
                 -->
             </LinearLayout>
         </LinearLayout>
@@ -498,7 +498,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnCreateTrip"
             style="@style/DefaultButtonText"
             android:layout_gravity="right"
             android:layout_marginBottom="20dp"

@@ -20,25 +20,36 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class CreateTripManagerActivity extends ActionBarActivity implements
 		OnMapReadyCallback {
 	private Spinner spStartPlace;
 	private Spinner spEndPlace;
-	Button btnCreatePlace;
+	Button btnCreatePlace, btnCreateTrip;
 	GoogleMap mMap;
+	EditText edTripName, edDayStart, edDayEnd, edKinhPhi, edTimePlace, edPlaceStart;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_trip_manager);
 		 if (getSupportActionBar() != null) {
-		 getSupportActionBar().setDisplayShowCustomEnabled(true);
+		 //getSupportActionBar().setDisplayShowCustomEnabled(true);
 		 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
 		 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		 }
+		 edTripName = (EditText) findViewById(R.id.txtNameTrip);
+		 edDayStart = (EditText) findViewById(R.id.txtStartDay);
+		 edDayEnd = (EditText) findViewById(R.id.txtEndDay);
+		 edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
+		 edTimePlace = (EditText) findViewById(R.id.txtTimePlace);
+		 edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
+		 
 		// GPS when leave
 		spStartPlace = (Spinner) findViewById(R.id.spStartPlace);
 		spEndPlace = (Spinner) findViewById(R.id.spEndPlace);
@@ -50,6 +61,22 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				displayAlertDialog();
+			}
+		});
+		btnCreateTrip = (Button) findViewById(R.id.btnCreateTrip);
+		btnCreateTrip.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(validatorButton()==true){
+					Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getBaseContext(), ""+edTripName.getText().toString(), Toast.LENGTH_SHORT).show();
+				}
+				else{
+					Toast.makeText(getBaseContext(), "Please check your infomations again", Toast.LENGTH_SHORT).show();
+					checkEditText();
+				}
 			}
 		});
 	}
@@ -91,6 +118,42 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		});
 		AlertDialog dialog = alert.create();
 		dialog.show();
+	}
+	public void checkEditText(){
+		if(edPlaceStart.getText().toString().isEmpty()){
+			edPlaceStart.setHint(R.string.textHintPlaceStart);
+			edPlaceStart.requestFocus();
+		}
+		if(edTimePlace.getText().toString().isEmpty()){
+			edTimePlace.setHint(R.string.textHintTimeStart);
+			edTimePlace.requestFocus();
+		}
+		if(edKinhPhi.getText().toString().isEmpty()){
+			edKinhPhi.setHint(R.string.textHintKinhPhi);
+			edKinhPhi.requestFocus();
+		}
+		if(edDayEnd.getText().toString().isEmpty()){
+			edDayEnd.setHint(R.string.textHintDayEnd);
+			edDayEnd.requestFocus();
+		}
+		if(edDayStart.getText().toString().isEmpty()){
+			edDayStart.setHint(R.string.textHintDayStart);
+			edDayStart.requestFocus();
+		}
+		if(edTripName.getText().toString().isEmpty()){
+			edTripName.setHint(R.string.textHintTitleTrip);
+			edTripName.requestFocus();
+		}
+	}
+	public boolean validatorButton(){
+		if(edTripName.getText().toString().isEmpty() ==false && edDayStart.getText().toString().isEmpty()==false
+				&& edDayEnd.getText().toString().isEmpty()==false && edKinhPhi.getText().toString().isEmpty()==false
+				&& edTimePlace.getText().toString().isEmpty()==false && edPlaceStart.getText().toString().isEmpty()==false){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	@Override
