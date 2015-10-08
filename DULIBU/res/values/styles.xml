@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -48,7 +48,6 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textAppearance">@style/TitleStyle</item>
     </style>
-    
 
     <style name="TitleStyle" parent="AppBaseTheme">
         <item name="android:textColor">@color/white</item>
@@ -59,11 +58,26 @@
     <style name="ToolBarStyle" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:textColor">@color/white</item>
     </style>
-    
+
+    <!-- Custon action bar no shadow -->
+    <style name="CustomActionBarNoShadow" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/ActionBarColor</item>
+        <item name="colorPrimaryDark">@color/StatusBarColor</item>
+        <item name="actionBarStyle">@style/MyActionBarStyle</item>
+        <!-- Pre-lolipop -->
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+
+        <!-- remove shadow below action bar -->
+        <item name="elevation">0dp</item>
+    </style>
+
     <!-- Custom action bar -->
     <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
-		<item name="colorPrimaryDark">#2E7D32</item>
+        <item name="colorPrimaryDark">#2E7D32</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
@@ -75,6 +89,7 @@
         <item name="background">@color/ActionBarColor</item>
     </style>
     <!-- Custom action bar -->
+
 
     <!-- Test -->
     <style name="Widget.MyApp.Toolbar.Solid" parent="Widget.AppCompat.ActionBar">

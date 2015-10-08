@@ -110,6 +110,11 @@
             android:label="@string/title_activity_setting"
             android:theme="@style/CustomActionBarTheme" >
         </activity>
+        <activity
+            android:name=".UserSecureConfirmManager"
+            android:label="@string/title_activity_user_secure_confirm"
+            android:theme="@style/CustomActionBarNoShadow" >
+        </activity>
     </application>
 
 </manifest>

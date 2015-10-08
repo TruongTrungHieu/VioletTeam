@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 
 import com.hou.dulibu.R;
-import com.hou.dulibu.R.id;
 import com.hou.model.Chitieu;
 
 import android.app.Activity;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class KhoanChiArrayAdapter extends ArrayAdapter<Chitieu> {

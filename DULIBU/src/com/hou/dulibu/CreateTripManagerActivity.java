@@ -6,7 +6,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
-import android.support.v4.app.FragmentActivity;
+
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.app.Fragment;

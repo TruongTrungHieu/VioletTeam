@@ -2,5 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hou.dulibu.TripDetailManagerActivity" >
-
+	<item
+        android:id="@+id/btnSaveTrip"
+        android:icon="@drawable/ic_star_outline_black_48dp"
+        android:title="@string/save_trip"
+        app:showAsAction="always"/>
+	<item
+        android:id="@+id/btnUnSaveTrip"
+        android:icon="@drawable/ic_star_black_48dp"
+        android:title="@string/save_trip"
+        app:showAsAction="always"/>
 </menu>

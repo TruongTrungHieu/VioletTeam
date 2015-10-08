@@ -59,6 +59,15 @@
 	<string name="tvMap">Bản đồ</string>
 	<string name="tvMapChange">Đổi kiểu bản đồ</string>
 	<string name="tvDieuKhoan">Điều khoản sử dụng</string>
+	
+	<!-- User secure confirm -->
+	<string name="tvStatus">An toàn</string>
+	<string name="titleStatus">Trạng thái</string>
+	<string name="inDanger">Gặp nguy hiểm</string>
+	<string name="tvChangeStatus">Cảnh báo trạng thái?</string>
+	<string name="tvLastLocation">Vị trí cuối cùng</string>
+	<string name="tvListConfirm">Danh sách cảnh báo</string>
+	<string name="title_activity_user_secure_confirm">Cảnh báo thành viên mất tích</string>
     
     <!-- Tạo chuyến đi -->
     <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
@@ -83,7 +92,7 @@
     <string name="creatTrip">Tạo mới</string>
     <string name="maps_actionbar">Map</string>
     <string name="messages_actionbar">Message</string>
-    <string name="title_activity_offline_">Offline_Activity</string>
+    <string name="title_activity_offline_">Sự kiện</string>
     <string name="title_activity_list__sukien_">List_Sukien_Activity</string>
     
     <string name="str_ten">Tên</string>

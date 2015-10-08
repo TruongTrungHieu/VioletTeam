@@ -10,16 +10,8 @@ import java.util.ArrayList;
 import com.hou.adapters.KhoanChiArrayAdapter;
 
 import com.hou.model.Chitieu;
-
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.renderscript.Sampler.Value;
-import android.support.v7.internal.widget.AdapterViewCompat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -47,7 +39,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chi_tieu);
-		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //		ActionBar actionBar = getActionBar();
 ////
@@ -105,8 +97,8 @@ public class ChiTieu_Activity extends ActionBarActivity {
 
 	public void updateTien1(int position){
 		//int khoanChi = 0;
-		String a="";
-		String b="";
+		//String a="";
+		//String b="";
 		double mucchi=0;
 		for(int i=0;i>=arrKhoanChi.size();i++){
 //			KhoanChi a = new KhoanChi();
@@ -116,7 +108,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		}
 	//	Toast.makeText(getApplicationContext(), khoanChi+"", Toast.LENGTH_SHORT).show();
 			
-		a = arrKhoanChi.get(0).getSotien() + ""; // Khi them phan tu moi vao thi arraylist add phan tu do vao dau day
+		//a = arrKhoanChi.get(0).getSotien() + ""; // Khi them phan tu moi vao thi arraylist add phan tu do vao dau day
 //		KhoanChi c = new KhoanChi();
 		int d = arrKhoanChi.size()-1;
 //		c = arrKhoanChi.get(d);
@@ -163,6 +155,9 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		if(id == R.id.home){
+			onBackPressed();
+		}
 		if (id == R.id.action_add) {
 			// Toast.makeText(getApplication(),"Select form add Chi tiet",
 			// Toast.LENGTH_SHORT).show();

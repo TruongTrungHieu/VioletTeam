@@ -6,7 +6,6 @@ import com.hou.dulibu.R;
 import com.hou.model.Lichtrinh;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;

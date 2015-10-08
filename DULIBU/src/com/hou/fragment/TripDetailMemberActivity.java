@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.hou.adapters.MemberAdapter;
 import com.hou.dulibu.ChiTieu_Activity;
 import com.hou.dulibu.R;
+import com.hou.dulibu.UserSecureConfirmManager;
 import com.hou.model.Lichtrinh_User;
 
 public class TripDetailMemberActivity extends Fragment  {
@@ -41,7 +43,7 @@ public class TripDetailMemberActivity extends Fragment  {
         	Lichtrinh_User a = new Lichtrinh_User();
         	a.setMaUser("MS001");
         	a.setTrangthai_ketnoi("Online");
-        	a.setTrangthai_antoan("Save");
+        	a.setTrangthai_antoan("Safe");
         	arrListMember.add(a);
         }
         
@@ -56,7 +58,10 @@ public class TripDetailMemberActivity extends Fragment  {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int positon,
 					long arg3) {
-				Toast.makeText(getActivity(), "item : " + positon, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(), "item : " + positon, Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getActivity(),
+						UserSecureConfirmManager.class);
+				startActivity(intent);
 			}
 		});
 	

@@ -19,7 +19,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
 public class TripDetailManagerActivity extends ActionBarActivity {
-
+	private Menu currentMenu;
 	private TabHost tabHost;
 	private TabSpec infoSpec, memberSpec, messageSpec, tripSpec;
 
@@ -39,7 +39,8 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 		setSupportActionBar(toolbar);
 
 		if (getSupportActionBar() != null) {
-			//getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
+			// getSupportActionBar().setBackgroundDrawable(new
+			// ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
@@ -113,7 +114,24 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.trip_detail_manager, menu);
+		currentMenu = menu;
+		currentMenu.getItem(0).setVisible(true);
+		currentMenu.getItem(1).setVisible(false);
 		return true;
+	}
+
+	private void saveAction(Menu menu) {
+		currentMenu = menu;
+		currentMenu.getItem(0).setVisible(false);
+		currentMenu.getItem(1).setVisible(true);
+		Toast.makeText(getBaseContext(), "" + R.string.actionSave, Toast.LENGTH_LONG).show();
+	}
+
+	private void UndoSaveAction(Menu menu) {
+		currentMenu = menu;
+		currentMenu.getItem(0).setVisible(true);
+		currentMenu.getItem(1).setVisible(false);
+		Toast.makeText(getBaseContext(), "" + R.string.actionUndoSave, Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -121,12 +139,18 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		switch (item.getItemId()) {
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.btnSaveTrip:
+			saveAction(currentMenu);
+			break;
+		case R.id.btnUnSaveTrip:
+			UndoSaveAction(currentMenu);
+			break;
 		case android.R.id.home:
 			onBackPressed();
 			break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 }

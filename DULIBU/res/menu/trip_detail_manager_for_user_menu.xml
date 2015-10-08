@@ -4,12 +4,12 @@
     tools:context="com.hou.dulibu.TripDetailManagerForUser" >
 
     <item
-        android:id="@+id/btnSaveTrip"
+        android:id="@+id/btnSaveTripForUser"
         android:icon="@drawable/ic_star_outline_black_48dp"
         android:title="@string/save_trip"
         app:showAsAction="always"/>
 	<item
-        android:id="@+id/btnUnSaveTrip"
+        android:id="@+id/btnUnSaveTripForUser"
         android:icon="@drawable/ic_star_black_48dp"
         android:title="@string/save_trip"
         app:showAsAction="always"/>

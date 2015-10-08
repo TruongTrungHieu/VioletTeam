@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutionException;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.os.AsyncTask;
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 

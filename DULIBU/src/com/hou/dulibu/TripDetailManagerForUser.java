@@ -4,7 +4,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-
 import com.hou.adapters.TripForUserViewPagerAdapter;
 import com.hou.adapters.TripForUserViewPagerAdapter;
 import com.hou.adapters.TripForUserViewPagerAdapter;
@@ -128,13 +127,13 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 		currentMenu = menu;
 		currentMenu.getItem(0).setVisible(false);
 		currentMenu.getItem(1).setVisible(true);
-		Toast.makeText(getBaseContext(), "trip Ä‘Æ°á»£c thÃªm vÃ o Æ°a thÃ­ch", Toast.LENGTH_LONG).show();
+		Toast.makeText(getBaseContext(), getString(R.string.actionSave), Toast.LENGTH_LONG).show();
 	}
 	private void UndoSaveAction(Menu menu){
 		currentMenu = menu;
 		currentMenu.getItem(0).setVisible(true);
 		currentMenu.getItem(1).setVisible(false);
-		Toast.makeText(getBaseContext(), "trip Ä‘Æ°á»£c loáº¡i khá»�i Æ°a thÃ­ch", Toast.LENGTH_LONG).show();
+		Toast.makeText(getBaseContext(), getString(R.string.actionUndoSave), Toast.LENGTH_LONG).show();
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,10 +147,10 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 		}*/
 		int id = item.getItemId();
 		switch (id) {
-		case R.id.btnSaveTrip:
+		case R.id.btnSaveTripForUser:
 			saveAction(currentMenu);
 			break;
-		case R.id.btnUnSaveTrip:
+		case R.id.btnUnSaveTripForUser:
 			UndoSaveAction(currentMenu);
 			break;
 		case android.R.id.home:

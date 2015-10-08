@@ -3,10 +3,6 @@ package com.hou.adapters;
 import com.hou.dulibu.R;
 import com.hou.fragment.PhuotDetailLocation;
 import com.hou.fragment.PhuotDetailOverview;
-import com.hou.fragment.TripDetailInfoActivity;
-import com.hou.fragment.TripDetailMemberActivity;
-import com.hou.fragment.TripDetailMessageActivity;
-import com.hou.fragment.TripDetailTripActivity;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

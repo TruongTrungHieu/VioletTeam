@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.hou.model.Chatluong_Lichtrinh;
-import com.hou.model.Lichtrinh;
 import com.hou.model.User;
 
 import android.content.ContentValues;

@@ -1,31 +1,21 @@
 package com.hou.adapters;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.hou.app.Global;
 import com.hou.dulibu.R;
-import com.hou.fragment.PhuotDetailOverview;
 import com.hou.model.Diemphuot;
-import com.hou.model.Lichtrinh;
 import com.hou.ultis.ImageUltiFunctions;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DiemphuotAdapter extends BaseAdapter {
 	Context context;
@@ -65,7 +55,6 @@ public class DiemphuotAdapter extends BaseAdapter {
 
 		TextView tv_name = (TextView) v.findViewById(R.id.tvPhuotName);
 		TextView tv_address = (TextView) v.findViewById(R.id.tvAddress);
-		TextView tv_hardlevel = (TextView) v.findViewById(R.id.tvHardLevel);
 
 		//Toast.makeText(context, "" + phuots.get(position).getMaDiemphuot(), Toast.LENGTH_SHORT);
 		// im.setBackgroundResource(((Place) phuots.get(position)).getImage());

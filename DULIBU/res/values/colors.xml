@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="btnStatusColor">#424242</color>
     <color name="SoftGreen">#66BB6A</color>
     <color name="GrayLine">#E0E0E0</color>
 	<color name="StatusBarColor">#2E7D32</color>

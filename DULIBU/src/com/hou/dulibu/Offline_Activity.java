@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hou.adapters.SuKienAdapter;
-import com.hou.model.Chitieu;
 import com.hou.model.Sukien;
 
 public class Offline_Activity extends ActionBarActivity {
@@ -32,6 +31,7 @@ public class Offline_Activity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_offline);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		lvSukien = (ListView) findViewById(R.id.lvMap);
 		arrSuKien = new ArrayList<Sukien>();
@@ -53,12 +53,15 @@ public class Offline_Activity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		if(id == R.id.home){
+			onBackPressed();
+		}
 		if (id == R.id.action_add) {
 			// Toast.makeText(getApplication(),"Select form add Chi tiet",
 			// Toast.LENGTH_SHORT).show();
 			final Dialog dialog = new Dialog(context);
 			dialog.setContentView(R.layout.dialog_sukien);
-			dialog.setTitle("Thông tin sự kiện");
+			dialog.setTitle(getString(R.string.title_activity_offline_));
 			
 	    
 			Button btnOK = (Button) dialog.findViewById(R.id.btnAdd);

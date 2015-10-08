@@ -9,6 +9,7 @@ import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
+import com.hou.dulibu.UserSecureConfirmManager;
 import com.hou.model.Lichtrinh;
 
 import android.app.ProgressDialog;
@@ -71,7 +72,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 								"" + lichtrinh.get(position).getMaLichtrinh(),
 								Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(getActivity(),
-								TripDetailManagerActivity.class);
+								TripDetailManagerForUser.class);
 						startActivity(intent);
 					}
 				});

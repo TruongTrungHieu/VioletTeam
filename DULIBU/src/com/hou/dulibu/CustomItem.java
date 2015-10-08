@@ -1,6 +1,5 @@
 package com.hou.dulibu;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;

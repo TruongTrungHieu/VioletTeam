@@ -6,6 +6,7 @@ import com.hou.adapters.LichtrinhAdapter;
 import com.hou.adapters.MyTripAdapter;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
+import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
 import com.hou.model.Lichtrinh;
 
@@ -68,7 +69,7 @@ public class MyTrips extends android.support.v4.app.Fragment {
 								"" + lichtrinh.get(position).getMaLichtrinh(),
 								Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(getActivity(),
-								TripDetailManagerForUser.class);
+								TripDetailManagerActivity.class);
 						startActivity(intent);
 					}
 				});
