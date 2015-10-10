@@ -93,7 +93,7 @@
         android:layout_marginBottom="15dp"
         android:text="Ngày sinh" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtBirthday"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -101,10 +101,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/edittext_default_bg"
-        android:hint="@string/fomatDate"
-        android:inputType="text"
+        android:text="@string/fomatDate"
         android:padding="10dp"
-        android:textColorHint="#bbbbbb"
         android:textSize="14sp" />
 
     <RadioGroup

@@ -155,15 +155,16 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if(id == R.id.home){
+		if(id == android.R.id.home){
 			onBackPressed();
+			Toast.makeText(getBaseContext(), "ok back", Toast.LENGTH_SHORT).show();
 		}
 		if (id == R.id.action_add) {
 			// Toast.makeText(getApplication(),"Select form add Chi tiet",
 			// Toast.LENGTH_SHORT).show();
 			final Dialog dialog = new Dialog(context);
 			dialog.setContentView(R.layout.dialog_khoanchi);
-			dialog.setTitle("Thông tin khoản chi");
+			dialog.setTitle(R.string.titleChiPhiDialog);
 			
 			//dialog.setTitle("Title Khoan Chi ");
 

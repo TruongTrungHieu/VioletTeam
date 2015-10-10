@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -22,8 +23,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class CreateTripManagerActivity extends ActionBarActivity implements
@@ -31,8 +35,10 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 	private Spinner spStartPlace;
 	private Spinner spEndPlace;
 	Button btnCreatePlace, btnCreateTrip;
+	//TimePicker tpTimePK;
 	GoogleMap mMap;
-	EditText edTripName, edDayStart, edDayEnd, edKinhPhi, edTimePlace, edPlaceStart;
+	EditText edTripName, edKinhPhi, edPlaceStart;
+	TextView edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime, edOfflineTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +50,14 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		 }
 		 edTripName = (EditText) findViewById(R.id.txtNameTrip);
-		 edDayStart = (EditText) findViewById(R.id.txtStartDay);
-		 edDayEnd = (EditText) findViewById(R.id.txtEndDay);
+		 edDayStart = (TextView) findViewById(R.id.txtStartDay);
+		 edDayEnd = (TextView) findViewById(R.id.txtEndDay);
 		 edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
-		 edTimePlace = (EditText) findViewById(R.id.txtTimePlace);
+		 edTimePlace = (TextView) findViewById(R.id.txtTimePlace);
 		 edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
+		 edStartTime =(TextView) findViewById(R.id.txtStartTime);
+		 edEndTime = (TextView) findViewById(R.id.txtEndTime);
+		 edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
 		 
 		// GPS when leave
 		spStartPlace = (Spinner) findViewById(R.id.spStartPlace);
@@ -79,7 +88,119 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				}
 			}
 		});
+		edOfflineTime.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker, R.id.btnCancelCreateTripTimePiker, edOfflineTime, R.layout.time_picker, R.string.titleTimeDialog);
+			}
+		});
+		edEndTime.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker, R.id.btnCancelCreateTripTimePiker, edEndTime, R.layout.time_picker, R.string.titleTimeDialog);
+			}
+		});
+		edStartTime.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker, R.id.btnCancelCreateTripTimePiker, edStartTime, R.layout.time_picker, R.string.titleTimeDialog);
+			}
+		});
+		edDayEnd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker, R.id.btnCancelCreateTripDatePiker, edDayEnd, R.layout.date_picker, R.string.titleTimeDialog);
+			}
+		});
+		edDayStart.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker, R.id.btnCancelCreateTripDatePiker, edDayStart, R.layout.date_picker, R.string.titleTimeDialog);
+			}
+		});
+		edTimePlace.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//timePlacePikerDialog();
+				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker, R.id.btnCancelCreateTripTimePiker, edTimePlace, R.layout.time_picker, R.string.titleTimeDialog);
+			}
+			
+		});
 	}
+	public void datePikerDialog(int datePickerID, int btnDoneID, int btnCancelID, final TextView tv, int Layout, int dialogTitle){
+		final Dialog dialog = new Dialog(this);
+        dialog.setContentView(Layout);
+        dialog.setTitle(dialogTitle);
+        dialog.setCancelable(true);
+        final DatePicker dpDatePK = (DatePicker) dialog.findViewById(datePickerID);
+        
+        Button btnCancelDatePiker = (Button) dialog.findViewById(btnCancelID);
+        btnCancelDatePiker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+        Button btnDoneDatePicker = (Button) dialog.findViewById(btnDoneID);
+        btnDoneDatePicker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//TextView edTimePlace =  (TextView) findViewById(textID);
+				int month = dpDatePK.getMonth()+1;
+				tv.setText(dpDatePK.getDayOfMonth()+"/"+month+"/"+dpDatePK.getYear());
+				dialog.dismiss();
+			}
+		});
+        //Show Dialog
+        dialog.show();
+	}
+	public void timePikerDialog(int timePickerID, int btnDoneID, int btnCancelID, final TextView tv, int Layout, int dialogTitle){
+		final Dialog dialog = new Dialog(this);
+        dialog.setContentView(Layout);
+        dialog.setTitle(dialogTitle);
+        dialog.setCancelable(true);
+        final TimePicker tpTimePK = (TimePicker) dialog.findViewById(timePickerID);
+        tpTimePK.setIs24HourView(true);
+        Button btnCancelTimePiker = (Button) dialog.findViewById(btnCancelID);
+        btnCancelTimePiker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+        Button btnDoneTimePicker = (Button) dialog.findViewById(btnDoneID);
+        btnDoneTimePicker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//TextView edTimePlace =  (TextView) findViewById(textID);
+				tv.setText(tpTimePK.getCurrentHour()+":"+tpTimePK.getCurrentMinute());
+				dialog.dismiss();
+			}
+		});
+        //Show Dialog
+        dialog.show();
+	}
+	
 
 	public void displayAlertDialog() {
 		LayoutInflater inflater = getLayoutInflater();

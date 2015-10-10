@@ -1,6 +1,7 @@
 package com.hou.dulibu;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,10 +28,10 @@ import android.widget.Toast;
 public class RegisterManagerActivity extends ActionBarActivity {
 	private RadioGroup radiosex;
 	private RadioButton rbButton;
-	private EditText email,username,pass,ck_pass,fullname,ngaysinh;
+	private EditText email,username,pass,ck_pass,fullname;
 	private Button sumit;
 	private CheckBox ck_dieukhoan;
-	private TextView dieukhoan;
+	private TextView dieukhoan,ngaysinh;
 	private Context context=this;
 
 	@Override
@@ -47,7 +49,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		pass = (EditText) findViewById(R.id.txtPassword);
 		ck_pass = (EditText) findViewById(R.id.txtRePassword);
 		fullname = (EditText) findViewById(R.id.txtFullname);
-		ngaysinh = (EditText) findViewById(R.id.txtBirthday);
+		ngaysinh = (TextView) findViewById(R.id.txtBirthday);
 		radiosex = (RadioGroup) findViewById(R.id.radiosex);
 		sumit = (Button) findViewById(R.id.btnRegister);
 		sumit.setOnClickListener(new OnClickListener() {
@@ -69,7 +71,47 @@ public class RegisterManagerActivity extends ActionBarActivity {
 				showDialog();
 			}
 		});
+		ngaysinh.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker, R.id.btnCancelCreateTripDatePiker, ngaysinh, R.layout.date_picker, R.string.titleTimeDialog);
+			}
+		});
 	}
+	public void datePikerDialog(int datePickerID, int btnDoneID, int btnCancelID, final TextView tv, int Layout, int dialogTitle){
+		final Dialog dialog = new Dialog(this);
+        dialog.setContentView(Layout);
+        dialog.setTitle(dialogTitle);
+        dialog.setCancelable(true);
+        final DatePicker dpDatePK = (DatePicker) dialog.findViewById(datePickerID);
+        
+        Button btnCancelDatePiker = (Button) dialog.findViewById(btnCancelID);
+        btnCancelDatePiker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+        Button btnDoneDatePicker = (Button) dialog.findViewById(btnDoneID);
+        btnDoneDatePicker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//TextView edTimePlace =  (TextView) findViewById(textID);
+				int month = dpDatePK.getMonth()+1;
+				tv.setText(dpDatePK.getDayOfMonth()+"/"+month+"/"+dpDatePK.getYear());
+				dialog.dismiss();
+			}
+		});
+        //Show Dialog
+        dialog.show();
+	}
+	
 	public void CheckboxSelected(){
 		if(email.getText().toString().equals("")||username.getText().toString().equals("")||pass.getText().toString().equals("")
 				|| ck_pass.getText().toString().equals("")||fullname.getText().toString().equals("")||ngaysinh.getText().toString().equals("")){

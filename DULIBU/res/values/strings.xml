@@ -48,6 +48,14 @@
     <string name="actionSave">Trip được thêm vào ưu thích</string>
     <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
     
+    <!-- Offline_activity -->
+    <string name="titleOfflineDialog">Tạo mới sự kiện</string>
+    
+    <!-- Chitieu_activity -->
+    <string name="titleChiPhiDialog">Thêm chi phí</string>
+    <string name="hintTenMucChi">Tên mục chi</string>
+    <string name="hintSoTienChi">Số tiền chi</string>
+    
     <!-- Setting -->
     <string name="tvNgonNgu">Ngôn ngữ</string>
     <string name="tvDanhSachNguoiNhan">Danh sách người nhận</string>
@@ -102,6 +110,10 @@
     <string name="textHintKinhPhi">Kinh phí</string>
     <string name="textHintPlaceStart">Điểm xuất phát</string>
     <string name="textHintTimeStart">Thời gian tập trung</string>
+    <string name="btnDoneCreateTripTimePicker">Xong</string>
+    <string name="btnCancelCreateTripTimePicker">Quay lại</string>
+    <string name="titleSetTime">00:00</string>
+    <string name="titleTimeDialog">Đặt thời gian</string>
     
     <string name="str_ten">Tên</string>
     <string name="str_tg">Thời gian</string>

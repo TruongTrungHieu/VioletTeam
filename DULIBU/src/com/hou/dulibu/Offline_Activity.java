@@ -53,7 +53,7 @@ public class Offline_Activity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if(id == R.id.home){
+		if(id == android.R.id.home){
 			onBackPressed();
 		}
 		if (id == R.id.action_add) {
@@ -61,7 +61,7 @@ public class Offline_Activity extends ActionBarActivity {
 			// Toast.LENGTH_SHORT).show();
 			final Dialog dialog = new Dialog(context);
 			dialog.setContentView(R.layout.dialog_sukien);
-			dialog.setTitle(getString(R.string.title_activity_offline_));
+			dialog.setTitle(getString(R.string.titleOfflineDialog));
 			
 	    
 			Button btnOK = (Button) dialog.findViewById(R.id.btnAdd);

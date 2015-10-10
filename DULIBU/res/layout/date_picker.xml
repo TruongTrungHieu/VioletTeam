@@ -1,54 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-   
-
-    <TableRow
-        android:paddingLeft="5dp"
-        android:layout_width="match_parent"
+    <DatePicker
+        android:id="@+id/dpCreateDatePicker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:weightSum="5">
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:headerBackground="@color/ActionBarColor"
+        android:datePickerMode="calendar" />
 
-        <EditText
-            android:id="@+id/txtTenMucChi"
-            android:layout_weight="5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hintTenMucChi"
-            android:maxLines="1">
-
-            <requestFocus />
-        </EditText>
-    </TableRow>
-
-    <TableRow
-        android:paddingLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:weightSum="5">
-
-        <EditText
-            android:id="@+id/txtSoTien"
-            android:layout_weight="5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:hint="@string/hintSoTienChi"
-            android:maxLines="1">
-
-           
-        </EditText>
-    </TableRow>
-	<LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
@@ -59,7 +24,7 @@
         android:weightSum="2" >
 
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnDoneCreateTripDatePiker"
             style="@style/DefaultButtonText"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -78,7 +43,7 @@
             />
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnCancelCreateTripDatePiker"
             style="@style/DefaultButtonText"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -89,4 +54,5 @@
             android:textColor="@color/StatusBarColor"
             android:textStyle="bold" />
     </LinearLayout>
+
 </LinearLayout>
