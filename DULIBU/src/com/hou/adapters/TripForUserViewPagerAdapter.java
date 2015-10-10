@@ -4,6 +4,7 @@ import com.hou.dulibu.R;
 import com.hou.fragment.TripDetailInfoForUser;
 import com.hou.fragment.TripDetailTripForUser;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;

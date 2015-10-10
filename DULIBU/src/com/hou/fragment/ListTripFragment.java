@@ -2,6 +2,10 @@ package com.hou.fragment;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.hou.adapters.LichtrinhAdapter;
 import com.hou.dulibu.CreateTripManagerActivity;
 //import com.hou.dulibu.CreateTripManagerActivity;
@@ -12,7 +16,9 @@ import com.hou.dulibu.TripDetailManagerForUser;
 import com.hou.dulibu.UserSecureConfirmManager;
 import com.hou.model.Lichtrinh;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -84,6 +90,34 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		return view;
 
 	}
+	private void SearchTrip(){
+		LayoutInflater inflater = getActivity().getLayoutInflater();
+		View alertLayout = inflater.inflate(R.layout.search_trip_dialog, null);
+		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		alert.setView(alertLayout);
+		alert.setCancelable(false);
+		alert.setTitle("Tìm kiếm");
+		alert.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						return;
+						
+					}
+				});
+
+		alert.setPositiveButton("Tìm kiếm", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				return;
+			}
+		});
+		AlertDialog dialog = alert.create();
+		dialog.show();
+	}
 
 	@Override
 	public void onDestroy() {
@@ -119,9 +153,11 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		case R.id.addTripActionBar:
 			Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
 			startActivity(intent);
-		default:
-			return super.onOptionsItemSelected(item);
-
+			break;
+		case R.id.searchTrip:
+			SearchTrip();
+			break;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 }
