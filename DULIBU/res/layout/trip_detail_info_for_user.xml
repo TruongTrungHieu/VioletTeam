@@ -53,7 +53,7 @@
                 <Button
                     android:id="@+id/btnLeaveForUser"
                     style="@style/DefaultButtonText"
-                    android:layout_width="80dp"
+                    android:layout_width="120dp"
                     android:layout_height="25dp"
                     android:layout_alignLeft="@+id/btnJoinForUser"
                     android:layout_alignTop="@+id/btnJoinForUser"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -10,4 +10,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/layoutButtomSide"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFF"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/imgMapPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:padding="15dp"
+            android:src="@drawable/map_place" />
+
+        <ImageView
+            android:id="@+id/imgMapWarnning"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/imgMapPlace"
+            android:padding="15dp"
+            android:src="@drawable/map_warnning" />
+
+        <ImageView
+            android:id="@+id/imgMapTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/imgMapWarnning"
+            android:padding="15dp"
+            android:src="@drawable/map_team" />
+
+        <ImageView
+            android:id="@+id/imgMapHospital"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/imgMapTeam"
+            android:padding="15dp"
+            android:src="@drawable/map_hospital" />
+
+        <ImageView
+            android:id="@+id/imgMapGas"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/imgMapHospital"
+            android:padding="15dp"
+            android:src="@drawable/map_gas" />
+    </RelativeLayout>
+
+</RelativeLayout>

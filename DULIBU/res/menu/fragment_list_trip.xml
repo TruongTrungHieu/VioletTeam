@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hou.fragment.ListTripFragment" >
 
-  <item
+    <item
+        android:id="@+id/searchTrip"
+        android:icon="@drawable/icon_search"
+        android:title="@string/search_trip"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/addTripActionBar"
         android:icon="@drawable/plus16"
         android:title="@string/create_trip"
         app:showAsAction="always"/>
+
 </menu>

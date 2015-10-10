@@ -80,6 +80,7 @@
     <string name="chiphi">Kinh phí dự kiến</string>
     <string name="chooseTrip">Lịch trình</string>
     <string name="create_trip">Tạo lịch trình</string>
+    <string name="search_trip">Tìm kiếm</string>
     <string name="fomatDate">dd/mm/yyyy</string>
     <string name="fomatTime">00:00</string>
     <string name="chooseImage">Chọn ảnh</string>
@@ -145,4 +146,8 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
+    
+    <string name="name_price">Giá</string>
+    <string name="name_Date">Ngày</string>
+    
 </resources>

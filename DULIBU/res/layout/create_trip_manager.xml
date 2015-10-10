@@ -505,6 +505,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/button_default_bg"
             android:text="@string/creatTrip" />
+        
     </LinearLayout>
 
 </ScrollView>

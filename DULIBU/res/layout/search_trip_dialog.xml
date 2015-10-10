@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/lnContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/name_trip"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/txtNameTrip"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/edittext_default_bg"
+            android:inputType="text"
+            android:padding="10dp"
+            android:scrollbars=""
+            android:textColorHint="#bbbbbb"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/LnStartEndPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/LnStartPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/startPlace"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/spStartPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/custom_spiner_bg"
+                    android:dropDownHeight="150dp"
+                    android:dropDownSelector="#FFF"
+                    android:entries="@array/country_arrays"
+                    android:popupBackground="#FFF"
+                    android:prompt="@string/country_prompt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LnEndPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/endPlace"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/spEndPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/custom_spiner_bg"
+                    android:dropDownHeight="150dp"
+                    android:entries="@array/country_arrays"
+                    android:popupBackground="#FFF"
+                    android:prompt="@string/country_prompt" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/name_price"
+            android:textColor="#000" />
+        
+        <SeekBar
+            android:id="@+id/seekBarPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:max="100" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/name_Date"
+            android:textColor="#000" />
+        
+        <SeekBar
+            android:id="@+id/seekBarDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:max="100" />
+    </LinearLayout>
+
+</LinearLayout>
