@@ -1,6 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expandable_selector="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#FFF" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -8,42 +11,61 @@
         android:background="#FFF"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/lnImgInfo"
+        <RelativeLayout
+            android:id="@+id/rlImgInfo"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:background="@drawable/default_cover"
             android:layout_alignParentTop="true"
+            android:background="@drawable/default_cover"
             android:orientation="vertical" >
 
-            <ImageView
+            <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:alpha="50"
-                android:background="@drawable/image_border_radius"
-                android:src="@drawable/default_avartar" />
+                android:src="@drawable/default_avartar"
+                app:siShape="@drawable/rounded_rectangle_shape"
+                app:siSquare="true" />
 
             <TextView
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="50dp"
+                android:layout_toRightOf="@id/ivProfile"
                 android:drawableLeft="@drawable/icon_female"
-                android:text=" Maria Olala"
+                android:drawablePadding="5dp"
+                android:text="Maria Olala"
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-        </LinearLayout>
-        
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvUserName"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/ivProfile"                
+                android:drawablePadding="10dp"
+                android:text="I&apos;m fine"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/lnInfomation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/lnImgInfo"
+            android:layout_below="@id/rlImgInfo"
             android:orientation="vertical" >
 
             <TextView
@@ -147,6 +169,19 @@
                 android:textColor="#505050"
                 android:textSize="14sp" />
         </LinearLayout>
+
+        <com.hou.ultis.CircleImageView
+            android:id="@+id/ivStatus"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="100000dp"
+            android:layout_above="@id/lnInfomation"
+            android:layout_alignParentRight="true"            
+            android:layout_marginBottom="-25dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/item_pink"
+            android:src="@drawable/icon_fine" />
+        
     </RelativeLayout>
 
 </ScrollView>

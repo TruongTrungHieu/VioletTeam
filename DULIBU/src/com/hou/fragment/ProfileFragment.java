@@ -1,15 +1,28 @@
 package com.hou.fragment;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hou.dulibu.R;
 import com.hou.dulibu.SettingActivity;
+import com.hou.model.Trangthai_User;
+import com.hou.ultis.CircleImageView;
+import com.karumi.expandableselector.ExpandableItem;
+import com.karumi.expandableselector.ExpandableSelector;
+import com.karumi.expandableselector.OnExpandableItemClickListener;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +31,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +48,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private ProgressDialog pDialog;
 	private Menu currentMenu;
 	public static Point screenSize = new Point();
-	LinearLayout lnImgInfo;
+	RelativeLayout lnImgInfo;
 	ImageView ivProfile;
-	TextView tvUserName;
+	TextView tvUserName, tvStatus;
 	EditText etFullName, etUserName, etEmail, etBirthday, etPhone, etContact;
+	private CircleImageView ivStatus;
+	List<Trangthai_User> statusList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,28 +71,30 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		getActivity().getWindowManager().getDefaultDisplay()
 				.getSize(screenSize);
 
-		findViewById(view);
-		// showSlideImage(SlideImageArr);
-
-		// initGridView(view);
-		// showSlideImage(SlideImageArr);
-		// initGridView(view);
+		initView(view);
+		statusList = new ArrayList<Trangthai_User>();
+		statusList.add(new Trangthai_User("1", "Tot", "brown"));
+		statusList.add(new Trangthai_User("2", "Kha", "green"));
+		statusList.add(new Trangthai_User("3", "Trung binh", "orange"));
+		statusList.add(new Trangthai_User("4", "Yeu", "pink"));
 		return view;
 	}
 
-	public void findViewById(View view) {
-		lnImgInfo = (LinearLayout) view.findViewById(R.id.lnImgInfo);
+	public void initView(View view) {
+		lnImgInfo = (RelativeLayout) view.findViewById(R.id.rlImgInfo);
 		ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
 		tvUserName = (TextView) view.findViewById(R.id.tvUserName);
 		etFullName = (EditText) view.findViewById(R.id.etFullName);
-		
+		ivStatus = (CircleImageView) view.findViewById(R.id.ivStatus);
+		tvStatus = (TextView) view.findViewById(R.id.tvStatus);
+
 		etEmail = (EditText) view.findViewById(R.id.etEmail);
 		etBirthday = (EditText) view.findViewById(R.id.etBirthday);
 		etPhone = (EditText) view.findViewById(R.id.etPhone);
 		etContact = (EditText) view.findViewById(R.id.etContact);
-		
-		
+
 		ivProfile.setOnClickListener(this);
+		ivStatus.setOnClickListener(this);
 	}
 
 	@Override
@@ -103,7 +127,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.messages:
 			break;
+
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -114,7 +140,11 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		case R.id.ivProfile:
 
 			break;
+		case R.id.ivStatus:
+			listDialog();
+			break;
 		}
+
 	}
 
 	public class ImageDialog extends Dialog implements View.OnClickListener {
@@ -134,6 +164,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			tvFromGallery.setOnClickListener(this);
 			getWindow().setLayout((int) (screenSize.x * 0.95),
 					ViewGroup.LayoutParams.WRAP_CONTENT);
+
+			WindowManager.LayoutParams wmlp = getWindow().getAttributes();
+
+			wmlp.gravity = Gravity.TOP | Gravity.LEFT;
+			wmlp.x = 100; // x position
+			wmlp.y = 100; // y position
 			// getWindow().getDecorView().setBackgroundResource(0);
 		}
 
@@ -169,6 +205,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			// }
 		}
 	}
+
 	//
 	// @Override
 	// public void onActivityResult(int requestCode, int resultCode, Intent
@@ -200,4 +237,130 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	// }
 	// }
 	// }
+
+	public void listDialog() {
+		final Dialog dialog = new Dialog(getActivity());
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawableResource(
+				android.R.color.transparent);
+		dialog.setContentView(R.layout.list_status);
+		ListView lv = (ListView) dialog.findViewById(R.id.listStatus);
+		
+		ListStatusAdapter adapter = new ListStatusAdapter(getActivity(), 0,
+				statusList);
+		lv.setAdapter(adapter);
+		lv.setBackgroundResource(android.R.color.transparent);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				switch (arg2) {
+				case 0:
+					ivStatus.setBackgroundResource(R.drawable.item_brown);
+					ivStatus.setImageResource(R.drawable.icon_about);
+					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
+					dialog.dismiss();
+					break;
+				case 1:
+					ivStatus.setBackgroundResource(R.drawable.item_green);
+					ivStatus.setImageResource(R.drawable.icon_address);
+					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
+					dialog.dismiss();
+					break;
+				case 2:
+					ivStatus.setBackgroundResource(R.drawable.item_orange);
+					ivStatus.setImageResource(R.drawable.icon_bday);
+					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
+					dialog.dismiss();
+					break;
+				case 3:
+					ivStatus.setBackgroundResource(R.drawable.item_pink);
+					ivStatus.setImageResource(R.drawable.icon_heart);
+					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
+					dialog.dismiss();
+					break;
+				default:
+					break;
+				}
+			}
+		});
+		WindowManager.LayoutParams wmlp = dialog.getWindow().getAttributes();
+		wmlp.width = (int) (screenSize.x * 0.55);
+		wmlp.gravity = Gravity.TOP | Gravity.LEFT;
+		wmlp.x = ivStatus.getLeft();
+		wmlp.y = ivStatus.getTop() + 230;
+
+		dialog.getWindow().clearFlags(
+				WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+		dialog.show();
+	}
+
+	public class ListStatusAdapter extends ArrayAdapter<Trangthai_User> {
+		Context context;
+		List<Trangthai_User> list;
+
+		public ListStatusAdapter(Context context, int resource,
+				List<Trangthai_User> objects) {
+			super(context, resource, objects);
+			// TODO Auto-generated constructor stub
+			this.context = context;
+			this.list = objects;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			StatusHolder holder;
+			if (convertView == null) {
+				convertView = inflater.inflate(R.layout.tesst, parent, false);
+				holder = new StatusHolder();
+				initView(holder, convertView);
+				convertView.setTag(holder);
+			} else {
+				holder = (StatusHolder) convertView.getTag();
+			}
+			setData(holder, list.get(position));
+			return convertView;
+		}
+
+		public void initView(StatusHolder holder, View view) {
+			holder.name = (TextView) view.findViewById(R.id.tvStatusName);
+			holder.icon = (CircleImageView) view.findViewById(R.id.ivStatus);
+		}
+
+		public void setData(StatusHolder holder, Trangthai_User status) {
+			holder.name.setText(status.getTenTrangthai());
+			switch (status.getGhichu()) {
+			case "brown":
+				holder.icon.setBackgroundResource(R.drawable.item_brown);
+				holder.icon.setImageResource(R.drawable.icon_about);
+				break;
+			case "green":
+				holder.icon.setBackgroundResource(R.drawable.item_green);
+				holder.icon.setImageResource(R.drawable.icon_address);
+				break;
+			case "orange":
+				holder.icon.setBackgroundResource(R.drawable.item_orange);
+				holder.icon.setImageResource(R.drawable.icon_bday);
+				break;
+			case "pink":
+				holder.icon.setBackgroundResource(R.drawable.item_pink);
+				holder.icon.setImageResource(R.drawable.icon_heart);
+				break;
+			default:
+				holder.icon.setBackgroundResource(R.drawable.item_brown);
+				holder.icon.setImageResource(R.drawable.item_brown);
+				break;
+			}
+		}
+	}
+
+	public static class StatusHolder {
+		public TextView name;
+		public CircleImageView icon;
+	}
 }

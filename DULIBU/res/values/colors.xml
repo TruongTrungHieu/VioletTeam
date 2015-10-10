@@ -3,19 +3,15 @@
     <color name="btnStatusColor">#424242</color>
     <color name="SoftGreen">#66BB6A</color>
     <color name="GrayLine">#E0E0E0</color>
-	<color name="StatusBarColor">#2E7D32</color>
+    <color name="StatusBarColor">#2E7D32</color>
     <color name="ActionBarColor">#0aae44</color>
     <color name="holo_blue_dark">#ff0099cc</color>
     <color name="view_divider_color">#BABABA</color>
     <color name="view_divider_color_2">#DADADA</color>
-    <color name="green">#00EE00</color>
     <color name="drawercolor">#BBFFFF</color>
     <color name="action_bar_color">#54759e</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
     <color name="red">#F44336</color>
     <color name="blue">#00EE00</color>
-    <color name="gray">#E0E0E0</color>
     <color name="list_item_title">#fff</color>
     <color name="list_background">#303030</color>
     <color name="list_background_pressed">#54759e</color>
@@ -35,5 +31,12 @@
     <color name="list_row_end_color">#ffffff</color>
     <color name="list_row_hover_start_color">#ebeef0</color>
     <color name="list_row_hover_end_color">#ebeef0</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="brown">#FF4B2D29</color>
+    <color name="green">#FF42543C</color>
+    <color name="orange">#FFE29B33</color>
+    <color name="pink">#FFE9C7C7</color>
+    <color name="gray">#FF929292</color>
 
 </resources>
