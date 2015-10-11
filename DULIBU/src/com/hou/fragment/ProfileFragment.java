@@ -1,23 +1,28 @@
 package com.hou.fragment;
 
-import java.lang.reflect.Array;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.siyamed.shapeimageview.CircularImageView;
+import com.hou.app.Global;
 import com.hou.dulibu.R;
 import com.hou.dulibu.SettingActivity;
 import com.hou.model.Trangthai_User;
-import com.hou.ultis.CircleImageView;
+import com.hou.ultis.ImageUltiFunctions;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,17 +34,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ProfileFragment extends Fragment implements OnClickListener {
 	private ProgressDialog pDialog;
@@ -49,8 +52,13 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	ImageView ivProfile;
 	TextView tvUserName, tvStatus;
 	EditText etFullName, etUserName, etEmail, etBirthday, etPhone, etContact;
-	private CircleImageView ivStatus;
+	private CircularImageView ivStatus;
 	List<Trangthai_User> statusList;
+	private static final int PICK_FROM_CAMERA = 1;
+	private static final int PICK_FROM_FILE = 2;
+	private File fromCameraFile;
+	private Uri mImageCaptureUri;
+	private String path;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +90,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
 		tvUserName = (TextView) view.findViewById(R.id.tvUserName);
 		etFullName = (EditText) view.findViewById(R.id.etFullName);
-		ivStatus = (CircleImageView) view.findViewById(R.id.ivStatus);
+		ivStatus = (CircularImageView) view.findViewById(R.id.ivStatus);
 		tvStatus = (TextView) view.findViewById(R.id.tvStatus);
 
 		etEmail = (EditText) view.findViewById(R.id.etEmail);
@@ -112,11 +120,17 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			currentMenu.getItem(2).setVisible(false);
 			currentMenu.getItem(3).setVisible(true);
 			// Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
+			setEnable();
+			InputMethodManager mgr = (InputMethodManager) getActivity()
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			mgr.showSoftInput(etFullName, InputMethodManager.SHOW_IMPLICIT);
+			etFullName.requestFocus();
 			break;
 		case R.id.done_setting_actionbar:
 			currentMenu.getItem(2).setVisible(true);
 			currentMenu.getItem(3).setVisible(false);
 			// Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
+			setDisable();
 			break;
 		case R.id.setting:
 			Intent intent = new Intent(getActivity(), SettingActivity.class);
@@ -135,7 +149,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ivProfile:
-
+			new ImageDialog(getActivity(), R.layout.select_image_layout).show();
 			break;
 		case R.id.ivStatus:
 			listDialog();
@@ -172,68 +186,75 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
-			// switch (v.getId()) {
-			// case R.id.tvFromGallery:
-			// Intent cameraIntent = new Intent();
-			// cameraIntent.setType("image/*");
-			// cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
-			// startActivityForResult(Intent.createChooser(cameraIntent,
-			// "Complete action using"), PICK_FROM_FILE);
-			// this.cancel();
-			// break;
-			// case R.id.tvFromCamera:
-			// Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			// fromCameraFile = new File(
-			// Environment.getExternalStorageDirectory(),
-			// "tmp_avatar_"
-			// + String.valueOf(System.currentTimeMillis())
-			// + ".jpg");
-			// mImageCaptureUri = Uri.fromFile(fromCameraFile);
-			// try {
-			// intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
-			// mImageCaptureUri);
-			// intent.putExtra("return-data", true);
-			// startActivityForResult(intent, PICK_FROM_CAMERA);
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// }
-			// this.cancel();
-			// break;
-			// }
+			switch (v.getId()) {
+			case R.id.tvFromGallery:
+//				Intent cameraIntent = new Intent();
+//				cameraIntent.setType("image/*");
+//				cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
+//				startActivityForResult(Intent.createChooser(cameraIntent,
+//						"Complete action using"), PICK_FROM_FILE);
+				 // Create intent to Open Image applications like Gallery, Google Photos
+		        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+		                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		        // Start the Intent
+		        startActivityForResult(galleryIntent, PICK_FROM_FILE);
+				this.cancel();
+				break;
+			case R.id.tvFromCamera:
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				Global.createFolderDULIBU();
+				fromCameraFile = new File(
+						Environment.getExternalStorageDirectory() + "/" + Global.DULIBU,
+						"tmp_avatar_"
+								+ String.valueOf(System.currentTimeMillis())
+								+ ".jpg");
+				mImageCaptureUri = Uri.fromFile(fromCameraFile);
+				try {
+					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
+							mImageCaptureUri);
+					intent.putExtra("return-data", true);
+					startActivityForResult(intent, PICK_FROM_CAMERA);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				this.cancel();
+				break;
+			}
 		}
 	}
 
-	//
-	// @Override
-	// public void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// super.onActivityResult(requestCode, resultCode, data);
-	// if (resultCode == getActivity().RESULT_OK) {
-	// ivSelectedLogo.setOnClickListener(this);
-	// if (requestCode == PICK_FROM_FILE) {
-	// mImageCaptureUri = data.getData();
-	// path = IntentUtils.getPath(getActivity(), mImageCaptureUri); //from
-	// Gallery
-	// fromCameraFile = new File(path);
-	// } else {
-	// path = mImageCaptureUri.getPath();
-	// }
-	// if (mImageCaptureUri != null && path.length() > 0) {
-	// RelativeLayout.LayoutParams lp = new
-	// RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-	// RelativeLayout.LayoutParams.MATCH_PARENT);
-	// lp.setMargins(0, 0, 0, 0);
-	// ivSelectedLogo.setLayoutParams(lp);
-	// ivSelectedLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-	// File file = ImageUtils.RotateImageToFile(fromCameraFile, ivSelectedLogo,
-	// getActivity());
-	// path = file.getPath();
-	// Bitmap bm = ImageUtils.RotateImage(fromCameraFile, ivSelectedLogo,
-	// getActivity());
-	// ivSelectedLogo.setImageBitmap(bm);
-	// }
-	// }
-	// }
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == getActivity().RESULT_OK) {
+			if (requestCode == PICK_FROM_FILE) {
+				Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+ 
+                // Get the cursor
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                // Move to first row
+                cursor.moveToFirst();
+ 
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String imgDecodableString = cursor.getString(columnIndex);
+                cursor.close();             
+                // Set the Image in ImageView after decoding the String
+                ivProfile.setImageBitmap(BitmapFactory
+                        .decodeFile(imgDecodableString));
+ 
+            } else {
+				path = mImageCaptureUri.getPath();
+			}			
+			if (fromCameraFile != null) {
+				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
+						fromCameraFile, 500, 500);
+				ivProfile.setImageBitmap(bm);
+			}
+
+		}
+	}
 
 	public void listDialog() {
 		final Dialog dialog = new Dialog(getActivity());
@@ -242,7 +263,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				android.R.color.transparent);
 		dialog.setContentView(R.layout.list_status);
 		ListView lv = (ListView) dialog.findViewById(R.id.listStatus);
-		
+
 		ListStatusAdapter adapter = new ListStatusAdapter(getActivity(), 0,
 				statusList);
 		lv.setAdapter(adapter);
@@ -313,7 +334,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 					.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 			StatusHolder holder;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.tesst, parent, false);
+				convertView = inflater.inflate(R.layout.item_status_user,
+						parent, false);
 				holder = new StatusHolder();
 				initView(holder, convertView);
 				convertView.setTag(holder);
@@ -326,7 +348,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		public void initView(StatusHolder holder, View view) {
 			holder.name = (TextView) view.findViewById(R.id.tvStatusName);
-			holder.icon = (CircleImageView) view.findViewById(R.id.ivStatus);
+			holder.icon = (CircularImageView) view.findViewById(R.id.ivStatus);
 		}
 
 		public void setData(StatusHolder holder, Trangthai_User status) {
@@ -358,6 +380,22 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 	public static class StatusHolder {
 		public TextView name;
-		public CircleImageView icon;
+		public CircularImageView icon;
+	}
+
+	public void setEnable() {
+		etEmail.setEnabled(true);
+		etBirthday.setEnabled(true);
+		etContact.setEnabled(true);
+		etFullName.setEnabled(true);
+		etPhone.setEnabled(true);
+	}
+
+	public void setDisable() {
+		etEmail.setEnabled(false);
+		etBirthday.setEnabled(false);
+		etContact.setEnabled(false);
+		etFullName.setEnabled(false);
+		etPhone.setEnabled(false);
 	}
 }

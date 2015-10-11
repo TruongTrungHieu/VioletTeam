@@ -6,7 +6,7 @@
     android:background="@drawable/radius_view"
     android:orientation="vertical" >
 
-    <vn.hanelsoft.ibeacon.view.TextView
+    <TextView
         android:id="@+id/tvFromCamera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         android:layout_height="2dp"
         android:background="#eeeded" />
 
-    <vn.hanelsoft.ibeacon.view.TextView
+    <TextView
         android:id="@+id/tvFromGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
