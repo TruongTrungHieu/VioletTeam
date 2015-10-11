@@ -23,6 +23,8 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="com.hou.dulibu.permission.C2D_MESSAGE" />
 
+    <uses-feature android:name="android.hardware.location"/>
+    <uses-feature android:name="android.hardware.location.gps"/>
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />

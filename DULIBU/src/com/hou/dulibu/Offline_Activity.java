@@ -1,9 +1,14 @@
 package com.hou.dulibu;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
+
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -71,7 +76,9 @@ public class Offline_Activity extends ActionBarActivity {
 				@Override
 				public void onClick(View arg0) {
 
+				
 					xulyNhap();
+					
 					Toast.makeText(getApplication(), "Click on button ADD",
 							Toast.LENGTH_SHORT).show();
 					dialog.dismiss();
@@ -86,6 +93,8 @@ public class Offline_Activity extends ActionBarActivity {
 					final EditText txtDiadiem = (EditText) dialog
 							.findViewById(R.id.txtDiadiem);
 					String ten, thoigian, diadiem;
+					String lat = "0";
+					String lon = "0";
 					ten = txtTenSuKien.getText().toString();
 					thoigian = txtThoigian.getText().toString();
 					diadiem = txtDiadiem.getText().toString();
@@ -101,14 +110,18 @@ public class Offline_Activity extends ActionBarActivity {
 					sk.setTenSukien(ten);
 					sk.setThoigian(thoigian);
 					sk.setDiadiem(diadiem);
+					getLocationFromAddress(diadiem);
 //					Sukien sk = new Sukien();
 //					sk.setTenSukien("96 Dinh Cong");
 //					sk.setThoigian("16h");
 //					sk.setDiadiem("96 dinh cong");
 
+					
+		    	//    Toast.makeText(getApplicationContext(),"Hien ra", Toast.LENGTH_SHORT).show();
 
 					arrSuKien.add(sk);
-
+					//getLocationFromAddress("London");
+					
 					// LatLng latLng=new LatLng(-14.235004,-51.925280);
 					// map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
@@ -116,6 +129,27 @@ public class Offline_Activity extends ActionBarActivity {
 					
 					//dialog.dismiss();
 
+				}
+
+				private void getLocationFromAddress(String strTim) {
+						Geocoder coder = new Geocoder(context);
+				    	List<Address> address = null;
+				    	try {
+							address = coder.getFromLocationName(strTim,1);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    			
+				    
+							
+				    	    Address location = address.get(0);
+				    	//    String locality = location.getLocality();
+				    	    location.getLatitude();
+				    	    location.getLongitude();
+				    	    Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_LONG).show();
+				    	//    Toast.makeText(getApplicationContext(),locality+"", Toast.LENGTH_LONG).show();
+					
 				}
 			});
 			Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
@@ -136,6 +170,7 @@ public class Offline_Activity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 
 
 }
