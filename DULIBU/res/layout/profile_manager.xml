@@ -53,7 +53,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/ivProfile"                
+                android:layout_toRightOf="@id/ivProfile"
                 android:drawablePadding="10dp"
                 android:text="I&apos;m fine"
                 android:textColor="#FFF"
@@ -174,14 +174,13 @@
             android:id="@+id/ivStatus"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="100000dp"
             android:layout_above="@id/lnInfomation"
-            android:layout_alignParentRight="true"            
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="-25dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/item_pink"
+            android:padding="100000dp"
             android:src="@drawable/icon_fine" />
-        
     </RelativeLayout>
 
 </ScrollView>

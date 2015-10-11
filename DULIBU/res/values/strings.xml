@@ -107,6 +107,8 @@
     <string name="textHintTitleTrip">Đặt tên chuyến đi</string>
     <string name="textHintDayStart">Thời gian bắt đầu</string>
     <string name="textHintDayEnd">Thời gian kết thúc</string>
+    <string name="forget_pass">Quên mật khẩu?</string>
+    <string name="checknull">Hãy nhập đầy đủ thông tin đăng ký!</string>
     <string name="textHintKinhPhi">Kinh phí</string>
     <string name="textHintPlaceStart">Điểm xuất phát</string>
     <string name="textHintTimeStart">Thời gian tập trung</string>
