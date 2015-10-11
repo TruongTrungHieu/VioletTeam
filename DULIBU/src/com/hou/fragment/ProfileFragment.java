@@ -9,7 +9,6 @@ import com.hou.dulibu.SettingActivity;
 import com.hou.model.Trangthai_User;
 import com.hou.ultis.CircleImageView;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
