@@ -2,7 +2,6 @@ package com.hou.adapters;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.appdatasearch.GetRecentContextCall;
 import com.hou.dulibu.R;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 

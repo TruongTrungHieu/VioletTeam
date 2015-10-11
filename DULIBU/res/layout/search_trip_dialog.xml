@@ -62,9 +62,9 @@
                     android:background="@drawable/custom_spiner_bg"
                     android:dropDownHeight="150dp"
                     android:dropDownSelector="#FFF"
-                    android:entries="@array/country_arrays"
+                    android:entries="@array/city_arrays"
                     android:popupBackground="#FFF"
-                    android:prompt="@string/country_prompt" />
+                    android:prompt="@string/city_prompt" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,9 +88,9 @@
                     android:layout_height="40dp"
                     android:background="@drawable/custom_spiner_bg"
                     android:dropDownHeight="150dp"
-                    android:entries="@array/country_arrays"
+                    android:entries="@array/city_arrays"
                     android:popupBackground="#FFF"
-                    android:prompt="@string/country_prompt" />
+                    android:prompt="@string/city_prompt" />
             </LinearLayout>
         </LinearLayout>
 
@@ -101,13 +101,14 @@
             android:layout_marginTop="20dp"
             android:text="@string/name_price"
             android:textColor="#000" />
-        
+
         <SeekBar
             android:id="@+id/seekBarPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:max="100" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -115,7 +116,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/name_Date"
             android:textColor="#000" />
-        
+
         <SeekBar
             android:id="@+id/seekBarDate"
             android:layout_width="match_parent"

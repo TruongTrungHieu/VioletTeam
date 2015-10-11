@@ -24,7 +24,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 	private Button btnDangky;
 	private EditText edtUsername;
 	private EditText edtPassword;
-	private GCMService gcm;
+//	private GCMService gcm;
 
 	private String username;
 	private String password;
@@ -41,8 +41,8 @@ public class LoginManagerActivity extends ActionBarActivity {
 		edtUsername = (EditText) findViewById(R.id.edtUsername);
 		edtPassword = (EditText) findViewById(R.id.edtPassword);
 
-		edtUsername.setText("quantri");
-		edtPassword.setText("12Aa");
+		edtUsername.setText("root");
+		edtPassword.setText("pAC123456");
 
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -52,19 +52,16 @@ public class LoginManagerActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				username = edtUsername.getText().toString();
 				password = edtPassword.getText().toString();
-//				if (username != null && edtPassword != null
-//						&& username.trim().length() > 0
-//						&& password.trim().length() > 0) {
-//					// send request login to server
-//					loginToServer();
-//				} else {
-//					Toast.makeText(getApplicationContext(),
-//							getResources().getString(R.string.validator_login),
-//							Toast.LENGTH_LONG).show();
-//				}
-				Intent intent = new Intent(LoginManagerActivity.this,
-						ProfileManagerActivity.class);
-				startActivity(intent);
+				if (username != null && edtPassword != null
+						&& username.trim().length() > 0
+						&& password.trim().length() > 0) {
+					// send request login to server
+					loginToServer();
+				} else {
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.validator_login),
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
@@ -110,8 +107,6 @@ public class LoginManagerActivity extends ActionBarActivity {
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("loginToServer", response);
-						Toast.makeText(getApplicationContext(), response,
-								Toast.LENGTH_LONG).show();
 						if (executeWhenLoginSuccess(response)) {
 							Intent intent = new Intent(
 									LoginManagerActivity.this,
@@ -131,27 +126,21 @@ public class LoginManagerActivity extends ActionBarActivity {
 							String content) {
 						edtPassword.setText(null);
 						edtUsername.setText(null);
-						Toast.makeText(getApplicationContext(),
-								statusCode + "", Toast.LENGTH_LONG).show();
 						switch (statusCode) {
-						case 200:
-							Toast.makeText(getApplicationContext(), "200",
-									Toast.LENGTH_LONG).show();
-							break;
 						case 400:
-							Toast.makeText(getApplicationContext(), "400",
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 403:
-							Toast.makeText(getApplicationContext(), "403",
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e403),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 404:
-							Toast.makeText(getApplicationContext(), "404",
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e404),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 503:
-							Toast.makeText(getApplicationContext(), "503",
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e503),
 									Toast.LENGTH_LONG).show();
 							break;
 						default:

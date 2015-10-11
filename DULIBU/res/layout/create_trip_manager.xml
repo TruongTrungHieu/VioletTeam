@@ -60,9 +60,9 @@
                     android:background="@drawable/custom_spiner_bg"
                     android:dropDownHeight="150dp"
                     android:dropDownSelector="#FFF"
-                    android:entries="@array/country_arrays"
+                    android:entries="@array/city_arrays"
                     android:popupBackground="#FFF"
-                    android:prompt="@string/country_prompt" />
+                    android:prompt="@string/city_prompt" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,9 +86,9 @@
                     android:layout_height="40dp"
                     android:background="@drawable/custom_spiner_bg"
                     android:dropDownHeight="150dp"
-                    android:entries="@array/country_arrays"
+                    android:entries="@array/city_arrays"
                     android:popupBackground="#FFF"
-                    android:prompt="@string/country_prompt" />
+                    android:prompt="@string/city_prompt" />
             </LinearLayout>
         </LinearLayout>
 
