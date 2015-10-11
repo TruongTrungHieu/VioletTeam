@@ -117,10 +117,10 @@ public class Offline_Activity extends ActionBarActivity {
 //					sk.setDiadiem("96 dinh cong");
 
 					
-		    	//    Toast.makeText(getApplicationContext(),"Hien ra", Toast.LENGTH_SHORT).show();
+		    	
 
 					arrSuKien.add(sk);
-					//getLocationFromAddress("London");
+					
 					
 					// LatLng latLng=new LatLng(-14.235004,-51.925280);
 					// map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
@@ -131,26 +131,7 @@ public class Offline_Activity extends ActionBarActivity {
 
 				}
 
-				private void getLocationFromAddress(String strTim) {
-						Geocoder coder = new Geocoder(context);
-				    	List<Address> address = null;
-				    	try {
-							address = coder.getFromLocationName(strTim,1);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				    			
-				    
-							
-				    	    Address location = address.get(0);
-				    	//    String locality = location.getLocality();
-				    	    location.getLatitude();
-				    	    location.getLongitude();
-				    	    Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_LONG).show();
-				    	//    Toast.makeText(getApplicationContext(),locality+"", Toast.LENGTH_LONG).show();
-					
-				}
+			
 			});
 			Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
 			btnCancel.setOnClickListener(new OnClickListener() {
@@ -158,9 +139,7 @@ public class Offline_Activity extends ActionBarActivity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					Toast.makeText(getApplication(), "Click on button Cancel",
-							Toast.LENGTH_SHORT).show();
-				
+					
 					dialog.dismiss();
 				}
 			});
@@ -171,6 +150,25 @@ public class Offline_Activity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
+	private void getLocationFromAddress(String strTim) {
+		Geocoder coder = new Geocoder(context);
+    	List<Address> address = null;
+    	try {
+			address = coder.getFromLocationName(strTim,1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    			
+    
+			
+    	    Address location = address.get(0);
+    	//    String locality = location.getLocality();
+    	    location.getLatitude();
+    	    location.getLongitude();
+    	    Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_LONG).show();
+    	//    Toast.makeText(getApplicationContext(),locality+"", Toast.LENGTH_LONG).show();
+	
+}
 
 }
