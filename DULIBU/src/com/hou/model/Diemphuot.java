@@ -17,7 +17,7 @@ public class Diemphuot implements Serializable {
 	private String diachi;
 	private String ghichu;
 	private String image;
-	private String trangthaiChuan;
+	private int trangthaiChuan;
 
 	public Diemphuot() {
 		
@@ -25,7 +25,7 @@ public class Diemphuot implements Serializable {
 
 	public Diemphuot(String maDiemphuot, String tenDiemphuot, String lat,
 			String lon, String maTinh, String diachi, String ghichu,
-			String image, String trangthaiChuan) {
+			String image, int trangthaiChuan) {
 		super();
 		this.maDiemphuot = maDiemphuot;
 		this.tenDiemphuot = tenDiemphuot;
@@ -102,11 +102,11 @@ public class Diemphuot implements Serializable {
 		this.image = image;
 	}
 
-	public String getTrangthaiChuan() {
+	public int getTrangthaiChuan() {
 		return trangthaiChuan;
 	}
 
-	public void setTrangthaiChuan(String trangthaiChuan) {
+	public void setTrangthaiChuan(int trangthaiChuan) {
 		this.trangthaiChuan = trangthaiChuan;
 	}
 

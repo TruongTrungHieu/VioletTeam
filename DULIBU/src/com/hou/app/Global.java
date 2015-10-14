@@ -16,8 +16,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Environment;
-import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
+import android.util.Patterns;
 
 public class Global {
 
@@ -30,6 +30,8 @@ public class Global {
 	public static String BASE_URI = "http://128.199.112.15";
 	public static String URI_DANGNHAP_PATH = "user/login";
 	public static String URI_DANGKY_PATH = "user/register";
+	public static String URI_DANGXUAT_PATH = "user/logout";
+	
 
 	/*
 	 * ShareReferences
@@ -131,6 +133,10 @@ public class Global {
 		}
 	}
 
+	public static boolean isValidEmail(String email) {
+	    return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+	
 	@SuppressWarnings("null")
 	public static String convertStringToDate(String dateString) {
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD",

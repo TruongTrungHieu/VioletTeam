@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.hou.model.Chatluong_Lichtrinh;
+import com.hou.model.Diemphuot;
+import com.hou.model.Tinh_Thanhpho;
 import com.hou.model.User;
 
 import android.content.ContentValues;
@@ -50,7 +52,7 @@ public class ExecuteQuery {
 	}
 
 	/*
-	 * tbl_chatluong_lichtrinh
+	 * dm_chatluong_lichtrinh
 	 */
 
 	// select * from dm_chatluong_lichtrinh
@@ -94,6 +96,112 @@ public class ExecuteQuery {
 			return true;
 		} catch (SQLiteException e) {
 			Log.e("insert_dm_chatluong_lichtrinh_multi", e.getMessage());
+			return false;
+		}
+	}
+
+	/*
+	 * tbl_diem_phuot
+	 */
+
+	// select * from tbl_diemphuot
+	public ArrayList<Diemphuot> getAllDiemphuot() {
+		ArrayList<Diemphuot> listDiemphuot = new ArrayList<Diemphuot>();
+		String selectQuery = "SELECT * FROM "
+				+ ColumnName.TBL_DIEM_PHUOT_TABLE;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Diemphuot d = new Diemphuot();
+
+				d.setMaDiemphuot(cursor.getColumnName(0));
+				d.setTenDiemphuot(cursor.getColumnName(1));
+				d.setLat(cursor.getColumnName(2));
+				d.setLon(cursor.getColumnName(3));
+				d.setMaTinh(cursor.getColumnName(4));
+				d.setDiachi(cursor.getColumnName(5));
+				d.setGhichu(cursor.getColumnName(6));
+				d.setImage(cursor.getColumnName(7));
+				d.setTrangthaiChuan(cursor.getInt(8));
+				
+				listDiemphuot.add(d);
+			} while (cursor.moveToNext());
+		}
+		return listDiemphuot;
+	}
+
+	/*
+	 * tbl_lichtrinh
+	 */
+
+	/*
+	 * tbl_tinh_thanhpho
+	 */
+
+	// select tinh_thanhpho where tenTinh
+	public Tinh_Thanhpho getTinhByTentinh(String tenTinh) {
+		Tinh_Thanhpho c = new Tinh_Thanhpho();
+		String selectQuery = "SELECT * FROM "
+				+ ColumnName.TBL_TINH_THANHPHO_TABLE + " WHERE "
+				+ ColumnName.TBL_TINH_THANHPHO_TENTINH + " = '" + tenTinh + "'";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			c.setMaTinh(cursor.getColumnName(0));
+			c.setTenTinh(cursor.getColumnName(1));
+			c.setLat(cursor.getColumnName(2));
+			c.setLon(cursor.getColumnName(3));
+			c.setImage(cursor.getColumnName(4));
+			c.setGhichu(cursor.getColumnName(5));
+		}
+		return c;
+	}
+
+	// select * from tbl_tinh_thanhpho
+	public ArrayList<Tinh_Thanhpho> getAllTinhThanhpho() {
+		ArrayList<Tinh_Thanhpho> listCity = new ArrayList<Tinh_Thanhpho>();
+		String selectQuery = "SELECT * FROM "
+				+ ColumnName.TBL_TINH_THANHPHO_TABLE;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Tinh_Thanhpho c = new Tinh_Thanhpho();
+
+				c.setMaTinh(cursor.getColumnName(0));
+				c.setTenTinh(cursor.getColumnName(1));
+				c.setLat(cursor.getColumnName(2));
+				c.setLon(cursor.getColumnName(3));
+				c.setImage(cursor.getColumnName(4));
+				c.setGhichu(cursor.getColumnName(5));
+
+				listCity.add(c);
+			} while (cursor.moveToNext());
+		}
+		return listCity;
+	}
+
+	// insert multi record
+	public boolean insert_tbl_tinh_thanhpho_multi(
+			ArrayList<Tinh_Thanhpho> listCity) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			for (Tinh_Thanhpho city : listCity) {
+				ContentValues cv = new ContentValues();
+
+				cv.put(ColumnName.TBL_TINH_THANHPHO_MATINH, city.getMaTinh());
+				cv.put(ColumnName.TBL_TINH_THANHPHO_TENTINH, city.getTenTinh());
+				cv.put(ColumnName.TBL_TINH_THANHPHO_LAT, city.getLat());
+				cv.put(ColumnName.TBL_TINH_THANHPHO_LON, city.getLon());
+				cv.put(ColumnName.TBL_TINH_THANHPHO_IMAGE, city.getImage());
+				cv.put(ColumnName.TBL_TINH_THANHPHO_GHICHU, city.getGhichu());
+
+				database.insert(ColumnName.TBL_TINH_THANHPHO_TABLE, null, cv);
+			}
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("insert_tbl_tinh_thanhpho_multi", e.getMessage());
 			return false;
 		}
 	}
@@ -180,9 +288,5 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
-
-	/*
-	 * tbl_lichtrinh
-	 */
 
 }
