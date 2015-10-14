@@ -11,25 +11,26 @@ import com.loopj.android.http.RequestParams;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashScreenActivity extends ActionBarActivity {
 
 	private final int SPLASH_DISPLAY_LENGTH = 1000;
 	private Context mContext;
+	private TextView tvSlogan;
 	private int Pagenumber = 1;
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
-		
 		mContext = this;
 		
 		new Handler().postDelayed(new Runnable() {
@@ -40,6 +41,9 @@ public class SplashScreenActivity extends ActionBarActivity {
 				
 			}
 		}, SPLASH_DISPLAY_LENGTH);
+		Typeface tf = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
+		tvSlogan = (TextView) findViewById(R.id.tvSlogan);
+		tvSlogan.setTypeface(tf);
 	}
 	
 	private void getListCity(){

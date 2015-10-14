@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.hou.adapters.MemberAdapter;
+import com.hou.adapters.MemberAdapterForAdmin;
 import com.hou.dulibu.ChiTieu_Activity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.UserSecureConfirmManager;
@@ -30,7 +30,7 @@ public class TripDetailMemberActivity extends Fragment  {
 //	final Activity context = this;
 
 	ArrayList<Lichtrinh_User> arrListMember = new ArrayList<Lichtrinh_User>();
-	MemberAdapter adapter = null;
+	MemberAdapterForAdmin adapter = null;
 	ListView lvMember = null;
 	
 	@Override
@@ -48,7 +48,7 @@ public class TripDetailMemberActivity extends Fragment  {
         }
         
 
-		adapter = new MemberAdapter(getActivity(), R.layout.member_item,
+		adapter = new MemberAdapterForAdmin(getActivity(), R.layout.member_item,
 				arrListMember);
 		lvMember.setAdapter(adapter);
 		lvMember.setOnItemClickListener(new OnItemClickListener() {

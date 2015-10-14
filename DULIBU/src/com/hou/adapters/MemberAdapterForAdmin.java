@@ -14,14 +14,15 @@ import com.hou.dulibu.R;
 import com.hou.fragment.TripDetailMemberActivity;
 import com.hou.model.Chitieu;
 import com.hou.model.Lichtrinh_User;
+import com.hou.ultis.CircularImageView;
 
-public class MemberAdapter extends ArrayAdapter<Lichtrinh_User> {
-
+public class MemberAdapterForAdmin extends ArrayAdapter<Lichtrinh_User> {
+	//adapter dùng khi hành trình chưa bắt đầu
 	Activity context = null;
 	ArrayList<Lichtrinh_User> myArray = null;
 	int layoutId;
 
-	public MemberAdapter(Activity context, int layoutId,
+	public MemberAdapterForAdmin(Activity context, int layoutId,
 			ArrayList<Lichtrinh_User> arr) {
 		super(context, layoutId, arr);
 		this.context = context;
@@ -36,7 +37,7 @@ public class MemberAdapter extends ArrayAdapter<Lichtrinh_User> {
 
 		if (myArray.size() > 0 && position >= 0) {
 
-			final ImageView iv_avatar = (ImageView) convertView
+			final CircularImageView iv_avatar = (CircularImageView) convertView
 					.findViewById(R.id.iv_avarta);
 			final TextView tv_fullname = (TextView) convertView
 					.findViewById(R.id.tv_fullname);

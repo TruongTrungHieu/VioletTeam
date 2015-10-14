@@ -14,7 +14,7 @@ public class Lichtrinh_User implements Serializable {
 	private String trangthai_antoan;
 	private String trangthai_ketnoi;
 	private String quyen;
-	private String trangthai_thamgia;
+	private int trangthai_thamgia;
 	
 	public Lichtrinh_User() {
 		
@@ -22,7 +22,7 @@ public class Lichtrinh_User implements Serializable {
 
 	public Lichtrinh_User(String maLichtrinh, String maUser,
 			String trangthai_antoan, String trangthai_ketnoi, String quyen,
-			String trangthai_thamgia) {
+			int trangthai_thamgia) {
 		super();
 		this.maLichtrinh = maLichtrinh;
 		this.maUser = maUser;
@@ -72,11 +72,11 @@ public class Lichtrinh_User implements Serializable {
 		this.quyen = quyen;
 	}
 
-	public String getTrangthai_thamgia() {
+	public int getTrangthai_thamgia() {
 		return trangthai_thamgia;
 	}
 
-	public void setTrangthai_thamgia(String trangthai_thamgia) {
+	public void setTrangthai_thamgia(int trangthai_thamgia) {
 		this.trangthai_thamgia = trangthai_thamgia;
 	}
 

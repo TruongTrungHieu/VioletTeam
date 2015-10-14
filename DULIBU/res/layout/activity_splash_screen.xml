@@ -8,5 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hou.dulibu.SplashScreenActivity"
     android:background="@color/ActionBarColor" >
-
+	<ImageView 
+	    android:id="@+id/ivSplash"
+	    android:layout_width="150dp"
+	    android:layout_height="150dp"
+	    android:scaleType="fitXY"
+	    android:layout_centerInParent="true"
+	    android:background="@drawable/splash_screen_dulibu_icon_text"/>
+	<TextView 
+	    android:id="@+id/tvSlogan"
+	    android:layout_height="wrap_content"
+	    android:layout_width="wrap_content"
+	    android:textColor="@color/white"
+	    android:textSize="20dp"
+	    android:text="@string/slogan"
+	    android:layout_below="@id/ivSplash"
+	    android:layout_marginTop="10dp"
+	    android:layout_centerHorizontal="true"/>
 </RelativeLayout>

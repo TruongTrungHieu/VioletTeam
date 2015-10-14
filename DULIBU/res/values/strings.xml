@@ -213,6 +213,10 @@
         <item>Phú Yên</item>
     </string-array>
 
+    <!-- Splash Screen -->
+    <string name="title_activity_splash_screen"></string>
+    <string name="slogan">Dulibu with you!</string>
+    
     <!-- Error from server -->
     <string name="e400">Thông tin không hợp lệ !</string>
     <string name="e403">Thiếu quyền thực hiện chức năng !</string>
@@ -228,6 +232,6 @@
     <!-- Dialog search -->
     <string name="name_price">Giá</string>
     <string name="name_Date">Ngày</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    
 
 </resources>
