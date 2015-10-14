@@ -14,17 +14,19 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    
 
-    <permission android:name="com.hou.dulibu.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.hou.dulibu.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.hou.dulibu.permission.C2D_MESSAGE" />
 
-    <uses-feature android:name="android.hardware.location"/>
-    <uses-feature android:name="android.hardware.location.gps"/>
+    <uses-feature android:name="android.hardware.location" />
+    <uses-feature android:name="android.hardware.location.gps" />
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
@@ -55,17 +57,12 @@
             android:name=".LoginManagerActivity"
             android:label="@string/app_name"
             android:theme="@style/AccountsLightActivities" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ProfileManagerActivity"
             android:label="@string/title_activity_profile_manager"
-            android:theme="@style/AccountsLight" 
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/AccountsLight"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
             android:name=".RegisterManagerActivity"
@@ -126,6 +123,15 @@
             android:name=".UserSecureConfirmManager"
             android:label="@string/title_activity_user_secure_confirm"
             android:theme="@style/CustomActionBarNoShadow" >
+        </activity>
+        <activity
+            android:name=".SplashScreenActivity"
+            android:label="@string/title_activity_splash_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

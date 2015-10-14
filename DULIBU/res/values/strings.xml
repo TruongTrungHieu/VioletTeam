@@ -47,37 +47,36 @@
     <string name="save_trip"></string>
     <string name="actionSave">Trip được thêm vào ưu thích</string>
     <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
-    
+
     <!-- Offline_activity -->
     <string name="titleOfflineDialog">Tạo mới sự kiện</string>
-    
+
     <!-- Chitieu_activity -->
     <string name="titleChiPhiDialog">Thêm chi phí</string>
     <string name="hintTenMucChi">Tên mục chi</string>
     <string name="hintSoTienChi">Số tiền chi</string>
-    
+
     <!-- Setting -->
     <string name="tvNgonNgu">Ngôn ngữ</string>
     <string name="tvDanhSachNguoiNhan">Danh sách người nhận</string>
-	<string name="title_activity_setting">Cài đặt</string>
-	<string name="tvAccount">Account</string>
-	<string name="tvChangePassword">Đổi mật khẩu</string>
-	<string name="tvAbout">About</string>
-	<string name="tvAboutTermsOfServices">Điều khoản sử dụng</string>
-	<string name="tvMap">Bản đồ</string>
-	<string name="tvMapChange">Đổi kiểu bản đồ</string>
-	<string name="tvDieuKhoan">Điều khoản sử dụng</string>
-	
-	<!-- User secure confirm -->
-	<string name="tvStatus">An toàn</string>
-	<string name="titleStatus">Trạng thái</string>
-	<string name="inDanger">Gặp nguy hiểm</string>
-	<string name="tvChangeStatus">Cảnh báo trạng thái?</string>
-	<string name="tvLastLocation">Vị trí cuối cùng</string>
-	<string name="tvListConfirm">Danh sách cảnh báo</string>
-	<string name="title_activity_user_secure_confirm">Cảnh báo thành viên mất tích</string>
-	
-    
+    <string name="title_activity_setting">Cài đặt</string>
+    <string name="tvAccount">Account</string>
+    <string name="tvChangePassword">Đổi mật khẩu</string>
+    <string name="tvAbout">About</string>
+    <string name="tvAboutTermsOfServices">Điều khoản sử dụng</string>
+    <string name="tvMap">Bản đồ</string>
+    <string name="tvMapChange">Đổi kiểu bản đồ</string>
+    <string name="tvDieuKhoan">Điều khoản sử dụng</string>
+
+    <!-- User secure confirm -->
+    <string name="tvStatus">An toàn</string>
+    <string name="titleStatus">Trạng thái</string>
+    <string name="inDanger">Gặp nguy hiểm</string>
+    <string name="tvChangeStatus">Cảnh báo trạng thái?</string>
+    <string name="tvLastLocation">Vị trí cuối cùng</string>
+    <string name="tvListConfirm">Danh sách cảnh báo</string>
+    <string name="title_activity_user_secure_confirm">Cảnh báo thành viên mất tích</string>
+
     <!-- Tạo chuyến đi -->
     <string name="title_activity_create_trip_manager">Tạo lịch trình</string>
     <string name="name_trip">Tên chuyến đi</string>
@@ -116,7 +115,6 @@
     <string name="btnCancelCreateTripTimePicker">Quay lại</string>
     <string name="titleSetTime">00:00</string>
     <string name="titleTimeDialog">Đặt thời gian</string>
-    
     <string name="str_ten">Tên</string>
     <string name="str_tg">Thời gian</string>
     <string name="str_bando">Bản đồ</string>
@@ -124,7 +122,7 @@
     <string name="str_thoigian">Thời gian cụ thể </string>
     <string name="str_sotien">Số tiền </string>
     <string name="str_diadiem">Địa điểm </string>
-    
+
     <!-- Điều khoản -->
     <string name="str_dieukhoan">ĐIỀU KHOẢN SỬ DỤNG </string>
     <string name="str_dieukhoan1">\t Vui lòng đọc kĩ các thỏa thuận sử dụng này trước khi tiến hành tải, cài đặt, đăng ký tài khoản và sử dụng “DULIBU”. Bạn chấp thuận và đồng ý xác nhận bị ràng buộc bởi các điều khoản dưới đây khi sử dụng. Nếu trường hợp bạn không đồng ý với bất cứ điều khoản sử dụng nào của chúng tôi, làm ơn vui lòng không cài đặt, sử dụng, đăng ký ứng dụng trên thiết bị di động của bạn: </string>
@@ -140,15 +138,12 @@
 \n_ Sử dụng dịch vụ với mục đích thương mại với bên thứ ba.
 \n_ Hủy bỏ, sửa chữa so với trạng thái ban đầu của ứng dụng.
 \n_ Sử dụng với mục đích tuyên truyền các thông tin vi phạm pháp luật, vi phạm thuần phong mĩ tục.
-\n_ Các hình thức vi phạm khác.
-</string>
+\n_ Các hình thức vi phạm khác.</string>
     <string name="str_dieukhoan10">Điều 5: Xử lý vi phạm</string>
-    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.
-</string>
-    
+    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.</string>
     <string name="startPlace">Điểm đầu</string>
     <string name="endPlace">Điểm cuối</string>
-    
+
     <!-- Spinner Điểm bắt đầu - Kết thúc -->
     <string name="city_prompt">Chọn địa điểm</string>
 
@@ -223,11 +218,16 @@
     <string name="e403">Thiếu quyền thực hiện chức năng !</string>
     <string name="e404">Chức năng đang sửa !</string>
     <string name="e503">Hệ thống đang bảo trì !</string>
-    
+
     <!-- RegisterManagerActivity -->
     <string name="checknull">Nhập đầy đủ thông tin</string>
-    
+    <string name="register_error">Vui lòng thử lại</string>
+    <string name="register_succes">Mã xác thực được gửi tới hòm thư của bạn :)</string>
+    <string name="register_err_email">Định dạng Email không hợp lệ</string>
+
+    <!-- Dialog search -->
     <string name="name_price">Giá</string>
     <string name="name_Date">Ngày</string>
-    
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+
 </resources>

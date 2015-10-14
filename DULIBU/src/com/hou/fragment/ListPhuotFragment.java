@@ -37,7 +37,7 @@ public class ListPhuotFragment extends Fragment {
 	//Toolbar toolbar;
 	LichtrinhViewPagerAdapter adapter;
 	ViewPager pager;
-	CharSequence Titles[] = { "Tất cả", "Mới", "Tỉnh-TP", "Độ khó" };
+	CharSequence Titles[] = { "Táº¥t cáº£", "Má»›i", "Tá»‰nh-TP", "Ä�á»™ khÃ³" };
 	int Numboftabs = 4;
 
 	@Override
@@ -57,8 +57,8 @@ public class ListPhuotFragment extends Fragment {
 		 * view.findViewById(R.id.lvTripList); DeviceStatus ds = new
 		 * DeviceStatus();
 		 * 
-		 * Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat",
-		 * "long", "YB", "Yên Bái", "note", "phuot1.jpg", "Khó đấy :v",
+		 * Diemphuot phuot1 = new Diemphuot("phuot1", "MÃ¹ Cang Cháº£i", "lat",
+		 * "long", "YB", "YÃªn BÃ¡i", "note", "phuot1.jpg", "KhÃ³ Ä‘áº¥y :v",
 		 * "Recommended"); diemphuot = new ArrayList<Diemphuot>();
 		 * diemphuot.add(phuot1); DiemphuotAdapter adapter = new
 		 * DiemphuotAdapter(getActivity(), R.layout.list_phuot_item, diemphuot);
@@ -101,44 +101,44 @@ public class ListPhuotFragment extends Fragment {
 		
 		
 		if (Global.LIST_DIEMPHUOT.isEmpty()) {
-			Diemphuot phuot1 = new Diemphuot("phuot1", "Mù Cang Chải", "lat", "long", "YB", "Yên Bái", "Mù Cang Chải là 1 huyện vùng cao của tỉnh Yên Bái, cách Hà Nội khoảng 280 Km, nổi tiếng với danh thắng ruộng bậc thang",
-					"phuot1.jpg", "1");
+			Diemphuot phuot1 = new Diemphuot("phuot1", "MÃ¹ Cang Cháº£i", "lat", "long", "YB", "YÃªn BÃ¡i", "MÃ¹ Cang Cháº£i lÃ  1 huyá»‡n vÃ¹ng cao cá»§a tá»‰nh YÃªn BÃ¡i, cÃ¡ch HÃ  Ná»™i khoáº£ng 280 Km, ná»•i tiáº¿ng vá»›i danh tháº¯ng ruá»™ng báº­c thang",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot1);
-			Diemphuot phuot2 = new Diemphuot("phuot2", "Hồ Gươm", "lat", "long", "HN", "Hà Nội", "note",
-					"phuot1.jpg", "0");
+			Diemphuot phuot2 = new Diemphuot("phuot2", "Há»“ GÆ°Æ¡m", "lat", "long", "HN", "HÃ  Ná»™i", "note",
+					"phuot1.jpg", 0);
 			Global.LIST_DIEMPHUOT.add(phuot2);
-			Diemphuot phuot3 = new Diemphuot("phuot3", "Khoa CNTT - Viện Đại học Mở Hà Nội", "lat", "long", "HN", "Hà Nội", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot3 = new Diemphuot("phuot3", "Khoa CNTT - Viá»‡n Ä�áº¡i há»�c Má»Ÿ HÃ  Ná»™i", "lat", "long", "HN", "HÃ  Ná»™i", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot3);
-			Diemphuot phuot4 = new Diemphuot("phuot4", "Đảo Sinh Tồn", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot4 = new Diemphuot("phuot4", "Ä�áº£o Sinh Tá»“n", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot4);
-			Diemphuot phuot5 = new Diemphuot("phuot5", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot5 = new Diemphuot("phuot5", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot5);
-			Diemphuot phuot6 = new Diemphuot("phuot6", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot6 = new Diemphuot("phuot6", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot6);
-			Diemphuot phuot7 = new Diemphuot("phuot7", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot7 = new Diemphuot("phuot7", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot7);
-			Diemphuot phuot8 = new Diemphuot("phuot8", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot8 = new Diemphuot("phuot8", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot8);
-			Diemphuot phuot9 = new Diemphuot("phuot9", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot9 = new Diemphuot("phuot9", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot9);
-			Diemphuot phuot10 = new Diemphuot("phuot10", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot10 = new Diemphuot("phuot10", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot10);
-			Diemphuot phuot11 = new Diemphuot("phuot11", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot11 = new Diemphuot("phuot11", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot11);
-			Diemphuot phuot12 = new Diemphuot("phuot12", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot12 = new Diemphuot("phuot12", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot12);
-			Diemphuot phuot13 = new Diemphuot("phuot13", "Đảo Sơn Ca", "lat", "long", "TS", "Trường Sa", "note",
-					"phuot1.jpg", "1");
+			Diemphuot phuot13 = new Diemphuot("phuot13", "Ä�áº£o SÆ¡n Ca", "lat", "long", "TS", "TrÆ°á»�ng Sa", "note",
+					"phuot1.jpg", 1);
 			Global.LIST_DIEMPHUOT.add(phuot13);
 		}
 
