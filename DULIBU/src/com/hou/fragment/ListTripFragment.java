@@ -2,11 +2,16 @@ package com.hou.fragment;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.hou.adapters.LichtrinhAdapter;
+import com.hou.app.Global;
 import com.hou.dulibu.CreateTripManagerActivity;
 //import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
@@ -15,6 +20,9 @@ import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
 import com.hou.dulibu.UserSecureConfirmManager;
 import com.hou.model.Lichtrinh;
+import com.hou.model.Tinh_Thanhpho;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -22,6 +30,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -118,6 +127,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
+
 
 	@Override
 	public void onDestroy() {

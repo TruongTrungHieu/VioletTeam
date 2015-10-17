@@ -1,9 +1,11 @@
 package com.hou.dulibu;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.app.Global;
+import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -75,16 +77,27 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private String listCity(String response){
 
 		try {
-			JSONObject cityLocationJson = new JSONObject(response);
+			JSONArray arrObj = new JSONArray(response);
+			for(int i = 0; i < arrObj.length();i++){
+				JSONObject cityLocationJson = arrObj.getJSONObject(i);
+				Tinh_Thanhpho city = new Tinh_Thanhpho();
 
-			String _id = cityLocationJson.getString("_id");
-			String ghichu = cityLocationJson.getString("ghichu"); 
-			String lat = cityLocationJson.getDouble("lat")+"";
-			String lon = cityLocationJson.getDouble("lon")+"";
-			String tenTinh = cityLocationJson.getString("tenTinh");
-			String image = cityLocationJson.getString("image");
+				String _id = cityLocationJson.optString("_id");
+				String ghichu = cityLocationJson.optString("note"); 
+				String lat = cityLocationJson.optString("lat")+"";
+				String lon = cityLocationJson.optString("lon")+"";
+				String tenTinh = cityLocationJson.optString("name");
+				String image = cityLocationJson.optString("image");
+				city.setMaTinh(_id);
+				city.setGhichu(ghichu);
+				city.setLat(lat);
+				city.setLon(lon);
+				city.setImage(image);
+				city.setTenTinh(tenTinh);
+			}
 			
-			Toast.makeText(getApplicationContext(), "KQ JSON", Toast.LENGTH_LONG).show();
+			
+		//	Toast.makeText(getApplicationContext(), "KQ JSON", Toast.LENGTH_LONG).show();
 			
 
 			return "true";

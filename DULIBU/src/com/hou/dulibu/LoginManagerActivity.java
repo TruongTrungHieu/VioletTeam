@@ -154,17 +154,18 @@ public class LoginManagerActivity extends ActionBarActivity {
 		try {
 			JSONObject userJson = new JSONObject(response);
 
-			String _id = userJson.getString("_id");
-			String access_token = userJson.getString("access_token");
-			String username = userJson.getString("username");
-			String fullname = userJson.getString("fullname");
-			String email = userJson.getString("email");
-			String ngaysinh = userJson.getString("bday");
-			String sdt = userJson.getString("phone");
-			String gioitinh = userJson.getString("gioitinh");
-			String sdt_lienhe = userJson.getString("phone_contact");
-			String ghichu = userJson.getString("note");
-			String avatar = userJson.getString("avatar");
+			String _id = userJson.optString("_id");
+			String access_token = userJson.optString("access_token");
+			String username = userJson.optString("username");
+			String fullname = userJson.optString("fullname");
+			String email = userJson.optString("email");
+			String ngaysinh = userJson.optString("bday");
+			String sdt = userJson.optString("phone");
+			String gioitinh = userJson.optString("gioitinh");
+			String sdt_lienhe = userJson.optString("phone_contact");
+			String ghichu = userJson.optString("note");
+			String avatar = userJson.optString("avatar");
+
 
 			Global.savePreference(getApplicationContext(), Global.USER_MAUSER,
 					_id);
