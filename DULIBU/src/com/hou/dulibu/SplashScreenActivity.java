@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.app.Global;
+import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -28,6 +29,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private Context mContext;
 	private TextView tvSlogan;
 	private int Pagenumber = 1;
+	private int p = 1;
 	private String kq;
 	private String name,begin_location,end_location,start_date,start_time,end_date,end_time,image;
 
@@ -160,6 +162,63 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private boolean executeWhenRegisterSuccess(String reponse) {
 		boolean check = true;
 		return check;
+	}
+	
+	public void getPlacetoServer(){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("p", p);
+		client.get(Global.BASE_URI + "/" + Global.URI_GETPLACE_PATH, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("getPlacetoServer", response);
+//						Toast.makeText(getApplicationContext(), "vào thành công", Toast.LENGTH_SHORT).show();\
+						listPlace(response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						
+						}
+				});
+	}
+	
+	private String listPlace(String response){
+
+		try {
+			JSONArray arrObj = new JSONArray(response);
+			for(int i = 0; i < arrObj.length();i++){
+				JSONObject placeLocationJson = arrObj.getJSONObject(i);
+				Diemphuot place = new Diemphuot();
+
+				String _id = placeLocationJson.optString("_id");
+				String note = placeLocationJson.optString("note"); 
+				String lat = placeLocationJson.optString("lat")+"";
+				String lon = placeLocationJson.optString("lon")+"";
+				String name = placeLocationJson.optString("name");
+				String image = placeLocationJson.optString("image"); 
+				String location = placeLocationJson.optString("location");
+				
+				place.setMaDiemphuot(_id);
+				place.setGhichu(note);
+				place.setLat(lat);
+				place.setLon(lon);
+				place.setTenDiemphuot(name);
+				place.setImage(image);
+				place.setDiachi(location);
+				Log.e("getPlacetoServer", name);
+			}
+			
+			
+		//	Toast.makeText(getApplicationContext(), "KQ JSON", Toast.LENGTH_LONG).show();
+			
+
+			return "true";
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "false";
+		}
 	}
 	
 	
