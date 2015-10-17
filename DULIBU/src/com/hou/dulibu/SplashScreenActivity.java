@@ -29,16 +29,21 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private TextView tvSlogan;
 	private int Pagenumber = 1;
 	private String kq;
+	private String name,begin_location,end_location,start_date,start_time,end_date,end_time,image;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 		mContext = this;
+		//Toast.makeText(getApplicationContext(), kq, Toast.LENGTH_LONG).show();
+		getListCity();
 		
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				
 				Intent intent = new Intent(SplashScreenActivity.this, LoginManagerActivity.class);
 				startActivity(intent);
 				
@@ -47,7 +52,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 		Typeface tf = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		tvSlogan = (TextView) findViewById(R.id.tvSlogan);
 		tvSlogan.setTypeface(tf);
-		getListCity();
+		
 	}
 	
 	private void getListCity(){
@@ -55,21 +60,21 @@ public class SplashScreenActivity extends ActionBarActivity {
 		
 		
 		
-		client.post(Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH + "?p",
+		client.get(Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getListCity", response);
 						// ham lay danh sach thanh pho (la 1 file JSON)
 						kq = response;
-						Toast.makeText(getApplicationContext(), kq, Toast.LENGTH_LONG).show();
-						
+					//	Toast.makeText(getApplicationContext(), "vao thanh cong", Toast.LENGTH_LONG).show();
+						listCity(kq);
 						//listCity(kq);
 					}
 
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
-						
+						Toast.makeText(getApplicationContext(), "khong vao duoc " + statusCode, Toast.LENGTH_LONG).show();	
 					}
 				});
 	}
@@ -94,6 +99,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 				city.setLon(lon);
 				city.setImage(image);
 				city.setTenTinh(tenTinh);
+				Log.e("listCity", tenTinh);
 			}
 			
 			
@@ -106,8 +112,54 @@ public class SplashScreenActivity extends ActionBarActivity {
 			return "false";
 		}
 
-	
 		
+	}
+	
+	private void createNewTrip() {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+
+		params.put("name", name);
+		params.put("image", image);
+		params.put("begin_location", begin_location);
+		params.put("end_location", end_location);
+		params.put("start_date", start_date);
+		params.put("start_time", start_time);
+		params.put("end_date", end_date);
+		params.put("end_time", end_time);
+
+		client.post(Global.BASE_URI + "/" + Global.URI_CREATENEWTRIP_PATH, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("createNewTrip", response);
+
+
+						if (executeWhenRegisterSuccess(response)) {
+							Toast.makeText(
+									getApplicationContext(),
+									"Tao moi chuyen di thanh cong",
+									Toast.LENGTH_SHORT).show();
+							// Intent intent = new Intent(
+							// RegisterManagerActivity.this,
+							// LoginManagerActivity.class);
+							
+						} else {
+							Toast.makeText(
+									getApplicationContext(),
+									"Khong tao moi duoc chuyen di",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {}
+				});
+	}
+
+	private boolean executeWhenRegisterSuccess(String reponse) {
+		boolean check = true;
+		return check;
 	}
 	
 	

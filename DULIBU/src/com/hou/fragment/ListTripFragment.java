@@ -23,6 +23,7 @@ import com.hou.model.Lichtrinh;
 import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,6 +46,8 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	ProgressDialog pDialog;
 	ArrayList<Lichtrinh> lichtrinh;
 	ListView lvListTrip;
+
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,9 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
+	
+
+
 
 
 	@Override
