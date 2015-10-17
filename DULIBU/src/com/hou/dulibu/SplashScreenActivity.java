@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.app.Global;
+import com.hou.asynctask.GetListCityAsyncTask;
 import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
@@ -56,7 +57,8 @@ public class SplashScreenActivity extends ActionBarActivity {
 		Typeface tf = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		tvSlogan = (TextView) findViewById(R.id.tvSlogan);
 		tvSlogan.setTypeface(tf);
-		
+		GetListCityAsyncTask ga = new GetListCityAsyncTask();
+		ga.execute(Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH);
 	}
 	
 	private void getListCity(){
@@ -171,7 +173,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getPlacetoServer", response);
-//						Toast.makeText(getApplicationContext(), "vào thành công", Toast.LENGTH_SHORT).show();\
+//						Toast.makeText(getApplicationContext(), "vï¿½o thï¿½nh cï¿½ng", Toast.LENGTH_SHORT).show();\
 						listPlace(response);
 					}
 

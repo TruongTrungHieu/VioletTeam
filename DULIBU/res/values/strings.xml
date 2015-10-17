@@ -228,7 +228,17 @@
     <string name="register_error">Vui lòng thử lại</string>
     <string name="register_succes">Mã xác thực được gửi tới hòm thư của bạn :)</string>
     <string name="register_err_email">Định dạng Email không hợp lệ</string>
-
+	
+    <!-- Dialog Approval -->
+    <string name="dialogApprovalTitle">Xử lý yêu cầu</string>
+    <string name="btnAccept">Chấp nhận</string>
+    <string name="btnCancelApproval">Quay lại</string>
+    <string name="btnDeleteMember">Hủy thành viên</string>
+    <string name="btnDecline">Từ chối</string>
+    <string name="textMember">Thành viên</string>
+    <string name="textRequest0">yêu cầu được tham gia chuyến đi, chấp nhận hoặc từ chối?</string>
+    <string name="textRequest1">đang nằm trong danh sách thành viên chuyến đi, hủy thành viên?</string>
+    
     <!-- Dialog search -->
     <string name="name_price">Giá</string>
     <string name="name_Date">Ngày</string>

@@ -32,11 +32,11 @@ public class Global {
 	public static String URI_DANGKY_PATH = "user/register";
 	public static String URI_DANGXUAT_PATH = "user/logout";
 	public static String URI_LISTCITY_PATH = "location";
+	public static String URI_TRIP_TRIP = "trip";
 	public static String URI_CREATENEWTRIP_PATH = "trip/create";
 	public static String URI_GETPLACE_PATH ="location/travel";
 	public static String URI_REGISTERTOTRIP_PATH = "trip/register";
 	public static String URI_UPDATETRIPLOCATIONS_PATH = "trip/locations";
-	
 
 	/*
 	 * ShareReferences

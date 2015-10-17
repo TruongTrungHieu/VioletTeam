@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp" >
 
         <com.hou.ultis.CircularImageView
@@ -17,7 +16,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:src="@drawable/trip1" />
 
         <TextView
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/iv_avarta"
             android:text="Nguyen Van A"
             android:textSize="15dp"
@@ -40,15 +39,14 @@
             android:layout_toRightOf="@+id/iv_avarta"
             android:text="Online" />
 
-        <ImageView
-            android:id="@+id/ivApproval"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:scaleType="fitXY"
+        <TextView
+            android:id="@+id/tv_saveornot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/ic_question_mark" />
+            android:layout_marginTop="35dp"
+            android:text="Safe" />
     </RelativeLayout>
 
     <TextView
@@ -57,7 +55,7 @@
         android:layout_below="@+id/iv_avarta"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/StatusBarColor" />
 
 </LinearLayout>

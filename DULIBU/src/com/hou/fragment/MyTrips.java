@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.hou.adapters.LichtrinhAdapter;
 import com.hou.adapters.MyTripAdapter;
+import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
@@ -105,20 +106,20 @@ public class MyTrips extends android.support.v4.app.Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
-		//inflater.inflate(R.menu.fragment_list_trip, menu);
+		inflater.inflate(R.menu.fragment_mytrip, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
-		//switch (id) {
-		//case R.id.addTripActionBar:
-		//	Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
-		//	startActivity(intent);
-		//default:
+		switch (id) {
+		case R.id.addTripMyTripActionBar:
+			Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
+			startActivity(intent);
+		default:
 			return super.onOptionsItemSelected(item);
 
-		//}
+		}
 	}
 }
