@@ -31,6 +31,7 @@ public class Global {
 	public static String URI_DANGNHAP_PATH = "user/login";
 	public static String URI_DANGKY_PATH = "user/register";
 	public static String URI_DANGXUAT_PATH = "user/logout";
+	public static String URI_LISTCITY_PATH = "location";
 	
 
 	/*

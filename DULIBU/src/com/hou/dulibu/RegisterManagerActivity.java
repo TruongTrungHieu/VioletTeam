@@ -61,7 +61,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		edtNgaysinh = (TextView) findViewById(R.id.txtBirthday);
 		radiosex = (RadioGroup) findViewById(R.id.radiosex);
 
-		sumit = (Button) findViewById(R.id.btnRegister);
+		sumit = (Button) findViewById(R.id.btnSubmit);
 		sumit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -26,6 +26,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private Context mContext;
 	private TextView tvSlogan;
 	private int Pagenumber = 1;
+	private String kq;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +45,23 @@ public class SplashScreenActivity extends ActionBarActivity {
 		Typeface tf = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Thin.ttf");
 		tvSlogan = (TextView) findViewById(R.id.tvSlogan);
 		tvSlogan.setTypeface(tf);
+		getListCity();
 	}
 	
 	private void getListCity(){
 		AsyncHttpClient client = new AsyncHttpClient();
-		RequestParams params = new RequestParams();
-		params.put("Pagenumber", Pagenumber);
 		
-		client.post(Global.BASE_URI + "/" + Global.URI_DANGNHAP_PATH, params,
+		
+		
+		client.post(Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH + "?p",
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getListCity", response);
 						// ham lay danh sach thanh pho (la 1 file JSON)
-						Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+						kq = response;
+						Toast.makeText(getApplicationContext(), kq, Toast.LENGTH_LONG).show();
+						
+						//listCity(kq);
 					}
 
 					@Override
@@ -73,13 +78,13 @@ public class SplashScreenActivity extends ActionBarActivity {
 			JSONObject cityLocationJson = new JSONObject(response);
 
 			String _id = cityLocationJson.getString("_id");
-			String ghichu = cityLocationJson.getString("ghichu");
+			String ghichu = cityLocationJson.getString("ghichu"); 
 			String lat = cityLocationJson.getDouble("lat")+"";
 			String lon = cityLocationJson.getDouble("lon")+"";
 			String tenTinh = cityLocationJson.getString("tenTinh");
 			String image = cityLocationJson.getString("image");
 			
-
+			Toast.makeText(getApplicationContext(), "KQ JSON", Toast.LENGTH_LONG).show();
 			
 
 			return "true";
@@ -91,6 +96,11 @@ public class SplashScreenActivity extends ActionBarActivity {
 	
 		
 	}
+	
+	
+	
+	
+	
 	
 
 	@Override
