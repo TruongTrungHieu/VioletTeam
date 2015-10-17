@@ -33,6 +33,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private String kq;
 	private String name,begin_location,end_location,start_date,start_time,end_date,end_time,image;
 	private String id;
+	private String path;
 
 	
 	@Override
@@ -259,6 +260,45 @@ public class SplashScreenActivity extends ActionBarActivity {
 		boolean check = true;
 		return check;
 	}
+	
+	private void updateTripLocations(){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		params.put("path", path);
+		
+		
+		
+		client.post(Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("updateTripLocations", response);
+						// ham lay danh sach thanh pho (la 1 file JSON)
+					
+						if (executeWhenRegisterSuccess(response)) {
+							Toast.makeText(
+									getApplicationContext(),
+									"updateTripLocations thanh cong",
+									Toast.LENGTH_SHORT).show();
+							
+						} else {
+							Toast.makeText(
+									getApplicationContext(),
+									"updateTripLocations khong duoc",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						
+					}
+				});
+	}
+	
+	
+	
 
 	
 	
