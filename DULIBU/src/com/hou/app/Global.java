@@ -34,6 +34,7 @@ public class Global {
 	public static String URI_LISTCITY_PATH = "location";
 	public static String URI_CREATENEWTRIP_PATH = "trip/create";
 	public static String URI_GETPLACE_PATH ="location/travel";
+	public static String URI_REGISTERTOTRIP_PATH = "trip/register";
 	
 
 	/*

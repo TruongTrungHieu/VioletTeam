@@ -32,6 +32,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private int p = 1;
 	private String kq;
 	private String name,begin_location,end_location,start_date,start_time,end_date,end_time,image;
+	private String id;
 
 	
 	@Override
@@ -159,10 +160,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 				});
 	}
 
-	private boolean executeWhenRegisterSuccess(String reponse) {
-		boolean check = true;
-		return check;
-	}
+
 	
 	public void getPlacetoServer(){
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -221,6 +219,47 @@ public class SplashScreenActivity extends ActionBarActivity {
 		}
 	}
 	
+	private void registerToTrip(){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		
+		
+		
+		client.post(Global.BASE_URI + "/" + Global.URI_REGISTERTOTRIP_PATH, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("registerToTrip", response);
+						// ham lay danh sach thanh pho (la 1 file JSON)
+					
+						if (executeWhenRegisterSuccess(response)) {
+							Toast.makeText(
+									getApplicationContext(),
+									"Dang ky chuyen di thanh cong",
+									Toast.LENGTH_SHORT).show();
+							
+						} else {
+							Toast.makeText(
+									getApplicationContext(),
+									"Khong dang ky duoc chuyen di",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						
+					}
+				});
+	}
+	
+	
+	private boolean executeWhenRegisterSuccess(String reponse) {
+		boolean check = true;
+		return check;
+	}
+
 	
 	
 	
