@@ -271,6 +271,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 		RequestParams params = new RequestParams();
 		params.put("id", id);
 		params.put("path", path);
+		params.put("access_token", Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
 		
 		
 		
