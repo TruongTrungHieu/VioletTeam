@@ -221,11 +221,14 @@ public class SplashScreenActivity extends ActionBarActivity {
 			return "false";
 		}
 	}
+	//  key la : User access_token
+	//  Global.getPreference(this, Global.USER_ACCESS_TOKEN, "")
 	
 	private void registerToTrip(){
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("id", id);
+		params.put("access_token", Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
 		
 		
 		
@@ -300,13 +303,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	}
 	
 	
-	
 
-	
-	
-	
-	
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
