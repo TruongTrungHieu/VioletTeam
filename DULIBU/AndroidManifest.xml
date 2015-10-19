@@ -17,6 +17,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission
         android:name="com.hou.dulibu.permission.C2D_MESSAGE"
@@ -33,12 +40,6 @@
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.location"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.location.gps"
         android:required="true" />
 
     <application
@@ -126,14 +127,17 @@
         </activity>
         <activity
             android:name=".SplashScreenActivity"
-            android:label="@string/title_activity_splash_screen" 
-            android:theme="@style/CustomActionBarNoShadow">
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/CustomActionBarNoShadow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.hou.gps.GetLocationService" >
+        </service>
     </application>
 
 </manifest>
