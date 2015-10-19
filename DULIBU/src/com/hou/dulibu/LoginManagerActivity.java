@@ -8,8 +8,20 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,12 +32,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginManagerActivity extends ActionBarActivity {
+	private String TAG = "GPS service";
 	private Button btnLogin;
 	private Button btnDangky;
 	private EditText edtUsername;
 	private EditText edtPassword;
 //	private GCMService gcm;
-
+	Geocoder geocoder;
+	
+	private AlarmManager alarmManager;
+	private Intent gpsTrackerIntent;
+	private PendingIntent pendingIntent;
+	
 	private String username;
 	private String password;
 

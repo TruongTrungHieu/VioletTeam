@@ -37,6 +37,7 @@ public class Global {
 	public static String URI_GETPLACE_PATH ="location/travel";
 	public static String URI_REGISTERTOTRIP_PATH = "trip/register";
 	public static String URI_UPDATETRIPLOCATIONS_PATH = "trip/locations";
+	
 
 	/*
 	 * ShareReferences
@@ -66,6 +67,9 @@ public class Global {
 	public static String ACCESS_TOKEN = "access_token";
 	public static String ACCESS_TOKEN_DEFAULT = "0";
 
+	//Target
+	public static String TARGET_TRIP = "TRIP";
+	public static String TARGET_USER = "USER";
 	/*
 	 * End ShareReferences Key and Default value
 	 */

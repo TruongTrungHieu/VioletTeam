@@ -24,7 +24,6 @@ public class Checkpoint_User implements Serializable {
 	public Checkpoint_User(String ma_checkpoint_user, String maLichtrinh,
 			String maUser, String lat, String lon, String thoigian,
 			String ghichu) {
-		super();
 		this.ma_checkpoint_user = ma_checkpoint_user;
 		this.maLichtrinh = maLichtrinh;
 		this.maUser = maUser;
