@@ -60,7 +60,7 @@ public class DeviceStatus {
 	}
 
 	public String getCurrentConnection(Context c) {
-		String Stt = " Internet connection: ";
+		String Stt = "";
 		ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		NetworkInfo wifiNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);

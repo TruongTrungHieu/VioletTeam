@@ -159,6 +159,30 @@ public class ExecuteQuery {
 		}
 		return listDiemphuot;
 	}
+	
+	// insert single Diemphuot to tbl_diemphuot
+		public boolean insert_tbl_diemphuot_single(Diemphuot dp) {
+			try {
+				database = mDbHelper.getWritableDatabase();
+				ContentValues cv = new ContentValues();
+
+				cv.put(ColumnName.TBL_DIEM_PHUOT_MADIEMPHUOT, dp.getMaDiemphuot());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_TENDIEMPHUOT, dp.getTenDiemphuot());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_LAT, dp.getLat());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_LON, dp.getLon());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_MATINH, dp.getMaTinh());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_DIACHI, dp.getDiachi());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_GHICHU, dp.getGhichu());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_IMAGE, dp.getImage());
+				
+
+				database.insert(ColumnName.TBL_DIEM_PHUOT_TABLE, null, cv);
+				return true;
+			} catch (SQLiteException e) {
+				Log.e("insert_tbl_user_single", e.getMessage());
+				return false;
+			}
+		}
 
 	/*
 	 * tbl_lichtrinh
