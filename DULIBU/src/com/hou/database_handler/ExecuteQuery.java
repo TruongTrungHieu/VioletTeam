@@ -107,24 +107,53 @@ public class ExecuteQuery {
 	// select * from tbl_diemphuot
 	public ArrayList<Diemphuot> getAllDiemphuot() {
 		ArrayList<Diemphuot> listDiemphuot = new ArrayList<Diemphuot>();
-		String selectQuery = "SELECT * FROM "
-				+ ColumnName.TBL_DIEM_PHUOT_TABLE;
+		String selectQuery = "SELECT * FROM " + ColumnName.TBL_DIEM_PHUOT_TABLE;
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
 			do {
 				Diemphuot d = new Diemphuot();
 
-				d.setMaDiemphuot(cursor.getColumnName(0));
-				d.setTenDiemphuot(cursor.getColumnName(1));
-				d.setLat(cursor.getColumnName(2));
-				d.setLon(cursor.getColumnName(3));
-				d.setMaTinh(cursor.getColumnName(4));
-				d.setDiachi(cursor.getColumnName(5));
-				d.setGhichu(cursor.getColumnName(6));
-				d.setImage(cursor.getColumnName(7));
+				d.setMaDiemphuot(cursor.getString(0));
+				d.setTenDiemphuot(cursor.getString(1));
+				d.setLat(cursor.getString(2));
+				d.setLon(cursor.getString(3));
+				d.setMaTinh(cursor.getString(4));
+				d.setDiachi(cursor.getString(5));
+				d.setGhichu(cursor.getString(6));
+				d.setImage(cursor.getString(7));
 				d.setTrangthaiChuan(cursor.getInt(8));
-				
+
+				listDiemphuot.add(d);
+			} while (cursor.moveToNext());
+		}
+		return listDiemphuot;
+	}
+
+	// select * from tbl_diemphuot
+	public ArrayList<Diemphuot> getAllDiemphuotBy2MaTinh(String start,
+			String end) {
+		ArrayList<Diemphuot> listDiemphuot = new ArrayList<Diemphuot>();
+		String selectQuery = "SELECT * FROM " + ColumnName.TBL_DIEM_PHUOT_TABLE
+				+ " WHERE " + ColumnName.TBL_DIEM_PHUOT_MATINH + " = '" + start
+				+ "' OR " + ColumnName.TBL_DIEM_PHUOT_MATINH + " = '" + end
+				+ "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Diemphuot d = new Diemphuot();
+
+				d.setMaDiemphuot(cursor.getString(0));
+				d.setTenDiemphuot(cursor.getString(1));
+				d.setLat(cursor.getString(2));
+				d.setLon(cursor.getString(3));
+				d.setMaTinh(cursor.getString(4));
+				d.setDiachi(cursor.getString(5));
+				d.setGhichu(cursor.getString(6));
+				d.setImage(cursor.getString(7));
+				d.setTrangthaiChuan(cursor.getInt(8));
+
 				listDiemphuot.add(d);
 			} while (cursor.moveToNext());
 		}
@@ -144,16 +173,16 @@ public class ExecuteQuery {
 		Tinh_Thanhpho c = new Tinh_Thanhpho();
 		String selectQuery = "SELECT * FROM "
 				+ ColumnName.TBL_TINH_THANHPHO_TABLE + " WHERE "
-				+ ColumnName.TBL_TINH_THANHPHO_TENTINH + " = '" + tenTinh + "'";
+				+ ColumnName.TBL_TINH_THANHPHO_TENTINH + " = '" + tenTinh + "' ";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
-			c.setMaTinh(cursor.getColumnName(0));
-			c.setTenTinh(cursor.getColumnName(1));
-			c.setLat(cursor.getColumnName(2));
-			c.setLon(cursor.getColumnName(3));
-			c.setImage(cursor.getColumnName(4));
-			c.setGhichu(cursor.getColumnName(5));
+			c.setMaTinh(cursor.getString(0));
+			c.setTenTinh(cursor.getString(1));
+			c.setLat(cursor.getString(2));
+			c.setLon(cursor.getString(3));
+			c.setImage(cursor.getString(4));
+			c.setGhichu(cursor.getString(5));
 		}
 		return c;
 	}
@@ -169,12 +198,12 @@ public class ExecuteQuery {
 			do {
 				Tinh_Thanhpho c = new Tinh_Thanhpho();
 
-				c.setMaTinh(cursor.getColumnName(0));
-				c.setTenTinh(cursor.getColumnName(1));
-				c.setLat(cursor.getColumnName(2));
-				c.setLon(cursor.getColumnName(3));
-				c.setImage(cursor.getColumnName(4));
-				c.setGhichu(cursor.getColumnName(5));
+				c.setMaTinh(cursor.getString(0));
+				c.setTenTinh(cursor.getString(1));
+				c.setLat(cursor.getString(2));
+				c.setLon(cursor.getString(3));
+				c.setImage(cursor.getString(4));
+				c.setGhichu(cursor.getString(5));
 
 				listCity.add(c);
 			} while (cursor.moveToNext());
