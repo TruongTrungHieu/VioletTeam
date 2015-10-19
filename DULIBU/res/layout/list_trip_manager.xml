@@ -4,7 +4,8 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
-    <!-- <LinearLayout
+    <!--
+    <LinearLayout
         android:id="@+id/lnFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +39,9 @@
             android:button="@drawable/custom_checkbox_selector"
             android:text=" Nhiều ngày"
             android:textColor="#505050" />
-    </LinearLayout> -->
+    </LinearLayout>
+    -->
+
 
     <!--
     <TextView
@@ -558,13 +561,22 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#dadada" />
+        android:background="#dadada" />
     -->
-    <ListView
-        android:id="@+id/lvTripList"
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent" >
-    </ListView>
+         >
+
+        <ListView
+            android:id="@+id/lvTripList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent" >
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

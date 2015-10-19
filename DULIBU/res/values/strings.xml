@@ -146,6 +146,14 @@
 
     <!-- Spinner Điểm bắt đầu - Kết thúc -->
     <string name="city_prompt">Chọn địa điểm</string>
+    
+    <!-- Dialog_active_register -->
+    <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn! \nVui lòng kiểm tra và điền mã xác nhận:</string>
+    <string name="hintDialogActive">Mã xác nhận</string>
+    <string name="btnActiveRegister">Xác nhận</string>
+    <string name="btnCancelActiveRegister">Cancel</string>
+    <string name="DoneActive">Xác nhận thành công!</string>
+    <string name="FailActive">Mã xác nhận không đúng, vui lòng thử lại!</string>
 
     <string-array name="city_arrays">
         <item>An Giang</item>
@@ -214,7 +222,7 @@
     </string-array>
 
     <!-- Splash Screen -->
-    <string name="title_activity_splash_screen"></string>
+    <string name="title_activity_splash_screen">Dulibu</string>
     <string name="slogan">Dulibu with you!</string>
     
     <!-- Error from server -->

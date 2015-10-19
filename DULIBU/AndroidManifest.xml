@@ -128,7 +128,7 @@
         <activity
             android:name=".SplashScreenActivity"
             android:label="@string/title_activity_splash_screen"
-            android:theme="@style/CustomActionBarNoShadow" >
+            android:theme="@style/CustomActionBarNoShadowNoTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

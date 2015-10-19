@@ -30,7 +30,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,7 +50,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	ProgressDialog pDialog;
 	ArrayList<Lichtrinh> lichtrinh;
 	ListView lvListTrip;
-
+	private SwipeRefreshLayout swipeRefreshLayout;
 	
 
 	@Override
@@ -65,6 +69,26 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		final ListView lvListTrip = (ListView) view
 				.findViewById(R.id.lvTripList);
 		DeviceStatus ds = new DeviceStatus();
+		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+		swipeRefreshLayout.setColorSchemeColors(R.color.StatusBarColor);
+		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+			
+			@Override
+			public void onRefresh() {
+				// TODO Auto-generated method stub
+				Toast.makeText(getActivity(), "ok, refeshing", Toast.LENGTH_SHORT).show();
+				Handler h = new Handler();
+				h.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						swipeRefreshLayout.setRefreshing(false);
+					}
+				}, 3000);
+				
+			}
+		});
 
 		Lichtrinh trip1 = new Lichtrinh("trip1", "DulibuTeam's Trip", "Hà Nội",
 				"Hà Giang", "01/05/2015", "03/05/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.hou.adapters.DiemphuotAdapter;
 import com.hou.adapters.LichtrinhViewPagerAdapter;
 import com.hou.app.Global;
+import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.PhuotDetailManager;
 import com.hou.dulibu.R;
@@ -19,6 +20,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -221,5 +225,24 @@ public class ListPhuotFragment extends Fragment {
 			pDialog.dismiss();
 		}
 
+	}
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		inflater.inflate(R.menu.fragment_list_phuot_menu, menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.addPhuotActionBar:
+			/*Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
+			startActivity(intent);*/
+			break;
+		case R.id.searchPhuot:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

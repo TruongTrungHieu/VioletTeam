@@ -1,6 +1,11 @@
 package com.hou.dulibu;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.hou.app.Global;
+import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -27,6 +32,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class RegisterManagerActivity extends ActionBarActivity {
@@ -48,8 +54,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 
 		if (getSupportActionBar() != null) {
 			getSupportActionBar().setDisplayShowCustomEnabled(true);
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(Color.parseColor("#0aae44")));
+			getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
@@ -65,13 +70,20 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		sumit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (checkValidate()) {
-					registerToServer();
+				/*
+				 * if (checkValidate()) { registerToServer(); }
+				 */
+				int isselected = radiosex.getCheckedRadioButtonId();
+				if (isselected == R.id.rbmale) {
+					gioitinh = 1;
+				} else {
+					gioitinh = 2;
 				}
+				registerToServer();
 			}
 		});
 		ck_dieukhoan = (CheckBox) findViewById(R.id.ck_dieukhoan);
-		
+
 		dieukhoan = (TextView) findViewById(R.id.dieukhoan);
 		dieukhoan.setOnClickListener(new OnClickListener() {
 
@@ -86,22 +98,19 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				datePikerDialog(R.id.dpCreateDatePicker,
-						R.id.btnDoneCreateTripDatePiker,
-						R.id.btnCancelCreateTripDatePiker, edtNgaysinh,
-						R.layout.date_picker, R.string.titleTimeDialog);
+				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker,
+						R.id.btnCancelCreateTripDatePiker, edtNgaysinh, R.layout.date_picker, R.string.titleTimeDialog);
 			}
 		});
 	}
 
-	public void datePikerDialog(int datePickerID, int btnDoneID,
-			int btnCancelID, final TextView tv, int Layout, int dialogTitle) {
+	public void datePikerDialog(int datePickerID, int btnDoneID, int btnCancelID, final TextView tv, int Layout,
+			int dialogTitle) {
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(Layout);
 		dialog.setTitle(dialogTitle);
 		dialog.setCancelable(true);
-		final DatePicker dpDatePK = (DatePicker) dialog
-				.findViewById(datePickerID);
+		final DatePicker dpDatePK = (DatePicker) dialog.findViewById(datePickerID);
 
 		Button btnCancelDatePiker = (Button) dialog.findViewById(btnCancelID);
 		btnCancelDatePiker.setOnClickListener(new OnClickListener() {
@@ -119,8 +128,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub\
 				int month = dpDatePK.getMonth() + 1;
-				tv.setText(dpDatePK.getDayOfMonth() + "/" + month + "/"
-						+ dpDatePK.getYear());
+				tv.setText(dpDatePK.getYear() + "-" + month + "-" + dpDatePK.getDayOfMonth());
 				dialog.dismiss();
 			}
 		});
@@ -145,18 +153,14 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			gioitinh = 2;
 		}
 
-		if (email.equalsIgnoreCase("") || username.equalsIgnoreCase("")
-				|| pass.equalsIgnoreCase("") || pass.equalsIgnoreCase(ck_pass)
-				|| fullname.equalsIgnoreCase("")
+		if (email.equalsIgnoreCase("") || username.equalsIgnoreCase("") || pass.equalsIgnoreCase("")
+				|| pass.equalsIgnoreCase(ck_pass) == false || fullname.equalsIgnoreCase("")
 				|| ngaysinh.equalsIgnoreCase("")) {
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.checknull), Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getApplicationContext(), getString(R.string.checknull), Toast.LENGTH_LONG).show();
 			check = false;
 		} else {
 			if (!Global.isValidEmail(email)) {
-				Toast.makeText(getApplicationContext(),
-						getResources().getString(R.string.register_err_email),
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.register_err_email),
 						Toast.LENGTH_SHORT).show();
 				check = false;
 			} else {
@@ -202,76 +206,117 @@ public class RegisterManagerActivity extends ActionBarActivity {
 
 		params.put("username", username);
 		params.put("password", pass);
-		params.put("password_cofirm", ck_pass);
+		params.put("password_confirm", ck_pass);
 		params.put("email", email);
 		params.put("fullname", fullname);
-		params.put("ngaysinh", ngaysinh);
-		params.put("gioitinh", gioitinh);
+		params.put("bday", ngaysinh);
+		params.put("gender", gioitinh);
 		params.put("is_agree_tos", "1");
 
-		client.post(Global.BASE_URI + "/" + Global.URI_DANGKY_PATH, params,
-				new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-						Log.e("registerToServer", response);
+		client.post(Global.BASE_URI + "/" + Global.URI_DANGKY_PATH, params, new AsyncHttpResponseHandler() {
+			public void onSuccess(String response) {
+				Log.e("registerToServer", response);
+				ActiveDialog(idRespone(response));
+				/*
+				 * Intent intent = new Intent(RegisterManagerActivity.this,
+				 * LoginManagerActivity.class); startActivity(intent);
+				 */
 
-						Intent intent = new Intent(
-								RegisterManagerActivity.this,
-								LoginManagerActivity.class);
-						startActivity(intent);
+				/*
+				 * if (executeWhenRegisterSuccess(response)) {
+				 * Toast.makeText(getApplicationContext(),
+				 * getResources().getString(R.string.register_succes),
+				 * Toast.LENGTH_SHORT).show(); // Intent intent = new Intent( //
+				 * RegisterManagerActivity.this, // LoginManagerActivity.class);
+				 * startActivity(intent); } else {
+				 * Toast.makeText(getApplicationContext(),
+				 * getResources().getString(R.string.register_error),
+				 * Toast.LENGTH_LONG).show(); }
+				 */
+			}
 
-						if (executeWhenRegisterSuccess(response)) {
-							Toast.makeText(
-									getApplicationContext(),
-									getResources().getString(
-											R.string.register_succes),
-									Toast.LENGTH_SHORT).show();
-							// Intent intent = new Intent(
-							// RegisterManagerActivity.this,
-							// LoginManagerActivity.class);
-							startActivity(intent);
-						} else {
-							Toast.makeText(
-									getApplicationContext(),
-									getResources().getString(
-											R.string.register_error),
-									Toast.LENGTH_LONG).show();
-						}
-					}
+			@Override
+			public void onFailure(int statusCode, Throwable error, String content) {
+				switch (statusCode) {
+				case 400:
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400), Toast.LENGTH_LONG)
+							.show();
+					break;
+				case 403:
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e403), Toast.LENGTH_LONG)
+							.show();
+					break;
+				case 404:
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e404), Toast.LENGTH_LONG)
+							.show();
+					break;
+				case 503:
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e503), Toast.LENGTH_LONG)
+							.show();
+					break;
+				default:
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.register_error),
+							Toast.LENGTH_LONG).show();
+					break;
+				}
+			}
+		});
+	}
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						switch (statusCode) {
-						case 400:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e400),
-									Toast.LENGTH_LONG).show();
-							break;
-						case 403:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e403),
-									Toast.LENGTH_LONG).show();
-							break;
-						case 404:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e404),
-									Toast.LENGTH_LONG).show();
-							break;
-						case 503:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e503),
-									Toast.LENGTH_LONG).show();
-							break;
-						default:
-							Toast.makeText(
-									getApplicationContext(),
-									getResources().getString(
-											R.string.register_error),
-									Toast.LENGTH_LONG).show();
-							break;
-						}
-					}
-				});
+	private String idRespone(String response) {
+		String id = null;
+		try {
+			JSONArray arrObj = new JSONArray(response);
+			for (int i = 0; i < arrObj.length(); i++) {
+				JSONObject cityLocationJson = arrObj.getJSONObject(i);
+				id = cityLocationJson.optString("_id");
+				Log.e("idRespone", id);
+			}
+			return id;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "false";
+		}
+
+	}
+
+	public void ActiveDialog(final String respond) {
+		final Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.dialog_active_register);
+		// dialog.setTitle(dialogTitle);
+		dialog.setCancelable(true);
+		final EditText tvActiveCode = (EditText) dialog.findViewById(R.id.edActiveCode);
+		Button btnCancelActiver = (Button) dialog.findViewById(R.id.btnCancelAcvtiveRegister);
+		btnCancelActiver.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(RegisterManagerActivity.this, LoginManagerActivity.class);
+				startActivity(intent);
+			}
+		});
+		Button btnActive = (Button) dialog.findViewById(R.id.btnAcvtiveRegister);
+		btnActive.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				// TextView edTimePlace = (TextView) findViewById(textID);
+				if (tvActiveCode.getText().toString().equalsIgnoreCase(respond)) {
+					Toast.makeText(RegisterManagerActivity.this, getString(R.string.DoneActive), Toast.LENGTH_SHORT)
+							.show();
+					Intent intent = new Intent(RegisterManagerActivity.this, LoginManagerActivity.class);
+					startActivity(intent);
+				} else {
+					tvActiveCode.setText("");
+					Toast.makeText(RegisterManagerActivity.this, getString(R.string.FailActive), Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		});
+		// Show Dialog
+		dialog.show();
 	}
 
 	private boolean executeWhenRegisterSuccess(String reponse) {

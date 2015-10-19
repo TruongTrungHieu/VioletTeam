@@ -68,13 +68,11 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater
-				.inflate(R.layout.profile_manager, container, false);
-		getActivity().getWindowManager().getDefaultDisplay()
-				.getSize(screenSize);
+		View view = inflater.inflate(R.layout.profile_manager, container, false);
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
 
 		initView(view);
 		statusList = new ArrayList<Trangthai_User>();
@@ -121,8 +119,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			currentMenu.getItem(3).setVisible(true);
 			// Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
 			setEnable();
-			InputMethodManager mgr = (InputMethodManager) getActivity()
-					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 			mgr.showSoftInput(etFullName, InputMethodManager.SHOW_IMPLICIT);
 			etFullName.requestFocus();
 			break;
@@ -173,8 +170,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			tvFromGallery = (TextView) findViewById(R.id.tvFromGallery);
 			tvFromCamera.setOnClickListener(this);
 			tvFromGallery.setOnClickListener(this);
-			getWindow().setLayout((int) (screenSize.x * 0.95),
-					ViewGroup.LayoutParams.WRAP_CONTENT);
+			getWindow().setLayout((int) (screenSize.x * 0.95), ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			WindowManager.LayoutParams wmlp = getWindow().getAttributes();
 
@@ -188,30 +184,27 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.tvFromGallery:
-//				Intent cameraIntent = new Intent();
-//				cameraIntent.setType("image/*");
-//				cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
-//				startActivityForResult(Intent.createChooser(cameraIntent,
-//						"Complete action using"), PICK_FROM_FILE);
-				 // Create intent to Open Image applications like Gallery, Google Photos
-		        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-		                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		        // Start the Intent
-		        startActivityForResult(galleryIntent, PICK_FROM_FILE);
+				// Intent cameraIntent = new Intent();
+				// cameraIntent.setType("image/*");
+				// cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
+				// startActivityForResult(Intent.createChooser(cameraIntent,
+				// "Complete action using"), PICK_FROM_FILE);
+				// Create intent to Open Image applications like Gallery, Google
+				// Photos
+				Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				// Start the Intent
+				startActivityForResult(galleryIntent, PICK_FROM_FILE);
 				this.cancel();
 				break;
 			case R.id.tvFromCamera:
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				Global.createFolderDULIBU();
-				fromCameraFile = new File(
-						Environment.getExternalStorageDirectory() + "/" + Global.DULIBU,
-						"tmp_avatar_"
-								+ String.valueOf(System.currentTimeMillis())
-								+ ".jpg");
+				fromCameraFile = new File(Environment.getExternalStorageDirectory() + "/" + Global.DULIBU,
+						"tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
 				mImageCaptureUri = Uri.fromFile(fromCameraFile);
 				try {
-					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
-							mImageCaptureUri);
+					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
 					intent.putExtra("return-data", true);
 					startActivityForResult(intent, PICK_FROM_CAMERA);
 				} catch (Exception e) {
@@ -229,27 +222,25 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == PICK_FROM_FILE) {
 				Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
- 
-                // Get the cursor
-                Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                // Move to first row
-                cursor.moveToFirst();
- 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String imgDecodableString = cursor.getString(columnIndex);
-                cursor.close();             
-                // Set the Image in ImageView after decoding the String
-                ivProfile.setImageBitmap(BitmapFactory
-                        .decodeFile(imgDecodableString));
- 
-            } else {
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+				// Get the cursor
+				Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null,
+						null);
+				// Move to first row
+				cursor.moveToFirst();
+
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String imgDecodableString = cursor.getString(columnIndex);
+				cursor.close();
+				// Set the Image in ImageView after decoding the String
+				ivProfile.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+
+			} else {
 				path = mImageCaptureUri.getPath();
-			}			
+			}
 			if (fromCameraFile != null) {
-				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
-						fromCameraFile, 500, 500);
+				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(fromCameraFile, 500, 500);
 				ivProfile.setImageBitmap(bm);
 			}
 
@@ -259,20 +250,17 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	public void listDialog() {
 		final Dialog dialog = new Dialog(getActivity());
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.getWindow().setBackgroundDrawableResource(
-				android.R.color.transparent);
+		dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		dialog.setContentView(R.layout.list_status);
 		ListView lv = (ListView) dialog.findViewById(R.id.listStatus);
 
-		ListStatusAdapter adapter = new ListStatusAdapter(getActivity(), 0,
-				statusList);
+		ListStatusAdapter adapter = new ListStatusAdapter(getActivity(), 0, statusList);
 		lv.setAdapter(adapter);
 		lv.setBackgroundResource(android.R.color.transparent);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
 				switch (arg2) {
 				case 0:
@@ -310,8 +298,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		wmlp.x = ivStatus.getLeft();
 		wmlp.y = ivStatus.getTop() + 230;
 
-		dialog.getWindow().clearFlags(
-				WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+		dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 		dialog.show();
 	}
 
@@ -319,8 +306,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		Context context;
 		List<Trangthai_User> list;
 
-		public ListStatusAdapter(Context context, int resource,
-				List<Trangthai_User> objects) {
+		public ListStatusAdapter(Context context, int resource, List<Trangthai_User> objects) {
 			super(context, resource, objects);
 			// TODO Auto-generated constructor stub
 			this.context = context;
@@ -330,12 +316,10 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			LayoutInflater inflater = (LayoutInflater) context
-					.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 			StatusHolder holder;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.item_status_user,
-						parent, false);
+				convertView = inflater.inflate(R.layout.item_status_user, parent, false);
 				holder = new StatusHolder();
 				initView(holder, convertView);
 				convertView.setTag(holder);

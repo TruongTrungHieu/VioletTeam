@@ -24,6 +24,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,9 @@ public class SplashScreenActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
+		if (getSupportActionBar() != null) {
+			getSupportActionBar().hide();
+		}
 		mContext = this;
 		// Toast.makeText(getApplicationContext(), kq,
 		// Toast.LENGTH_LONG).show();
@@ -273,15 +278,6 @@ public class SplashScreenActivity extends ActionBarActivity {
 		RequestParams params = new RequestParams();
 		params.put("id", id);
 		params.put("path", path);
-
-		client.post(
-				Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH,
-				params, new AsyncHttpResponseHandler() {
-		
-		
-		
-		client.post(Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH, params,
-				new AsyncHttpResponseHandler() {
 		params.put("access_token", Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
 		
 		
