@@ -70,16 +70,10 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		sumit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*
-				 * if (checkValidate()) { registerToServer(); }
-				 */
-				int isselected = radiosex.getCheckedRadioButtonId();
-				if (isselected == R.id.rbmale) {
-					gioitinh = 1;
-				} else {
-					gioitinh = 2;
-				}
+				
+				if(checkValidate()==true){
 				registerToServer();
+				}
 			}
 		});
 		ck_dieukhoan = (CheckBox) findViewById(R.id.ck_dieukhoan);
@@ -153,20 +147,35 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			gioitinh = 2;
 		}
 
-		if (email.equalsIgnoreCase("") || username.equalsIgnoreCase("") || pass.equalsIgnoreCase("")
-				|| pass.equalsIgnoreCase(ck_pass) == false || fullname.equalsIgnoreCase("")
-				|| ngaysinh.equalsIgnoreCase("")) {
-			Toast.makeText(getApplicationContext(), getString(R.string.checknull), Toast.LENGTH_LONG).show();
+		if (email.equals("")== true || username.equals("")== true || pass.equals("")== true
+				|| ck_pass.equals("")== true|| fullname.equals("")== true
+				|| ngaysinh.equals("")== true) {
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.checknull), Toast.LENGTH_LONG).show();
 			check = false;
 		} else {
 			if (!Global.isValidEmail(email)) {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.register_err_email),
 						Toast.LENGTH_SHORT).show();
+				edtEmail.setText("");
 				check = false;
 			} else {
-				if (!ck_dieukhoan.isSelected()) {
+				if(pass.equals(ck_pass)==false){
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.ck_pass_err),
+							Toast.LENGTH_SHORT).show();
+					edtPass.setText("");
+					edtCk_pass.setText("");
 					check = false;
+				}else{
+					if (ck_dieukhoan.isChecked()==true) {
+						Toast.makeText(getApplicationContext(), "Ok",
+								Toast.LENGTH_SHORT).show();
+					}else{
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.ck_rule_err),
+								Toast.LENGTH_SHORT).show();
+						check = false;
+					}
 				}
+				
 			}
 		}
 		return check;
