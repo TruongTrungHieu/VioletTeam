@@ -18,6 +18,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,10 +54,17 @@ public class SplashScreenActivity extends ActionBarActivity {
 		// Toast.makeText(getApplicationContext(), kq,
 		// Toast.LENGTH_LONG).show();
 		getListCity();
-		if (!isServiceRunning()) {
-			startService(new Intent(this, GetLocationService.class));
-			Toast.makeText(this, "start Service", Toast.LENGTH_LONG).show();
-		}
+//		if (!isServiceRunning()) {
+//			startService(new Intent(this, GetLocationService.class));
+//			Toast.makeText(this, "start Service", Toast.LENGTH_LONG).show();
+//		}
+		
+		SharedPreferences sharedPreferences = this.getSharedPreferences(
+				"gpstracker", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putBoolean("firstTimeGettingPosition", true);
+		editor.putFloat("totalDistanceInMeters", 0f);
+		editor.commit();
 
 		new Handler().postDelayed(new Runnable() {
 			@Override

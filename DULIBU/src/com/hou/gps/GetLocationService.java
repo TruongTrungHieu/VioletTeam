@@ -44,7 +44,7 @@ public class GetLocationService extends Service implements
 		GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 	private static final String TAG = "LocationService";
-	Socket socket;
+	Socket socket = null;
 
 	private boolean currentlyProcessingLocation = false;
 	private LocationRequest locationRequest;
@@ -87,14 +87,20 @@ public class GetLocationService extends Service implements
 	}
 
 	protected void sendLocationDataToWebsite(Location location)
-			throws MalformedURLException {
+			throws MalformedURLException, JSONException {
 		// formatted for mysql datetime format
+
+		final JSONObject checkPoint = new JSONObject();
+		checkPoint.put("access_token", Global.ACCESS_TOKEN);
+		checkPoint.put("target_id", location.getLatitude());
+		checkPoint.put("target_type", Global.TARGET_TRIP);
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		dateFormat.setTimeZone(TimeZone.getDefault());
 		Date date = new Date(location.getTime());
 
 		SharedPreferences sharedPreferences = this.getSharedPreferences(
-				"com.websmithing.gpstracker.prefs", Context.MODE_PRIVATE);
+				"gpstracker", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		float totalDistanceInMeters = sharedPreferences.getFloat(
@@ -119,111 +125,75 @@ public class GetLocationService extends Service implements
 
 		editor.putFloat("previousLatitude", (float) location.getLatitude());
 		editor.putFloat("previousLongitude", (float) location.getLongitude());
-		editor.apply();
+		editor.commit();
 
-		final RequestParams requestParams = new RequestParams();
-		requestParams.put("latitude", Double.toString(location.getLatitude()));
-		requestParams
-				.put("longitude", Double.toString(location.getLongitude()));
-
-		Double speedInMilesPerHour = location.getSpeed() * 2.2369;
-		requestParams.put("speed",
-				Integer.toString(speedInMilesPerHour.intValue()));
+		checkPoint.put("lat", Double.toString(location.getLatitude()));
+		checkPoint.put("lon", Double.toString(location.getLongitude()));
 
 		try {
-			requestParams.put("date",
+			checkPoint.put("date",
 					URLEncoder.encode(dateFormat.format(date), "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 		}
 
-		requestParams.put("locationmethod", location.getProvider());
-
 		if (totalDistanceInMeters > 0) {
-			requestParams.put("distance",
-					String.format("%.1f", totalDistanceInMeters / 1609)); // in
-																			// miles,
-		} else {
-			requestParams.put("distance", "0.0"); // in miles
+			checkPoint.put("distance",
+					String.format("%.1f", totalDistanceInMeters));
 		}
 
-		requestParams.put("username",
-				sharedPreferences.getString("userName", ""));
-		requestParams.put("phonenumber",
-				sharedPreferences.getString("appID", "")); // uuid
-		requestParams.put("sessionid",
-				sharedPreferences.getString("sessionID", "")); // uuid
-
-		Double accuracyInFeet = location.getAccuracy() * 3.28;
-		requestParams.put("accuracy",
-				Integer.toString(accuracyInFeet.intValue()));
-
-		Double altitudeInFeet = location.getAltitude() * 3.28;
-		requestParams.put("extrainfo",
-				Integer.toString(altitudeInFeet.intValue()));
-
-		requestParams.put("eventtype", "android");
-
-		Float direction = location.getBearing();
-		requestParams.put("direction", Integer.toString(direction.intValue()));
-		// AsyncHttpClient client = new AsyncHttpClient();
-		// client.post("http://128.199.112.15" + "/" + "update-gps",
-		// requestParams,
-		// new AsyncHttpResponseHandler() {
-		// public void onSuccess(String response) {
-		// Log.e("senLocation", response);
-		// }
+		// Double accuracyInFeet = location.getAccuracy() * 3.28;
+		// checkPoint.put("accuracy",
+		// Integer.toString(accuracyInFeet.intValue()));
 		//
-		// @Override
-		// public void onFailure(int statusCode, Throwable error,
-		// String content) {
-		// }
-		// });
-		final JSONObject checkPoint = new JSONObject();
-		try {
-			checkPoint.put("access_token", Global.ACCESS_TOKEN);
-			checkPoint.put("target_id", location.getLatitude());
-			checkPoint.put("target_type", Global.TARGET_TRIP);
-			checkPoint.put("lat", location.getLatitude());
-			checkPoint.put("lon", location.getLongitude());
+		// Double altitudeInFeet = location.getAltitude() * 3.28;
+		// checkPoint.put("extrainfo",
+		// Integer.toString(altitudeInFeet.intValue()));
+		//
+		// checkPoint.put("eventtype", "android");
+		//
+		// Float direction = location.getBearing();
+		// checkPoint.put("direction", Integer.toString(direction.intValue()));
 
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			socket = IO.socket("http://128.199.112.15/");
-			socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+		if (socket != null) {
+			if (socket.connected()) {
+				socket.emit("tracking", checkPoint);
+			}
+		} else {
+			try {
+				socket = IO.socket("http://128.199.112.15/");
+				socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
-				@Override
-				public void call(Object... args) {
-					socket.emit("tracking", checkPoint);
-				}
+					@Override
+					public void call(Object... args) {
+						socket.emit("tracking", checkPoint);
+					}
 
-			}).on("tracking", new Emitter.Listener() {
+				}).on("tracking", new Emitter.Listener() {
 
-				@Override
-				public void call(Object... obj) {
-					Log.d("SOCKET", ((JSONObject) obj[0]).toString());
-				}
+					@Override
+					public void call(Object... obj) {
+						Log.d("SERVER RETURN", ((JSONObject) obj[0]).toString());
+					}
 
-			}).on(".error", new Emitter.Listener() {
+				}).on(".error", new Emitter.Listener() {
 
-				@Override
-				public void call(Object... obj) {
-					Log.d("SOCKET", ((JSONObject) obj[0]).toString());
-				}
+					@Override
+					public void call(Object... obj) {
+						Log.d("SOCKET", ((JSONObject) obj[0]).toString());
+					}
 
-			}).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+				}).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
 
-				@Override
-				public void call(Object... args) {
-				}
+					@Override
+					public void call(Object... args) {
+					}
 
-			});
-			socket.connect();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				});
+				socket.connect();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -255,7 +225,7 @@ public class GetLocationService extends Service implements
 			// }
 			try {
 				sendLocationDataToWebsite(location);
-			} catch (MalformedURLException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
