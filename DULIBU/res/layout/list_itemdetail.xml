@@ -33,7 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="16h - 27-9-2015"
         android:textColor="@color/ActionBarColor"
         android:textSize="15sp"/>
 
