@@ -70,10 +70,6 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 
 	Button btnCreatePlace, btnCreateTrip, btnChooseImage;
 	// TimePicker tpTimePK;
-	Button btnCreatePlace, btnCreateTrip;
-	//TimePicker tpTimePK;
-	Button btnCreatePlace, btnCreateTrip;
-	// TimePicker tpTimePK;
 	GoogleMap mMap;
 	EditText edTripName, edKinhPhi, edPlaceStart;
 	TextView edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime,
@@ -490,10 +486,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		dialog.show();
 	}
 
-	public void checkEditText() {
-		if (edPlaceStart.getText().toString().isEmpty()) {
-	public void checkEditText(){
-		if(edPlaceStart.getText().toString().isEmpty()){
+	
 
 	private void showMarkerTouch() {
 		// Diemphuot da touch
