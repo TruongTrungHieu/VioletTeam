@@ -32,6 +32,16 @@ public class Lichtrinh_Diemphuot implements Serializable {
 		this.sothutu = sothutu;
 	}
 
+	public Lichtrinh_Diemphuot(String maDiemphuot, String lat, String lon) {
+		super();
+		this.maLichtrinh_diemphuot = "";
+		this.maLichtrinh = "";
+		this.maDiemphuot = maDiemphuot;
+		this.lat = lat;
+		this.lon = lon;
+		this.sothutu = 0;
+	}
+	
 	public String getMaLichtrinh_diemphuot() {
 		return maLichtrinh_diemphuot;
 	}
