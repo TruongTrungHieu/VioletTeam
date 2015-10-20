@@ -1,8 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"    
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF" >
+    android:background="#FFF"
+    android:scrollbars="none" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:background="@drawable/default_cover"
             android:orientation="vertical" >
 
-            <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+            <com.hou.ultis.CircularImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
@@ -26,7 +27,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:alpha="50"
-                android:src="@drawable/default_avartar"
+                android:scaleType="centerCrop"
                 app:siShape="@drawable/rounded_rectangle_shape"
                 app:siSquare="true" />
 
@@ -67,13 +68,13 @@
             android:layout_below="@id/rlImgInfo"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tvSOS"
+            <Button
+                android:id="@+id/btnSOS"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:background="@color/red"
                 android:gravity="center"
                 android:text="SOS"
+                android:background="@drawable/button_sos_bg"
                 android:textColor="#FFF"
                 android:textSize="32sp" />
 
@@ -169,7 +170,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <com.github.siyamed.shapeimageview.CircularImageView
+        <com.hou.ultis.CircularImageView
             android:id="@+id/ivStatus"
             android:layout_width="50dp"
             android:layout_height="50dp"

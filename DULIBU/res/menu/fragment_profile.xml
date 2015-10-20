@@ -11,7 +11,7 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/messages"
-        android:icon="@drawable/ic_trip_message_white"
+        android:icon="@drawable/icon_message"
         android:title="@string/messages_actionbar"
         app:showAsAction="always"/>
     <item
