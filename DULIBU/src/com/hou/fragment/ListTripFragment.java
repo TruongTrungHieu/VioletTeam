@@ -133,7 +133,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
 		alert.setTitle("Tìm kiếm");
-		alert.setNegativeButton("Cancel",
+		alert.setNegativeButton("Thoát",
 				new DialogInterface.OnClickListener() {
 
 					@Override
