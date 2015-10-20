@@ -50,6 +50,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 			imgMapGas;
 	int status = 0; // 0b
 	Boolean stSlide = true;
+	Location location;
 	
 
 	ArrayList<ImageView> lstImg;
@@ -150,12 +151,12 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 		});
 		FixWidthBottom(imgMapWarnning, imgMapHospital,
 				imgMapGas);
-
+		getGasStation();
 		return v;
 
 	}
 	
-	public void getGasStation(Location location) {
+	public void getGasStation() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+location.getLatitude()+","+location.getLongitude()
