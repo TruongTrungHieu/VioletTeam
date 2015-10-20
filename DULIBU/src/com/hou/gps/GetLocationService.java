@@ -180,9 +180,7 @@ public class GetLocationService extends Service implements
 		// });
 		final JSONObject checkPoint = new JSONObject();
 		try {
-			checkPoint
-					.put("access_token",
-							"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2Nlc3NfdG9rZW4iOiI1NjEzNGU5YzUxYWJmYzFjNjM5NGMwNDkkMDV1T2JObl9WZEBsZDNpYVlyS1czdUNNcjFYanlsUnkySkJmVkNwRk95a1JaZTJARG9jTHJfZlJAUXhKIiwiaWF0IjoxNDQ1MjQwODE1fQ.cTbon3tjR7whVjOiDROY3vSzlWfDyDJvQykEM5pRlKg");
+			checkPoint.put("access_token", Global.ACCESS_TOKEN);
 			checkPoint.put("target_id", location.getLatitude());
 			checkPoint.put("target_type", Global.TARGET_TRIP);
 			checkPoint.put("lat", location.getLatitude());
