@@ -278,10 +278,6 @@ public class SplashScreenActivity extends ActionBarActivity {
 		RequestParams params = new RequestParams();
 		params.put("id", id);
 		params.put("path", path);
-		params.put("access_token", Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
-		
-		
-		
 		client.post(Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH, params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
