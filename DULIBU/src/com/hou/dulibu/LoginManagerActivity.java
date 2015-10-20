@@ -1,9 +1,13 @@
 package com.hou.dulibu;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.app.Global;
+import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -37,13 +41,13 @@ public class LoginManagerActivity extends ActionBarActivity {
 	private Button btnDangky;
 	private EditText edtUsername;
 	private EditText edtPassword;
-//	private GCMService gcm;
+	// private GCMService gcm;
 	Geocoder geocoder;
-	
+
 	private AlarmManager alarmManager;
 	private Intent gpsTrackerIntent;
 	private PendingIntent pendingIntent;
-	
+
 	private String username;
 	private String password;
 
@@ -146,19 +150,23 @@ public class LoginManagerActivity extends ActionBarActivity {
 						edtUsername.setText(null);
 						switch (statusCode) {
 						case 400:
-							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400),
+							Toast.makeText(getApplicationContext(),
+									getResources().getString(R.string.e400),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 403:
-							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e403),
+							Toast.makeText(getApplicationContext(),
+									getResources().getString(R.string.e403),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 404:
-							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e404),
+							Toast.makeText(getApplicationContext(),
+									getResources().getString(R.string.e404),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 503:
-							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e503),
+							Toast.makeText(getApplicationContext(),
+									getResources().getString(R.string.e503),
 									Toast.LENGTH_LONG).show();
 							break;
 						default:
@@ -179,11 +187,10 @@ public class LoginManagerActivity extends ActionBarActivity {
 			String email = userJson.optString("email");
 			String ngaysinh = userJson.optString("bday");
 			String sdt = userJson.optString("phone");
-			String gioitinh = userJson.optString("gioitinh");
+			String gioitinh = userJson.optString("gender");
 			String sdt_lienhe = userJson.optString("phone_contact");
 			String ghichu = userJson.optString("note");
 			String avatar = userJson.optString("avatar");
-
 
 			Global.savePreference(getApplicationContext(), Global.USER_MAUSER,
 					_id);
@@ -212,6 +219,5 @@ public class LoginManagerActivity extends ActionBarActivity {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 }

@@ -1,15 +1,21 @@
 package com.hou.fragment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.github.siyamed.shapeimageview.CircularImageView;
 import com.hou.app.Global;
 import com.hou.dulibu.R;
 import com.hou.dulibu.SettingActivity;
 import com.hou.model.Trangthai_User;
+import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
+import com.hou.upload.ImageDownloader;
+import com.hou.upload.imageOnServer;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -24,6 +30,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,13 +50,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfileFragment extends Fragment implements OnClickListener {
 	private ProgressDialog pDialog;
 	private Menu currentMenu;
 	public static Point screenSize = new Point();
 	RelativeLayout lnImgInfo;
-	ImageView ivProfile;
+	CircularImageView ivProfile;
 	TextView tvUserName, tvStatus;
 	EditText etFullName, etUserName, etEmail, etBirthday, etPhone, etContact;
 	private CircularImageView ivStatus;
@@ -59,6 +67,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private File fromCameraFile;
 	private Uri mImageCaptureUri;
 	private String path;
+	private ImageDownloader downloader;
+	private static Bitmap bmp;
+	private FileOutputStream fos;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,12 +91,18 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		statusList.add(new Trangthai_User("2", "Kha", "green"));
 		statusList.add(new Trangthai_User("3", "Trung binh", "orange"));
 		statusList.add(new Trangthai_User("4", "Yeu", "pink"));
+		
+		String pathAvartar = Global.getPreference(getActivity(), Global.USER_AVATAR, "");
+		downloader= new ImageDownloader(pathAvartar, ivProfile, getActivity(), bmp);
+		downloader.execute();
+		FillDataProfile();
+		
 		return view;
 	}
 
 	public void initView(View view) {
 		lnImgInfo = (RelativeLayout) view.findViewById(R.id.rlImgInfo);
-		ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
+		ivProfile = (CircularImageView) view.findViewById(R.id.ivProfile);
 		tvUserName = (TextView) view.findViewById(R.id.tvUserName);
 		etFullName = (EditText) view.findViewById(R.id.etFullName);
 		ivStatus = (CircularImageView) view.findViewById(R.id.ivStatus);
@@ -98,6 +115,18 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		ivProfile.setOnClickListener(this);
 		ivStatus.setOnClickListener(this);
+	}
+	private void FillDataProfile(){
+		tvUserName.setText(Global.getPreference(getActivity(), Global.USER_USERNAME, ""));
+		etFullName.setText(Global.getPreference(getActivity(), Global.USER_USERNAME, ""));
+		etEmail.setText(Global.getPreference(getActivity(), Global.USER_EMAIL, ""));
+		etBirthday.setText(Global.getPreference(getActivity(), Global.USER_NGAYSINH, ""));
+		etPhone.setText(Global.getPreference(getActivity(), Global.USER_SDT, ""));
+		if (Global.getPreference(getActivity(), Global.USER_GIOITINH, "").equalsIgnoreCase("1")) {
+			tvUserName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_male, 0, 0, 0);
+		}else {
+			tvUserName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_female, 0, 0, 0);
+		}
 	}
 
 	@Override
@@ -381,5 +410,37 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		etContact.setEnabled(false);
 		etFullName.setEnabled(false);
 		etPhone.setEnabled(false);
+	}
+	private void saveImageToSD() {
+
+		/*--- this method will save your downloaded image to SD card ---*/
+
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		/*--- you can select your preferred CompressFormat and quality. 
+		 * I'm going to use JPEG and 100% quality ---*/
+		bmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+		/*--- create a new file on SD card ---*/
+		File file = new File(Environment.getExternalStorageDirectory()
+				+ File.separator + "myDownloadedImage.jpg");
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*--- create a new FileOutputStream and write bytes to file ---*/
+		try {
+			fos = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			fos.write(bytes.toByteArray());
+			fos.close();
+			Log.e("File Path", file.getPath());
+			Toast.makeText(getActivity(), "Image saved", Toast.LENGTH_SHORT).show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

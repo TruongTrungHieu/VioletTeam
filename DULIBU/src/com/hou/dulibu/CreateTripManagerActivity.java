@@ -1,13 +1,16 @@
 package com.hou.dulibu;
+import java.io.File;
 
 import java.util.ArrayList;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.hou.app.Global;
+import com.hou.fragment.ProfileFragment.ImageDialog;
+import com.hou.ultis.ImageUltiFunctions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.database_handler.ExecuteQuery;
@@ -21,14 +24,28 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -43,6 +60,18 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		OnMapReadyCallback {
 	private Spinner spStartPlace;
 	private Spinner spEndPlace;
+	public static Point screenSize = new Point();
+	private static final int PICK_FROM_CAMERA = 1;
+	private static final int PICK_FROM_FILE = 2;
+	private File fromCameraFile;
+	private Uri mImageCaptureUri;
+	private String path;
+	Context context = this;
+
+	Button btnCreatePlace, btnCreateTrip, btnChooseImage;
+	// TimePicker tpTimePK;
+	Button btnCreatePlace, btnCreateTrip;
+	//TimePicker tpTimePK;
 	Button btnCreatePlace, btnCreateTrip;
 	// TimePicker tpTimePK;
 	GoogleMap mMap;
@@ -64,6 +93,42 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_trip_manager);
+
+		this.getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		this.getWindowManager().getDefaultDisplay().getSize(screenSize);
+
+		if (getSupportActionBar() != null) {
+			// getSupportActionBar().setDisplayShowCustomEnabled(true);
+			getSupportActionBar().setBackgroundDrawable(
+					new ColorDrawable(Color.parseColor("#0aae44")));
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+		edTripName = (EditText) findViewById(R.id.txtNameTrip);
+		edDayStart = (TextView) findViewById(R.id.txtStartDay);
+		edDayEnd = (TextView) findViewById(R.id.txtEndDay);
+		edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
+		edTimePlace = (TextView) findViewById(R.id.txtTimePlace);
+		edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
+		edStartTime = (TextView) findViewById(R.id.txtStartTime);
+		edEndTime = (TextView) findViewById(R.id.txtEndTime);
+		edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
+
+		 if (getSupportActionBar() != null) {
+		 //getSupportActionBar().setDisplayShowCustomEnabled(true);
+		 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
+		 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		 }
+		 edTripName = (EditText) findViewById(R.id.txtNameTrip);
+		 edDayStart = (TextView) findViewById(R.id.txtStartDay);
+		 edDayEnd = (TextView) findViewById(R.id.txtEndDay);
+		 edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
+		 edTimePlace = (TextView) findViewById(R.id.txtTimePlace);
+		 edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
+		 edStartTime =(TextView) findViewById(R.id.txtStartTime);
+		 edEndTime = (TextView) findViewById(R.id.txtEndTime);
+		 edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
+		 
 
 		if (getSupportActionBar() != null) {
 			// getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -95,6 +160,19 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		// GPS when leave
 		spStartPlace = (Spinner) findViewById(R.id.spStartPlace);
 		spEndPlace = (Spinner) findViewById(R.id.spEndPlace);
+
+		btnChooseImage = (Button) findViewById(R.id.btnChooseImage);
+		btnChooseImage.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new ImageDialog(context,
+						R.layout.select_image_layout).show();
+			}
+		});
+
+		
 
 		btnCreatePlace = (Button) findViewById(R.id.btnCreatePlace);
 		btnCreatePlace.setOnClickListener(new View.OnClickListener() {
@@ -412,6 +490,11 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		dialog.show();
 	}
 
+	public void checkEditText() {
+		if (edPlaceStart.getText().toString().isEmpty()) {
+	public void checkEditText(){
+		if(edPlaceStart.getText().toString().isEmpty()){
+
 	private void showMarkerTouch() {
 		// Diemphuot da touch
 		for (Diemphuot dp : listTouch) {
@@ -552,6 +635,114 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		ft.remove(fragment);
 		ft.commit();
 	}
+
+	public class ImageDialog extends Dialog implements View.OnClickListener {
+		private final TextView tvFromCamera;
+		private final TextView tvFromGallery;
+		Context mContext;
+
+		public ImageDialog(Context context, int resource) {
+			super(context);
+			mContext = context;
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setCancelable(true);
+			setContentView(resource);
+			tvFromCamera = (TextView) findViewById(R.id.tvFromCamera);
+			tvFromGallery = (TextView) findViewById(R.id.tvFromGallery);
+			tvFromCamera.setOnClickListener(this);
+			tvFromGallery.setOnClickListener(this);
+			getWindow().setLayout((int) (screenSize.x * 0.95),
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+
+			WindowManager.LayoutParams wmlp = getWindow().getAttributes();
+
+			wmlp.gravity = Gravity.TOP | Gravity.LEFT;
+			wmlp.x = 100; // x position
+			wmlp.y = 100; // y position
+			// getWindow().getDecorView().setBackgroundResource(0);
+		}
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.tvFromGallery:
+				// Intent cameraIntent = new Intent();
+				// cameraIntent.setType("image/*");
+				// cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
+				// startActivityForResult(Intent.createChooser(cameraIntent,
+				// "Complete action using"), PICK_FROM_FILE);
+				// Create intent to Open Image applications like Gallery, Google
+				// Photos
+				Intent galleryIntent = new Intent(
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				// Start the Intent
+				startActivityForResult(galleryIntent, PICK_FROM_FILE);
+				this.cancel();
+				break;
+			case R.id.tvFromCamera:
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				Global.createFolderDULIBU();
+				fromCameraFile = new File(
+						Environment.getExternalStorageDirectory() + "/"
+								+ Global.DULIBU, "tmp_avatar_"
+								+ String.valueOf(System.currentTimeMillis())
+								+ ".jpg");
+				mImageCaptureUri = Uri.fromFile(fromCameraFile);
+				try {
+					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
+							mImageCaptureUri);
+					intent.putExtra("return-data", true);
+					startActivityForResult(intent, PICK_FROM_CAMERA);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				this.cancel();
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == this.RESULT_OK) {
+			if (requestCode == PICK_FROM_FILE) {
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+				// Get the cursor
+				Cursor cursor = this.getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				// Move to first row
+				cursor.moveToFirst();
+
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String imgDecodableString = cursor.getString(columnIndex);
+				cursor.close();
+				// Set the Image in ImageView after decoding the String
+				// ivProfile.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+				btnChooseImage.setBackground(new BitmapDrawable(
+						getResources(), BitmapFactory
+								.decodeFile(imgDecodableString)));
+				btnChooseImage.setText("");
+
+			} else {
+				path = mImageCaptureUri.getPath();
+			}
+			if (fromCameraFile != null) {
+				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
+						fromCameraFile, 500, 500);
+				// ivProfile.setImageBitmap(bm);
+				BitmapDrawable bitmapDrawable = new BitmapDrawable(
+						getResources(), bm);
+				btnChooseImage.setBackground(bitmapDrawable);
+				btnChooseImage.setText("");
+			}
+
+		}
+	}
+
 
 	private double CalculationByDistance(LatLng StartP, LatLng EndP) {
 		double lat1 = StartP.latitude / 1E6;
