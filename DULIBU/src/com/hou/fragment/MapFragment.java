@@ -2,6 +2,10 @@ package com.hou.fragment;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -9,7 +13,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.hou.app.Global;
 import com.hou.dulibu.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -22,6 +30,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +50,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 			imgMapGas;
 	int status = 0; // 0b
 	Boolean stSlide = true;
+	
 
 	ArrayList<ImageView> lstImg;
 
@@ -144,6 +154,50 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 		return v;
 
 	}
+	
+	public void getGasStation(Location location) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+location.getLatitude()+","+location.getLongitude()
+				+"&radius=10000&types=gas_station&key=AIzaSyCV_sND3UkBW8i3KzPWRJ7C452g2Ao4seg", params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("getGasStation", response);
+//						Toast.makeText(getApplicationContext(), "Ok", Toast.LENGTH_SHORT).show();
+						listGasStation(response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+
+					}
+				});
+	}
+	private String listGasStation(String response) {
+
+		try {
+			JSONObject obj = new JSONObject(response);
+			JSONArray results_arr = obj.getJSONArray("results");
+			for (int i=0; i<results_arr.length(); ++i) {
+				JSONObject place = results_arr.getJSONObject(i);
+				JSONObject geometry = place.getJSONObject("geometry");
+				JSONObject location = geometry.getJSONObject("location");
+				double lat = Double.parseDouble(location.optString("lat")+"");
+				double lon = Double.parseDouble(location.optString("lon")+"");
+				LatLng latLng = new LatLng(lat, lon);
+				mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.map_gas1)));
+			}
+
+			// Toast.makeText(getApplicationContext(), "KQ JSON",
+			// Toast.LENGTH_LONG).show();
+
+			return "true";
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "false";
+		}
+	}
 
 	public void CheckStatusBottom() {
 
@@ -159,7 +213,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 
 	}
 
-	// icon nào đang được chọn
+	// icon nÃ o Ä‘ang Ä‘Æ°á»£c chá»�n
 	public void ImgIsSelected() {
 		if (((status >> 4) & 1) == 1) {
 			// place
@@ -179,7 +233,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 		}
 	}
 
-	// căn chỉnh khi thay đổi kích thước màn hình
+	// cÄƒn chá»‰nh khi thay Ä‘á»•i kÃ­ch thÆ°á»›c mÃ n hÃ¬nh
 	public void FixWidthBottom(ImageView warnning, ImageView hospital,
 			ImageView gas) {
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -278,7 +332,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements
 	@Override
 	public void onMapReady(GoogleMap mMap) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "Đây là map", Toast.LENGTH_LONG).show();
+		Toast.makeText(getActivity(), "Ä�Ã¢y lÃ  map", Toast.LENGTH_LONG).show();
 		ImgIsSelected();
 		mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(
 				"Marker"));
