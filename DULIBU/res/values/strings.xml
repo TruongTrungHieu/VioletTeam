@@ -234,6 +234,8 @@
     <!-- RegisterManagerActivity -->
     <string name="checknull">Nhập đầy đủ thông tin</string>
     <string name="register_error">Vui lòng thử lại</string>
+    <string name="ck_pass_err">Xác thực pass chưa chính xác</string>
+    <string name="ck_rule_err">Chưa xác nhận đồng ý điều khoản</string>
     <string name="register_succes">Mã xác thực được gửi tới hòm thư của bạn :)</string>
     <string name="register_err_email">Định dạng Email không hợp lệ</string>
 	
