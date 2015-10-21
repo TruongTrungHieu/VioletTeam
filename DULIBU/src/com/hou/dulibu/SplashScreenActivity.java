@@ -1,5 +1,7 @@
 package com.hou.dulibu;
 
+import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +11,7 @@ import com.hou.asynctask.GetListCityAsyncTask;
 import com.hou.gps.GetLocationService;
 import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
+import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -20,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -82,6 +86,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 		tvSlogan.setTypeface(tf);
 		GetListCityAsyncTask ga = new GetListCityAsyncTask();
 		ga.execute(Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH);
+		new getImage().execute();
 	}
 
 	private void getListCity() {
@@ -341,5 +346,21 @@ public class SplashScreenActivity extends ActionBarActivity {
 			}
 		}
 		return false;
+	}
+	
+	public class getImage extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try {
+				imageOnServer.downloadFileFromServer("f3599b7c4dc80e5e0319.jpg");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
 	}
 }

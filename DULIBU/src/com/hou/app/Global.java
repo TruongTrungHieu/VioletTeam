@@ -37,9 +37,12 @@ public class Global {
 	public static String URI_GETPLACE_PATH ="location/travel";
 	public static String URI_REGISTERTOTRIP_PATH = "trip/register";
 	public static String URI_UPDATETRIPLOCATIONS_PATH = "trip/locations";
-
+	public static String URI_DOWNLOAD_IMAGE = BASE_URI + "/static/travel/5610/";
+	
 	public static String URI_UPDATEAVATAR_PATH = "user/avatar";
 	public static String DIEMPHUOT_P = "20";
+	
+//http://128.199.112.15/static/travel/5610/f3599b7c4dc80e5e0319.jpg
 
 
 	/*

@@ -274,7 +274,7 @@ public class imageOnServer {
 		FileOutputStream fout = null;
 		int count;
         try {
-        	URL url = new URL("http://image1.ictnews.vn/_Files/images/8f0/ec5/d3d/8f0ec5d3d58d445cbdd24eb6860c56cb.jpg");
+        	URL url = new URL(Global.URI_DOWNLOAD_IMAGE + filename);
             URLConnection conection = url.openConnection();
             Log.e("chưa connect",filename);
             conection.connect();
