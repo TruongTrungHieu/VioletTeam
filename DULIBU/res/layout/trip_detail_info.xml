@@ -213,7 +213,7 @@
                         android:layout_height="30dp"
                         android:background="#0aae44"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="offline"
+                        android:text="OFFLINE"
                         android:textAllCaps="true"
                         android:textColor="#FFF"
                         android:textSize="8sp" />
