@@ -23,7 +23,8 @@
     <!-- LoginManagerActivity -->
     <string name="validator_login">Thiếu tên đăng nhập hoặc mật khẩu</string>
     <string name="login_fail">Sai tên đăng nhập hoặc mật khẩu</string>
-    <string name="login_again">Đăng nhập lại -_-</string>
+    <string name="login_again">Đăng nhập lại!</string>
+    <string name="action_login">Đăng nhập</string>
 
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
