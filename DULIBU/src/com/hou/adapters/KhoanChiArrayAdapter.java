@@ -1,5 +1,6 @@
 package com.hou.adapters;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,10 +44,10 @@ public class KhoanChiArrayAdapter extends ArrayAdapter<Chitieu> {
 			final TextView time = (TextView) convertView.findViewById(R.id.txtThoiGian);
 
 			final Chitieu kc = myArray.get(position);
-
 			txtTenKhoanChi.setText(kc.getTenChitieu());
-			txtSoTien.setText(kc.getSotien()+"");
-			SimpleDateFormat sdf = new SimpleDateFormat("mm:HH dd-MM-yyyy ");
+			DecimalFormat df = new DecimalFormat("#.#");
+			txtSoTien.setText(df.format(kc.getSotien()));
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd-MM-yyyy ");
 			String day = sdf.format(new Date());
 			time.setText(day);
 		}
