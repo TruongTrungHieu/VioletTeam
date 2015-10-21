@@ -28,11 +28,14 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginManagerActivity extends ActionBarActivity {
@@ -65,6 +68,29 @@ public class LoginManagerActivity extends ActionBarActivity {
 
 		edtUsername.setText("root");
 		edtPassword.setText("pAC123456");
+		
+		edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int id,
+					KeyEvent event) {
+				if (id == R.id.login || id == EditorInfo.IME_NULL) {
+					username = edtUsername.getText().toString();
+					password = edtPassword.getText().toString();
+					if (username != null && edtPassword != null
+							&& username.trim().length() > 0
+							&& password.trim().length() > 0) {
+						// send request login to server
+						loginToServer();
+					} else {
+						Toast.makeText(getApplicationContext(),
+								getResources().getString(R.string.validator_login),
+								Toast.LENGTH_LONG).show();
+					}
+					return true;
+				}
+				return false;
+			}
+		});
 
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(new View.OnClickListener() {

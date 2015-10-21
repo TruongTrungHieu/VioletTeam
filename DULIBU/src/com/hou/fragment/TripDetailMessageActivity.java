@@ -183,7 +183,6 @@ public class TripDetailMessageActivity extends Fragment {
 			@Override
 			public void onClick(View v) {
 				attemptSend();
-				Toast.makeText(getActivity(), "SEND", Toast.LENGTH_LONG).show();
 			}
 		});
 	}

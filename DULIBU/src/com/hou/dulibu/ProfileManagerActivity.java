@@ -63,7 +63,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		this.addSection(mnuMyMap);
 
 		mnuLogout = newSection("Đăng xuất", R.drawable.icon_logout,
-				new ProfileFragment());
+				new Intent(this, LoginManagerActivity.class));
 		this.addSection(mnuLogout);
 
 		mnuAbout = newSection("Thông tin ứng dụng", R.drawable.icon_about,
@@ -101,6 +101,12 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 			onBackPressed();
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finishAffinity();
 	}
 
 	private void logoutToServer() {
