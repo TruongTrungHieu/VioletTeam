@@ -76,7 +76,7 @@ public class DeviceStatus {
 
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		if (activeNetwork == null) {
-			Stt += "No Internet Access";
+			Stt += "NoInternetAccess";
 		}
 
 		return Stt;

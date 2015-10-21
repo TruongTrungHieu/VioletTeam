@@ -59,7 +59,7 @@ public class Global {
 	public static String USER_AVATAR = "avatar";
 	public static String USER_GHICHU = "ghichu";
 	public static String USER_ACCESS_TOKEN = "access_token";
-
+	
 	// Multi language
 	public static String MULTI_LANGUAGE = "multi_language";
 	public static String MULTI_LANGUAGE_VI = "vi";

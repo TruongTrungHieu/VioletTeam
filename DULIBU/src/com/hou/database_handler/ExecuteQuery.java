@@ -184,6 +184,31 @@ public class ExecuteQuery {
 			}
 		}
 
+	// insert multi DiemPhuot to tblDiemPhuot
+		public boolean insert_tbl_Diemphuot_multi(ArrayList<Diemphuot> listD) {
+			try {
+				database = mDbHelper.getWritableDatabase();
+				for (Diemphuot dp : listD) {
+					ContentValues cv = new ContentValues();
+
+					cv.put(ColumnName.TBL_DIEM_PHUOT_MADIEMPHUOT, dp.getMaDiemphuot());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_TENDIEMPHUOT, dp.getTenDiemphuot());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_LAT, dp.getLat());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_LON, dp.getLon());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_MATINH, dp.getMaTinh());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_DIACHI, dp.getDiachi());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_GHICHU, dp.getGhichu());
+					cv.put(ColumnName.TBL_DIEM_PHUOT_IMAGE, dp.getImage());
+
+					database.insert(ColumnName.TBL_DIEM_PHUOT_TABLE, null, cv);
+				}
+				return true;
+			} catch (SQLiteException e) {
+				Log.e("insert_tbl_user_multi", e.getMessage());
+				return false;
+			}
+		}
+
 	/*
 	 * tbl_lichtrinh
 	 */
