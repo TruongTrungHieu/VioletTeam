@@ -71,7 +71,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				
-				if(checkValidate()==true){
+				if(true){
 				registerToServer();
 				}
 			}
@@ -133,13 +133,6 @@ public class RegisterManagerActivity extends ActionBarActivity {
 	private boolean checkValidate() {
 		boolean check = true;
 
-		email = edtEmail.getText().toString();
-		username = edtUsername.getText().toString();
-		pass = edtPass.getText().toString();
-		ck_pass = edtCk_pass.getText().toString();
-		fullname = edtFullname.getText().toString();
-		ngaysinh = edtNgaysinh.getText().toString();
-
 		int isselected = radiosex.getCheckedRadioButtonId();
 		if (isselected == R.id.rbmale) {
 			gioitinh = 1;
@@ -167,8 +160,6 @@ public class RegisterManagerActivity extends ActionBarActivity {
 					check = false;
 				}else{
 					if (ck_dieukhoan.isChecked()==true) {
-						Toast.makeText(getApplicationContext(), "Ok",
-								Toast.LENGTH_SHORT).show();
 					}else{
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.ck_rule_err),
 								Toast.LENGTH_SHORT).show();
@@ -248,8 +239,11 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			public void onFailure(int statusCode, Throwable error, String content) {
 				switch (statusCode) {
 				case 400:
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400), Toast.LENGTH_LONG)
-							.show();
+//					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400), Toast.LENGTH_LONG)
+//							.show();
+					Toast.makeText(getApplicationContext(), content, Toast.LENGTH_LONG)
+					.show();
+			
 					break;
 				case 403:
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.e403), Toast.LENGTH_LONG)

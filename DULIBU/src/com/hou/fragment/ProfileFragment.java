@@ -117,8 +117,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		ivStatus.setOnClickListener(this);
 	}
 	private void FillDataProfile(){
-		tvUserName.setText(Global.getPreference(getActivity(), Global.USER_USERNAME, ""));
-		etFullName.setText(Global.getPreference(getActivity(), Global.USER_USERNAME, ""));
+		tvUserName.setText(Global.getPreference(getActivity(), Global.USER_FULLNAME, ""));
+		etFullName.setText(Global.getPreference(getActivity(), Global.USER_FULLNAME, ""));
 		etEmail.setText(Global.getPreference(getActivity(), Global.USER_EMAIL, ""));
 		etBirthday.setText(Global.getPreference(getActivity(), Global.USER_NGAYSINH, ""));
 		etPhone.setText(Global.getPreference(getActivity(), Global.USER_SDT, ""));
