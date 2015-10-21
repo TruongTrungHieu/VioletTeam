@@ -53,6 +53,10 @@
     <!-- Offline_activity -->
     <string name="titleOfflineDialog">Tạo mới sự kiện</string>
 
+    <!-- Warning -->
+    <string name="Safe">An toàn</string>
+    <string name="Lost">Mất tích</string>
+    
     <!-- Chitieu_activity -->
     <string name="titleChiPhiDialog">Thêm chi phí</string>
     <string name="hintTenMucChi">Tên mục chi</string>
