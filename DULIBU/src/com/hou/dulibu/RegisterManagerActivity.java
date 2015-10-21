@@ -140,9 +140,9 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			gioitinh = 2;
 		}
 
-		if (email.equals("")== true || username.equals("")== true || pass.equals("")== true
-				|| ck_pass.equals("")== true|| fullname.equals("")== true
-				|| ngaysinh.equals("")== true) {
+		if (email.equals("") || username.equals("") || pass.equals("")
+				|| ck_pass.equals("")|| fullname.equals("")
+				|| ngaysinh.equals("")) {
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.checknull), Toast.LENGTH_LONG).show();
 			check = false;
 		} else {
@@ -159,6 +159,19 @@ public class RegisterManagerActivity extends ActionBarActivity {
 					edtCk_pass.setText("");
 					check = false;
 				}else{
+				 if(pass.length()<=4)	{
+				   Toast.makeText(getApplicationContext(), "Mật khẩu quá ngắn", Toast.LENGTH_SHORT).show();
+				   check = false;
+				 }else{
+					 if (ck_dieukhoan.isChecked()==true) {
+							Toast.makeText(getApplicationContext(), "Ok",
+									Toast.LENGTH_SHORT).show();
+						}else{
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.ck_rule_err),
+									Toast.LENGTH_SHORT).show();
+							check = false;
+						}
+				 }
 					if (ck_dieukhoan.isChecked()==true) {
 					}else{
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.ck_rule_err),
