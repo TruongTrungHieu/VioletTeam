@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
 
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
@@ -485,9 +487,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
-
 	
-
 	private void showMarkerTouch() {
 		// Diemphuot da touch
 		for (Diemphuot dp : listTouch) {
@@ -750,5 +750,11 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				* Math.sin(dLon / 2);
 		double c = 2 * Math.asin(Math.sqrt(a));
 		return 6371.00 * c;
+	}
+	
+	private void sendDataToServer(String nameTrip){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("nametrip", nameTrip);
 	}
 }
