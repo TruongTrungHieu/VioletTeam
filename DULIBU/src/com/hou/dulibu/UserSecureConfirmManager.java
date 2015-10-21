@@ -29,7 +29,7 @@ public class UserSecureConfirmManager extends ActionBarActivity {
 		tvLostUserName.setTypeface(tf);
 		
 		UserConfirm uc1 = new UserConfirm("user1", "Nguyễn Văn C", 1);
-		UserConfirm uc2 = new UserConfirm("user2", "Trần Văn K", 0);
+		UserConfirm uc2 = new UserConfirm("user2", "Trần Văn A", 0);
 		ucArr = new ArrayList<UserConfirm>();
 		ucArr.add(uc1);
 		ucArr.add(uc2);
