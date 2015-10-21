@@ -50,7 +50,7 @@
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Tham gia"
                     android:textAllCaps="false"
-                    android:textSize="13sp"
+                    android:textSize="9sp"
                     android:textStyle="bold" />
 
                 <Button
@@ -64,7 +64,7 @@
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Hủy Tham gia"
                     android:textAllCaps="false"
-                    android:textSize="13sp"
+                    android:textSize="9sp"
                     android:textStyle="bold"
                     android:visibility="gone" />
             </RelativeLayout>
@@ -83,12 +83,12 @@
 
                     <TextView
                         android:layout_width="70dp"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:background="#0aae44"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="LEADER"
+                        android:text="TRƯỞNG NHÓM"
                         android:textColor="#FFF"
-                        android:textSize="11sp" />
+                        android:textSize="8sp" />
 
                     <TextView
                         android:id="@+id/tvleader"
@@ -109,13 +109,13 @@
 
                     <TextView
                         android:layout_width="70dp"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:background="#0aae44"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="thời gian"
                         android:textAllCaps="true"
                         android:textColor="#FFF"
-                        android:textSize="11sp" />
+                        android:textSize="8sp" />
 
                     <TextView
                         android:id="@+id/tvTimeTrip"
@@ -136,13 +136,13 @@
 
                     <TextView
                         android:layout_width="70dp"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:background="#0aae44"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="khởi hành"
                         android:textAllCaps="true"
                         android:textColor="#FFF"
-                        android:textSize="11sp" />
+                        android:textSize="8sp" />
 
                     <TextView
                         android:id="@+id/tvTimeStart"
@@ -163,13 +163,13 @@
 
                     <TextView
                         android:layout_width="70dp"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:background="#0aae44"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="Kinh phí"
                         android:textAllCaps="true"
                         android:textColor="#FFF"
-                        android:textSize="11sp"  />
+                        android:textSize="8sp"  />
 
                     <TextView
                         android:id="@+id/tvMoneyTrip"
@@ -210,13 +210,13 @@
                     <TextView
                         android:id="@+id/tvBtnOffline"
                         android:layout_width="70dp"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:background="#0aae44"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="offline"
                         android:textAllCaps="true"
                         android:textColor="#FFF"
-                        android:textSize="11sp" />
+                        android:textSize="8sp" />
 
                     <TextView
                         android:id="@+id/tvTimeOffLate"
