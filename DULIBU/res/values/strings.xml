@@ -47,6 +47,7 @@
     <string name="save_trip"></string>
     <string name="actionSave">Trip được thêm vào ưu thích</string>
     <string name="actionUndoSave">Trip được loại khỏi ưu thích</string>
+    <string name="sendMessage">Gửi</string>
 
     <!-- Offline_activity -->
     <string name="titleOfflineDialog">Tạo mới sự kiện</string>
@@ -232,7 +233,6 @@
     <string name="e503">Hệ thống đang bảo trì !</string>
 
     <!-- RegisterManagerActivity -->
-    <string name="checknull">Nhập đầy đủ thông tin</string>
     <string name="register_error">Vui lòng thử lại</string>
     <string name="ck_pass_err">Xác thực pass chưa chính xác</string>
     <string name="ck_rule_err">Chưa xác nhận đồng ý điều khoản</string>
@@ -253,5 +253,9 @@
     <string name="name_price">Giá</string>
     <string name="name_Date">Ngày</string>
     
+    <!-- Chat  -->
+    <string name="action_send">Send</string>
+    <string name="prompt_message">Nhập nội dung...</string>
+    <string name="user_action_typing">is typing</string>
 
 </resources>
