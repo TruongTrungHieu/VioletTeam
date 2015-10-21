@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -45,7 +46,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 ////
 ////		actionBar.setDisplayHomeAsUpEnabled(true);
 ////		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("TÄ‚Âªn");
+//		actionBar.setTitle("TÃ„â€šÃ‚Âªn");
 //		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 //		actionBar.setDisplayHomeAsUpEnabled(true);
 		
@@ -53,7 +54,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	
 		
 		
-//		actionBar.setTitle("Chi tiáº¿t kinh phĂ­");
+//		actionBar.setTitle("Chi tiÃ¡ÂºÂ¿t kinh phÄ‚Â­");
 //		
 
 		txtConDu = (TextView) findViewById(R.id.txtConDu);
@@ -111,9 +112,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		//a = arrKhoanChi.get(0).getSotien() + ""; // Khi them phan tu moi vao thi arraylist add phan tu do vao dau day
 //		KhoanChi c = new KhoanChi();
 		int d = arrKhoanChi.size()-1;
-//		c = arrKhoanChi.get(d);
 		mucchi = arrKhoanChi.get(d).getSotien();
-		Toast.makeText(getApplicationContext(), mucchi+"", Toast.LENGTH_SHORT).show();
 		//conDu = tongTien - mucchi;
 		tongTien -= mucchi;
 		txtConDu.setText(tongTien+"");
@@ -131,7 +130,6 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		double mucchi;
 		
 		mucchi = arrKhoanChi.get(position).getSotien();
-		Toast.makeText(getApplicationContext(), mucchi+"", Toast.LENGTH_SHORT).show();
 		tongTien += mucchi;
 		txtConDu.setText(tongTien+"");
 		//conDu = tongTien + mucchi;
@@ -203,7 +201,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					
 					if (ten.equals("") || tien.equals("")) {
 						Toast.makeText(getApplication(),
-								"Ă„Â�iĂ¡Â»Â�u thiĂ¡ÂºÂ¿u thÄ‚Â´ng tin", Toast.LENGTH_SHORT)
+								"Chưa nhập đủ thông tin", Toast.LENGTH_SHORT)
 								.show();
 						return;
 					}
@@ -214,9 +212,6 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					//Toast.makeText(getApplicationContext(), soTien+"", Toast.LENGTH_SHORT).show();
 					kc.setSotien(soTien);					
 					arrKhoanChi.add(kc);
-					
-					updateTien1(0);
-
 					adapter.notifyDataSetChanged();
 					dialog.dismiss();
 
@@ -243,6 +238,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 //		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }
 
 
