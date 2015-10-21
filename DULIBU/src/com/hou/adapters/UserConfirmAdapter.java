@@ -32,21 +32,18 @@ public class UserConfirmAdapter extends ArrayAdapter<UserConfirm> {
 		
 		if (myArray.size() > 0 && position >= 0) {
 			final TextView txtName = (TextView) convertView.findViewById(R.id.tvUserConfirmName);
-			final ImageView ivStt = (ImageView) convertView.findViewById(R.id.ivUserConfirmStt);
+			final TextView txtWarning = (TextView) convertView.findViewById(R.id.txtWarning);
 			
 			final UserConfirm uc = myArray.get(position);
 			
 			txtName.setText(uc.getTenUser().toString());
-			Resources res = context.getResources();
 			if(uc.getSttConfirm() == 1){
-				Drawable drawable = res.getDrawable(R.drawable.ic_visible);
-				ivStt.setScaleType(ImageView.ScaleType.FIT_XY);
-				ivStt.setImageDrawable(drawable);
+				txtWarning.setText(R.string.Lost);
+				txtWarning.setTextColor(getContext().getResources().getColor(R.color.red));
 			}
 			else{
-				Drawable drawable = res.getDrawable(R.drawable.ic_visible_no);
-				ivStt.setScaleType(ImageView.ScaleType.FIT_XY);
-				ivStt.setImageDrawable(drawable);
+				txtWarning.setText(R.string.Safe);
+				txtWarning.setTextColor(getContext().getResources().getColor(R.color.ActionBarColor));
 			}
 		}
 		
