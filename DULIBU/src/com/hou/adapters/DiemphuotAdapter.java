@@ -18,10 +18,12 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DiemphuotAdapter extends BaseAdapter {
 	Context context;
@@ -64,7 +66,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 
 		TextView tv_name = (TextView) v.findViewById(R.id.tvPhuotName);
 		TextView tv_address = (TextView) v.findViewById(R.id.tvAddress);
-		ImageUrl = phuots.get(position).getImage();
+		ImageUrl = ((Diemphuot)phuots.get(position)).getImage();
 
 		// Toast.makeText(context, "" + phuots.get(position).getMaDiemphuot(),
 		// Toast.LENGTH_SHORT);
@@ -72,56 +74,50 @@ public class DiemphuotAdapter extends BaseAdapter {
 		// File f =
 		// ImageUltiFunctions.getFileFromUri(Global.getURI(phuots.get(position).getMaDiemphuot())
 		// + ".jpg");
-		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(phuots.get(position).getImage()));
+/*		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(phuots.get(position).getImage()));
 		if (f != null) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
 			im.setImageBitmap(b);
-
 		} 
-		else {
+		else {*/
 			new LoadImageDiemPhuot().execute();
-		}
+/*		}*/
 		/*else {
 			im.setImageResource(R.drawable.trip1);
 		}*/
 
 		tv_name.setText(((Diemphuot) phuots.get(position)).getTenDiemphuot());
 		tv_address.setText(((Diemphuot) phuots.get(position)).getDiachi());
-		// tv_hardlevel.setText(((Diemphuot) phuots.get(position)).getDokho());
-		/*
-		 * Toast.makeText(context, "ID diem: " + ((Diemphuot)
-		 * phuots.get(position)).getDokho(), Toast.LENGTH_SHORT).show();
-		 */
-		/*
-		 * v.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { // startDiemDL(position);
-		 * Toast.makeText(context, "ID diem: " + ((Diemphuot)
-		 * phuots.get(position)).getMaDiemphuot(), Toast.LENGTH_SHORT).show();
-		 * Intent intent = new Intent(context, PhuotDetailOverview.class); sta }
-		 * });
-		 */
+
+		v.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(context, "Tên: " + ((Diemphuot)phuots.get(position)).getTenDiemphuot() + "\n" + "id ảnh: " + ((Diemphuot)phuots.get(position)).getImage(), Toast.LENGTH_LONG).show();
+			}
+		});
 
 		return v;
-	}
+		}
 
 	class LoadImageDiemPhuot extends AsyncTask<String, integer, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
-				try {
-					URL url = new URL(ImageUrl);
-					bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				return null;
+			try {
+				URL url = new URL(ImageUrl);
+				bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return null;
 		}
 
 		@Override

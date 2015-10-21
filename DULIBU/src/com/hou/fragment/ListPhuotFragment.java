@@ -176,14 +176,15 @@ public class ListPhuotFragment extends Fragment {
 				if (a.equals("Wifi") || a.equals("3G")) {
 					getPlacetoServer();
 					phuots = exeQ.getAllDiemphuot();
-					Collections.sort(phuots, new Comparator<Diemphuot>() {
+					/*Collections.sort(phuots, new Comparator<Diemphuot>() {
 						@Override
 						public int compare(Diemphuot st1, Diemphuot st2) {
 
 							return (st1.getMaDiemphuot()).compareTo(st2.getMaDiemphuot());
 						}
-					});
-					gv_phuot.deferNotifyDataSetChanged();
+					});*/
+					//gv_phuot.deferNotifyDataSetChanged();
+					gv_phuot.setAdapter(new DiemphuotAdapter(getActivity(), phuots));
 				} else if (a.equals("NoInternetAccess")) {
 					Toast.makeText(getActivity(), "No connection, try again later", Toast.LENGTH_SHORT).show();
 				}
@@ -206,6 +207,13 @@ public class ListPhuotFragment extends Fragment {
 		phuots = new ArrayList<Diemphuot>();
 		gv_phuot = (GridView) view.findViewById(R.id.gvPhuotGrid);
 		phuots = exeQ.getAllDiemphuot();// DiemPhuotSQLite
+		/*Collections.sort(phuots, new Comparator<Diemphuot>() {
+			@Override
+			public int compare(Diemphuot st1, Diemphuot st2) {
+
+				return (st1.getMaDiemphuot()).compareTo(st2.getMaDiemphuot());
+			}
+		});*/
 		gv_phuot.setAdapter(new DiemphuotAdapter(getActivity(), phuots));
 
 		/*
@@ -254,7 +262,11 @@ public class ListPhuotFragment extends Fragment {
 				String lon = placeLocationJson.optString("lon") + "";
 				String name = placeLocationJson.optString("name");
 				String image = placeLocationJson.optString("image");
-				String location = placeLocationJson.optString("location");
+				JSONObject objectLocation = placeLocationJson.getJSONObject("location");
+					String id_city = objectLocation.optString("_id");
+					String lat_city = objectLocation.optString("lat");
+					String lon_city = objectLocation.optString("lon");
+					String name_city = objectLocation.optString("name");
 
 				place.setMaDiemphuot(_id);
 				place.setGhichu(note);
@@ -262,26 +274,25 @@ public class ListPhuotFragment extends Fragment {
 				place.setLon(lon);
 				place.setTenDiemphuot(name);
 				place.setImage(image);
-				place.setDiachi(location);
+				place.setDiachi("a"+i);
 				phuots.add(place);
 				exeQ.insert_tbl_diemphuot_single(place);
-				/*for (Diemphuot dp : phuots) {
-					if(dp.getMaDiemphuot().equals(place.getMaDiemphuot()) == false){
-						exeQ.insert_tbl_diemphuot_single(place);
-					}
-				}
-				phuots = exeQ.getAllDiemphuot();
-				//exeQ.insert_tbl_diemphuot_single(place);
-				//phuotsTemp = exeQ.getAllDiemphuot();
-				Collections.sort(phuots, new Comparator<Diemphuot>() {
-					@Override
-					public int compare(Diemphuot st1, Diemphuot st2) {
-
-						return (st1.getMaDiemphuot()).compareTo(st2.getMaDiemphuot());
-					}
-				});
-				exeQ.insert_tbl_Diemphuot_multi(phuots);*/
-				//Log.e("getPlacetoServer", name);
+				/*
+				 * for (Diemphuot dp : phuots) {
+				 * if(dp.getMaDiemphuot().equals(place.getMaDiemphuot()) ==
+				 * false){ exeQ.insert_tbl_diemphuot_single(place); } } phuots =
+				 * exeQ.getAllDiemphuot();
+				 * //exeQ.insert_tbl_diemphuot_single(place); //phuotsTemp =
+				 * exeQ.getAllDiemphuot(); Collections.sort(phuots, new
+				 * Comparator<Diemphuot>() {
+				 * 
+				 * @Override public int compare(Diemphuot st1, Diemphuot st2) {
+				 * 
+				 * return
+				 * (st1.getMaDiemphuot()).compareTo(st2.getMaDiemphuot()); } });
+				 * exeQ.insert_tbl_Diemphuot_multi(phuots);
+				 */
+				// Log.e("getPlacetoServer", name);
 			}
 
 			// Toast.makeText(getApplicationContext(), "KQ JSON",
