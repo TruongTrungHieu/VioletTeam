@@ -238,6 +238,7 @@
     <string name="e403">Thiếu quyền thực hiện chức năng !</string>
     <string name="e404">Chức năng đang sửa !</string>
     <string name="e503">Hệ thống đang bảo trì !</string>
+     <string name="e400_">Sai tài khoản đăng nhập !</string>
 
     <!-- RegisterManagerActivity -->
     <string name="register_error">Vui lòng thử lại</string>
