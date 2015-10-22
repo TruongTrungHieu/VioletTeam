@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 import com.hou.model.Diemphuot;
@@ -18,6 +19,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
+import android.widget.DatePicker;
 
 public class Global {
 
@@ -154,7 +156,7 @@ public class Global {
 	
 	@SuppressWarnings("null")
 	public static String convertStringToDate(String dateString) {
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD",
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.ENGLISH);
 		Date date = null;
 		try {
@@ -164,6 +166,16 @@ public class Global {
 			e.printStackTrace();
 		}
 		return date.toString();
+	}
+	public static java.util.Date getDateFromDatePicket(DatePicker datePicker){
+	    int day = datePicker.getDayOfMonth();
+	    int month = datePicker.getMonth();
+	    int year =  datePicker.getYear();
+
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.set(year, month, day);
+
+	    return calendar.getTime();
 	}
 
 }

@@ -1,34 +1,22 @@
 package com.hou.dulibu;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.app.Global;
-import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import android.app.ActivityManager;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,21 +26,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginManagerActivity extends ActionBarActivity {
-	private String TAG = "GPS service";
+@SuppressLint("DefaultLocale") public class LoginManagerActivity extends ActionBarActivity {
 	private Button btnLogin;
 	private Button btnDangky;
 	private EditText edtUsername;
 	private EditText edtPassword;
-	// private GCMService gcm;
-	Geocoder geocoder;
-
-	private AlarmManager alarmManager;
-	private Intent gpsTrackerIntent;
-	private PendingIntent pendingIntent;
 
 	private String username;
 	private String password;
+	private TextView tvForgetPassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +45,17 @@ public class LoginManagerActivity extends ActionBarActivity {
 			getSupportActionBar().hide();
 		}
 
+		tvForgetPassword = (TextView) findViewById(R.id.tvForgetPassword);
 		edtUsername = (EditText) findViewById(R.id.edtUsername);
 		edtPassword = (EditText) findViewById(R.id.edtPassword);
+		tvForgetPassword.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ForgetPass();
+			}
+		});
 
 		edtUsername.setText("root");
 		edtPassword.setText("pAC123456");
@@ -74,7 +65,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 			public boolean onEditorAction(TextView v, int id,
 					KeyEvent event) {
 				if (id == R.id.login || id == EditorInfo.IME_NULL) {
-					username = edtUsername.getText().toString();
+					username = edtUsername.getText().toString().toLowerCase();
 					password = edtPassword.getText().toString();
 					if (username != null && edtPassword != null
 							&& username.trim().length() > 0
@@ -98,7 +89,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				username = edtUsername.getText().toString();
+				username = edtUsername.getText().toString().toLowerCase();
 				password = edtPassword.getText().toString();
 				if (username != null && edtPassword != null
 						&& username.trim().length() > 0
@@ -245,5 +236,43 @@ public class LoginManagerActivity extends ActionBarActivity {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	@SuppressLint("InflateParams")
+	private void ForgetPass() {
+		LayoutInflater inflater = getLayoutInflater();
+		View alertLayout = inflater.inflate(R.layout.dialog_active_register,
+				null);
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		final EditText txtActiveCode = (EditText) alertLayout
+				.findViewById(R.id.edActiveCode);
+		final TextView tvForget = (TextView) alertLayout.findViewById(R.id.tvCaption);
+		tvForget.setText(getString(R.string.hintDialogForgetPass));
+		txtActiveCode.setHint(R.string.hintDialogForget);
+		alert.setView(alertLayout);
+		alert.setCancelable(false);
+		alert.setTitle("Quên Mật Khẩu");
+		alert.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				return;
+
+			}
+		});
+
+		alert.setPositiveButton("Xác nhận",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						
+						dialog.dismiss();
+						return;
+					}
+				});
+		AlertDialog dialog = alert.create();
+		dialog.show();
 	}
 }

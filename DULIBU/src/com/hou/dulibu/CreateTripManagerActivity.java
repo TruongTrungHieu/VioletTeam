@@ -1,7 +1,11 @@
 package com.hou.dulibu;
 import java.io.File;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -14,14 +18,17 @@ import com.hou.ultis.ImageUltiFunctions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.database_handler.ExecuteQuery;
+import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
 import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -732,6 +739,40 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				btnChooseImage.setBackground(bitmapDrawable);
 				btnChooseImage.setText("");
 			}
+
+		}
+	}
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getSupportFragmentManager(), "datePicker");
+	}
+
+	public static class DatePickerFragment extends DialogFragment implements
+			DatePickerDialog.OnDateSetListener {
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			// Do something with the date chosen by the user
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+					Locale.US);
+			try {
+				ngaysinh = dateFormat
+						.format(Global.getDateFromDatePicket(view));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			edtNgaysinh.setText(ngaysinh);
 
 		}
 	}
