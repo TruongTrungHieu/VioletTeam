@@ -107,10 +107,16 @@ public class Offline_Activity extends ActionBarActivity {
 					}
 					
 					Sukien sk = new Sukien();
+					Address vitri;
 					sk.setTenSukien(ten);
 					sk.setThoigian(thoigian);
 					sk.setDiadiem(diadiem);
-					getLocationFromAddress(diadiem);
+					vitri = getLocationFromAddress(diadiem);
+					sk.setLat(vitri.getLatitude()+"");
+					sk.setLon(vitri.getLongitude()+"");
+					
+					
+					
 //					Sukien sk = new Sukien();
 //					sk.setTenSukien("96 Dinh Cong");
 //					sk.setThoigian("16h");
@@ -150,7 +156,7 @@ public class Offline_Activity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void getLocationFromAddress(String strTim) {
+	private Address getLocationFromAddress(String strTim) {
 		Geocoder coder = new Geocoder(context);
     	List<Address> address = null;
     	try {
@@ -160,14 +166,15 @@ public class Offline_Activity extends ActionBarActivity {
 			e.printStackTrace();
 		}
     			
-    
+    	Toast.makeText(getApplicationContext(),strTim, Toast.LENGTH_LONG).show();
 			
     	    Address location = address.get(0);
-    	//    String locality = location.getLocality();
+    	    String locality = location.getLocality();
     	    location.getLatitude();
     	    location.getLongitude();
-    	    Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_LONG).show();
-    	//    Toast.makeText(getApplicationContext(),locality+"", Toast.LENGTH_LONG).show();
+    	    return location;
+//    	    Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_LONG).show();
+//    	    Toast.makeText(getApplicationContext(),locality+"", Toast.LENGTH_LONG).show();
 	
 }
 

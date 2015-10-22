@@ -30,6 +30,7 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 	int layoutId;
 	MapView gMapView;
 	GoogleMap gMap = null;
+	LatLng sydney;
 
 	public SuKienAdapter(Activity context, int layoutId, ArrayList<Sukien> arr) {
 		super(context, layoutId, arr);
@@ -68,6 +69,7 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 			tvTenSuKien.setText(sk.getTenSukien());
 
 			tvThoiGian.setText(sk.getThoigian());
+			sydney = new LatLng(Double.parseDouble(sk.getLat()), Double.parseDouble(sk.getLon()));
 		}
 
 		return convertView;
@@ -82,7 +84,7 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 		 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
 		 * LatLng(-14.235004,-51.925280), 20));
 		 */
-		 LatLng sydney = new LatLng(-34, 151);
+		// LatLng sydney = new LatLng(-34, 151);
 		// // gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		// LatLng latLng = new LatLng(-14.235004, -51.925280);
 		// // gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
