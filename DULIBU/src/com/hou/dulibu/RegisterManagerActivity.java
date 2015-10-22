@@ -86,9 +86,6 @@ public class RegisterManagerActivity extends ActionBarActivity {
 
 				if (checkValidate()) {
 					registerToServer();
-				Intent intent = new Intent(RegisterManagerActivity.this,
-						LoginManagerActivity.class);
-				startActivity(intent);
 				}
 			}
 		});

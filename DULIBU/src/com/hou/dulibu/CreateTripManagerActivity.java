@@ -119,29 +119,6 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		edEndTime = (TextView) findViewById(R.id.txtEndTime);
 		edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
 
-		 if (getSupportActionBar() != null) {
-		 //getSupportActionBar().setDisplayShowCustomEnabled(true);
-		 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
-		 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		 }
-		 edTripName = (EditText) findViewById(R.id.txtNameTrip);
-		 edDayStart = (TextView) findViewById(R.id.txtStartDay);
-		 edDayEnd = (TextView) findViewById(R.id.txtEndDay);
-		 edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
-		 edTimePlace = (TextView) findViewById(R.id.txtTimePlace);
-		 edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
-		 edStartTime =(TextView) findViewById(R.id.txtStartTime);
-		 edEndTime = (TextView) findViewById(R.id.txtEndTime);
-		 edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
-		 
-
-		if (getSupportActionBar() != null) {
-			// getSupportActionBar().setDisplayShowCustomEnabled(true);
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(Color.parseColor("#0aae44")));
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-
 		exeQ = new ExecuteQuery(getApplicationContext());
 		exeQ.createDatabase();
 		exeQ.open();
@@ -151,16 +128,6 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		listTouch = new ArrayList<Diemphuot>();
 		listAll = new ArrayList<Diemphuot>();
 		listAll = exeQ.getAllDiemphuot();
-
-		edTripName = (EditText) findViewById(R.id.txtNameTrip);
-		edDayStart = (TextView) findViewById(R.id.txtStartDay);
-		edDayEnd = (TextView) findViewById(R.id.txtEndDay);
-		edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
-		edTimePlace = (TextView) findViewById(R.id.txtTimePlace);
-		edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
-		edStartTime = (TextView) findViewById(R.id.txtStartTime);
-		edEndTime = (TextView) findViewById(R.id.txtEndTime);
-		edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
 
 		// GPS when leave
 		spStartPlace = (Spinner) findViewById(R.id.spStartPlace);
@@ -202,7 +169,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 							Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getBaseContext(),
-							"Xem lại các thông tin đăng ký",
+							"Please check your infomations again",
 							Toast.LENGTH_SHORT).show();
 					checkEditText();
 				}
@@ -303,9 +270,21 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// TextView edTimePlace = (TextView) findViewById(textID);
+				String res = dpDatePK.getYear()+"";
 				int month = dpDatePK.getMonth() + 1;
-				tv.setText(dpDatePK.getDayOfMonth() + "/" + month + "/"
-						+ dpDatePK.getYear());
+				int date = dpDatePK.getDayOfMonth();
+				if (month<10) {
+					res += "-0"+month;
+				}else {
+					res+= "-"+month;
+				}
+				if (date<10) {
+					res += "-0"+date;
+				}else {
+					res+= "-"+date;
+				}
+				
+				tv.setText(res);
 				dialog.dismiss();
 			}
 		});
@@ -742,41 +721,6 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 
 		}
 	}
-	public void showDatePickerDialog(View v) {
-		DialogFragment newFragment = new DatePickerFragment();
-		newFragment.show(getSupportFragmentManager(), "datePicker");
-	}
-
-	public static class DatePickerFragment extends DialogFragment implements
-			DatePickerDialog.OnDateSetListener {
-
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			// Use the current date as the default date in the picker
-			final Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
-
-			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), this, year, month, day);
-		}
-
-		public void onDateSet(DatePicker view, int year, int month, int day) {
-			// Do something with the date chosen by the user
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
-					Locale.US);
-			try {
-				ngaysinh = dateFormat
-						.format(Global.getDateFromDatePicket(view));
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			edtNgaysinh.setText(ngaysinh);
-
-		}
-	}
-
 
 	private double CalculationByDistance(LatLng StartP, LatLng EndP) {
 		double lat1 = StartP.latitude / 1E6;
