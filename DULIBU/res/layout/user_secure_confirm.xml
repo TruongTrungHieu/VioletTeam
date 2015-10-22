@@ -80,22 +80,48 @@
                 android:textColor="@color/gray"
                 android:textSize="10dp" />
 
-            <Button
-                android:id="@+id/btnSecure"
-                style="@style/DefaultButtonText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/titleChangeStatus"
-                android:layout_marginTop="5dp"
-                android:background="@color/btnStatusColor"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:padding="10dp"
-                android:shadowDx="1"
-                android:text="@string/inDanger"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="normal" />
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/Button01"
+                    style="@style/DefaultButtonText"
+                    android:layout_width="81dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.18"
+                    android:background="@color/see"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:shadowDx="1"
+                    android:text="@string/See"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/btnSecure"
+                    style="@style/DefaultButtonText"
+                    android:layout_width="81dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.18"
+                    android:background="@color/red"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:shadowDx="1"
+                    android:text="@string/Not_See"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
