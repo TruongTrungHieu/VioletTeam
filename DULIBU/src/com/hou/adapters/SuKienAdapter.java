@@ -7,6 +7,7 @@ import android.app.Activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -51,6 +52,14 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 					.findViewById(R.id.tvTenSuKien);
 			final TextView tvThoiGian = (TextView) convertView
 					.findViewById(R.id.tvThoiGian);
+			tvThoiGian.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 
 			gMapView = (MapView) convertView.findViewById(R.id.map);
 			// gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

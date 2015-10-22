@@ -11,7 +11,7 @@
     <string name="title_activity_trip_detail_member">TripDetailMemberActivity</string>
     <string name="title_activity_trip_detail_message">TripDetailMessageActivity</string>
     <string name="title_activity_trip_detail_trip">TripDetailTripActivity</string>
-    <string name="title_activity_chi_tieu_">Chi tiết khinh phí</string>
+    <string name="title_activity_chi_tieu_">Chi tiết kinh phí</string>
     <string name="txtConDu">Số tiền còn dư </string>
     <string name="txtTongThu">Tổng thu</string>
     <string name="txtChiTiet">Chi tiết</string>
@@ -68,7 +68,7 @@
     <string name="title_activity_setting">Cài đặt</string>
     <string name="tvAccount">Account</string>
     <string name="tvChangePassword">Đổi mật khẩu</string>
-    <string name="tvAbout">About</string>
+    <string name="tvAbout">Thông tin ứng dụng</string>
     <string name="tvAboutTermsOfServices">Điều khoản sử dụng</string>
     <string name="tvMap">Bản đồ</string>
     <string name="tvMapChange">Đổi kiểu bản đồ</string>
@@ -155,7 +155,7 @@
     
     <!-- Dialog_active_register -->
     <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn \nVui lòng kiểm tra và điền mã xác nhận!</string>
-    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập Email!</string>
+    <string name="hintDialogForgetPass">  Mật khẩu mới sẽ được gửi vào mail của bạn \n  Vui lòng nhập Email!</string>
     <string name="hintDialogActive">Mã xác nhận...</string>
     <string name="hintDialogForget">Email xác nhận...</string>
     <string name="btnActiveRegister">Xác nhận</string>

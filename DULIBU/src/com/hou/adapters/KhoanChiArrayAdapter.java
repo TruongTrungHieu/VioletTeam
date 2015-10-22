@@ -47,7 +47,7 @@ public class KhoanChiArrayAdapter extends ArrayAdapter<Chitieu> {
 			txtTenKhoanChi.setText(kc.getTenChitieu());
 			DecimalFormat df = new DecimalFormat("#.#");
 			txtSoTien.setText(df.format(kc.getSotien()));
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd-MM-yyyy ");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy ");
 			String day = sdf.format(new Date());
 			time.setText(day);
 		}
