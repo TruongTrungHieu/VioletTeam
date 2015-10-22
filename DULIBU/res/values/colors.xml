@@ -39,6 +39,8 @@
     <color name="orange">#FFE29B33</color>
     <color name="pink">#FFE9C7C7</color>
     <color name="gray">#E0E0E0</color>
+    <color name="see">#86ac3b</color>
+    
 
     <!-- Chat -->
     <color name="username0">#e21400</color>
