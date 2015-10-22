@@ -37,6 +37,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	int conDu ;
 	int moiNguoi = 0;
 	int khoanChi = 1;
+	String ten, tien;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +122,13 @@ public class ChiTieu_Activity extends ActionBarActivity {
 				public void onClick(View arg0) {
 
 					xulyNhap();
-					updateTien1();
+					if (ten.equals("") || tien.equals("")) {						
+						return;
+					}
+					else {
+						updateTien1();
+					}
+					
 					dialog.dismiss();
 				}
 
@@ -131,14 +138,14 @@ public class ChiTieu_Activity extends ActionBarActivity {
 							.findViewById(R.id.txtTenMucChi);
 					final EditText txtTien = (EditText) dialog
 							.findViewById(R.id.txtSoTien);
-					String ten, tien;
+					
 					double soTien;
 					ten = txtTen.getText().toString();
 					tien = txtTien.getText().toString();
 					
 					if (ten.equals("") || tien.equals("")) {
 						Toast.makeText(getApplication(),
-								"Chưa nhập đủ thông tin", Toast.LENGTH_SHORT)
+								"Ban chua dien du thong tin", Toast.LENGTH_SHORT)
 								.show();
 						return;
 					}
