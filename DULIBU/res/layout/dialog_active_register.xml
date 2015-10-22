@@ -3,33 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
+    android:gravity="center"
     android:orientation="vertical" >
-    <TextView 
-        android:text="@string/titleDialogActive"
+
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
-	<EditText 
-	    android:id="@+id/edActiveCode"
-	    android:layout_margin="10dp"
-	    android:hint="@string/hintDialogActive"
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent"/>
-	<LinearLayout 
-	    android:orientation="horizontal"
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent"
-	    android:weightSum="2">
-	    <Button 
-	        android:id="@+id/btnAcvtiveRegister"
-	        android:layout_width="0dp"
-	        android:layout_height="40dp"
-	        android:layout_weight="1"
-	        android:text="@string/btnActiveRegister"/>
-	    <Button 
-	        android:id="@+id/btnCancelAcvtiveRegister"
-	        android:layout_width="0dp"
-	        android:layout_height="40dp"
-	        android:layout_weight="1"
-	        android:text="@string/btnCancelActiveRegister"/>
-	</LinearLayout>
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:text="@string/titleDialogActive"
+        android:textColor="#505050"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/edActiveCode"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/edittext_default_bg"
+        android:hint="@string/hintDialogActive"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="#d2d2d2"
+        android:textSize="14sp" />
+
 </LinearLayout>

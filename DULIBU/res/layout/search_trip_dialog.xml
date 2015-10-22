@@ -29,7 +29,6 @@
             android:background="@drawable/edittext_default_bg"
             android:inputType="text"
             android:padding="10dp"
-            android:scrollbars=""
             android:textColorHint="#bbbbbb"
             android:textSize="14sp" />
 

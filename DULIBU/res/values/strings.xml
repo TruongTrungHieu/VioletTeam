@@ -94,7 +94,7 @@
     <string name="chooseTrip">Lịch trình</string>
     <string name="create_trip">Tạo lịch trình</string>
     <string name="search_trip">Tìm kiếm</string>
-    <string name="fomatDate">dd/mm/yyyy</string>
+    <string name="fomatDate">yyyy-mm-dd</string>
     <string name="fomatTime">00:00</string>
     <string name="chooseImage">Chọn ảnh</string>
     <string name="create_place">Chọn địa điểm</string>
@@ -113,7 +113,7 @@
     <string name="textHintDayStart">Thời gian bắt đầu</string>
     <string name="textHintDayEnd">Thời gian kết thúc</string>
     <string name="forget_pass">Quên mật khẩu?</string>
-    <string name="checknull">Hãy nhập đầy đủ thông tin đăng ký!</string>
+    <string name="checknull">Thông tin không được để trống!</string>
     <string name="textHintKinhPhi">Kinh phí</string>
     <string name="textHintPlaceStart">Điểm xuất phát</string>
     <string name="textHintTimeStart">Thời gian tập trung</string>
@@ -154,8 +154,10 @@
     <string name="city_prompt">Chọn địa điểm</string>
     
     <!-- Dialog_active_register -->
-    <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn! \nVui lòng kiểm tra và điền mã xác nhận:</string>
-    <string name="hintDialogActive">Mã xác nhận</string>
+    <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn \nVui lòng kiểm tra và điền mã xác nhận!</string>
+    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập Email!</string>
+    <string name="hintDialogActive">Mã xác nhận...</string>
+    <string name="hintDialogForget">Email xác nhận...</string>
     <string name="btnActiveRegister">Xác nhận</string>
     <string name="btnCancelActiveRegister">Cancel</string>
     <string name="DoneActive">Xác nhận thành công!</string>
@@ -232,15 +234,17 @@
     <string name="slogan">Dulibu with you!</string>
     
     <!-- Error from server -->
-    <string name="e400">Thông tin không hợp lệ !</string>
+    <string name="e400">Đăng ký thất bại!</string>
     <string name="e403">Thiếu quyền thực hiện chức năng !</string>
     <string name="e404">Chức năng đang sửa !</string>
     <string name="e503">Hệ thống đang bảo trì !</string>
 
     <!-- RegisterManagerActivity -->
     <string name="register_error">Vui lòng thử lại</string>
-    <string name="ck_pass_err">Xác thực pass chưa chính xác</string>
-    <string name="ck_rule_err">Chưa xác nhận đồng ý điều khoản</string>
+    <string name="ck_pass_err">Mật khẩu không khớp!</string>
+    <string name="pass_err">Mật khẩu quá ngắn!</string>
+    <string name="ck_rule_err">Bạn phải đồng ý điều khoản</string>
+    <string name="error_tuoi">Bạn chưa đủ tuổi để đăng ký!</string>
     <string name="register_succes">Mã xác thực được gửi tới hòm thư của bạn :)</string>
     <string name="register_err_email">Định dạng Email không hợp lệ</string>
 	
