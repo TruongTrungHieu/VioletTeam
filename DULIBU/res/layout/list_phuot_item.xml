@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    android:elevation="2dp"
+    
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:weightSum="100" >
@@ -13,9 +13,10 @@
 	    android:layout_width="match_parent"
 	    android:background="@color/gray"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="6dp"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <ImageView

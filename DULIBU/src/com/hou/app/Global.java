@@ -86,13 +86,13 @@ public class Global {
 
 	public static String getURI(String image) {
 		File mediaStorageDir;
-		if (Build.VERSION.SDK_INT > 8) {
+		/*if (Build.VERSION.SDK_INT > 8) {
 			mediaStorageDir = Environment
 					.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		} else {
+		} else {*/
 			mediaStorageDir = new File(
-					Environment.getExternalStorageDirectory(), "Pictures");
-		}
+					Environment.getExternalStorageDirectory(), "DULIBU");
+		//}
 
 		return "file://" + mediaStorageDir.getPath() + "/" + image;
 	}

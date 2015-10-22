@@ -15,7 +15,6 @@ import com.hou.model.Trangthai_User;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
 import com.hou.upload.ImageDownloader;
-import com.hou.upload.imageOnServer;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;

@@ -268,26 +268,31 @@ public class imageOnServer {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public static void downloadFileFromServer(String filename)
+	public static void downloadFileFromServer(String filename, String imageLink)
 			throws MalformedURLException, IOException {
 		BufferedInputStream in = null;
 		FileOutputStream fout = null;
 		int count;
+		Global.createFolderDULIBU();
         try {
-        	URL url = new URL(Global.URI_DOWNLOAD_IMAGE + filename);
+        	//URL url = new URL("http://image1.ictnews.vn/_Files/images/8f0/ec5/d3d/8f0ec5d3d58d445cbdd24eb6860c56cb.jpg");
+        	URL url = new URL(imageLink);
+        	//URL url = new URL("http://128.199.112.15/static/travel/5610/f3599b7c4dc80e5e032c.jpg");
+        	//URL url = new URL("http://image1.ictnews.vn/_Files/images/8f0/ec5/d3d/8f0ec5d3d58d445cbdd24eb6860c56cb.jpg");
+        	//URL url = new URL(Global.URI_DOWNLOAD_IMAGE + filename);
             URLConnection conection = url.openConnection();
-            Log.e("chưa connect",filename);
+            Log.e("FilenameImage",filename);
             conection.connect();
-            Log.e("đã connect",filename);
+            Log.e("FileNameconnect",filename);
             // getting file length
             File mediaStorageDir;
-            if (Build.VERSION.SDK_INT > 8) {
+            /*if (Build.VERSION.SDK_INT > 8) {
     			mediaStorageDir = Environment
     					.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-    		} else {
+    		} else {*/
     			mediaStorageDir = new File(
-    					Environment.getExternalStorageDirectory(), "Pictures");
-    		}
+    					Environment.getExternalStorageDirectory(), "DULIBU");
+    		//}
     		if (!mediaStorageDir.exists()) {
     			if (mediaStorageDir.mkdirs() || mediaStorageDir.isDirectory()) {
     				

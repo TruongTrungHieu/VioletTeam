@@ -1,6 +1,7 @@
 package com.hou.dulibu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -349,12 +350,12 @@ public class SplashScreenActivity extends ActionBarActivity {
 	}
 	
 	public class getImage extends AsyncTask<Void, Void, Void>{
-
+		
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
 			try {
-				imageOnServer.downloadFileFromServer("f3599b7c4dc80e5e0319.jpg");
+				imageOnServer.downloadFileFromServer("f3599b7c4dc80e5e0319.jpg", "http://image1.ictnews.vn/_Files/images/8f0/ec5/d3d/8f0ec5d3d58d445cbdd24eb6860c56cb.jpg");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
