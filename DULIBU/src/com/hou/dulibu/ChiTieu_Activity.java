@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -31,7 +33,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	KhoanChiArrayAdapter adapter = null;
 	ListView lvKhoanchi = null;
 	TextView txtConDu;
-	int tongTien=1000;
+	double tongTien=1000;
 	int conDu ;
 	int moiNguoi = 0;
 	int khoanChi = 1;
@@ -41,25 +43,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chi_tieu);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-//		ActionBar actionBar = getActionBar();
-////
-////		actionBar.setDisplayHomeAsUpEnabled(true);
-////		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("TÃ„â€šÃ‚Âªn");
-//		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		
-	
-		
-		
-//		actionBar.setTitle("Chi tiÃ¡ÂºÂ¿t kinh phÄ‚Â­");
-//		
-
-		txtConDu = (TextView) findViewById(R.id.txtConDu);
-		
-		
+		txtConDu = (TextView) findViewById(R.id.txtConDu);		
 		lvKhoanchi = (ListView) findViewById(R.id.lvChiTietTieu);
 		arrKhoanChi = new ArrayList<Chitieu>();
 
@@ -79,64 +63,34 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					
 					@Override
 					public boolean onMenuItemClick(MenuItem item) {
-						updateTien(positon);
+						 updateTien(positon);
 						 arrKhoanChi.remove(positon);
-						 
-						 
 						 adapter.notifyDataSetChanged();
 						return false;
 					}
 
 				});
-				// arrKhoanChi.remove(positon);
-				// adapter.notifyDataSetChanged();
 				 popup.show();
 				return false;
 			}
 		});
 	}
 
-	public void updateTien1(int position){
-		//int khoanChi = 0;
-		//String a="";
-		//String b="";
+	public void updateTien1(){
 		double mucchi=0;
-		for(int i=0;i>=arrKhoanChi.size();i++){
-//			KhoanChi a = new KhoanChi();
-//			a = arrKhoanChi.get(i);
-			//khoanChi = arrKhoanChi.get(0).getTien();
-	//		Toast.makeText(getApplicationContext(), i, Toast.LENGTH_SHORT).show();
-		}
-	//	Toast.makeText(getApplicationContext(), khoanChi+"", Toast.LENGTH_SHORT).show();
-			
-		//a = arrKhoanChi.get(0).getSotien() + ""; // Khi them phan tu moi vao thi arraylist add phan tu do vao dau day
-//		KhoanChi c = new KhoanChi();
 		int d = arrKhoanChi.size()-1;
 		mucchi = arrKhoanChi.get(d).getSotien();
-		//conDu = tongTien - mucchi;
 		tongTien -= mucchi;
-		txtConDu.setText(tongTien+"");
-	//	txtConDu.setText(khoanChi+"");
+		DecimalFormat df = new DecimalFormat("#.#");
+		txtConDu.setText(df.format(tongTien));
 		
 	}
 	public void updateTien(int position){
-//		for(int i = 0;i >=arrKhoanChi.size();i++)
-//		{
-//			khoanChi = khoanChi + arrKhoanChi.get(i).getTien();
-//			
-//		}
-//		conDu = tongTien - khoanChi;
-//		txtConDu.setText(conDu+"");
-		double mucchi;
-		
-		mucchi = arrKhoanChi.get(position).getSotien();
-		tongTien += mucchi;
-		txtConDu.setText(tongTien+"");
-		//conDu = tongTien + mucchi;
-		//txtConDu.setText(conDu+"");
-//		String b ="";
-//		b = arrKhoanChi.get(position).getTien() +"";
-//		txtConDu.setText(conDu+"");
+			double mucchi;
+			mucchi = arrKhoanChi.get(position).getSotien();
+			tongTien += mucchi;
+			DecimalFormat df = new DecimalFormat("#.#");
+			txtConDu.setText(df.format(tongTien));
 		
 	}
 	@Override
@@ -149,27 +103,15 @@ public class ChiTieu_Activity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if(id == android.R.id.home){
 			onBackPressed();
 			Toast.makeText(getBaseContext(), "ok back", Toast.LENGTH_SHORT).show();
 		}
 		if (id == R.id.action_add) {
-			// Toast.makeText(getApplication(),"Select form add Chi tiet",
-			// Toast.LENGTH_SHORT).show();
 			final Dialog dialog = new Dialog(context);
 			dialog.setContentView(R.layout.dialog_khoanchi);
 			dialog.setTitle(R.string.titleChiPhiDialog);
-			
-			//dialog.setTitle("Title Khoan Chi ");
-
-			// final EditText txtTen = (EditText) dialog
-			// .findViewById(R.id.editText1);
-			// final EditText txtTien = (EditText) dialog
-			// .findViewById(R.id.editText2);
 
 			Button btnOK = (Button) dialog.findViewById(R.id.btnAdd);
 			// if button is clicked, close the custom dialog
@@ -177,14 +119,9 @@ public class ChiTieu_Activity extends ActionBarActivity {
 
 				@Override
 				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					// Toast.makeText(
-					// getApplication(),
-					// txtTen.getText().toString()
-					// + txtTien.getText().toString(),
-					// Toast.LENGTH_SHORT).show();
 
 					xulyNhap();
+					updateTien1();
 					dialog.dismiss();
 				}
 
@@ -208,8 +145,6 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					soTien = Double.parseDouble(tien);
 					Chitieu kc = new Chitieu();
 					kc.setTenChitieu(ten);
-					//kc.setTienKhoanChi(tien+"");
-					//Toast.makeText(getApplicationContext(), soTien+"", Toast.LENGTH_SHORT).show();
 					kc.setSotien(soTien);					
 					arrKhoanChi.add(kc);
 					adapter.notifyDataSetChanged();
@@ -222,20 +157,14 @@ public class ChiTieu_Activity extends ActionBarActivity {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					Toast.makeText(getApplication(), "Click on button Cancel",
 							Toast.LENGTH_SHORT).show();
-				//	updateTien(1);
 					dialog.dismiss();
 				}
 			});
 
-			// return true;
 			dialog.show();
 		}
-//		if (id == R.id.action_add) {
-//			
-//		}
 		return super.onOptionsItemSelected(item);
 	}
 	
