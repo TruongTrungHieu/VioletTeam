@@ -73,6 +73,9 @@ public class RegisterManagerActivity extends ActionBarActivity {
 				
 				if(true){
 				registerToServer();
+				Intent intent = new Intent(RegisterManagerActivity.this,
+						LoginManagerActivity.class);
+				startActivity(intent);
 				}
 			}
 		});
