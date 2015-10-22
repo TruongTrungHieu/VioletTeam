@@ -98,34 +98,34 @@
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/btnFacebook"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="50dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="Facebook"
-                android:scaleType="centerInside"
-                android:src="@drawable/imgfacebook" />
+<!--             <ImageButton -->
+<!--                 android:id="@+id/btnFacebook" -->
+<!--                 android:layout_width="30dp" -->
+<!--                 android:layout_height="30dp" -->
+<!--                 android:layout_marginRight="50dp" -->
+<!--                 android:background="@android:color/transparent" -->
+<!--                 android:contentDescription="Facebook" -->
+<!--                 android:scaleType="centerInside" -->
+<!--                 android:src="@drawable/imgfacebook" /> -->
 
-            <ImageButton
-                android:id="@+id/btnTwitter"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="50dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="Twitter"
-                android:scaleType="centerInside"
-                android:src="@drawable/imgtwitter" />
+<!--             <ImageButton -->
+<!--                 android:id="@+id/btnTwitter" -->
+<!--                 android:layout_width="30dp" -->
+<!--                 android:layout_height="30dp" -->
+<!--                 android:layout_marginRight="50dp" -->
+<!--                 android:background="@android:color/transparent" -->
+<!--                 android:contentDescription="Twitter" -->
+<!--                 android:scaleType="centerInside" -->
+<!--                 android:src="@drawable/imgtwitter" /> -->
 
-            <ImageButton
-                android:id="@+id/btnGoogle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="Google+"
-                android:scaleType="centerInside"
-                android:src="@drawable/imggoogle" />
+<!--             <ImageButton -->
+<!--                 android:id="@+id/btnGoogle" -->
+<!--                 android:layout_width="30dp" -->
+<!--                 android:layout_height="30dp" -->
+<!--                 android:background="@android:color/transparent" -->
+<!--                 android:contentDescription="Google+" -->
+<!--                 android:scaleType="centerInside" -->
+<!--                 android:src="@drawable/imggoogle" /> -->
         </LinearLayout>
 
         <Button
