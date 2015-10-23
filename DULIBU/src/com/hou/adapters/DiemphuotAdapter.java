@@ -96,15 +96,15 @@ public class DiemphuotAdapter extends BaseAdapter {
 		tv_name.setText(((Diemphuot) phuots.get(position)).getTenDiemphuot());
 		tv_address.setText(((Diemphuot) phuots.get(position)).getDiachi());
 
-		v.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(context, "Tên: " + ((Diemphuot) phuots.get(position)).getTenDiemphuot() + "\n"
-						+ "id ảnh: " + ((Diemphuot) phuots.get(position)).getImage(), Toast.LENGTH_LONG).show();
-			}
-		});
+//		v.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Toast.makeText(context, "Tên: " + ((Diemphuot) phuots.get(position)).getTenDiemphuot() + "\n"
+//						+ "id ảnh: " + ((Diemphuot) phuots.get(position)).getImage(), Toast.LENGTH_LONG).show();
+//			}
+//		});
 
 		return v;
 	}

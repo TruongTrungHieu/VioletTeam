@@ -5,9 +5,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.hou.adapters.PhuotViewPagerAdapter;
+import com.hou.fragment.ListPhuotFragment;
 import com.hou.sliding_tab.PhuotSlidingTabLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,11 +22,30 @@ public class PhuotDetailManager extends ActionBarActivity {
 	PhuotSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Overview", "Location" };
 	int Numboftabs = 2;
+	public String maDiemPhuot,tenDiemPhuot,ghiChu;
+	int trangThaiChuan;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phuot_detail_manager);
+/*		Intent callerIntent = getIntent().getExtras();
+		Bundle myPackage = callerIntent.getBundleExtra("myBundle");
+		maDiemPhuot = myPackage.getString("maDiemPhuot");
+		tenDiemPhuot = myPackage.getString("tenDiemPhuot");
+		ghiChu = myPackage.getString("ghiChu");
+		trangThaiChuan = myPackage.getInt("trangThaiChuan");
+		Log.e("Viet5091","Ma diem phuot:"+ maDiemPhuot + ";" + "Trang thai chuan: " +trangThaiChuan);
+		
+		Bundle bundle = new Bundle();
+		bundle.putString("maDiemPhuot", maDiemPhuot);
+		bundle.putString("tenDiemPhuot", tenDiemPhuot);
+		bundle.putString("ghiChu", ghiChu);
+	//	bundle.putInt("trangThaiChuan", trangThaiChuan);
+		// set Fragmentclass Arguments
+		ListPhuotFragment f = new ListPhuotFragment();
+		f.setArguments(bundle);*/
 		/*
 		 * Intent intent = getIntent(); String maDiemP =
 		 * intent.getStringExtra("maDiemPhuot"); String tenDiemP =

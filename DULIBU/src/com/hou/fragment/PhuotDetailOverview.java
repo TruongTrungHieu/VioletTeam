@@ -35,20 +35,30 @@ public class PhuotDetailOverview extends Fragment {
         tvPhuotName = (TextView)v.findViewById(R.id.tvPhuotName);
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Light.ttf");
         tvPhuotName.setTypeface(tf);
-        /*tvGhiChu = (TextView)v.findViewById(R.id.tvGhiChu);
+        tvGhiChu = (TextView)v.findViewById(R.id.tvGhiChu);
         tvTrangThaiChuan = (TextView)v.findViewById(R.id.tvDoKho);
-        
-        Bundle b = this.getArguments();
-        
+ /*       Bundle b =getArguments();
+        String maDiemPhuot = b.getString("maDiemPhuot");    
         tvPhuotName.setText(b.getString("tenDiemPhuot"));
         tvGhiChu.setText(b.getString("ghiChu"));
-        if(b.getString("trangThaiChuan")=="1"){
+        if(b.getInt("trangThaiChuan")==1){
         	tvTrangThaiChuan.setText("Recommended");
         }
         else{
         	tvTrangThaiChuan.setText("Chưa xác minh");
         }*/
+       /* 
+        Bundle b = this.getArguments();
         
+        tvPhuotName.setText(b.getString("tenDiemPhuot"));
+        tvGhiChu.setText(b.getString("ghiChu"));
+        if(b.getInt("trangThaiChuan")==1){
+        	tvTrangThaiChuan.setText("Recommended");
+        }
+        else{
+        	tvTrangThaiChuan.setText("Chưa xác minh");
+        }
+      */
         
         if(cmtArr.isEmpty()){
 			PhuotDetailComment cmt1 = new PhuotDetailComment("cmt1", "Great!", "10:00 am 09/29/2015");
