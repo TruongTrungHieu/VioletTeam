@@ -168,7 +168,7 @@ import android.widget.Toast;
 						switch (statusCode) {
 						case 400:
 							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e400_),
+									getResources().getString(R.string.e400),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 403:

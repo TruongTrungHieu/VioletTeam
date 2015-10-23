@@ -22,6 +22,7 @@ import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
 import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.support.v4.app.DialogFragment;
@@ -47,6 +48,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -162,6 +164,11 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (validatorButton() == true) {
+					//createNewTrip();
+					/*Truyen 8 tham số vào theo thứ tự : name,image,begin_location,
+					end_location,start_date,start_time,end_date,end_time*/
+					
+						
 					Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT)
 							.show();
 					Toast.makeText(getBaseContext(),
@@ -737,9 +744,55 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		return 6371.00 * c;
 	}
 	
-	private void sendDataToServer(String nameTrip){
+//	private void sendDataToServer(String nameTrip){
+//		AsyncHttpClient client = new AsyncHttpClient();
+//		RequestParams params = new RequestParams();
+//		params.put("nametrip", nameTrip);
+//	} thay bang ham createNewTrip ben duoi cho viec tao chuyen di moi
+	private void createNewTrip(String name,String image,String begin_location,
+			String end_location,String start_date,String start_time,String end_date, String end_time) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		params.put("nametrip", nameTrip);
+
+		params.put("name", name);
+		params.put("image", image);
+		params.put("begin_location", begin_location);
+		params.put("end_location", end_location);
+		params.put("start_date", start_date);
+		params.put("start_time", start_time);
+		params.put("end_date", end_date);
+		params.put("end_time", end_time);
+		params.put("access_token",
+				Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
+
+		client.post(Global.BASE_URI + "/" + Global.URI_CREATENEWTRIP_PATH,
+				params, new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("createNewTrip", response);
+
+						if (executeWhenRegisterSuccess(response)) {
+							Toast.makeText(getApplicationContext(),
+									"Tao moi chuyen di thanh cong",
+									Toast.LENGTH_SHORT).show();
+							// Intent intent = new Intent(
+							// RegisterManagerActivity.this,
+							// LoginManagerActivity.class);
+
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"Khong tao moi duoc chuyen di",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+					}
+				});
+	}
+	private boolean executeWhenRegisterSuccess(String reponse) {
+		boolean check = true;
+		return check;
 	}
 }
