@@ -108,7 +108,7 @@
     <string name="note">Ghi chú</string>
     <string name="creatTrip">Tạo mới</string>
     <string name="maps_actionbar">Map</string>
-    <string name="messages_actionbar">Message</string>
+    <string name="messages_actionbar">Tin nhắn</string>
     <string name="title_activity_offline_">Sự kiện</string>
     <string name="title_activity_list__sukien_">List_Sukien_Activity</string>
     <string name="textHintTitleTrip">Đặt tên chuyến đi</string>
@@ -161,7 +161,7 @@
     <string name="hintDialogActive">Mã xác nhận...</string>
     <string name="hintDialogForget">Email xác nhận...</string>
     <string name="btnActiveRegister">Xác nhận</string>
-    <string name="btnCancelActiveRegister">Cancel</string>
+    <string name="btnCancelActiveRegister">Thoát</string>
     <string name="DoneActive">Xác nhận thành công!</string>
     <string name="FailActive">Mã xác nhận không đúng, vui lòng thử lại!</string>
 
@@ -268,6 +268,6 @@
     <!-- Chat  -->
     <string name="action_send">Send</string>
     <string name="prompt_message">Nhập nội dung...</string>
-    <string name="user_action_typing">is typing</string>
+    <string name="user_action_typing">đang nhập</string>
 
 </resources>
