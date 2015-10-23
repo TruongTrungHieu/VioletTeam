@@ -176,7 +176,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 							Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getBaseContext(),
-							"Please check your infomations again",
+							"Xem lại thông tin bạn vừa nhập",
 							Toast.LENGTH_SHORT).show();
 					checkEditText();
 				}
