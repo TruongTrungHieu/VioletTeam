@@ -206,7 +206,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 							Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getBaseContext(),
-							"Please check your infomations again",
+							"Xem lại thông tin bạn vừa nhập",
 							Toast.LENGTH_SHORT).show();
 					checkEditText();
 					//createNewTrip();
@@ -219,12 +219,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 					Toast.makeText(getBaseContext(),
 							"" + edTripName.getText().toString(),
 							Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(getBaseContext(),
-							"Xem lại thông tin bạn vừa nhập",
-							Toast.LENGTH_SHORT).show();
-					checkEditText();
-				}
+				} 
 			}
 		});
 		edOfflineTime.setOnClickListener(new OnClickListener() {
