@@ -37,7 +37,8 @@ public class PhuotDetailOverview extends Fragment {
 	TextView tvPhuotName, tvGhiChu, tvDiaChi, tvMaDiaPhuong, tvTrangThaiChuan;
 	ArrayList<PhuotDetailComment> cmtArr = new ArrayList<PhuotDetailComment>();
 	ListView lvComment;
-	ImageView im;
+	ImageView im,ivRecommended;
+	
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class PhuotDetailOverview extends Fragment {
         tvGhiChu = (TextView)v.findViewById(R.id.tvGhiChu);
         tvTrangThaiChuan = (TextView)v.findViewById(R.id.tvTrangThaiChuan);
         im = (ImageView) v.findViewById(R.id.ivPhuotImage);
+        ivRecommended = (ImageView) v.findViewById(R.id.ivRecommended);
         
     /*    Bundle bundlePDO = getArguments();
         if(bundlePDO!=null){
@@ -89,10 +91,10 @@ public class PhuotDetailOverview extends Fragment {
         tvPhuotName.setText(tenDiemPhuot);
         tvGhiChu.setText(ghiChu);
         if(trangThaiChuan.equals("1")){
-        	tvTrangThaiChuan.setText("Recommended");
+        	ivRecommended.setImageResource(R.drawable.checked);
         }
         else{
-        	tvTrangThaiChuan.setText("Chưa xác minh");
+        	ivRecommended.setImageResource(R.drawable.map_place1);
         }
         String imageLink = image;
         Log.e("VietNQ","Link anh: " + imageLink);
