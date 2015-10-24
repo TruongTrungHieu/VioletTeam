@@ -214,6 +214,7 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="5dp"
                                 android:layout_weight="80"
+                                android:inputType="textImeMultiLine"
                                 android:background="@drawable/comment_edittext"
                                 android:hint="Bình luận của bạn..."
                                 android:padding="5dp"
@@ -236,7 +237,7 @@
                                     android:layout_weight="20"
                                     android:background="@color/ActionBarColor"
                                     android:gravity="center"
-                                    android:text="Clear"
+                                    android:text="Xóa"
                                     android:textColor="@color/white" />
 
                                 <Button
@@ -248,7 +249,7 @@
                                     android:layout_weight="20"
                                     android:background="@color/ActionBarColor"
                                     android:gravity="center"
-                                    android:text="Comment"
+                                    android:text="Bình luận"
                                     android:textColor="@color/white" />
                             </LinearLayout>
                         </LinearLayout>
