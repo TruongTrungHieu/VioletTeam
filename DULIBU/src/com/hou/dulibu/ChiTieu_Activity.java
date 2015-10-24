@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import com.hou.adapters.KhoanChiArrayAdapter;
 import com.hou.app.Global;
 
@@ -47,60 +46,67 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	ArrayList<Chitieu> arrChitieu = new ArrayList<Chitieu>();
 	KhoanChiArrayAdapter adapter = null;
 	ListView lvKhoanchi = null;
-	TextView txtConDu;
-	double tongTien=1000;
-	int conDu ;
+	TextView txtConDu, txtTongThu;
+	double tongTien = 1000;
+	int conDu;
 	int moiNguoi = 0;
 	int khoanChi = 1;
 	String ten, tien;
 	String maLichTrinh = "562b1962bcb17fde6e619360";
+	int soThanhVien = 1;
+	double soTien = 500;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chi_tieu);
-		
-        
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		txtConDu = (TextView) findViewById(R.id.txtConDu);		
+		txtConDu = (TextView) findViewById(R.id.txtConDu);
 		lvKhoanchi = (ListView) findViewById(R.id.lvChiTietTieu);
+		txtTongThu = (TextView) findViewById(R.id.txtTongThu);
 		arrKhoanChi = new ArrayList<Chitieu>();
-		//getChiPhi(com.hou.app.Global.getPreference(context,"maLichTrinh","Viet"));
+		// getChiPhi(com.hou.app.Global.getPreference(context,"maLichTrinh","Viet"));
 		getChiPhi(maLichTrinh);
-		/*arrKhoanChi = arrChitieu;
-		adapter = new KhoanChiArrayAdapter(this, R.layout.list_itemdetail,
-				arrKhoanChi);
-		lvKhoanchi.setAdapter(adapter);*/
+		/*
+		 * arrKhoanChi = arrChitieu; adapter = new KhoanChiArrayAdapter(this,
+		 * R.layout.list_itemdetail, arrKhoanChi);
+		 * lvKhoanchi.setAdapter(adapter);
+		 */
 		lvKhoanchi.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					final int positon, long arg3) {
-				PopupMenu popup = new PopupMenu(ChiTieu_Activity.this,lvKhoanchi);
-				
+				PopupMenu popup = new PopupMenu(ChiTieu_Activity.this,
+						lvKhoanchi);
+
 				popup.getMenuInflater().inflate(R.menu.chitieu_popup,
 						popup.getMenu());
 				popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					
+
 					@Override
 					public boolean onMenuItemClick(MenuItem item) {
-						 updateTien(positon);
-						 arrKhoanChi.remove(positon);
-						 adapter.notifyDataSetChanged();
+						updateTien(positon);
+						arrKhoanChi.remove(positon);
+						adapter.notifyDataSetChanged();
 						return false;
 					}
 
 				});
-				 popup.show();
+				popup.show();
 				return false;
 			}
 		});
 	}
-	public void loadData(){
+
+	public void loadData() {
 		arrKhoanChi = arrChitieu;
 		adapter = new KhoanChiArrayAdapter(this, R.layout.list_itemdetail,
 				arrKhoanChi);
 		lvKhoanchi.setAdapter(adapter);
+		txtTongThu.setText(tongTien + "");
+
 	}
 
 	public void getChiPhi(String idTrip) {
@@ -109,35 +115,37 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		params.put("id", idTrip);
 		params.put("access_token",
 				Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
-		
-		client.get(Global.BASE_URI + "/" + Global.URI_GETCHIPHI_PATH , params,
+
+		client.get(Global.BASE_URI + "/" + Global.URI_GETCHIPHI_PATH, params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getChiPhi999", response);
 						// Toast.makeText(getApplicationContext(),
 						// "v�o th�nh c�ng", Toast.LENGTH_SHORT).show();\
 						listChiPhi(response);
-						loadData();
+						getTotalMoney(maLichTrinh);
+						//loadData();
 					}
 
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
-						Log.e("LayChiPhi",content);
+						Log.e("LayChiPhi", content);
 
 					}
 				});
 	}
-//	private String maChitieu;
-//	private String maLichtrinh;
-//	private String tenChitieu;
-//	private String thoigian;
-//	private double sotien;
-//	private String filedinhkem;
-//	private String maUser;
+
+	// private String maChitieu;
+	// private String maLichtrinh;
+	// private String tenChitieu;
+	// private String thoigian;
+	// private double sotien;
+	// private String filedinhkem;
+	// private String maUser;
 	private String listChiPhi(String response) {
-	 Log.e("__Viet",response);
-		
+		Log.e("__Viet", response);
+
 		try {
 			JSONArray arrObj = new JSONArray(response);
 			for (int i = 0; i < arrObj.length(); i++) {
@@ -148,12 +156,9 @@ public class ChiTieu_Activity extends ActionBarActivity {
 				double sotien = chiPhiJson.optDouble("total");
 				String tenChitieu = chiPhiJson.optString("name");
 				String thoiGian = chiPhiJson.optString("created_at");
-			//	String 
-				JSONObject objectUser = chiPhiJson
-						.getJSONObject("created_by");
+				// String
+				JSONObject objectUser = chiPhiJson.getJSONObject("created_by");
 				String maUser = objectUser.optString("_id");
-				
-
 
 				chitieu.setMaChitieu(_id);
 				chitieu.setSotien(sotien);
@@ -161,10 +166,12 @@ public class ChiTieu_Activity extends ActionBarActivity {
 				chitieu.setThoigian(thoiGian);
 				chitieu.setFiledinhkem("");
 				chitieu.setMaUser(maUser);
-				chitieu.setMaLichtrinh(com.hou.app.Global.getPreference(context,maLichTrinh,"Viet"));
+				chitieu.setMaLichtrinh(com.hou.app.Global.getPreference(
+						context, maLichTrinh, "Viet"));
 				arrChitieu.add(chitieu);
-				Log.e("listChiPhiVIet", sotien+"");
-				Toast.makeText(context, "Muc thu("+i +"): " + sotien, Toast.LENGTH_SHORT).show();
+				Log.e("listChiPhiVIet", sotien + "");
+				Toast.makeText(context, "Muc thu(" + i + "): " + sotien,
+						Toast.LENGTH_SHORT).show();
 			}
 
 			// Toast.makeText(getApplicationContext(), "KQ JSON",
@@ -174,10 +181,12 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return "false";
-			
+
 		}
 	}
-	private void createChiPhi(String tripId,String name,String created_at,String total) {
+
+	private void createChiPhi(String tripId, String name, String created_at,
+			String total) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 
@@ -185,10 +194,14 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		params.put("name", name);
 		params.put("created_at", created_at);
 		params.put("total", total);
-		
 
-		client.post(Global.BASE_URI + "/" + Global.URI_POSTCHIPHI_PATH +"?access_token="+ Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""),
-				params, new AsyncHttpResponseHandler() {
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_POSTCHIPHI_PATH
+						+ "?access_token="
+						+ Global.getPreference(this, Global.USER_ACCESS_TOKEN,
+								""), params, new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("createNewTrip", response);
 
@@ -214,42 +227,97 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					}
 				});
 	}
+
+	public void getTotalMoney(String idTrip) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", idTrip);
+
+		client.get(
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_GETLISTMEMBER_PATH
+						+ "?access_token="
+						+ Global.getPreference(this, Global.USER_ACCESS_TOKEN,
+								""), params, new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("getChiPhi999", response);
+						// Toast.makeText(getApplicationContext(),
+						// "v�o th�nh c�ng", Toast.LENGTH_SHORT).show();\
+						numberMember(response);
+						tongTien = soThanhVien * soTien;
+						loadData();
+						
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.e("LayChiPhi", content);
+
+					}
+				});
+	}
+
+	private String numberMember(String response) {
+		// Log.e("__Viet",response);
+
+		try {
+			JSONArray arrObj = new JSONArray(response);
+			{
+				soThanhVien = arrObj.length();
+			}
+
+			// Toast.makeText(getApplicationContext(), "KQ JSON",
+			// Toast.LENGTH_LONG).show();
+
+			return "true";
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "false";
+
+		}
+	}
+
 	private boolean executeWhenRegisterSuccess(String reponse) {
 		boolean check = true;
 		return check;
 	}
 
-	public void updateTien1(){
-		double mucchi=0;
-		int d = arrKhoanChi.size()-1;
+	public void updateTien1() {
+		double mucchi = 0;
+		int d = arrKhoanChi.size() - 1;
 		mucchi = arrKhoanChi.get(d).getSotien();
 		tongTien -= mucchi;
 		DecimalFormat df = new DecimalFormat("#.#");
 		txtConDu.setText(df.format(tongTien));
-		
+
 	}
-	public void updateTien(int position){
-			double mucchi;
-			mucchi = arrKhoanChi.get(position).getSotien();
-			tongTien += mucchi;
-			DecimalFormat df = new DecimalFormat("#.#");
-			txtConDu.setText(df.format(tongTien));
-		
+
+	public void updateTien(int position) {
+		double mucchi;
+		mucchi = arrKhoanChi.get(position).getSotien();
+		tongTien += mucchi;
+		DecimalFormat df = new DecimalFormat("#.#");
+		txtConDu.setText(df.format(tongTien));
+
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.chitieu_menu, menu);
-	
+
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if(id == android.R.id.home){
+		if (id == android.R.id.home) {
 			onBackPressed();
-			Toast.makeText(getBaseContext(), "ok back", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getBaseContext(), "ok back", Toast.LENGTH_SHORT)
+					.show();
 		}
 		if (id == R.id.action_add) {
 			final Dialog dialog = new Dialog(context);
@@ -264,13 +332,12 @@ public class ChiTieu_Activity extends ActionBarActivity {
 				public void onClick(View arg0) {
 
 					xulyNhap();
-					if (ten.equals("") || tien.equals("")) {						
+					if (ten.equals("") || tien.equals("")) {
 						return;
-					}
-					else {
+					} else {
 						updateTien1();
 					}
-					
+
 					dialog.dismiss();
 				}
 
@@ -280,26 +347,29 @@ public class ChiTieu_Activity extends ActionBarActivity {
 							.findViewById(R.id.txtTenMucChi);
 					final EditText txtTien = (EditText) dialog
 							.findViewById(R.id.txtSoTien);
-					
+
 					double soTien;
 					ten = txtTen.getText().toString();
 					tien = txtTien.getText().toString();
-					
+
 					if (ten.equals("") || tien.equals("")) {
 						Toast.makeText(getApplication(),
-								"Ban chua dien du thong tin", Toast.LENGTH_SHORT)
-								.show();
+								"Ban chua dien du thong tin",
+								Toast.LENGTH_SHORT).show();
 						return;
 					}
 					soTien = Double.parseDouble(tien);
 					Chitieu kc = new Chitieu();
 					kc.setTenChitieu(ten);
-					kc.setSotien(soTien);					
+					kc.setSotien(soTien);
 					arrKhoanChi.add(kc);
-					/*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy ");
-					String day = sdf.format(new Date());*/
-					
-					createChiPhi(maLichTrinh,ten,"2015-10-10 10:10:10",tien);
+					/*
+					 * SimpleDateFormat sdf = new
+					 * SimpleDateFormat("dd-MM-yyyy "); String day =
+					 * sdf.format(new Date());
+					 */
+
+					createChiPhi(maLichTrinh, ten, "2015-10-10 10:10:10", tien);
 					adapter.notifyDataSetChanged();
 					dialog.dismiss();
 
@@ -320,7 +390,5 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 }
-
-
