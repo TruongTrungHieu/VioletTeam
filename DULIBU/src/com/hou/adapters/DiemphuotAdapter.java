@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 	Bitmap bmp;
 	String ImageUrl;
 	ImageView im;
+	
 
 	public DiemphuotAdapter(Context context, List<Diemphuot> phuots) {
 		this.context = context;
@@ -64,7 +66,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		v = inflater.inflate(R.layout.list_phuot_item, null);
-
+		
 		im = (ImageView) v.findViewById(R.id.ivPhuot);
 
 		TextView tv_name = (TextView) v.findViewById(R.id.tvPhuotName);
@@ -95,6 +97,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 		}
 		tv_name.setText(((Diemphuot) phuots.get(position)).getTenDiemphuot());
 		tv_address.setText(((Diemphuot) phuots.get(position)).getDiachi());
+		
 
 //		v.setOnClickListener(new OnClickListener() {
 //

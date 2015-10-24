@@ -107,7 +107,7 @@ public class ExecuteQuery {
 	// select * from tbl_diemphuot
 	public ArrayList<Diemphuot> getAllDiemphuot() {
 		ArrayList<Diemphuot> listDiemphuot = new ArrayList<Diemphuot>();
-		String selectQuery = "SELECT * FROM " + ColumnName.TBL_DIEM_PHUOT_TABLE;
+		String selectQuery = "SELECT * FROM " + ColumnName.TBL_DIEM_PHUOT_TABLE + " ORDER BY maDiemphuot ASC";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {

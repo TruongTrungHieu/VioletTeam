@@ -25,6 +25,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -135,8 +136,11 @@ public class ListPhuotFragment extends Fragment {
 				b.putString("ghiChu", phuots.get(position).getGhichu());
 				b.putInt("trangThaiChuan", phuots.get(position)
 						.getTrangthaiChuan());
+				b.putString("image", phuots.get(position).getImage());
+				Log.e("OnClickViet","Link anh:" +phuots.get(position).getImage() );
 				//f.setArguments(b);
 
+				
 				Intent intent = new Intent(getActivity(),
 						PhuotDetailManager.class);
 				intent.putExtra("myBundle",b);
@@ -286,17 +290,19 @@ public class ListPhuotFragment extends Fragment {
 		getPlacetoServer();
 		phuots = exeQ.getAllDiemphuot();
 
-		Collections.sort(phuots, new Comparator<Diemphuot>() {
+		/*Collections.sort(phuots, new Comparator<Diemphuot>() {
 
 			@Override
 			public int compare(Diemphuot st1, Diemphuot st2) {
 
 				return (st1.getMaDiemphuot()).compareTo(st2.getMaDiemphuot());
 			}
-		});
+		});*/
 		// getPlacetoServer();
+		
 		DiemphuotAdapter adapter = new DiemphuotAdapter(getActivity(), phuots);
 		// loadDiemPhuot(adapter);
+		
 		gv_phuot.setAdapter(adapter);
 		loadAnh(adapter, phuots);
 	}

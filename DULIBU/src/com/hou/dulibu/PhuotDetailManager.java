@@ -1,14 +1,20 @@
 package com.hou.dulibu;
 
+import io.socket.client.Manager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.hou.adapters.PhuotViewPagerAdapter;
+
 import com.hou.fragment.ListPhuotFragment;
+import com.hou.fragment.PhuotDetailOverview;
 import com.hou.sliding_tab.PhuotSlidingTabLayout;
 
+import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,7 +28,7 @@ public class PhuotDetailManager extends ActionBarActivity {
 	PhuotSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Overview", "Location" };
 	int Numboftabs = 2;
-	public String maDiemPhuot,tenDiemPhuot,ghiChu;
+	String maDiemPhuot,tenDiemPhuot,ghiChu,image;
 	int trangThaiChuan;
 	
 
@@ -30,15 +36,39 @@ public class PhuotDetailManager extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phuot_detail_manager);
-/*		Intent callerIntent = getIntent().getExtras();
+		
+		Intent callerIntent = getIntent();
+		if (callerIntent != null) {
+		    String a = callerIntent.getStringExtra("test");
+		}
 		Bundle myPackage = callerIntent.getBundleExtra("myBundle");
 		maDiemPhuot = myPackage.getString("maDiemPhuot");
 		tenDiemPhuot = myPackage.getString("tenDiemPhuot");
 		ghiChu = myPackage.getString("ghiChu");
+		image = myPackage.getString("image");
 		trangThaiChuan = myPackage.getInt("trangThaiChuan");
-		Log.e("Viet5091","Ma diem phuot:"+ maDiemPhuot + ";" + "Trang thai chuan: " +trangThaiChuan);
+		Log.e("Viet5091","Ma diem phuot:"+ maDiemPhuot + ";" + "Link anh  " +image);
 		
+		Context context = getApplicationContext();
+		com.hou.app.Global.savePreference(context,"maDiemPhuot",maDiemPhuot);
+		com.hou.app.Global.savePreference(context,"tenDiemPhuot",tenDiemPhuot);
+		com.hou.app.Global.savePreference(context,"ghiChu",ghiChu);
+		com.hou.app.Global.savePreference(context,"image",image);
+		com.hou.app.Global.savePreference(context,"trangThaiChuan",trangThaiChuan+"");
+		
+		
+	/*	
+		PhuotDetailOverview f = new PhuotDetailOverview();
 		Bundle bundle = new Bundle();
+		bundle.putString("maDiemPhuot", myPackage.getString("maDiemPhuot"));
+		bundle.putString("tenDiemPhuot", myPackage.getString("tenDiemPhuot"));
+		bundle.putString("ghiChu", myPackage.getString("ghiChu"));
+		
+		f.setArguments(bundle);
+*/
+		
+		
+	/*	Bundle bundle = new Bundle();
 		bundle.putString("maDiemPhuot", maDiemPhuot);
 		bundle.putString("tenDiemPhuot", tenDiemPhuot);
 		bundle.putString("ghiChu", ghiChu);
