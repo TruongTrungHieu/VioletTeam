@@ -157,6 +157,7 @@ public class Global {
 		}
 	}
 
+	// Validator email
 	public static boolean isValidEmail(String email) {
 	    return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
@@ -174,6 +175,26 @@ public class Global {
 		}
 		return date.toString();
 	}
+	
+	/*
+	 * NEARBY PLACE GOOGLE MAP
+	 */
+	public static String NEARBY_GAS = "gas_station";
+	public static String NEARBY_HOSPITAL = "hospital";
+	public static String NEARBY_RESTAURANT = "restaurant";
+	public static String NEARBY_POLICE = "police";
+	public static String NEARBY_ATM = "atm"; 
+	
+	public static String URL_NEARBY(double lat, double lon, int radius, String type) {
+		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lon +"&radius=" + radius + "&type=" + type + "&key=AIzaSyCV_sND3UkBW8i3KzPWRJ7C452g2Ao4seg";
+		return url;
+	}
+	
+	public static int NEARBY_RADIUS = 10000;
+	/*
+	 * END - NEARBY PLACE GOOGLE MAP
+	 */
+
 	public static java.util.Date getDateFromDatePicket(DatePicker datePicker){
 	    int day = datePicker.getDayOfMonth();
 	    int month = datePicker.getMonth();
