@@ -252,6 +252,7 @@
     <!-- RegisterManagerActivity -->
     <string name="register_error">Vui lòng thử lại</string>
     <string name="ck_pass_err">Mật khẩu không khớp!</string>
+    <string name="ck_pass_old_new">Mật khẩu mới không trùng mật khẩu cũ!</string>
     <string name="pass_err">Mật khẩu quá ngắn!</string>
     <string name="ck_rule_err">Bạn phải đồng ý điều khoản</string>
     <string name="error_tuoi">Bạn chưa đủ tuổi để đăng ký!</string>

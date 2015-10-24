@@ -40,10 +40,7 @@ public class Change_Password_Activity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				if (checkValidate()) {
 					changePass();
-//					Intent intent = new Intent(Change_Password_Activity.this,
-//							SettingActivity.class);
-//					startActivity(intent);
-//					Toast.makeText(getApplicationContext(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -70,6 +67,15 @@ public class Change_Password_Activity extends ActionBarActivity {
 				edt_newpass.setText("");
 				edt_check_newpass.setText("");
 				check = false;
+		      }else
+		      {
+		    	  if(oldpass.equals(newpass) ==true){
+		    		  edt_newpass.setError(getString(R.string.ck_pass_old_new));
+					  edt_check_newpass.requestFocus();
+					  edt_newpass.setText("");
+					  edt_check_newpass.setText("");
+		    		  check = false;
+		    	  }
 		      }
 			}
 		}
@@ -128,8 +134,6 @@ public class Change_Password_Activity extends ActionBarActivity {
 						Log.e("cc", response);
 							Intent intent = new Intent(Change_Password_Activity.this, SettingActivity.class);
 							startActivity(intent);
-						Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-					   
 					}
 
 					@Override
