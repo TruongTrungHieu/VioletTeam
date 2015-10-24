@@ -30,6 +30,7 @@
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
+    <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     
     <!-- change_pass -->
     <string name="old_pass">Mật khẩu cũ</string>
@@ -108,6 +109,7 @@
     <string name="suggest_place">Gợi ý lịch trình</string>
     <string name="offline">offline</string>
     <string name="timeOff">Thời gian</string>
+    <string name="dateOff">Ngày</string>
     <string name="place_off">Địa điểm</string>
     <string name="place_start">Tập trung</string>
     <string name="note">Ghi chú</string>
@@ -151,9 +153,11 @@
 \n_ Sử dụng dịch vụ với mục đích thương mại với bên thứ ba.
 \n_ Hủy bỏ, sửa chữa so với trạng thái ban đầu của ứng dụng.
 \n_ Sử dụng với mục đích tuyên truyền các thông tin vi phạm pháp luật, vi phạm thuần phong mĩ tục.
-\n_ Các hình thức vi phạm khác.</string>
+\n_ Các hình thức vi phạm khác.
+</string>
     <string name="str_dieukhoan10">Điều 5: Xử lý vi phạm</string>
-    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.</string>
+    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.
+</string>
     <string name="startPlace">Điểm đầu</string>
     <string name="endPlace">Điểm cuối</string>
 
@@ -277,5 +281,11 @@
     <string name="action_send">Send</string>
     <string name="prompt_message">Nhập nội dung...</string>
     <string name="user_action_typing">đang nhập</string>
-
+	<!-- validator -->
+	<string name="error_time">Thời gian về phải lớn hơn thời gian đi!</string>
+	<string name="error_dateTrip">Ngày về phải lớn hơn ngày đi!</string>
+	<string name="error_dateNowTrip">Ngày bắt đầu không hợp lệ!</string>
+	<string name="error_DateOffTrip">Ngày offline không hợp lệ!</string>
+	<string name="error_TimeOffTrip">Thời gian off phải diễn ra trước!</string>
+	<string name="error_TimeOffPlace">Thời gian tập trung phải diễn ra trước!</string>
 </resources>

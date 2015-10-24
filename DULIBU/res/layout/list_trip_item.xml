@@ -17,8 +17,8 @@
             android:id="@+id/imgTrip"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:paddingLeft="10dp"
-            android:scaleType="centerInside"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitXY"
             android:src="@drawable/trip1" />
 
         <RelativeLayout
@@ -94,21 +94,25 @@
                     android:id="@+id/tvBeginPoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hà Nội" />
+                    android:text="Hà Nội"
+                    android:textColor="#666666"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:text="to"
-                    android:textColor="#878787" />
+                    android:text=" - "
+                    android:textColor="#666666" />
 
                 <TextView
                     android:id="@+id/tvEndPoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bắc Giang" />
+                    android:text="Bắc Giang"
+                    android:textColor="#666666"
+                    android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

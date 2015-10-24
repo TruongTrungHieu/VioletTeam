@@ -136,7 +136,6 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_marginTop="40dp"
             android:background="@drawable/button_login_dangky"
-            android:onClick="RegisterClicked"
             android:text="Đăng Ký " />
     </LinearLayout>
 
