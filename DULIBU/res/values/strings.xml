@@ -12,6 +12,7 @@
     <string name="title_activity_trip_detail_message">TripDetailMessageActivity</string>
     <string name="title_activity_trip_detail_trip">TripDetailTripActivity</string>
     <string name="title_activity_chi_tieu_">Chi tiết kinh phí</string>
+    <string name="title_activity_change_pass">Đổi mật khẩu</string>
     <string name="txtConDu">Số tiền còn dư </string>
     <string name="txtTongThu">Tổng thu</string>
     <string name="txtChiTiet">Chi tiết</string>
@@ -29,6 +30,12 @@
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
+    
+    <!-- change_pass -->
+    <string name="old_pass">Mật khẩu cũ</string>
+    <string name="new_pass">Mật khẩu mới</string>
+    <string name="check_new_pass">Nhập lại mật khẩu mới</string>
+    <string name="save_new_pass">Đổi mật khẩu</string>
 
     <!-- Thông tin ứng dụng -->
     <string name="app_name_tt">Dulibu</string>
@@ -155,7 +162,7 @@
     
     <!-- Dialog_active_register -->
     <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn \nVui lòng kiểm tra và điền mã xác nhận!</string>
-    <string name="hintDialogForgetPass">  Mật khẩu mới sẽ được gửi vào mail của bạn \n  Vui lòng nhập Email!</string>
+    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập Email!</string>
     <string name="hintDialogActive">Mã xác nhận...</string>
     <string name="hintDialogForget">Email xác nhận...</string>
     <string name="btnActiveRegister">Xác nhận</string>
@@ -239,6 +246,7 @@
     <string name="e404">Chức năng đang sửa !</string>
     <string name="e503">Hệ thống đang bảo trì !</string>
      <string name="e400_">Sai tài khoản đăng nhập !</string>
+     <string name="e401">Không tồn tại tài khoản này!</string>
 
     <!-- RegisterManagerActivity -->
     <string name="register_error">Vui lòng thử lại</string>

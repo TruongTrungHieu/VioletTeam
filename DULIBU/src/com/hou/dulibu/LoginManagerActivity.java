@@ -168,7 +168,7 @@ import android.widget.Toast;
 						switch (statusCode) {
 						case 400:
 							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e400),
+									getResources().getString(R.string.e401),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 403:
@@ -266,7 +266,6 @@ import android.widget.Toast;
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						
 						
 						dialog.dismiss();
 						return;
