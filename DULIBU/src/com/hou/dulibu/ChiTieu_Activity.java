@@ -2,16 +2,29 @@ package com.hou.dulibu;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 import com.hou.adapters.KhoanChiArrayAdapter;
+import com.hou.app.Global;
 
 import com.hou.model.Chitieu;
+import com.hou.model.Diemphuot;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -21,6 +34,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -30,6 +44,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	final Context context = this;
 
 	ArrayList<Chitieu> arrKhoanChi = new ArrayList<Chitieu>();
+	ArrayList<Chitieu> arrChitieu = new ArrayList<Chitieu>();
 	KhoanChiArrayAdapter adapter = null;
 	ListView lvKhoanchi = null;
 	TextView txtConDu;
@@ -38,19 +53,24 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	int moiNguoi = 0;
 	int khoanChi = 1;
 	String ten, tien;
+	String maLichTrinh = "562b1962bcb17fde6e619360";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chi_tieu);
+		
+        
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		txtConDu = (TextView) findViewById(R.id.txtConDu);		
 		lvKhoanchi = (ListView) findViewById(R.id.lvChiTietTieu);
 		arrKhoanChi = new ArrayList<Chitieu>();
-
+		//getChiPhi(com.hou.app.Global.getPreference(context,"maLichTrinh","Viet"));
+		getChiPhi(maLichTrinh);
+		/*arrKhoanChi = arrChitieu;
 		adapter = new KhoanChiArrayAdapter(this, R.layout.list_itemdetail,
 				arrKhoanChi);
-		lvKhoanchi.setAdapter(adapter);
+		lvKhoanchi.setAdapter(adapter);*/
 		lvKhoanchi.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
@@ -75,6 +95,128 @@ public class ChiTieu_Activity extends ActionBarActivity {
 				return false;
 			}
 		});
+	}
+	public void loadData(){
+		arrKhoanChi = arrChitieu;
+		adapter = new KhoanChiArrayAdapter(this, R.layout.list_itemdetail,
+				arrKhoanChi);
+		lvKhoanchi.setAdapter(adapter);
+	}
+
+	public void getChiPhi(String idTrip) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", idTrip);
+		params.put("access_token",
+				Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
+		
+		client.get(Global.BASE_URI + "/" + Global.URI_GETCHIPHI_PATH , params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("getChiPhi999", response);
+						// Toast.makeText(getApplicationContext(),
+						// "v�o th�nh c�ng", Toast.LENGTH_SHORT).show();\
+						listChiPhi(response);
+						loadData();
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.e("LayChiPhi",content);
+
+					}
+				});
+	}
+//	private String maChitieu;
+//	private String maLichtrinh;
+//	private String tenChitieu;
+//	private String thoigian;
+//	private double sotien;
+//	private String filedinhkem;
+//	private String maUser;
+	private String listChiPhi(String response) {
+	 Log.e("__Viet",response);
+		
+		try {
+			JSONArray arrObj = new JSONArray(response);
+			for (int i = 0; i < arrObj.length(); i++) {
+				JSONObject chiPhiJson = arrObj.getJSONObject(i);
+				Chitieu chitieu = new Chitieu();
+
+				String _id = chiPhiJson.optString("_id");
+				double sotien = chiPhiJson.optDouble("total");
+				String tenChitieu = chiPhiJson.optString("name");
+				String thoiGian = chiPhiJson.optString("created_at");
+			//	String 
+				JSONObject objectUser = chiPhiJson
+						.getJSONObject("created_by");
+				String maUser = objectUser.optString("_id");
+				
+
+
+				chitieu.setMaChitieu(_id);
+				chitieu.setSotien(sotien);
+				chitieu.setTenChitieu(tenChitieu);
+				chitieu.setThoigian(thoiGian);
+				chitieu.setFiledinhkem("");
+				chitieu.setMaUser(maUser);
+				chitieu.setMaLichtrinh(com.hou.app.Global.getPreference(context,maLichTrinh,"Viet"));
+				arrChitieu.add(chitieu);
+				Log.e("listChiPhiVIet", sotien+"");
+				Toast.makeText(context, "Muc thu("+i +"): " + sotien, Toast.LENGTH_SHORT).show();
+			}
+
+			// Toast.makeText(getApplicationContext(), "KQ JSON",
+			// Toast.LENGTH_LONG).show();
+
+			return "true";
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "false";
+			
+		}
+	}
+	private void createChiPhi(String tripId,String name,String created_at,String total) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+
+		params.put("trip_id", tripId);
+		params.put("name", name);
+		params.put("created_at", created_at);
+		params.put("total", total);
+		
+
+		client.post(Global.BASE_URI + "/" + Global.URI_POSTCHIPHI_PATH +"?access_token="+ Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""),
+				params, new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("createNewTrip", response);
+
+						if (executeWhenRegisterSuccess(response)) {
+							Toast.makeText(getApplicationContext(),
+									"Tao moi chi phi thanh cong",
+									Toast.LENGTH_SHORT).show();
+							// Intent intent = new Intent(
+							// RegisterManagerActivity.this,
+							// LoginManagerActivity.class);
+
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"Khong tao moi duoc chi phi",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.d("CongTien", content);
+					}
+				});
+	}
+	private boolean executeWhenRegisterSuccess(String reponse) {
+		boolean check = true;
+		return check;
 	}
 
 	public void updateTien1(){
@@ -154,6 +296,10 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					kc.setTenChitieu(ten);
 					kc.setSotien(soTien);					
 					arrKhoanChi.add(kc);
+					/*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy ");
+					String day = sdf.format(new Date());*/
+					
+					createChiPhi(maLichTrinh,ten,"2015-10-10 10:10:10",tien);
 					adapter.notifyDataSetChanged();
 					dialog.dismiss();
 

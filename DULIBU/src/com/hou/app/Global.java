@@ -40,6 +40,8 @@ public class Global {
 	public static String URI_REGISTERTOTRIP_PATH = "trip/register";
 	public static String URI_UPDATETRIPLOCATIONS_PATH = "trip/locations";
 	public static String URI_DOWNLOAD_IMAGE = BASE_URI + "/static/travel/5610/";
+	public static String URI_GETCHIPHI_PATH ="trip/expense";
+	public static String URI_POSTCHIPHI_PATH ="trip/expense";
 	
 	public static String URI_UPDATEAVATAR_PATH = "user/avatar";
 	public static String DIEMPHUOT_P = "20";
