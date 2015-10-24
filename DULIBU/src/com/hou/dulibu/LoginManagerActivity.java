@@ -57,8 +57,8 @@ import android.widget.Toast;
 			}
 		});
 
-		edtUsername.setText("root");
-		edtPassword.setText("pAC123456");
+		edtUsername.setText("furi");
+		edtPassword.setText("123456");
 		
 		edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override

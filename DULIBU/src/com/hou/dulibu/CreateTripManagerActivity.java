@@ -121,7 +121,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.US);
 		dateNow = dateFormat.format(c.getTime());
-		
+
 		edTripName = (EditText) findViewById(R.id.txtNameTrip);
 		edDayStart = (TextView) findViewById(R.id.txtStartDay);
 		edDayEnd = (TextView) findViewById(R.id.txtEndDay);
@@ -194,32 +194,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 									.toString(), edTimePlace.getText()
 									.toString(), edPlaceStart.getText()
 									.toString(), edNotes.getText().toString());
-					//createNewTrip();
-					/*Truyen 8 tham số vào theo thứ tự : name,image,begin_location,
-					end_location,start_date,start_time,end_date,end_time*/
-					
-						
-					Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT)
-							.show();
-					Toast.makeText(getBaseContext(),
-							"" + edTripName.getText().toString(),
-							Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(getBaseContext(),
-							"Xem lại thông tin bạn vừa nhập",
-							Toast.LENGTH_SHORT).show();
-					checkEditText();
-					//createNewTrip();
-					/*Truyen 8 tham số vào theo thứ tự : name,image,begin_location,
-					end_location,start_date,start_time,end_date,end_time*/
-					
-						
-					Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT)
-							.show();
-					Toast.makeText(getBaseContext(),
-							"" + edTripName.getText().toString(),
-							Toast.LENGTH_SHORT).show();
-				} 
+
+				}
 			}
 		});
 		edOfflineTime.setOnClickListener(new OnClickListener() {
@@ -636,7 +612,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			edKinhPhi.requestFocus();
 			return true;
 		}
-		if (edDateOffline.getText().toString().equals("") || edOfflineTime.getText().toString().equals("")
+		if (edDateOffline.getText().toString().equals("")
+				|| edOfflineTime.getText().toString().equals("")
 				|| edPlaceOffline.getText().toString().equals("")) {
 			if (edDateOffline.getText().toString().isEmpty()) {
 				edDateOffline.setError(getString(R.string.checknull));
@@ -695,7 +672,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				check = false;
 			}
 		}
-		if (edDateOffline.getText().toString().equals("") || edOfflineTime.getText().toString().equals("")
+		if (edDateOffline.getText().toString().equals("")
+				|| edOfflineTime.getText().toString().equals("")
 				|| edPlaceOffline.getText().toString().equals("")) {
 			if (edDateOffline.getText().toString().compareTo(dateNow) < 0) {
 				edDateOffline.setError(getString(R.string.error_DateOffTrip));
@@ -928,11 +906,16 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		params.put("gathering_time", startDay + " " + timeTaptrung);
 		params.put("gathering_position", PlaceTaptrung);
 		params.put("note", Notes);
-		client.post(Global.BASE_URI + "/" + Global.URI_CREATENEWTRIP_PATH
-				+ "?access_token=" + Global.getPreference(this, Global.ACCESS_TOKEN, "none"), params,
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_CREATENEWTRIP_PATH
+						+ "?access_token="
+						+ Global.getPreference(this, Global.ACCESS_TOKEN,
+								"none"), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						Log.e("createNewTrip", response+"");
+						Log.e("createNewTrip", response + "");
 
 						if (executeWhenCreateSuccess(response)) {
 							NoticeRegisSuccsess();
@@ -944,7 +927,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
 						NoticeRegisFalse();
-						Log.e("false_send", content+"");
+						Log.e("false_send", content + "");
 					}
 				});
 	}
@@ -999,8 +982,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			JSONObject userJson = new JSONObject(response);
 
 			String _id = userJson.optString("_id");
-			//send listdiem
-			String path_lat = "", path_lon="";
+			// send listdiem
+			String path_lat = "", path_lon = "";
 			String comma = "";
 			if (listCreate.size() > 0) {
 				for (Diemphuot element : listCreate) {
@@ -1011,21 +994,26 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				params.put("_id", _id);
 				params.put("path_lat", path_lat);
 				params.put("path_lon", path_lon);
-				client.post(Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH
-						+ "?access_token=" + Global.getPreference(this, Global.ACCESS_TOKEN, "none"), params,
+				client.post(
+						Global.BASE_URI
+								+ "/"
+								+ Global.URI_UPDATETRIPLOCATIONS_PATH
+								+ "?access_token="
+								+ Global.getPreference(this,
+										Global.ACCESS_TOKEN, "none"), params,
 						new AsyncHttpResponseHandler() {
 							public void onSuccess(String response) {
 								Log.e("send list", response);
-								
+
 							}
 
 							@Override
-							public void onFailure(int statusCode, Throwable error,
-									String content) {
+							public void onFailure(int statusCode,
+									Throwable error, String content) {
 								Log.e("false_send_list", content);
 							}
 						});
-				
+
 			}
 			return true;
 		} catch (JSONException e) {
