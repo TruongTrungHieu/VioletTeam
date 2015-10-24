@@ -31,6 +31,7 @@ public class Global {
 	// public static String BASE_URI = "http://api.dulibu.com";
 	public static String BASE_URI = "http://128.199.112.15";
 	public static String URI_DANGNHAP_PATH = "user/login";
+	public static String URI_CHANGE_PASS_PATH = "user/password";
 	public static String URI_DANGKY_PATH = "user/register";
 	public static String URI_DANGXUAT_PATH = "user/logout";
 	public static String URI_LISTCITY_PATH = "location";

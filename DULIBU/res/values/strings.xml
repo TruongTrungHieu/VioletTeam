@@ -247,6 +247,7 @@
     <string name="e503">Hệ thống đang bảo trì !</string>
      <string name="e400_">Sai tài khoản đăng nhập !</string>
      <string name="e401">Không tồn tại tài khoản này!</string>
+     <string name="e402">Đổi mật khẩu thất bại!</string>
 
     <!-- RegisterManagerActivity -->
     <string name="register_error">Vui lòng thử lại</string>
