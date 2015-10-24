@@ -97,7 +97,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:shadowDx="1"
-                    android:text="@string/See"
+                    android:text="@string/Safe"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="normal" />
@@ -115,7 +115,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:shadowDx="1"
-                    android:text="@string/Not_See"
+                    android:text="@string/Lost"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="normal" />

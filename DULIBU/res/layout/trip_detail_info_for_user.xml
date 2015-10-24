@@ -45,7 +45,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/button_login_dangky"
                     android:gravity="center_vertical|center_horizontal"
-                    android:text="Tham gia"
+                    android:text="Tham Gia"
                     android:textAllCaps="false"
                     android:textSize="8sp"
                     android:textStyle="bold" />
@@ -59,7 +59,7 @@
                     android:layout_alignTop="@+id/btnJoinForUser"
                     android:background="@drawable/button_login_dangky"
                     android:gravity="center_vertical|center_horizontal"
-                    android:text="Hủy Tham gia"
+                    android:text="Hủy Tham Gia"
                     android:textAllCaps="false"
                     android:textSize="8sp"
                     android:textStyle="bold"
