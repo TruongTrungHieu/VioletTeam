@@ -145,7 +145,7 @@ import android.widget.Toast;
 		client.post(Global.BASE_URI + "/" + Global.URI_DANGNHAP_PATH, params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						Log.e("loginToServer", response);
+//						Log.e("loginToServer", response);
 						if (executeWhenLoginSuccess(response)) {
 							Intent intent = new Intent(
 									LoginManagerActivity.this,

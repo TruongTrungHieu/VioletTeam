@@ -3,17 +3,14 @@ package com.hou.model;
 import java.io.Serializable;
 
 public class Lichtrinh implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	private String maLichtrinh;
 	private String tenLichtrinh;
 	private String diemBatdau;
 	private String diemKetthuc;
-	private String tbBatdau;
+	private String tgBatdau;
 	private String tgKetthuc;
 	private String trangthai_hienthi;
 	private String trangthai_hoatdong;
@@ -25,23 +22,29 @@ public class Lichtrinh implements Serializable {
 	private double chiphicadoan;
 	private String thuquy;
 	private String image;
+	private String diadiem_xuatphat;
+	private String thoigian_xuatphat;
+	private String note;
 	
 	public Lichtrinh() {
 		
 	}
 
+	
+
 	public Lichtrinh(String maLichtrinh, String tenLichtrinh,
-			String diemBatdau, String diemKetthuc, String tbBatdau,
+			String diemBatdau, String diemKetthuc, String tgBatdau,
 			String tgKetthuc, String trangthai_hienthi,
 			String trangthai_hoatdong, String trangthai_sos, String admin,
 			String tg_checkserver, String m_checkserver, double chiphicanhan,
-			double chiphicadoan, String thuquy, String image) {
+			double chiphicadoan, String thuquy, String image,
+			String diadiem_xuatphat, String thoigian_xuatphat, String note) {
 		super();
 		this.maLichtrinh = maLichtrinh;
 		this.tenLichtrinh = tenLichtrinh;
 		this.diemBatdau = diemBatdau;
 		this.diemKetthuc = diemKetthuc;
-		this.tbBatdau = tbBatdau;
+		this.tgBatdau = tgBatdau;
 		this.tgKetthuc = tgKetthuc;
 		this.trangthai_hienthi = trangthai_hienthi;
 		this.trangthai_hoatdong = trangthai_hoatdong;
@@ -53,7 +56,24 @@ public class Lichtrinh implements Serializable {
 		this.chiphicadoan = chiphicadoan;
 		this.thuquy = thuquy;
 		this.image = image;
+		this.diadiem_xuatphat = diadiem_xuatphat;
+		this.thoigian_xuatphat = thoigian_xuatphat;
+		this.note = note;
 	}
+
+
+
+	public String getNote() {
+		return note;
+	}
+
+
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+
 
 	public String getMaLichtrinh() {
 		return maLichtrinh;
@@ -85,14 +105,6 @@ public class Lichtrinh implements Serializable {
 
 	public void setDiemKetthuc(String diemKetthuc) {
 		this.diemKetthuc = diemKetthuc;
-	}
-
-	public String getTbBatdau() {
-		return tbBatdau;
-	}
-
-	public void setTbBatdau(String tbBatdau) {
-		this.tbBatdau = tbBatdau;
 	}
 
 	public String getTgKetthuc() {
@@ -186,5 +198,30 @@ public class Lichtrinh implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getTgBatdau() {
+		return tgBatdau;
+	}
+
+	public void setTgBatdau(String tgBatdau) {
+		this.tgBatdau = tgBatdau;
+	}
+
+	public String getDiadiem_xuatphat() {
+		return diadiem_xuatphat;
+	}
+
+	public void setDiadiem_xuatphat(String diadiem_xuatphat) {
+		this.diadiem_xuatphat = diadiem_xuatphat;
+	}
+
+	public String getThoigian_xuatphat() {
+		return thoigian_xuatphat;
+	}
+
+	public void setThoigian_xuatphat(String thoigian_xuatphat) {
+		this.thoigian_xuatphat = thoigian_xuatphat;
+	}
+	
 
 }

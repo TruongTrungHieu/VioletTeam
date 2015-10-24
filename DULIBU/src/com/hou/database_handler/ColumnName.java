@@ -133,6 +133,8 @@ public class ColumnName {
 	public static String TBL_LICHTRINH_CHIPHICADOAN = "chiphicadoan";
 	public static String TBL_LICHTRINH_THUQUY = "thuquy";
 	public static String TBL_LICHTRINH_IMAGE = "image";
+	public static String TBL_LICHTRINH_DIADIEM_XUATPHAT = "diadiem_xuatphat";
+	public static String TBL_LICHTRINH_THOIGIAN_XUATPHAT = "thoigian_xuatphat";
 	
 	/*
 	 * tbl_lichtrinh_diemphuot

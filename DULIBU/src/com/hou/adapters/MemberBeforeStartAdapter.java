@@ -2,6 +2,7 @@ package com.hou.adapters;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,7 +22,7 @@ import com.hou.model.Chitieu;
 import com.hou.model.Lichtrinh_User;
 import com.hou.ultis.CircularImageView;
 
-public class MemberBeforeStartAdapter extends ArrayAdapter<Lichtrinh_User> {
+@SuppressLint("ResourceAsColor") public class MemberBeforeStartAdapter extends ArrayAdapter<Lichtrinh_User> {
 	// adapter dùng khi hành trình chưa bắt đầu
 	Activity context = null;
 	ArrayList<Lichtrinh_User> myArray = null;

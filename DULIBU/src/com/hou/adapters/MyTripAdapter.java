@@ -44,7 +44,7 @@ public class MyTripAdapter extends ArrayAdapter<Lichtrinh>{
 			final Lichtrinh sTrip = myArray.get(position);
 
 			txtTripTitle.setText(sTrip.getTenLichtrinh().toString());
-			txtTripTimeBegin.setText(sTrip.getTbBatdau().toString());
+			txtTripTimeBegin.setText(sTrip.getTgBatdau().toString());
 			txtTripTimeEnd.setText(sTrip.getTgKetthuc().toString());
 			txtBeginPoint.setText(sTrip.getDiemBatdau().toString());
 			txtEndPoint.setText(sTrip.getDiemKetthuc().toString());

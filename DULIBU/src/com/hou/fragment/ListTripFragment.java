@@ -1,5 +1,8 @@
 package com.hou.fragment;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -15,12 +18,17 @@ import com.hou.app.Global;
 import com.hou.dulibu.CreateTripManagerActivity;
 //import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
+import com.hou.dulibu.LoginManagerActivity;
+import com.hou.dulibu.ProfileManagerActivity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
 import com.hou.dulibu.UserSecureConfirmManager;
 import com.hou.model.Lichtrinh;
 import com.hou.model.Tinh_Thanhpho;
+import com.hou.ultis.ImageUltiFunctions;
+import com.hou.upload.MD5;
+import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -29,6 +37,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -51,7 +60,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	ArrayList<Lichtrinh> lichtrinh;
 	ListView lvListTrip;
 	private SwipeRefreshLayout swipeRefreshLayout;
-	
+	LichtrinhAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,98 +75,80 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.list_trip_manager, container,
 				false);
-		final ListView lvListTrip = (ListView) view
-				.findViewById(R.id.lvTripList);
-		DeviceStatus ds = new DeviceStatus();
-		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+		lichtrinh = new ArrayList<Lichtrinh>();
+		lvListTrip = (ListView) view.findViewById(R.id.lvTripList);
+		adapter = new LichtrinhAdapter(getActivity(), R.layout.list_trip_item,
+				lichtrinh);
+		LoadDataFromServer();
+		// DeviceStatus ds = new DeviceStatus();
+		swipeRefreshLayout = (SwipeRefreshLayout) view
+				.findViewById(R.id.swipe_refresh_layout);
 		swipeRefreshLayout.setColorSchemeColors(R.color.StatusBarColor);
 		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-			
+
 			@Override
 			public void onRefresh() {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), "ok, refeshing", Toast.LENGTH_SHORT).show();
+				lichtrinh.clear();
+				LoadDataFromServer();
 				Handler h = new Handler();
 				h.postDelayed(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						swipeRefreshLayout.setRefreshing(false);
 					}
 				}, 3000);
-				
+
 			}
 		});
 
-		Lichtrinh trip1 = new Lichtrinh("trip1", "DulibuTeam's Trip", "Hà Nội",
-				"Hà Giang", "01/05/2015", "03/05/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
-				"image");
-		Lichtrinh trip2 = new Lichtrinh("trip2", "VioletTeam's Trip", "Hà Nội",
-				"Hà Giang", "28/09/2015", "29/09/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
-				"image");
-		lichtrinh = new ArrayList<Lichtrinh>();
-		lichtrinh.add(trip1);
-		lichtrinh.add(trip2);
-		LichtrinhAdapter adapter = new LichtrinhAdapter(getActivity(),
-				R.layout.list_trip_item, lichtrinh);
-		lvListTrip.setAdapter(adapter);
-		lvListTrip
-				.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						// TODO Auto-generated method stub
-
-						Toast.makeText(getActivity(),
-								"" + lichtrinh.get(position).getMaLichtrinh(),
-								Toast.LENGTH_SHORT).show();
-						Intent intent = new Intent(getActivity(),
-								TripDetailManagerActivity.class);
-						startActivity(intent);
-					}
-				});
-
-		// showSlideImage(SlideImageArr);
+		// Lichtrinh trip1 = new Lichtrinh("trip1", "DulibuTeam's Trip",
+		// "Hà Nội",
+		// "Hà Giang", "01/05/2015", "03/05/2015", "1", "1", "1", "1",
+		// "1", "1", 1, 1, "1", "trip1");
+		// Lichtrinh trip2 = new Lichtrinh("trip2", "VioletTeam's Trip",
+		// "Hà Nội",
+		// "Hà Giang", "28/09/2015", "29/09/2015", "1", "1", "1", "1",
+		// "1", "1", 1, 1, "1", "trip2");
+		// lichtrinh.add(trip1);
+		// lichtrinh.add(trip2);
 
 		// initGridView(view);
 
 		return view;
 
 	}
-	private void SearchTrip(){
+
+	private void SearchTrip() {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View alertLayout = inflater.inflate(R.layout.search_trip_dialog, null);
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
 		alert.setTitle("Tìm kiếm");
-		alert.setNegativeButton("Thoát",
+		alert.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				return;
+
+			}
+		});
+
+		alert.setPositiveButton("Tìm kiếm",
 				new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
 						return;
-						
 					}
 				});
-
-		alert.setPositiveButton("Tìm kiếm", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				return;
-			}
-		});
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
-	
-
-
-
 
 	@Override
 	public void onDestroy() {
@@ -191,7 +182,8 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.addTripActionBar:
-			Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
+			Intent intent = new Intent(getActivity(),
+					CreateTripManagerActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.searchTrip:
@@ -199,5 +191,158 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void LoadDataFromServer() {
+		Toast.makeText(getActivity(), "Đang load Data", Toast.LENGTH_LONG)
+				.show();
+		AsyncHttpClient client = new AsyncHttpClient();
+		Global.savePreference(getActivity(), Global.PAGE_NUMBER, "0");
+		if (Global.getPreference(getActivity(), Global.PAGE_NUMBER, "0")
+				.compareTo("0") == 0) {
+			int p = 1;
+			Global.savePreference(getActivity(), Global.PAGE_NUMBER, p + "");
+			client.get(Global.BASE_URI + "/" + Global.URI_TRIP_TRIP + "?p=1",
+					new AsyncHttpResponseHandler() {
+						public void onSuccess(String response) {
+							Log.e("DATA", response);
+							executeWhenSendDataSuccess(response);
+							if (lichtrinh.size() > 0) {
+								lvListTrip.setAdapter(adapter);
+								lvListTrip
+										.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+
+											@Override
+											public void onItemClick(
+													AdapterView<?> parent,
+													View view, int position,
+													long id) {
+												// TODO Auto-generated method
+												// stub
+
+												Toast.makeText(
+														getActivity(),
+														""
+																+ lichtrinh
+																		.get(position)
+																		.getMaLichtrinh(),
+														Toast.LENGTH_SHORT)
+														.show();
+												Intent intent = new Intent(
+														getActivity(),
+														TripDetailManagerActivity.class);
+												// intent.putExtra("_id",
+												// lichtrinh.get(position).getMaLichtrinh());
+												Global.savePreference(
+														getActivity(),
+														"_id_trip",
+														lichtrinh
+																.get(position)
+																.getMaLichtrinh());
+												startActivity(intent);
+											}
+										});
+							}
+
+						}
+
+						@Override
+						public void onFailure(int statusCode, Throwable error,
+								String content) {
+							switch (statusCode) {
+							case 400:
+								Toast.makeText(
+										getActivity(),
+										getResources().getString(R.string.e400),
+										Toast.LENGTH_LONG).show();
+								break;
+							case 403:
+								Toast.makeText(
+										getActivity(),
+										getResources().getString(R.string.e403),
+										Toast.LENGTH_LONG).show();
+								break;
+							case 404:
+								Toast.makeText(
+										getActivity(),
+										getResources().getString(R.string.e404),
+										Toast.LENGTH_LONG).show();
+								break;
+							case 503:
+								Toast.makeText(
+										getActivity(),
+										getResources().getString(R.string.e503),
+										Toast.LENGTH_LONG).show();
+								break;
+							default:
+								break;
+							}
+						}
+					});
+		}
+
+	}
+
+	public class getImage extends AsyncTask<String, Void, Void> {
+
+		@Override
+		protected Void doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			try {
+				try {
+					imageOnServer.downloadFileFromServer(
+							(new MD5()).getMD5(params[0]), params[0]);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+	}
+
+	private void executeWhenSendDataSuccess(String response) {
+		try {
+			JSONArray data = new JSONArray(response);
+			for (int i = 0; i < data.length(); i++) {
+				JSONObject item = data.getJSONObject(i);
+				String _id = item.optString("_id");
+				String name = item.optString("name");
+				String diemBatdau = item.optJSONObject("begin_location")
+						.optString("name");
+				String diemKetthuc = item.optJSONObject("end_location")
+						.optString("name");
+				String tgBatdau = item.optString("start_date");
+				String tgKetthuc = item.optString("end_date");
+				String admin = "";
+				if (!item.optString("created_by").equals("")) {
+					admin = item.getJSONObject("created_by").optString(
+							"fullname");
+				}
+				String chiphicanhan = item.optString("expense", "0");
+				double chiphicanhans = Double.parseDouble(chiphicanhan);
+				String thoigian_xuatphat = item.optString("gathering_time");
+				String diadiem_xuatphat = item.optString("gathering_position");
+				String note = item.optString("note");
+				String image = item.optString("image");
+
+				getImage img = new getImage();
+				img.execute(image);
+
+				Lichtrinh dataTrip;
+				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
+						tgBatdau, tgKetthuc, "1", "1", "1", admin, "", "",
+						chiphicanhans, 0f, "", image,
+						diadiem_xuatphat, thoigian_xuatphat, note);
+				lichtrinh.add(dataTrip);
+			}
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }

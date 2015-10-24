@@ -1,10 +1,15 @@
 package com.hou.dulibu;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -74,7 +79,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 	public static Point screenSize = new Point();
 	private static final int PICK_FROM_CAMERA = 1;
 	private static final int PICK_FROM_FILE = 2;
-	private File fromCameraFile;
+	private File fromCameraFile, fromGallery;
 	private Uri mImageCaptureUri;
 	private String path;
 	Context context = this;
@@ -82,14 +87,15 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 	Button btnCreatePlace, btnCreateTrip, btnChooseImage;
 	// TimePicker tpTimePK;
 	GoogleMap mMap;
-	EditText edTripName, edKinhPhi, edPlaceStart;
+	EditText edTripName, edKinhPhi, edPlaceStart, edPlaceOffline, edNotes;
 	TextView edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime,
-			edOfflineTime;
+			edOfflineTime, edDateOffline;
 
 	private ArrayList<Diemphuot> listAll, listPlace;
 	private ArrayList<Diemphuot> listTouch;
 	private ArrayList<Diemphuot> listCreate;
 	private Tinh_Thanhpho startPlace, endPlace;
+	String dateNow;
 
 	private ExecuteQuery exeQ;
 
@@ -111,6 +117,11 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 					new ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.US);
+		dateNow = dateFormat.format(c.getTime());
+		
 		edTripName = (EditText) findViewById(R.id.txtNameTrip);
 		edDayStart = (TextView) findViewById(R.id.txtStartDay);
 		edDayEnd = (TextView) findViewById(R.id.txtEndDay);
@@ -120,6 +131,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		edStartTime = (TextView) findViewById(R.id.txtStartTime);
 		edEndTime = (TextView) findViewById(R.id.txtEndTime);
 		edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
+		edDateOffline = (TextView) findViewById(R.id.txtDateOffline);
+		edPlaceOffline = (EditText) findViewById(R.id.txtPlaceOffline);
+		edNotes = (EditText) findViewById(R.id.txtNotes);
 
 		exeQ = new ExecuteQuery(getApplicationContext());
 		exeQ.createDatabase();
@@ -141,12 +155,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new ImageDialog(context,
-						R.layout.select_image_layout).show();
+				new ImageDialog(context, R.layout.select_image_layout).show();
 			}
 		});
-
-		
 
 		btnCreatePlace = (Button) findViewById(R.id.btnCreatePlace);
 		btnCreatePlace.setOnClickListener(new View.OnClickListener() {
@@ -159,11 +170,45 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		});
 		btnCreateTrip = (Button) findViewById(R.id.btnCreateTrip);
 		btnCreateTrip.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (validatorButton() == true) {
+					if (startPlace == null) {
+						startPlace = exeQ.getTinhByTentinh(spStartPlace
+								.getSelectedItem().toString());
+					}
+					if (endPlace == null) {
+						endPlace = exeQ.getTinhByTentinh(spEndPlace
+								.getSelectedItem().toString());
+					}
+					createNewTrip(edTripName.getText().toString().trim(),
+							startPlace.getMaTinh(), endPlace.getMaTinh(),
+							edDayStart.getText().toString(), edDayEnd.getText()
+									.toString(), edStartTime.getText()
+									.toString(),
+							edEndTime.getText().toString(), edKinhPhi.getText()
+									.toString(), edDateOffline.getText()
+									.toString(), edOfflineTime.getText()
+									.toString(), edPlaceOffline.getText()
+									.toString(), edTimePlace.getText()
+									.toString(), edPlaceStart.getText()
+									.toString(), edNotes.getText().toString());
+					//createNewTrip();
+					/*Truyen 8 tham số vào theo thứ tự : name,image,begin_location,
+					end_location,start_date,start_time,end_date,end_time*/
+					
+						
+					Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT)
+							.show();
+					Toast.makeText(getBaseContext(),
+							"" + edTripName.getText().toString(),
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getBaseContext(),
+							"Please check your infomations again",
+							Toast.LENGTH_SHORT).show();
+					checkEditText();
 					//createNewTrip();
 					/*Truyen 8 tham số vào theo thứ tự : name,image,begin_location,
 					end_location,start_date,start_time,end_date,end_time*/
@@ -237,6 +282,17 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.layout.date_picker, R.string.titleTimeDialog);
 			}
 		});
+		edDateOffline.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				datePikerDialog(R.id.dpCreateDatePicker,
+						R.id.btnDoneCreateTripDatePiker,
+						R.id.btnCancelCreateTripDatePiker, edDateOffline,
+						R.layout.date_picker, R.string.titleTimeDialog);
+			}
+		});
 		edTimePlace.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -277,20 +333,20 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// TextView edTimePlace = (TextView) findViewById(textID);
-				String res = dpDatePK.getYear()+"";
+				String res = dpDatePK.getYear() + "";
 				int month = dpDatePK.getMonth() + 1;
 				int date = dpDatePK.getDayOfMonth();
-				if (month<10) {
-					res += "-0"+month;
-				}else {
-					res+= "-"+month;
+				if (month < 10) {
+					res += "-0" + month;
+				} else {
+					res += "-" + month;
 				}
-				if (date<10) {
-					res += "-0"+date;
-				}else {
-					res+= "-"+date;
+				if (date < 10) {
+					res += "-0" + date;
+				} else {
+					res += "-" + date;
 				}
-				
+
 				tv.setText(res);
 				dialog.dismiss();
 			}
@@ -324,8 +380,19 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// TextView edTimePlace = (TextView) findViewById(textID);
-				tv.setText(tpTimePK.getCurrentHour() + ":"
-						+ tpTimePK.getCurrentMinute());
+				String res = "";
+				if (tpTimePK.getCurrentHour() < 10) {
+					res += "0" + tpTimePK.getCurrentHour();
+				} else {
+					res += tpTimePK.getCurrentHour();
+				}
+				if (tpTimePK.getCurrentMinute() < 10) {
+					res += ":0" + tpTimePK.getCurrentMinute();
+				} else {
+					res += ":" + tpTimePK.getCurrentMinute();
+				}
+				res += ":00";
+				tv.setText(res);
 				dialog.dismiss();
 			}
 		});
@@ -480,7 +547,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
-	
+
 	private void showMarkerTouch() {
 		// Diemphuot da touch
 		for (Diemphuot dp : listTouch) {
@@ -543,44 +610,129 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		}
 	}
 
-	public void checkEditText() {
-		if (edPlaceStart.getText().toString().isEmpty()) {
-			edPlaceStart.setHint(R.string.textHintPlaceStart);
-			edPlaceStart.requestFocus();
-		}
-		if (edTimePlace.getText().toString().isEmpty()) {
-			edTimePlace.setHint(R.string.textHintTimeStart);
-			edTimePlace.requestFocus();
-		}
-		if (edKinhPhi.getText().toString().isEmpty()) {
-			edKinhPhi.setHint(R.string.textHintKinhPhi);
-			edKinhPhi.requestFocus();
-		}
-		if (edDayEnd.getText().toString().isEmpty()) {
-			edDayEnd.setHint(R.string.textHintDayEnd);
-			edDayEnd.requestFocus();
+	public boolean checkEditText() {
+		if (edTripName.getText().toString().isEmpty()) {
+			edTripName.setError(getString(R.string.checknull));
+			edTripName.requestFocus();
+			return true;
 		}
 		if (edDayStart.getText().toString().isEmpty()) {
-			edDayStart.setHint(R.string.textHintDayStart);
+			edDayStart.setError(getString(R.string.checknull));
 			edDayStart.requestFocus();
+			return true;
 		}
-		if (edTripName.getText().toString().isEmpty()) {
-			edTripName.setHint(R.string.textHintTitleTrip);
-			edTripName.requestFocus();
+		if (edDayEnd.getText().toString().isEmpty()) {
+			edDayEnd.setError(getString(R.string.checknull));
+			edDayEnd.requestFocus();
+			return true;
 		}
+		if (edStartTime.getText().toString().isEmpty()) {
+			edStartTime.setError(getString(R.string.checknull));
+			edStartTime.requestFocus();
+			return true;
+		}
+		if (edEndTime.getText().toString().isEmpty()) {
+			edEndTime.setError(getString(R.string.checknull));
+			edEndTime.requestFocus();
+			return true;
+		}
+		if (edKinhPhi.getText().toString().isEmpty()) {
+			edKinhPhi.setError(getString(R.string.checknull));
+			edKinhPhi.requestFocus();
+			return true;
+		}
+		if (edDateOffline.getText().toString().equals("") || edOfflineTime.getText().toString().equals("")
+				|| edPlaceOffline.getText().toString().equals("")) {
+			if (edDateOffline.getText().toString().isEmpty()) {
+				edDateOffline.setError(getString(R.string.checknull));
+				edDateOffline.requestFocus();
+				return true;
+			}
+			if (edOfflineTime.getText().toString().isEmpty()) {
+				edOfflineTime.setError(getString(R.string.checknull));
+				edOfflineTime.requestFocus();
+				return true;
+			}
+			if (edPlaceOffline.getText().toString().isEmpty()) {
+				edPlaceOffline.setError(getString(R.string.checknull));
+				edPlaceOffline.requestFocus();
+				return true;
+			}
+		}
+
+		if (edTimePlace.getText().toString().isEmpty()) {
+			edTimePlace.setError(getString(R.string.checknull));
+			edTimePlace.requestFocus();
+			return true;
+		}
+		if (edPlaceStart.getText().toString().isEmpty()) {
+			edPlaceStart.setError(getString(R.string.checknull));
+			edPlaceStart.requestFocus();
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean validatorButton() {
-		if (edTripName.getText().toString().isEmpty() == false
-				&& edDayStart.getText().toString().isEmpty() == false
-				&& edDayEnd.getText().toString().isEmpty() == false
-				&& edKinhPhi.getText().toString().isEmpty() == false
-				&& edTimePlace.getText().toString().isEmpty() == false
-				&& edPlaceStart.getText().toString().isEmpty() == false) {
-			return true;
-		} else {
-			return false;
+		boolean check = true;
+		if (checkEditText()) {
+			check = false;
 		}
+		if (edDayStart.getText().toString().compareTo(dateNow) < 0) {
+			edDayStart.setError(getString(R.string.error_dateNowTrip));
+			edDayStart.requestFocus();
+			check = false;
+		}
+		if (edDayStart.getText().toString()
+				.compareTo(edDayEnd.getText().toString()) == 0) {
+			if (edStartTime.getText().toString()
+					.compareTo(edEndTime.getText().toString()) >= 0) {
+				edEndTime.setError(getString(R.string.error_time));
+				edEndTime.requestFocus();
+				check = false;
+			}
+		} else {
+			if (edDayStart.getText().toString()
+					.compareTo(edDayEnd.getText().toString()) > 0) {
+				edDayEnd.setError(getString(R.string.error_dateTrip));
+				edDayEnd.requestFocus();
+				check = false;
+			}
+		}
+		if (edDateOffline.getText().toString().equals("") || edOfflineTime.getText().toString().equals("")
+				|| edPlaceOffline.getText().toString().equals("")) {
+			if (edDateOffline.getText().toString().compareTo(dateNow) < 0) {
+				edDateOffline.setError(getString(R.string.error_DateOffTrip));
+				edDateOffline.requestFocus();
+				check = false;
+			}
+			if (edDateOffline.getText().toString()
+					.compareTo(edDayStart.getText().toString()) == 0) {
+				if (edOfflineTime.getText().toString()
+						.compareTo(edStartTime.getText().toString()) >= 0) {
+					edOfflineTime
+							.setError(getString(R.string.error_TimeOffTrip));
+					edOfflineTime.requestFocus();
+					check = false;
+				}
+			} else {
+				if (edDateOffline.getText().toString()
+						.compareTo(edDayStart.getText().toString()) > 0) {
+					edDateOffline
+							.setError(getString(R.string.error_TimeOffTrip));
+					edDateOffline.requestFocus();
+					check = false;
+				}
+			}
+		}
+		if (edTimePlace.getText().toString()
+				.compareTo(edStartTime.getText().toString()) > 0) {
+			edTimePlace.setError(getString(R.string.error_TimeOffPlace));
+			edTimePlace.requestFocus();
+			check = false;
+		}
+		return check;
 	}
 
 	@Override
@@ -708,10 +860,12 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				cursor.close();
 				// Set the Image in ImageView after decoding the String
 				// ivProfile.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-				btnChooseImage.setBackground(new BitmapDrawable(
-						getResources(), BitmapFactory
-								.decodeFile(imgDecodableString)));
+				btnChooseImage.setBackground(new BitmapDrawable(getResources(),
+						BitmapFactory.decodeFile(imgDecodableString)));
 				btnChooseImage.setText("");
+				fromGallery = new File(imgDecodableString, "tmp_avatar_"
+						+ String.valueOf(System.currentTimeMillis()) + ".jpg");
+				fromCameraFile = null;
 
 			} else {
 				path = mImageCaptureUri.getPath();
@@ -724,6 +878,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						getResources(), bm);
 				btnChooseImage.setBackground(bitmapDrawable);
 				btnChooseImage.setText("");
+				fromGallery = null;
 			}
 
 		}
@@ -743,56 +898,144 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		double c = 2 * Math.asin(Math.sqrt(a));
 		return 6371.00 * c;
 	}
-	
-//	private void sendDataToServer(String nameTrip){
-//		AsyncHttpClient client = new AsyncHttpClient();
-//		RequestParams params = new RequestParams();
-//		params.put("nametrip", nameTrip);
-//	} thay bang ham createNewTrip ben duoi cho viec tao chuyen di moi
-	private void createNewTrip(String name,String image,String begin_location,
-			String end_location,String start_date,String start_time,String end_date, String end_time) {
+
+	private void createNewTrip(String nameTrip, String startPlace,
+			String endPlace, String startDay, String endDay, String startTime,
+			String endTime, String expense, String dateOffline,
+			String timeOffline, String placeOffline, String timeTaptrung,
+			String PlaceTaptrung, String Notes) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-
-		params.put("name", name);
-		params.put("image", image);
-		params.put("begin_location", begin_location);
-		params.put("end_location", end_location);
-		params.put("start_date", start_date);
-		params.put("start_time", start_time);
-		params.put("end_date", end_date);
-		params.put("end_time", end_time);
-		params.put("access_token",
-				Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
-
-		client.post(Global.BASE_URI + "/" + Global.URI_CREATENEWTRIP_PATH,
-				params, new AsyncHttpResponseHandler() {
+		if (fromCameraFile == null) {
+			try {
+				params.put("image", fromGallery);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		if (fromGallery == null) {
+			try {
+				params.put("image", fromCameraFile);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		params.put("name", nameTrip);
+		params.put("begin_location", startPlace);
+		params.put("end_location", endPlace);
+		params.put("start_date", startDay);
+		params.put("start_time", startTime);
+		params.put("end_date", endDay);
+		params.put("end_time", endTime);
+		params.put("expense", expense);
+		params.put("offline_time", dateOffline + " " + timeOffline);
+		params.put("offline_position", placeOffline);
+		params.put("gathering_time", startDay + " " + timeTaptrung);
+		params.put("gathering_position", PlaceTaptrung);
+		params.put("note", Notes);
+		client.post(Global.BASE_URI + "/" + Global.URI_CREATENEWTRIP_PATH
+				+ "?access_token=" + Global.getPreference(this, Global.ACCESS_TOKEN, "none"), params,
+				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						Log.e("createNewTrip", response);
+						Log.e("createNewTrip", response+"");
 
-						if (executeWhenRegisterSuccess(response)) {
-							Toast.makeText(getApplicationContext(),
-									"Tao moi chuyen di thanh cong",
-									Toast.LENGTH_SHORT).show();
-							// Intent intent = new Intent(
-							// RegisterManagerActivity.this,
-							// LoginManagerActivity.class);
+						if (executeWhenCreateSuccess(response)) {
+							NoticeRegisSuccsess();
 
-						} else {
-							Toast.makeText(getApplicationContext(),
-									"Khong tao moi duoc chuyen di",
-									Toast.LENGTH_LONG).show();
 						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
+						NoticeRegisFalse();
+						Log.e("false_send", content+"");
 					}
 				});
 	}
-	private boolean executeWhenRegisterSuccess(String reponse) {
-		boolean check = true;
-		return check;
+
+	private void NoticeRegisSuccsess() {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Thành công!");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Tạo chuyến đi thành công");
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_tick);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+				onBackPressed();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+	}
+
+	private void NoticeRegisFalse() {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Thất bại!");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Tạo chuyến đi thất bại!");
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_error);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+	}
+
+	private boolean executeWhenCreateSuccess(String response) {
+		try {
+			AsyncHttpClient client = new AsyncHttpClient();
+			RequestParams params = new RequestParams();
+			JSONObject userJson = new JSONObject(response);
+
+			String _id = userJson.optString("_id");
+			//send listdiem
+			String path_lat = "", path_lon="";
+			String comma = "";
+			if (listCreate.size() > 0) {
+				for (Diemphuot element : listCreate) {
+					path_lat += comma + element.getLat();
+					path_lon += comma + element.getLon();
+					comma = ",";
+				}
+				params.put("_id", _id);
+				params.put("path_lat", path_lat);
+				params.put("path_lon", path_lon);
+				client.post(Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH
+						+ "?access_token=" + Global.getPreference(this, Global.ACCESS_TOKEN, "none"), params,
+						new AsyncHttpResponseHandler() {
+							public void onSuccess(String response) {
+								Log.e("send list", response);
+								
+							}
+
+							@Override
+							public void onFailure(int statusCode, Throwable error,
+									String content) {
+								Log.e("false_send_list", content);
+							}
+						});
+				
+			}
+			return true;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

@@ -100,6 +100,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		downloader = new ImageDownloader(pathAvartar, ivProfile, getActivity(),
 				bmp);
 		downloader.execute();
+		if (bmp != null) {
+			saveImageToSD();
+		}
 		FillDataProfile();
 
 		return view;
@@ -451,10 +454,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		 * I'm going to use JPEG and 100% quality ---*/
 		bmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
 		/*--- create a new file on SD card ---*/
-		File file = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-						+ File.separator + "avatar.jpg");
+		File file = new File(Environment.getExternalStorageDirectory()
+				+ File.separator + "myDownloadedImage.jpg");
 		try {
 			file.createNewFile();
 		} catch (IOException e) {

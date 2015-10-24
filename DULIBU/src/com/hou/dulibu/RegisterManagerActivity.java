@@ -1,7 +1,5 @@
 package com.hou.dulibu;
 
-import it.neokree.materialnavigationdrawer.util.Utils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -210,6 +209,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 						check = false;
 					} else {
 						if (ck_dieukhoan.isChecked() != true) {
+//							Drawable myIcon = getResources().getDrawable( R.drawable.icon_address );
 							ck_dieukhoan
 									.setError(getString(R.string.ck_rule_err));
 							ck_dieukhoan.requestFocus();
@@ -301,10 +301,25 @@ public class RegisterManagerActivity extends ActionBarActivity {
 							String content) {
 						switch (statusCode) {
 						case 400:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e400),
-									Toast.LENGTH_LONG).show();
-							Log.e("ERROR", content);
+							try {
+								JSONObject data = new JSONObject(content);
+								for (int i = 0; i < data.optJSONArray("errors").length(); i++) {
+									JSONObject data1 = (JSONObject)(data.optJSONArray("errors").get(i));
+									if (data1.optString("field").equals("username")) {
+										edtUsername.setError(data1.optString("message"));
+										edtUsername.requestFocus();
+									}	
+									if (data1.optString("field").equals("email")) {
+											edtEmail.setError(data1.optString("message"));
+											edtEmail.requestFocus();
+										}
+									
+									
+								}
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 
 							break;
 						case 403:
