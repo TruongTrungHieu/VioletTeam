@@ -123,6 +123,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="7dp"
-        android:background="@color/StatusBarColor" />
+        android:background="#E8E8E8" />
 
 </LinearLayout>

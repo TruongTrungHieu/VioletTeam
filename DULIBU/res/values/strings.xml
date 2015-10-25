@@ -30,13 +30,20 @@
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
-    <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
 
     <!-- change_pass -->
     <string name="old_pass">Mật khẩu cũ</string>
     <string name="new_pass">Mật khẩu mới</string>
     <string name="check_new_pass">Nhập lại mật khẩu mới</string>
     <string name="save_new_pass">Đổi mật khẩu</string>
+    
+    <!-- Thông báo -->
+    <string name="success">Thành công !</string>
+    <string name="successRegis">Đăng ký thành công !</string>
+    <string name="create_success">Thông tin đã được gửi tới email của bạn, Vui lòng kiểm tra email !</string>
+    <string name="ConfirmFalse">Thất bại !</string>
+    <string name="create_false">Không thể gửi thông tin tới server !</string>
 
     <!-- Thông tin ứng dụng -->
     <string name="app_name_tt">Dulibu</string>
@@ -163,12 +170,11 @@
     <string name="city_prompt">Chọn địa điểm</string>
 
     <!-- Dialog_active_register -->
-    <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn \nVui lòng kiểm tra và điền mã xác nhận!</string>
-    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập tên tài khoản !</string>
-    <string name="hintDialogActive">Mã xác nhận...</string>
-    <string name="newpass">Mật khẩu mới...</string>
-    <string name="renewpass">Nhập lại mật khẩu mới...</string>
-    <string name="hintDialogForget">Username...</string>
+    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập Email !</string>
+    <string name="hintDialogActive">Mã xác nhận</string>
+    <string name="newpass">Mật khẩu mới</string>
+    <string name="renewpass">Nhập lại mật khẩu mới</string>
+    <string name="hintDialogForget">Email</string>
     <string name="btnActiveRegister">Xác nhận</string>
     <string name="btnCancelActiveRegister">Thoát</string>
     <string name="DoneActive">Xác nhận thành công!</string>
