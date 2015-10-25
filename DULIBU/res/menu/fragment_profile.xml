@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hou.fragment.ProfileFragment" >
 
-    <item
+    <!-- <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_settings_applications_white_18dp"
         android:title="@string/maps_actionbar"
-        app:showAsAction="always"/>
+        app:showAsAction="always"/> -->
 <!--     <item -->
 <!--         android:id="@+id/messages" -->
 <!--         android:icon="@drawable/icon_message" -->

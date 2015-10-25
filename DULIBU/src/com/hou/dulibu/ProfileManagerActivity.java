@@ -6,6 +6,7 @@ import com.hou.fragment.ListTripFragment;
 import com.hou.fragment.MapFragment;
 import com.hou.fragment.MyTrips;
 import com.hou.fragment.ProfileFragment;
+import com.hou.fragment.SettingFragment;
 import com.hou.fragment.ThongTinUngDung;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -29,7 +30,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 
 	private MaterialAccount account;
 	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,
-			mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip;
+			mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
 
 	@Override
 	public void init(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		this.addAccount(account);
 		this.disableLearningPattern();
 
-		mnuInfo = newSection("Thông tin cá nhân", R.drawable.icon_profile,
+		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan), R.drawable.icon_profile,
 				new ProfileFragment());
 		this.addSection(mnuInfo);
 
@@ -49,24 +50,27 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		// ListTripFragment.class);
 		// mnuLstTrip.putExtra("NameIntent", "mnuLstTrip");
 
-		this.addSection(newSection("Danh sách chuyến đi",
-				R.drawable.icon_list_trip, new ListTripFragment()));
+		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi),
+				R.drawable.icon_list_trip, new MyTrips()));
 
-		this.addSection(newSection("Điểm phượt", R.drawable.icon_place,
+		this.addSection(newSection(getString(R.string.menuDiemPhuot), R.drawable.icon_place,
 				new ListPhuotFragment()));
 
-		mnuMyTrip = newSection("Chuyến đi của tôi", R.drawable.icon_heart,
-				new MyTrips());
+		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi), R.drawable.icon_heart,
+				new ListTripFragment());
 		this.addSection(mnuMyTrip);
 
-		mnuMyMap = newSection("Bản đồ", R.drawable.icon_map, new MapFragment());
+		mnuMyMap = newSection(getString(R.string.menuBanDo), R.drawable.icon_map, new MapFragment());
 		this.addSection(mnuMyMap);
+		
+		mnuSetting = newSection(getString(R.string.menuCaiDat), R.drawable.icon_setting, new SettingFragment());
+		this.addSection(mnuSetting);
 
-		mnuLogout = newSection("Đăng xuất", R.drawable.icon_logout,
+		mnuLogout = newSection(getString(R.string.menuDangXuat), R.drawable.icon_logout,
 				new Intent(this, LoginManagerActivity.class));
 		this.addSection(mnuLogout);
 
-		mnuAbout = newSection("Thông tin ứng dụng", R.drawable.icon_about,
+		mnuAbout = newSection(getString(R.string.menuThongTin), R.drawable.icon_about,
 				new ThongTinUngDung());
 		this.addSection(mnuAbout);
 

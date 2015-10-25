@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:weightSum="100" >
-	<View 
-	    android:layout_height="7dp"
-	    android:elevation="0dp"
-	    android:layout_width="match_parent"
-	    android:background="@color/gray"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@color/gray"
+        android:elevation="0dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,44 +30,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@color/white"
-        android:paddingBottom="5dp">
+        android:orientation="vertical"
+        android:paddingBottom="5dp" >
 
         <TextView
             android:id="@+id/tvPhuotName"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:elevation="2dp"
+            android:ellipsize="end"
             android:gravity="center_vertical"
+            android:maxLines="2"
             android:paddingLeft="5dp"
             android:text="Title"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColorHighlight="@color/black"
             android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
             android:textSize="13dp" />
+
+        <!-- <TextView
+            android:id="@+id/tvHardLevel"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Hard"
+            android:textSize="11dp" /> -->
 
         <TextView
             android:id="@+id/tvAddress"
             android:layout_width="match_parent"
             android:layout_height="15dp"
             android:layout_marginLeft="5dp"
+            android:ellipsize="end"
             android:gravity="center_vertical"
+            android:maxLines="1"
             android:text="Address"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="11dp" />
-
-        <TextView
-            android:id="@+id/tvHardLevel"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:text="Hard"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:textSize="11dp" />
     </LinearLayout>
 

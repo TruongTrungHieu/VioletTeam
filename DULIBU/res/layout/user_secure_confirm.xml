@@ -92,7 +92,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="0.18"
-                    android:background="@color/see"
+                    android:background="#4caf50"
                     android:elevation="4dp"
                     android:gravity="center"
                     android:padding="10dp"

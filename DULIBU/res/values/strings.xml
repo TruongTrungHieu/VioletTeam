@@ -31,7 +31,7 @@
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
     <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    
+
     <!-- change_pass -->
     <string name="old_pass">Mật khẩu cũ</string>
     <string name="new_pass">Mật khẩu mới</string>
@@ -64,7 +64,7 @@
     <!-- Warning -->
     <string name="Safe">An toàn</string>
     <string name="Lost">Mất tích</string>
-    
+
     <!-- Chitieu_activity -->
     <string name="titleChiPhiDialog">Thêm chi phí</string>
     <string name="hintTenMucChi">Tên mục chi</string>
@@ -153,17 +153,15 @@
 \n_ Sử dụng dịch vụ với mục đích thương mại với bên thứ ba.
 \n_ Hủy bỏ, sửa chữa so với trạng thái ban đầu của ứng dụng.
 \n_ Sử dụng với mục đích tuyên truyền các thông tin vi phạm pháp luật, vi phạm thuần phong mĩ tục.
-\n_ Các hình thức vi phạm khác.
-</string>
+\n_ Các hình thức vi phạm khác.</string>
     <string name="str_dieukhoan10">Điều 5: Xử lý vi phạm</string>
-    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.
-</string>
+    <string name="str_dieukhoan11">\t Mọi hành vi vi phạm đến các điều khoản trên nếu bị phát hiện, tài khoản lập tức bị khóa lại. Tùy theo mức độ cũng như hình thức vi phạm, chúng tôi sẽ đưa ra hình phạt thích đáng.</string>
     <string name="startPlace">Điểm đầu</string>
     <string name="endPlace">Điểm cuối</string>
 
     <!-- Spinner Điểm bắt đầu - Kết thúc -->
     <string name="city_prompt">Chọn địa điểm</string>
-    
+
     <!-- Dialog_active_register -->
     <string name="titleDialogActive">Mã xác nhận đã gửi vào email của bạn \nVui lòng kiểm tra và điền mã xác nhận!</string>
     <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập tên tài khoản !</string>
@@ -311,15 +309,15 @@
     <!-- Splash Screen -->
     <string name="title_activity_splash_screen">Dulibu</string>
     <string name="slogan">Dulibu with you!</string>
-    
+
     <!-- Error from server -->
     <string name="e400">Đăng ký thất bại!</string>
     <string name="e403">Thiếu quyền thực hiện chức năng !</string>
     <string name="e404">Chức năng đang sửa !</string>
     <string name="e503">Hệ thống đang bảo trì !</string>
-     <string name="e400_">Sai tài khoản đăng nhập !</string>
-     <string name="e401">Không tồn tại tài khoản này!</string>
-     <string name="e402">Đổi mật khẩu thất bại!</string>
+    <string name="e400_">Sai tài khoản đăng nhập !</string>
+    <string name="e401">Không tồn tại tài khoản này!</string>
+    <string name="e402">Đổi mật khẩu thất bại!</string>
 
     <!-- RegisterManagerActivity -->
     <string name="register_error">Vui lòng thử lại</string>
@@ -330,7 +328,7 @@
     <string name="error_tuoi">Bạn chưa đủ tuổi để đăng ký!</string>
     <string name="register_succes">Mã xác thực được gửi tới hòm thư của bạn :)</string>
     <string name="register_err_email">Định dạng Email không hợp lệ</string>
-	
+
     <!-- Dialog Approval -->
     <string name="dialogApprovalTitle">Xử lý yêu cầu</string>
     <string name="btnAccept">Chấp nhận</string>
@@ -340,20 +338,35 @@
     <string name="textMember">Thành viên</string>
     <string name="textRequest0">yêu cầu được tham gia chuyến đi, chấp nhận hoặc từ chối?</string>
     <string name="textRequest1">đang nằm trong danh sách thành viên chuyến đi, hủy thành viên?</string>
-    
+
     <!-- Dialog search -->
     <string name="name_price">Giá</string>
-    <string name="name_Date">Ngày</string>
+    <string name="name_date">Ngày</string>
     
-    <!-- Chat  -->
+    <!-- ChangeMap -->
+    <string name="titleMapType">Kiểu bản đồ</string>
+
+    <!-- Main Menu -->
+    <string name="menuThongTinCaNhan">Thông tin cá nhân</string>
+    <string name="menuDanhSachChuyenDi">Danh sách chuyến đi</string>
+    <string name="menuChuyenDiCuaToi">Chuyến đi của tôi</string>
+    <string name="menuDiemPhuot">Điểm phượt</string>
+    <string name="menuBanDo">Bản đồ</string>
+    <string name="menuDangXuat">Đăng xuất</string>
+    <string name="menuThongTin">Thông tin ứng dụng</string>
+    <string name="menuCaiDat">Cài đặt</string>
+
+    <!-- Chat -->
     <string name="action_send">Send</string>
     <string name="prompt_message">Nhập nội dung...</string>
     <string name="user_action_typing">đang nhập</string>
-	<!-- validator -->
-	<string name="error_time">Thời gian về phải lớn hơn thời gian đi!</string>
-	<string name="error_dateTrip">Ngày về phải lớn hơn ngày đi!</string>
-	<string name="error_dateNowTrip">Ngày bắt đầu không hợp lệ!</string>
-	<string name="error_DateOffTrip">Ngày offline không hợp lệ!</string>
-	<string name="error_TimeOffTrip">Thời gian off phải diễn ra trước!</string>
-	<string name="error_TimeOffPlace">Thời gian tập trung phải diễn ra trước!</string>
+    <!-- validator -->
+    <string name="error_time">Thời gian về phải lớn hơn thời gian đi!</string>
+    <string name="error_dateTrip">Ngày về phải lớn hơn ngày đi!</string>
+    <string name="error_dateNowTrip">Ngày bắt đầu không hợp lệ!</string>
+    <string name="error_DateOffTrip">Ngày offline không hợp lệ!</string>
+    <string name="error_TimeOffTrip">Thời gian off phải diễn ra trước!</string>
+    <string name="error_TimeOffPlace">Thời gian tập trung phải diễn ra trước!</string>
+    <string name="title_activity_change_map">ChangeMap</string>
+
 </resources>

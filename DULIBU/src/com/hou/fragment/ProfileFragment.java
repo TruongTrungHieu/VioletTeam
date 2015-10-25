@@ -151,8 +151,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		inflater.inflate(R.menu.fragment_profile, menu);
 		currentMenu = menu;
-		currentMenu.getItem(1).setVisible(true);
-		currentMenu.getItem(2).setVisible(false);
+		currentMenu.getItem(0).setVisible(true);
+		currentMenu.getItem(1).setVisible(false);
 	}
 
 	@Override
@@ -161,8 +161,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.editting_actionbar:
-			currentMenu.getItem(1).setVisible(false);
-			currentMenu.getItem(2).setVisible(true);
+			currentMenu.getItem(0).setVisible(false);
+			currentMenu.getItem(1).setVisible(true);
 			// Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
 			setEnable();
 			InputMethodManager mgr = (InputMethodManager) getActivity()
@@ -171,15 +171,15 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			etFullName.requestFocus();
 			break;
 		case R.id.done_setting_actionbar:
-			currentMenu.getItem(1).setVisible(true);
-			currentMenu.getItem(2).setVisible(false);
+			currentMenu.getItem(0).setVisible(true);
+			currentMenu.getItem(1).setVisible(false);
 			// Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
 			setDisable();
 			break;
-		case R.id.setting:
+		/*case R.id.setting:
 			Intent intent = new Intent(getActivity(), SettingActivity.class);
 			startActivity(intent);
-			break;
+			break;*/
 //		case R.id.messages:
 //			break;
 

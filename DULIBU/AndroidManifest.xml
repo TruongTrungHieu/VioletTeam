@@ -125,7 +125,7 @@
             android:label="@string/title_activity_user_secure_confirm"
             android:theme="@style/CustomActionBarNoShadow" >
         </activity>
-         <activity
+        <activity
             android:name=".Change_Password_Activity"
             android:label="@string/title_activity_change_pass"
             android:theme="@style/CustomActionBarNoShadow" >
@@ -133,6 +133,7 @@
         <activity
             android:name=".SplashScreenActivity"
             android:label="@string/title_activity_splash_screen"
+            android:noHistory="true"
             android:theme="@style/CustomActionBarNoShadowNoTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -143,6 +144,11 @@
 
         <service android:name="com.hou.gps.GetLocationService" >
         </service>
+
+        <activity
+            android:name=".ChangeMap"
+            android:label="@string/title_activity_change_map" >
+        </activity>
     </application>
 
 </manifest>
