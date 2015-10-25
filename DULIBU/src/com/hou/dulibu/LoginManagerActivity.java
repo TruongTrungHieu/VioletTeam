@@ -268,6 +268,38 @@ import android.widget.Toast;
 					public void onClick(DialogInterface dialog, int which) {
 						
 						dialog.dismiss();
+						ForgetPassConfirm();
+						return;
+					}
+				});
+		AlertDialog dialog = alert.create();
+		dialog.show();
+	}
+	private void ForgetPassConfirm() {
+		LayoutInflater inflater = getLayoutInflater();
+		View alertLayout = inflater.inflate(R.layout.dialog_confirm_accesstoken,
+				null);
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setView(alertLayout);
+		alert.setCancelable(false);
+		alert.setTitle("Quên Mật Khẩu");
+		alert.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				return;
+
+			}
+		});
+
+		alert.setPositiveButton("Xác nhận",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						dialog.dismiss();
 						return;
 					}
 				});

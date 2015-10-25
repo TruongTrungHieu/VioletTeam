@@ -161,8 +161,10 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			String tgBatdau = item.optString("start_date");
 			String tgKetthuc = item.optString("end_date");
 			String admin = "";
+			String checkJoin = "";
 			if (!item.optString("created_by").equals("")) {
 				admin = item.getJSONObject("created_by").optString("fullname");
+				checkJoin = item.getJSONObject("created_by").optString("username");
 			}
 			String chiphicanhan = item.optString("expense", "0");
 			double chiphicanhans = Double.parseDouble(chiphicanhan);
@@ -175,6 +177,9 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 					diemKetthuc, tgBatdau, tgKetthuc, "1", "1", "1", admin, "",
 					"", chiphicanhans, 0f, "", image, diadiem_xuatphat,
 					thoigian_xuatphat, note);
+			if (Global.getPreference(getActivity(), Global.USER_USERNAME, " ").equalsIgnoreCase(checkJoin)) {
+				btnJoinUser.setEnabled(false);
+			}
 			tvTitleTrip.setText(dataTrip.getTenLichtrinh());
 			tvLotrinh.setText(dataTrip.getDiemBatdau() + " - "
 					+ dataTrip.getDiemKetthuc());

@@ -1,6 +1,7 @@
 package com.hou.fragment;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.hou.adapters.LichtrinhAdapter;
 import com.hou.app.Global;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.dulibu.CreateTripManagerActivity;
 //import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
@@ -24,6 +26,7 @@ import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
 import com.hou.dulibu.UserSecureConfirmManager;
+import com.hou.model.Diemphuot;
 import com.hou.model.Lichtrinh;
 import com.hou.model.Tinh_Thanhpho;
 import com.hou.ultis.ImageUltiFunctions;
@@ -52,7 +55,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class ListTripFragment extends android.support.v4.app.Fragment {
@@ -61,6 +66,8 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	ListView lvListTrip;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	LichtrinhAdapter adapter;
+	private ExecuteQuery exeQ;
+	private Tinh_Thanhpho startPlace, endPlace;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +87,9 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		adapter = new LichtrinhAdapter(getActivity(), R.layout.list_trip_item,
 				lichtrinh);
 		LoadDataFromServer();
+		exeQ = new ExecuteQuery(getActivity());
+		exeQ.createDatabase();
+		exeQ.open();
 		// DeviceStatus ds = new DeviceStatus();
 		swipeRefreshLayout = (SwipeRefreshLayout) view
 				.findViewById(R.id.swipe_refresh_layout);
@@ -120,19 +130,26 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		return view;
 
 	}
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		lichtrinh.clear();
 		LoadDataFromServer();
-		
+
 	}
 
 	private void SearchTrip() {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View alertLayout = inflater.inflate(R.layout.search_trip_dialog, null);
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		final Spinner spStartPlace = (Spinner) alertLayout
+				.findViewById(R.id.spStartPlace);
+		final Spinner spEndPlace = (Spinner) alertLayout
+				.findViewById(R.id.spEndPlace);
+		final EditText txtNameTrip = (EditText) alertLayout
+				.findViewById(R.id.txtNameTrip);
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
 		alert.setTitle("Tìm kiếm");
@@ -151,6 +168,73 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						if (startPlace == null) {
+							startPlace = exeQ.getTinhByTentinh(spStartPlace
+									.getSelectedItem().toString());
+						}
+						if (endPlace == null) {
+							endPlace = exeQ.getTinhByTentinh(spEndPlace
+									.getSelectedItem().toString());
+						}
+						AsyncHttpClient client = new AsyncHttpClient();
+						RequestParams params = new RequestParams();
+
+						params.put("p", "1");
+						params.put("name", txtNameTrip.getText().toString());
+						if (startPlace != null) {
+							params.put("begin_position", startPlace.getMaTinh());
+						}
+						if (endPlace != null) {
+							params.put("end_position", endPlace.getMaTinh());
+						}
+
+						client.get(
+								Global.BASE_URI + "/" + Global.URI_TRIP_TRIP,
+								params, new AsyncHttpResponseHandler() {
+									public void onSuccess(String response) {
+										Log.e("SearchTrip", response + "");
+
+										if (executeWhenSearchSuccess(response)) {
+											if (lichtrinh.size() > 0) {
+												lvListTrip.setAdapter(adapter);
+												lvListTrip
+														.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+
+															@Override
+															public void onItemClick(
+																	AdapterView<?> parent,
+																	View view,
+																	int position,
+																	long id) {
+																// TODO
+																// Auto-generated
+																// method
+																// stub
+																Intent intent = new Intent(
+																		getActivity(),
+																		TripDetailManagerActivity.class);
+																// intent.putExtra("_id",
+																// lichtrinh.get(position).getMaLichtrinh());
+																Global.savePreference(
+																		getActivity(),
+																		"_id_trip",
+																		lichtrinh
+																				.get(position)
+																				.getMaLichtrinh());
+																startActivity(intent);
+															}
+														});
+											}
+										}
+									}
+
+									@Override
+									public void onFailure(int statusCode,
+											Throwable error, String content) {
+										Log.e("false_send", content + "");
+									}
+								});
+
 						return;
 					}
 				});
@@ -202,8 +286,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	}
 
 	public void LoadDataFromServer() {
-		Toast.makeText(getActivity(), "Đang load Data", Toast.LENGTH_LONG)
-				.show();
 		AsyncHttpClient client = new AsyncHttpClient();
 		Global.savePreference(getActivity(), Global.PAGE_NUMBER, "0");
 		if (Global.getPreference(getActivity(), Global.PAGE_NUMBER, "0")
@@ -227,15 +309,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 													long id) {
 												// TODO Auto-generated method
 												// stub
-
-												Toast.makeText(
-														getActivity(),
-														""
-																+ lichtrinh
-																		.get(position)
-																		.getMaLichtrinh(),
-														Toast.LENGTH_SHORT)
-														.show();
 												Intent intent = new Intent(
 														getActivity(),
 														TripDetailManagerActivity.class);
@@ -310,7 +383,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			}
 			return null;
 		}
-		
 
 	}
 
@@ -346,13 +418,59 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
 						tgBatdau, tgKetthuc, "1", "1", "1", admin, "", "",
-						chiphicanhans, 0f, "", image,
-						diadiem_xuatphat, thoigian_xuatphat, note);
+						chiphicanhans, 0f, "", image, diadiem_xuatphat,
+						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
 			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private boolean executeWhenSearchSuccess(String response) {
+		lichtrinh = new ArrayList<Lichtrinh>();
+		try {
+			JSONArray data = new JSONArray(response);
+			for (int i = 0; i < data.length(); i++) {
+				JSONObject item = data.getJSONObject(i);
+				String _id = item.optString("_id");
+				String name = item.optString("name");
+				String diemBatdau = item.optJSONObject("begin_location")
+						.optString("name");
+				String diemKetthuc = item.optJSONObject("end_location")
+						.optString("name");
+				String tgBatdau = item.optString("start_date");
+				String tgKetthuc = item.optString("end_date");
+				String admin = "";
+				if (!item.optString("created_by").equals("")) {
+					admin = item.getJSONObject("created_by").optString(
+							"fullname");
+				}
+				String chiphicanhan = item.optString("expense", "0");
+				double chiphicanhans = Double.parseDouble(chiphicanhan);
+				String thoigian_xuatphat = item.optString("gathering_time");
+				String diadiem_xuatphat = item.optString("gathering_position");
+				String note = item.optString("note");
+				String image = item.optString("image");
+
+				getImage img = new getImage();
+				img.execute(image);
+				adapter.notifyDataSetChanged();
+
+				Lichtrinh dataTrip;
+				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
+						tgBatdau, tgKetthuc, "1", "1", "1", admin, "", "",
+						chiphicanhans, 0f, "", image, diadiem_xuatphat,
+						thoigian_xuatphat, note);
+				lichtrinh.add(dataTrip);
+			}
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
 	}
 }
