@@ -137,6 +137,8 @@ public class ListPhuotFragment extends Fragment {
 				b.putInt("trangThaiChuan", phuots.get(position)
 						.getTrangthaiChuan());
 				b.putString("image", phuots.get(position).getImage());
+				b.putString("lat_diemphuot",phuots.get(position).getLat());
+				b.putString("lon_diemphuot",phuots.get(position).getLon());
 				Log.e("OnClickViet","Link anh:" +phuots.get(position).getImage() );
 				//f.setArguments(b);
 

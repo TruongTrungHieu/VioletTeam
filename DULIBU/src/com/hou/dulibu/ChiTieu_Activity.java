@@ -130,13 +130,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 				});
 	}
 
-	// private String maChitieu;
-	// private String maLichtrinh;
-	// private String tenChitieu;
-	// private String thoigian;
-	// private double sotien;
-	// private String filedinhkem;
-	// private String maUser;
+
 	private String listChiPhi(String response) {
 		Log.e("__Viet", response);
 

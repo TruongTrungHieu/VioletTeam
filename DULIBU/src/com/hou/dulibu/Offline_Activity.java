@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Dialog;
 import android.content.Context;
 
@@ -11,6 +15,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,15 +25,24 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.hou.adapters.KhoanChiArrayAdapter;
 import com.hou.adapters.SuKienAdapter;
+import com.hou.app.Global;
+import com.hou.model.Chitieu;
 import com.hou.model.Sukien;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class Offline_Activity extends ActionBarActivity {
 
 	final Context context = this;
 	ArrayList<Sukien> arrSuKien = new ArrayList<Sukien>();
+	ArrayList<Sukien> arrEvent = new ArrayList<Sukien>();
+	
 	SuKienAdapter adapter = null;
 	ListView lvSukien = null;
+	String maLichTrinh="";
 
 	// GoogleMap map;
 
@@ -36,13 +50,137 @@ public class Offline_Activity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_offline);
+	//	maLichTrinh = com.hou.app.Global.getPreference(context,Global.TRIP_TRIP_ID,"Viet");
+		maLichTrinh = com.hou.app.Global.getPreference(context,Global.TRIP_TRIP_ID,"Viet");
+		lvSukien = (ListView) findViewById(R.id.lvMap);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		lvSukien = (ListView) findViewById(R.id.lvMap);
-		arrSuKien = new ArrayList<Sukien>();
-
+		
+		getEvent(maLichTrinh);
+	}
+	public void loadData() {
+		arrSuKien = arrEvent;
 		adapter = new SuKienAdapter(this, R.layout.sukien_item, arrSuKien);
+		
 		lvSukien.setAdapter(adapter);
+	
+	}
+	private void createEvent(String tripId, String name, String time,String lat,
+			String lon) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+
+		params.put("trip_id", tripId);
+		params.put("name", name);
+		params.put("time", time);
+		params.put("lat", lat);
+		params.put("lon", lon);
+		Log.e("createEvent", lat);
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_POSTEVENT_PATH
+						+ "?access_token="
+						+ Global.getPreference(this, Global.USER_ACCESS_TOKEN,
+								""), params, new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("createNewTrip", response);
+
+						if (executeWhenRegisterSuccess(response)) {
+							Toast.makeText(getApplicationContext(),
+									"Tao moi su kien thanh cong",
+									Toast.LENGTH_SHORT).show();
+							// Intent intent = new Intent(
+							// RegisterManagerActivity.this,
+							// LoginManagerActivity.class);
+
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"Khong tao moi duoc su kien",
+									Toast.LENGTH_LONG).show();
+							
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.d("Tao event that bai", content);
+					}
+				});
+	}
+	public void getEvent(String idTrip) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", idTrip);
+		params.put("access_token",
+				Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
+
+		client.get(Global.BASE_URI + "/" + Global.URI_GETEVENT_PATH, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("getEvent", response);
+					
+					//	listChiPhi(response);
+					//	getTotalMoney(maLichTrinh);
+						listEvent(response);
+						loadData();
+						
+						// loadData();
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.e("LayListEvent", content);
+
+					}
+				});
+	}
+	private String listEvent(String response) {
+	
+
+		try {
+			JSONArray arrObj = new JSONArray(response);
+			for (int i = 0; i < arrObj.length(); i++) {
+				JSONObject eventJson = arrObj.getJSONObject(i);
+				Sukien eventSK = new Sukien();
+
+				
+				String event_id = eventJson.optString("_id");
+				String name = eventJson.optString("name");
+				String time = eventJson.optString("time");
+				String event_lat = eventJson.optString("lat");
+				String event_lon = eventJson.optString("lon");
+				
+				
+
+				eventSK.setMaSukien(event_id);
+				eventSK.setDiadiem("");
+				eventSK.setTenSukien(name);
+				eventSK.setLat(event_lat);
+				eventSK.setLon(event_lon);
+				eventSK.setThoigian(time);
+				
+				eventSK.setMaLichtrinh(com.hou.app.Global.getPreference(context,Global.TRIP_TRIP_ID,"Viet"));
+				arrEvent.add(eventSK);
+			//	Log.e("listChiPhiVIet", sotien + "");
+				
+			}
+
+			// Toast.makeText(getApplicationContext(), "KQ JSON",
+			// Toast.LENGTH_LONG).show();
+
+			return "true";
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "false";
+
+		}
+	}
+	private boolean executeWhenRegisterSuccess(String reponse) {
+		boolean check = true;
+		return check;
 	}
 
 	@Override
@@ -126,6 +264,7 @@ public class Offline_Activity extends ActionBarActivity {
 		    	
 
 					arrSuKien.add(sk);
+					createEvent(maLichTrinh, ten, thoigian, vitri.getLatitude()+"",vitri.getLongitude()+"");
 					
 					
 					// LatLng latLng=new LatLng(-14.235004,-51.925280);

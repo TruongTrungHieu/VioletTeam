@@ -28,7 +28,7 @@ public class PhuotDetailManager extends ActionBarActivity {
 	PhuotSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Overview", "Location" };
 	int Numboftabs = 2;
-	String maDiemPhuot,tenDiemPhuot,ghiChu,image;
+	String maDiemPhuot,tenDiemPhuot,ghiChu,image,lat_diemphuot,lon_diemphuot;
 	int trangThaiChuan;
 	
 
@@ -46,6 +46,8 @@ public class PhuotDetailManager extends ActionBarActivity {
 		tenDiemPhuot = myPackage.getString("tenDiemPhuot");
 		ghiChu = myPackage.getString("ghiChu");
 		image = myPackage.getString("image");
+		lat_diemphuot = myPackage.getString("lat_diemphuot");
+		lon_diemphuot = myPackage.getString("lat_diemphuot");
 		trangThaiChuan = myPackage.getInt("trangThaiChuan");
 		Log.e("Viet5091","Ma diem phuot:"+ maDiemPhuot + ";" + "Link anh  " +image);
 		
