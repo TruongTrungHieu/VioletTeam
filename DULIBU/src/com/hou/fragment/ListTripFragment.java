@@ -217,7 +217,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 																// lichtrinh.get(position).getMaLichtrinh());
 																Global.savePreference(
 																		getActivity(),
-																		"_id_trip",
+																		Global.TRIP_TRIP_ID,
 																		lichtrinh
 																				.get(position)
 																				.getMaLichtrinh());
@@ -316,7 +316,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 												// lichtrinh.get(position).getMaLichtrinh());
 												Global.savePreference(
 														getActivity(),
-														"_id_trip",
+														Global.TRIP_TRIP_ID,
 														lichtrinh
 																.get(position)
 																.getMaLichtrinh());

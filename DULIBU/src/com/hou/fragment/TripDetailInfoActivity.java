@@ -109,7 +109,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 	public void LoadDataFromServer() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(Global.BASE_URI + "/" + Global.URI_TRIP_GET_TRIP + "?id="
-				+ Global.getPreference(getActivity(), "_id_trip", ""),
+				+ Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, ""),
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("DATA", response);
