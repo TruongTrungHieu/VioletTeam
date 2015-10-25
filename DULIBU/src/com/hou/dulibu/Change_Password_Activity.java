@@ -40,7 +40,6 @@ public class Change_Password_Activity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				if (checkValidate()) {
 					changePass();
-					Toast.makeText(getApplicationContext(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -134,6 +133,7 @@ public class Change_Password_Activity extends ActionBarActivity {
 						Log.e("cc", response);
 							Intent intent = new Intent(Change_Password_Activity.this, SettingActivity.class);
 							startActivity(intent);
+							Toast.makeText(getApplicationContext(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
 					}
 
 					@Override
