@@ -47,7 +47,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	KhoanChiArrayAdapter adapter = null;
 	ListView lvKhoanchi = null;
 	TextView txtConDu, txtTongThu;
-	double tongTien = 1000;
+	double tongTien = 2;
 	double conDu;
 	int moiNguoi = 0;
 	int khoanChi = 1;
@@ -61,7 +61,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chi_tieu);
-
+		maLichTrinh = com.hou.app.Global.getPreference(context,Global.TRIP_TRIP_ID,"Viet");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		txtConDu = (TextView) findViewById(R.id.txtConDu);
 		lvKhoanchi = (ListView) findViewById(R.id.lvChiTietTieu);
@@ -79,25 +79,13 @@ public class ChiTieu_Activity extends ActionBarActivity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					final int positon, long arg3) {
-				PopupMenu popup = new PopupMenu(ChiTieu_Activity.this,
-						lvKhoanchi);
-
-				popup.getMenuInflater().inflate(R.menu.chitieu_popup,
-						popup.getMenu());
-				popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
+		
 						//deleteMoney(maLichTrinh,,positon);
 						updateTien(positon);
 						arrKhoanChi.remove(positon);
 						adapter.notifyDataSetChanged();
 						return false;
-					}
-
-				});
-				popup.show();
-				return false;
+		
 			}
 		});
 	}
@@ -250,6 +238,8 @@ public class ChiTieu_Activity extends ActionBarActivity {
 						// Toast.makeText(getApplicationContext(),
 						// "v�o th�nh c�ng", Toast.LENGTH_SHORT).show();\
 						numberMember(response);
+						soTien = Double.parseDouble((com.hou.app.Global.getPreference(context,Global.TRIP_MONEY,"500")));
+					
 						tongTien = soThanhVien * soTien;
 						conDu = tongTien;
 					//	updateConDu();

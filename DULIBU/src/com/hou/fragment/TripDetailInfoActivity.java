@@ -189,6 +189,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			tvTimeStart.setText(dataTrip.getThoigian_xuatphat() + " - \n"
 					+ dataTrip.getDiadiem_xuatphat());
 			tvMoneyTrip.setText(dataTrip.getChiphicanhan() + "");
+			Global.savePreference(getActivity(), Global.TRIP_MONEY, dataTrip.getChiphicanhan() + "");
 			tvNotes.setText(dataTrip.getNote());
 			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(new MD5().getMD5(dataTrip.getImage())));
 			if (f != null) {
