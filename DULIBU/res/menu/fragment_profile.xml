@@ -9,11 +9,11 @@
         android:icon="@drawable/ic_settings_applications_white_18dp"
         android:title="@string/maps_actionbar"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/messages"
-        android:icon="@drawable/icon_message"
-        android:title="@string/messages_actionbar"
-        app:showAsAction="always"/>
+<!--     <item -->
+<!--         android:id="@+id/messages" -->
+<!--         android:icon="@drawable/icon_message" -->
+<!--         android:title="@string/messages_actionbar" -->
+<!--         app:showAsAction="always"/> -->
     <item
         android:id="@+id/editting_actionbar"
         android:icon="@drawable/edit_actionbar"
