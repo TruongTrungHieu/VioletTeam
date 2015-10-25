@@ -6,11 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,19 +44,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class MapFragment extends Fragment implements
-		OnMapReadyCallback, LocationListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback,
+		LocationListener {
 	private ProgressDialog pDialog;
 	private ImageView imgMapWarnning, imgMapHospital, imgMapGas;
 	private int status = 0;
 	private Location location;
 
 	private ArrayList<ImageView> lstImg;
-	private ArrayList<Nearby> listWarning, listHospital, listGas;
+	private ArrayList<Nearby> listHospital, listGas;
+	// private ArrayList<Nearby> listWarning;
 
 	private GoogleMap googleMap;
 	private MapView mMapView;
-	private Location currentLocation;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MapFragment extends Fragment implements
 
 		listGas = new ArrayList<Nearby>();
 		listHospital = new ArrayList<Nearby>();
-		listWarning = new ArrayList<Nearby>();
+		// listWarning = new ArrayList<Nearby>();
 	}
 
 	@Override
@@ -103,8 +103,6 @@ public class MapFragment extends Fragment implements
 		}
 		locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
 
-		currentLocation = googleMap.getMyLocation();
-
 		imgMapWarnning = (ImageView) v.findViewById(R.id.imgMapWarnning);
 		imgMapHospital = (ImageView) v.findViewById(R.id.imgMapHospital);
 		imgMapGas = (ImageView) v.findViewById(R.id.imgMapGas);
@@ -120,6 +118,7 @@ public class MapFragment extends Fragment implements
 				} else {
 					imgMapWarnning.setImageResource(R.drawable.map_warnning1);
 				}
+				updateMarked();
 			}
 		});
 		imgMapHospital.setOnClickListener(new View.OnClickListener() {
@@ -130,10 +129,12 @@ public class MapFragment extends Fragment implements
 				// mMap.clear();
 				// onMapReady(mMap);
 				if (((status >> 1) & 1) == 1) {
-					imgMapHospital.setImageResource(R.drawable.map_hospital);
+						imgMapHospital.setImageResource(R.drawable.map_hospital1);
+						getNearbyFromGoogle(Global.NEARBY_HOSPITAL);
 				} else {
-					imgMapHospital.setImageResource(R.drawable.map_hospital1);
+					imgMapHospital.setImageResource(R.drawable.map_hospital);
 				}
+				updateMarked();
 			}
 		});
 		imgMapGas.setOnClickListener(new View.OnClickListener() {
@@ -144,33 +145,31 @@ public class MapFragment extends Fragment implements
 				// mMap.clear();
 				// onMapReady(mMap);
 				if (((status >> 3) & 1) == 1) {
-					imgMapGas.setImageResource(R.drawable.map_gas1);
-					getNearbyFromGoogle(Global.NEARBY_GAS);
+						imgMapGas.setImageResource(R.drawable.map_gas1);
+						getNearbyFromGoogle(Global.NEARBY_GAS);
 				} else {
 					imgMapGas.setImageResource(R.drawable.map_gas);
-
 				}
+				updateMarked();
 			}
 		});
 		FixWidthBottom(imgMapWarnning, imgMapHospital, imgMapGas);
 		return v;
-
 	}
 
 	private void updateMarked() {
+		googleMap.clear();
 		// warning
 		if (((status >> 0) & 1) == 1) {
 
 		}
-
 		// gas
 		if (((status >> 3) & 1) == 1) {
-
+			markerShow(listGas);
 		}
-
 		// hospital
 		if (((status >> 1) & 1) == 1) {
-
+			markerShow(listHospital);
 		}
 	}
 
@@ -183,24 +182,6 @@ public class MapFragment extends Fragment implements
 
 		for (int i = lstImg.size() - 1; i >= 0; i--) {
 			lstImg.get(i).setAlpha((((status >> i) & 1) == 0 ? 1f : 0.5f));
-		}
-	}
-
-	public void ImgIsSelected() {
-		if (((status >> 4) & 1) == 1) {
-			// place
-		}
-		if (((status >> 2) & 1) == 1) {
-			// warnning
-		}
-		if (((status >> 1) & 1) == 1) {
-			// team
-		}
-		if (((status >> 3) & 1) == 1) {
-			// hospital
-		}
-		if (((status >> 0) & 1) == 1) {
-			// gas
 		}
 	}
 
@@ -299,51 +280,35 @@ public class MapFragment extends Fragment implements
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
-		currentLocation = location;
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-
+		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+				location.getLatitude(), location.getLongitude()), 13));
 	}
 
 	@Override
 	public void onMapReady(GoogleMap mMap) {
 		// TODO Auto-generated method stub
-		ImgIsSelected();
+		updateMarked();
 	}
 
 	private void getNearbyFromGoogle(final String type) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		String url = Global.URL_NEARBY(currentLocation.getLatitude(),
-				googleMap.getMyLocation().getLongitude(), Global.NEARBY_RADIUS, type);
-		String a = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=20.983128,105.831664&radius=10000&type=gas_station&key=AIzaSyCV_sND3UkBW8i3KzPWRJ7C452g2Ao4seg";
-		client.post(a, params, new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-						Log.e("getNearbyFromGoogle", response);
-						saveNearby(type, response);
-					}
+		String url = Global.URL_NEARBY(location.getLatitude(),
+				location.getLongitude(), Global.NEARBY_RADIUS, type);
+		client.get(url, params, new AsyncHttpResponseHandler() {
+			public void onSuccess(String response) {
+				Log.e("getNearbyFromGoogle", response);
+				saveNearby(type, response);
+			}
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						Toast.makeText(getActivity(),
-								getString(R.string.register_error),
-								Toast.LENGTH_LONG).show();
-					}
-				});
+			@Override
+			public void onFailure(int statusCode, Throwable error,
+					String content) {
+				Toast.makeText(getActivity(),
+						getString(R.string.register_error), Toast.LENGTH_LONG)
+						.show();
+			}
+		});
 	}
 
 	private void saveNearby(String type, String response) {
@@ -364,22 +329,25 @@ public class MapFragment extends Fragment implements
 				Nearby n = new Nearby(name, vicinity, Double.parseDouble(lat),
 						Double.parseDouble(lon), icon);
 
+				int id = getActivity().getResources().getIdentifier(
+						n.getIcon(), "drawable",
+						getActivity().getPackageName());
+				googleMap.addMarker(new MarkerOptions()
+						.position(new LatLng(n.getLat(), n.getLon()))
+						.title(n.getTen()).snippet(n.getDiachi())
+						.icon(BitmapDescriptorFactory.fromResource(id)));
+				
 				list.add(n);
 			}
 
 			if (type.equals(Global.NEARBY_GAS) && list.size() > 0) {
 				listGas.clear();
 				listGas.addAll(list);
-				markerShow(listGas);
-				//markerShow(listHospital);
-			} 
-			else if (type.equals(Global.NEARBY_HOSPITAL) && list.size() > 0) {
+			} else if (type.equals(Global.NEARBY_HOSPITAL) && list.size() > 0) {
 				listHospital.clear();
 				listHospital.addAll(list);
-				markerShow(listHospital);
-				//markerShow(listGas);
 			}
-
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -397,6 +365,24 @@ public class MapFragment extends Fragment implements
 					.title(nearby.getTen()).snippet(nearby.getDiachi())
 					.icon(BitmapDescriptorFactory.fromResource(id)));
 		}
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
