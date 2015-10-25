@@ -120,6 +120,14 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		return view;
 
 	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		lichtrinh.clear();
+		LoadDataFromServer();
+		
+	}
 
 	private void SearchTrip() {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -302,6 +310,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			}
 			return null;
 		}
+		
 
 	}
 
@@ -332,6 +341,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 
 				getImage img = new getImage();
 				img.execute(image);
+				adapter.notifyDataSetChanged();
 
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,

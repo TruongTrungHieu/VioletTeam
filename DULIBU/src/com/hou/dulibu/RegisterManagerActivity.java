@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -77,6 +78,7 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		edtFullname = (EditText) findViewById(R.id.txtFullname);
 		edtNgaysinh = (EditText) findViewById(R.id.txtBirthday);
 		radiosex = (RadioGroup) findViewById(R.id.radiosex);
+		edtNgaysinh.setFocusable(true);
 
 		sumit = (Button) findViewById(R.id.btnSubmit);
 		sumit.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +91,14 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			}
 		});
 		ck_dieukhoan = (CheckBox) findViewById(R.id.ck_dieukhoan);
+		ck_dieukhoan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				dieukhoan.setError(null);
+			}
+		});
 
 		dieukhoan = (TextView) findViewById(R.id.dieukhoan);
 		dieukhoan.setOnClickListener(new OnClickListener() {
@@ -108,7 +118,10 @@ public class RegisterManagerActivity extends ActionBarActivity {
 				// R.id.btnDoneCreateTripDatePiker,
 				// R.id.btnCancelCreateTripDatePiker, edtNgaysinh,
 				// R.layout.date_picker, R.string.titleTimeDialog);
+				edtNgaysinh.setError(null);
 				showDatePickerDialog(v);
+				edtNgaysinh.setFocusableInTouchMode(true);
+				edtNgaysinh.setFocusable(true);
 			}
 		});
 	}
@@ -210,9 +223,9 @@ public class RegisterManagerActivity extends ActionBarActivity {
 					} else {
 						if (ck_dieukhoan.isChecked() != true) {
 //							Drawable myIcon = getResources().getDrawable( R.drawable.icon_address );
-							ck_dieukhoan
+							dieukhoan
 									.setError(getString(R.string.ck_rule_err));
-							ck_dieukhoan.requestFocus();
+							dieukhoan.requestFocus();
 							check = false;
 						} else {
 							if (tuoi <= 15) {

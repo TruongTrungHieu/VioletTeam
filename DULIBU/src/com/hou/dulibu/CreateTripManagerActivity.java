@@ -88,7 +88,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 	// TimePicker tpTimePK;
 	GoogleMap mMap;
 	EditText edTripName, edKinhPhi, edPlaceStart, edPlaceOffline, edNotes;
-	TextView edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime,
+	EditText edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime,
 			edOfflineTime, edDateOffline;
 
 	private ArrayList<Diemphuot> listAll, listPlace;
@@ -121,17 +121,16 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.US);
 		dateNow = dateFormat.format(c.getTime());
-
 		edTripName = (EditText) findViewById(R.id.txtNameTrip);
-		edDayStart = (TextView) findViewById(R.id.txtStartDay);
-		edDayEnd = (TextView) findViewById(R.id.txtEndDay);
+		edDayStart = (EditText) findViewById(R.id.txtStartDay);
+		edDayEnd = (EditText) findViewById(R.id.txtEndDay);
 		edKinhPhi = (EditText) findViewById(R.id.txtKinhphi);
-		edTimePlace = (TextView) findViewById(R.id.txtTimePlace);
+		edTimePlace = (EditText) findViewById(R.id.txtTimePlace);
 		edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
-		edStartTime = (TextView) findViewById(R.id.txtStartTime);
-		edEndTime = (TextView) findViewById(R.id.txtEndTime);
-		edOfflineTime = (TextView) findViewById(R.id.txtTimeOffline);
-		edDateOffline = (TextView) findViewById(R.id.txtDateOffline);
+		edStartTime = (EditText) findViewById(R.id.txtStartTime);
+		edEndTime = (EditText) findViewById(R.id.txtEndTime);
+		edOfflineTime = (EditText) findViewById(R.id.txtTimeOffline);
+		edDateOffline = (EditText) findViewById(R.id.txtDateOffline);
 		edPlaceOffline = (EditText) findViewById(R.id.txtPlaceOffline);
 		edNotes = (EditText) findViewById(R.id.txtNotes);
 
@@ -207,6 +206,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripTimePiker,
 						R.id.btnCancelCreateTripTimePiker, edOfflineTime,
 						R.layout.time_picker, R.string.titleTimeDialog);
+				edOfflineTime.setError(null);
+				edOfflineTime.setFocusableInTouchMode(true);
+				edOfflineTime.setFocusable(true);
 			}
 		});
 		edEndTime.setOnClickListener(new OnClickListener() {
@@ -218,6 +220,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripTimePiker,
 						R.id.btnCancelCreateTripTimePiker, edEndTime,
 						R.layout.time_picker, R.string.titleTimeDialog);
+				edEndTime.setError(null);
+				edEndTime.setFocusableInTouchMode(true);
+				edEndTime.setFocusable(true);
 			}
 		});
 		edStartTime.setOnClickListener(new OnClickListener() {
@@ -229,6 +234,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripTimePiker,
 						R.id.btnCancelCreateTripTimePiker, edStartTime,
 						R.layout.time_picker, R.string.titleTimeDialog);
+				edStartTime.setError(null);
+				edStartTime.setFocusableInTouchMode(true);
+				edStartTime.setFocusable(true);
 			}
 		});
 		edDayEnd.setOnClickListener(new OnClickListener() {
@@ -240,6 +248,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripDatePiker,
 						R.id.btnCancelCreateTripDatePiker, edDayEnd,
 						R.layout.date_picker, R.string.titleTimeDialog);
+				edDayEnd.setError(null);
+				edDayEnd.setFocusableInTouchMode(true);
+				edDayEnd.setFocusable(true);
 			}
 		});
 		edDayStart.setOnClickListener(new OnClickListener() {
@@ -251,6 +262,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripDatePiker,
 						R.id.btnCancelCreateTripDatePiker, edDayStart,
 						R.layout.date_picker, R.string.titleTimeDialog);
+				edDayStart.setError(null);
+				edDayStart.setFocusableInTouchMode(true);
+				edDayStart.setFocusable(true);
 			}
 		});
 		edDateOffline.setOnClickListener(new OnClickListener() {
@@ -262,6 +276,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripDatePiker,
 						R.id.btnCancelCreateTripDatePiker, edDateOffline,
 						R.layout.date_picker, R.string.titleTimeDialog);
+				edDateOffline.setError(null);
+				edDateOffline.setFocusableInTouchMode(true);
+				edDateOffline.setFocusable(true);
 			}
 		});
 		edTimePlace.setOnClickListener(new OnClickListener() {
@@ -274,6 +291,9 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						R.id.btnDoneCreateTripTimePiker,
 						R.id.btnCancelCreateTripTimePiker, edTimePlace,
 						R.layout.time_picker, R.string.titleTimeDialog);
+				edTimePlace.setError(null);
+				edTimePlace.setFocusableInTouchMode(true);
+				edTimePlace.setFocusable(true);
 			}
 
 		});

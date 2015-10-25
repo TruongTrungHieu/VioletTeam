@@ -91,15 +91,16 @@ import android.widget.Toast;
 				// TODO Auto-generated method stub
 				username = edtUsername.getText().toString().toLowerCase();
 				password = edtPassword.getText().toString();
-				if (username != null && edtPassword != null
-						&& username.trim().length() > 0
-						&& password.trim().length() > 0) {
-					// send request login to server
-					loginToServer();
-				} else {
-					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.validator_login),
-							Toast.LENGTH_LONG).show();
+				if (username.equalsIgnoreCase("")) {
+					edtUsername.setError(getString(R.string.checknull));
+					edtUsername.requestFocus();
+				}else {
+					if (password.equalsIgnoreCase("")) {
+						edtPassword.setError(getString(R.string.checknull));
+						edtPassword.requestFocus();
+					}else {
+						loginToServer();
+					}
 				}
 			}
 		});
@@ -167,24 +168,23 @@ import android.widget.Toast;
 						edtUsername.setText(null);
 						switch (statusCode) {
 						case 400:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e401),
-									Toast.LENGTH_LONG).show();
+							
+							edtUsername.setError(getString(R.string.e401));
+							edtUsername.requestFocus();
+									
 							break;
 						case 403:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e403),
-									Toast.LENGTH_LONG).show();
+							edtUsername.setError(getString(R.string.e403));
+							edtUsername.requestFocus();
 							break;
 						case 404:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e404),
-									Toast.LENGTH_LONG).show();
+							
+							edtUsername.setError(getString(R.string.e404));
+							edtUsername.requestFocus();
 							break;
 						case 503:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e503),
-									Toast.LENGTH_LONG).show();
+							edtUsername.setError(getString(R.string.e503));
+							edtUsername.requestFocus();
 							break;
 						default:
 							break;
