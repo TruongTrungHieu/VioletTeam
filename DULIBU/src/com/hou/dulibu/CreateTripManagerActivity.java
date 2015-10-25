@@ -856,8 +856,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				btnChooseImage.setBackground(new BitmapDrawable(getResources(),
 						BitmapFactory.decodeFile(imgDecodableString)));
 				btnChooseImage.setText("");
-				fromGallery = new File(imgDecodableString, "tmp_avatar_"
-						+ String.valueOf(System.currentTimeMillis()) + ".jpg");
+				fromGallery = new File(imgDecodableString);
 				fromCameraFile = null;
 
 			} else {

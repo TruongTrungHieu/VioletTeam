@@ -174,6 +174,7 @@ public class ExecuteQuery {
 				cv.put(ColumnName.TBL_DIEM_PHUOT_DIACHI, dp.getDiachi());
 				cv.put(ColumnName.TBL_DIEM_PHUOT_GHICHU, dp.getGhichu());
 				cv.put(ColumnName.TBL_DIEM_PHUOT_IMAGE, dp.getImage());
+				cv.put(ColumnName.TBL_DIEM_PHUOT_TRANGTHAICHUAN, dp.getTrangthaiChuan());
 				
 
 				database.insert(ColumnName.TBL_DIEM_PHUOT_TABLE, null, cv);
@@ -284,6 +285,20 @@ public class ExecuteQuery {
 		}
 	}
 
+	public boolean delete_tbl_tinh_thanhpho() {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			if (database.delete(ColumnName.TBL_TINH_THANHPHO_TABLE, null, null) == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLiteException e) {
+			Log.e("delete_tbl_tinh_thanhpho", e.getMessage());
+			return false;
+		}
+	}
+	
 	/*
 	 * tbl_user
 	 */
