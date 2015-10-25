@@ -47,7 +47,7 @@ public class PhuotDetailManager extends ActionBarActivity {
 		ghiChu = myPackage.getString("ghiChu");
 		image = myPackage.getString("image");
 		lat_diemphuot = myPackage.getString("lat_diemphuot");
-		lon_diemphuot = myPackage.getString("lat_diemphuot");
+		lon_diemphuot = myPackage.getString("lon_diemphuot");
 		trangThaiChuan = myPackage.getInt("trangThaiChuan");
 		Log.e("Viet5091","Ma diem phuot:"+ maDiemPhuot + ";" + "Link anh  " +image);
 		
@@ -56,6 +56,8 @@ public class PhuotDetailManager extends ActionBarActivity {
 		com.hou.app.Global.savePreference(context,"tenDiemPhuot",tenDiemPhuot);
 		com.hou.app.Global.savePreference(context,"ghiChu",ghiChu);
 		com.hou.app.Global.savePreference(context,"image",image);
+		com.hou.app.Global.savePreference(context,"lat_diemphuot",lat_diemphuot);
+		com.hou.app.Global.savePreference(context,"lon_diemphuot",lon_diemphuot);
 		com.hou.app.Global.savePreference(context,"trangThaiChuan",trangThaiChuan+"");
 		
 		
