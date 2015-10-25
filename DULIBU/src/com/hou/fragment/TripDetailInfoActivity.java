@@ -164,7 +164,10 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			String checkJoin = "";
 			if (!item.optString("created_by").equals("")) {
 				admin = item.getJSONObject("created_by").optString("fullname");
-				checkJoin = item.getJSONObject("created_by").optString("username");
+				checkJoin = item.getJSONObject("created_by").optString(
+						"username");
+				Global.savePreference(getActivity(), Global.USER_CREATEBY_TRIP,
+						item.getJSONObject("created_by").optString("_id"));
 			}
 			String chiphicanhan = item.optString("expense", "0");
 			double chiphicanhans = Double.parseDouble(chiphicanhan);
@@ -177,7 +180,8 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 					diemKetthuc, tgBatdau, tgKetthuc, "1", "1", "1", admin, "",
 					"", chiphicanhans, 0f, "", image, diadiem_xuatphat,
 					thoigian_xuatphat, note);
-			if (Global.getPreference(getActivity(), Global.USER_USERNAME, " ").equalsIgnoreCase(checkJoin)) {
+			if (Global.getPreference(getActivity(), Global.USER_USERNAME, " ")
+					.equalsIgnoreCase(checkJoin)) {
 				btnJoinUser.setEnabled(false);
 			}
 			tvTitleTrip.setText(dataTrip.getTenLichtrinh());
@@ -191,9 +195,11 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			tvMoneyTrip.setText(dataTrip.getChiphicanhan() + "");
 			Global.savePreference(getActivity(), Global.TRIP_MONEY, dataTrip.getChiphicanhan() + "");
 			tvNotes.setText(dataTrip.getNote());
-			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(new MD5().getMD5(dataTrip.getImage())));
+			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(new MD5()
+					.getMD5(dataTrip.getImage())));
 			if (f != null) {
-				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
+				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
+						500, 500);
 				ivTripBG.setImageBitmap(b);
 			} else {
 				ivTripBG.setImageResource(R.drawable.default_bg_detail);

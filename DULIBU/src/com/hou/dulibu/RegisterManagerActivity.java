@@ -91,14 +91,16 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			}
 		});
 		ck_dieukhoan = (CheckBox) findViewById(R.id.ck_dieukhoan);
-		ck_dieukhoan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				dieukhoan.setError(null);
-			}
-		});
+		ck_dieukhoan
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						// TODO Auto-generated method stub
+						dieukhoan.setError(null);
+					}
+				});
 
 		dieukhoan = (TextView) findViewById(R.id.dieukhoan);
 		dieukhoan.setOnClickListener(new OnClickListener() {
@@ -161,7 +163,8 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		}
 	}
 
-	@SuppressLint("DefaultLocale") @SuppressWarnings("deprecation")
+	@SuppressLint("DefaultLocale")
+	@SuppressWarnings("deprecation")
 	private boolean checkValidate() {
 		boolean check = true;
 		email = edtEmail.getText().toString().toLowerCase();
@@ -222,9 +225,9 @@ public class RegisterManagerActivity extends ActionBarActivity {
 						check = false;
 					} else {
 						if (ck_dieukhoan.isChecked() != true) {
-//							Drawable myIcon = getResources().getDrawable( R.drawable.icon_address );
-							dieukhoan
-									.setError(getString(R.string.ck_rule_err));
+							// Drawable myIcon = getResources().getDrawable(
+							// R.drawable.icon_address );
+							dieukhoan.setError(getString(R.string.ck_rule_err));
 							dieukhoan.requestFocus();
 							check = false;
 						} else {
@@ -289,13 +292,8 @@ public class RegisterManagerActivity extends ActionBarActivity {
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("registerToServer", response);
-						ConfirmRegister(response);
-						/*
-						 * Intent intent = new
-						 * Intent(RegisterManagerActivity.this,
-						 * LoginManagerActivity.class); startActivity(intent);
-						 */
-
+						// ConfirmRegister(response);
+						NoticeRegisSuccsess(getString(R.string.success), getString(R.string.successRegis));
 						/*
 						 * if (executeWhenRegisterSuccess(response)) {
 						 * Toast.makeText(getApplicationContext(),
@@ -316,18 +314,23 @@ public class RegisterManagerActivity extends ActionBarActivity {
 						case 400:
 							try {
 								JSONObject data = new JSONObject(content);
-								for (int i = 0; i < data.optJSONArray("errors").length(); i++) {
-									JSONObject data1 = (JSONObject)(data.optJSONArray("errors").get(i));
-									if (data1.optString("field").equals("username")) {
-										edtUsername.setError(data1.optString("message"));
+								for (int i = 0; i < data.optJSONArray("errors")
+										.length(); i++) {
+									JSONObject data1 = (JSONObject) (data
+											.optJSONArray("errors").get(i));
+									if (data1.optString("field").equals(
+											"username")) {
+										edtUsername.setError(data1
+												.optString("message"));
 										edtUsername.requestFocus();
-									}	
-									if (data1.optString("field").equals("email")) {
-											edtEmail.setError(data1.optString("message"));
-											edtEmail.requestFocus();
-										}
-									
-									
+									}
+									if (data1.optString("field")
+											.equals("email")) {
+										edtEmail.setError(data1
+												.optString("message"));
+										edtEmail.requestFocus();
+									}
+
 								}
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
@@ -480,23 +483,24 @@ public class RegisterManagerActivity extends ActionBarActivity {
 		boolean check = true;
 		return check;
 	}
-	private boolean CheckNullInfo(){
-		
+
+	private boolean CheckNullInfo() {
+
 		if (edtEmail.getText().toString().trim().equals("")) {
 			edtEmail.setError(getString(R.string.checknull));
 			edtEmail.requestFocus();
 			return true;
-		}else {
+		} else {
 			if (edtUsername.getText().toString().trim().equals("")) {
 				edtUsername.setError(getString(R.string.checknull));
 				edtUsername.requestFocus();
 				return true;
-			}else {
+			} else {
 				if (edtPass.getText().toString().trim().equals("")) {
 					edtPass.setError(getString(R.string.checknull));
 					edtPass.requestFocus();
 					return true;
-				}else {
+				} else {
 					if (edtFullname.getText().toString().trim().equals("")) {
 						edtFullname.setError(getString(R.string.checknull));
 						edtFullname.requestFocus();
@@ -506,6 +510,49 @@ public class RegisterManagerActivity extends ActionBarActivity {
 			}
 		}
 		return false;
+	}
+
+	private void NoticeRegisSuccsess(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_tick);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+				onBackPressed();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+	}
+
+	private void NoticeRegisFalse(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_error);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
 	}
 
 }

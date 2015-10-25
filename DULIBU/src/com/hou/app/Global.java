@@ -31,6 +31,7 @@ public class Global {
 	// public static String BASE_URI = "http://api.dulibu.com";
 	public static String BASE_URI = "http://128.199.112.15";
 	public static String URI_DANGNHAP_PATH = "user/login";
+	public static String URI_FORGET_PASS = "user/forgot";
 	public static String URI_CHANGE_PASS_PATH = "user/password";
 	public static String URI_DANGKY_PATH = "user/register";
 	public static String URI_DANGXUAT_PATH = "user/logout";
@@ -75,6 +76,17 @@ public class Global {
 	public static String USER_AVATAR = "avatar";
 	public static String USER_GHICHU = "ghichu";
 	public static String USER_ACCESS_TOKEN = "access_token";
+	
+	//ROLE
+	
+	public static String USER_ROLE_ADMIN = "2";
+	public static String USER_ROLE_USER = "1";
+	public static String USER_ROLE_MEMBER = "3";
+	public static String USER_ROLE_DAN_DOAN = "4";
+	public static String USER_ROLE_THU_QUY = "5";
+	public static String USER_ROLE_CHAY_BIEN = "6";
+	public static String USER_ROLE_CAM = "0";
+	public static String USER_CREATEBY_TRIP = "_id_create";
 	
 	// Multi language
 	public static String MULTI_LANGUAGE = "multi_language";

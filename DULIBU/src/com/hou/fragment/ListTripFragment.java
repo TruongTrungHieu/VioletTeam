@@ -40,6 +40,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -411,9 +412,14 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 				String note = item.optString("note");
 				String image = item.optString("image");
 
-				getImage img = new getImage();
-				img.execute(image);
-				adapter.notifyDataSetChanged();
+				File f = ImageUltiFunctions.getFileFromUri(Global
+						.getURI(new MD5().getMD5(image)));
+				if (f == null) {
+					getImage img = new getImage();
+					img.execute(image);
+				} else {
+					
+				}
 
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
@@ -421,9 +427,10 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 						chiphicanhans, 0f, "", image, diadiem_xuatphat,
 						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
+				adapter.notifyDataSetChanged();
 			}
 
-		} catch (JSONException e) {
+		} catch (JSONException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 	}
@@ -456,7 +463,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 
 				getImage img = new getImage();
 				img.execute(image);
-				adapter.notifyDataSetChanged();
+				
 
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
@@ -464,6 +471,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 						chiphicanhans, 0f, "", image, diadiem_xuatphat,
 						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
+				adapter.notifyDataSetChanged();
 			}
 
 		} catch (JSONException e) {

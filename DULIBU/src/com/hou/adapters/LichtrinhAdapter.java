@@ -27,8 +27,6 @@ public class LichtrinhAdapter extends ArrayAdapter<Lichtrinh> {
 	Activity context = null;
 	ArrayList<Lichtrinh> myArray = null;
 	int layoutId;
-	private static Bitmap bmp;
-	ImageDownloader downloader;
 
 	public LichtrinhAdapter(Activity context, int layoutId,
 			ArrayList<Lichtrinh> arr) {

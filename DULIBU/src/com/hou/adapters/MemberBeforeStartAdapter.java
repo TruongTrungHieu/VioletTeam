@@ -45,12 +45,10 @@ import com.hou.ultis.CircularImageView;
 
 			final CircularImageView iv_avatar = (CircularImageView) convertView.findViewById(R.id.iv_avarta);
 			final TextView tv_fullname = (TextView) convertView.findViewById(R.id.tv_fullname);
-			final TextView tv_statut = (TextView) convertView.findViewById(R.id.tv_statut);
 			/*
 			 * final TextView tv_saveornot = (TextView) convertView
 			 * .findViewById(R.id.tv_saveornot);
 			 */
-			ivApproval = (ImageView) convertView.findViewById(R.id.ivApproval);
 			final Lichtrinh_User member = myArray.get(position);
 			if (member.getTrangthai_thamgia() == 0) {
 				ivApproval.setBackgroundResource(R.drawable.ic_question_mark);
@@ -58,7 +56,6 @@ import com.hou.ultis.CircularImageView;
 				ivApproval.setBackgroundResource(R.drawable.ic_tick_mark);
 			}
 			tv_fullname.setText(member.getMaUser());
-			tv_statut.setText(member.getTrangthai_ketnoi());
 			// tv_saveornot.setText(member.getTrangthai_antoan());
 		}
 		convertView.setOnClickListener(new OnClickListener() {

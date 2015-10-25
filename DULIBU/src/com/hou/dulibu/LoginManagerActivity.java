@@ -31,7 +31,6 @@ import android.widget.Toast;
 	private Button btnDangky;
 	private EditText edtUsername;
 	private EditText edtPassword;
-
 	private String username;
 	private String password;
 	private TextView tvForgetPassword;
@@ -261,49 +260,100 @@ import android.widget.Toast;
 			}
 		});
 
-		alert.setPositiveButton("Xác nhận",
+		alert.setPositiveButton("Gửi",
 				new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						
+						SendForgetPass(txtActiveCode.getText().toString());
 						dialog.dismiss();
-						ForgetPassConfirm();
 						return;
 					}
 				});
 		AlertDialog dialog = alert.create();
 		dialog.show();
 	}
-	private void ForgetPassConfirm() {
-		LayoutInflater inflater = getLayoutInflater();
-		View alertLayout = inflater.inflate(R.layout.dialog_confirm_accesstoken,
-				null);
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setView(alertLayout);
-		alert.setCancelable(false);
-		alert.setTitle("Quên Mật Khẩu");
-		alert.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+	private void SendForgetPass(String txtemail) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("email", txtemail);
+		client.post(Global.BASE_URI + "/" + Global.URI_FORGET_PASS, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+//						Log.e("loginToServer", response);
+						NoticeRegisSuccsess(getString(R.string.success),getString(R.string.create_success));
+						
+					}
 
-			@Override
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						NoticeRegisFalse(getString(R.string.ConfirmFalse),getString(R.string.create_false));
+						switch (statusCode) {
+						case 400:
+							
+							edtUsername.setError(getString(R.string.e401));
+							edtUsername.requestFocus();
+									
+							break;
+						case 403:
+							edtUsername.setError(getString(R.string.e403));
+							edtUsername.requestFocus();
+							break;
+						case 404:
+							
+							edtUsername.setError(getString(R.string.e404));
+							edtUsername.requestFocus();
+							break;
+						case 503:
+							edtUsername.setError(getString(R.string.e503));
+							edtUsername.requestFocus();
+							break;
+						default:
+							break;
+						}
+					}
+				});
+	}
+	private void NoticeRegisSuccsess(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_tick);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				return;
-
+				// do something!
+				onBackPressed();
 			}
 		});
 
-		alert.setPositiveButton("Xác nhận",
-				new DialogInterface.OnClickListener() {
+		// Showing Alert Message
+		alertDialog.show();
+	}
+	private void NoticeRegisFalse(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						
-						dialog.dismiss();
-						return;
-					}
-				});
-		AlertDialog dialog = alert.create();
-		dialog.show();
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_error);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
 	}
 }
