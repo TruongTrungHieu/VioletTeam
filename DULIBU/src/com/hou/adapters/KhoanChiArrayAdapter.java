@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+import com.google.android.gms.location.places.AutocompletePrediction.Substring;
+import com.hou.app.Global;
 import com.hou.dulibu.R;
 import com.hou.model.Chitieu;
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class KhoanChiArrayAdapter extends ArrayAdapter<Chitieu> {
 
@@ -46,10 +49,15 @@ public class KhoanChiArrayAdapter extends ArrayAdapter<Chitieu> {
 			final Chitieu kc = myArray.get(position);
 			txtTenKhoanChi.setText(kc.getTenChitieu());
 			DecimalFormat df = new DecimalFormat("#.#");
-			txtSoTien.setText(df.format(kc.getSotien()));
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy ");
-			String day = sdf.format(new Date());
-			time.setText(day);
+			txtSoTien.setText(df.format(kc.getSotien()));	
+			kc.getThoigian();
+			
+			String[] s = kc.getThoigian().split(" ");
+			
+			
+			String displayTime = s[1] + " ngày " + s[0];
+			
+			time.setText(displayTime);
 		}
 
 		return convertView;

@@ -45,6 +45,7 @@ public class Global {
 	public static String URI_GETCHIPHI_PATH ="trip/expense";
 	public static String URI_POSTCHIPHI_PATH ="trip/expense";
 	public static String URI_GETLISTMEMBER_PATH ="trip/members";
+	public static String URI_DELETECHIPHI_PATH ="trip/expense/delete";
 	
 	public static String URI_UPDATEAVATAR_PATH = "user/avatar";
 	public static String DIEMPHUOT_P = "20";
@@ -175,6 +176,7 @@ public class Global {
 		}
 		return date.toString();
 	}
+	
 	
 	/*
 	 * NEARBY PLACE GOOGLE MAP

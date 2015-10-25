@@ -48,13 +48,14 @@ public class ChiTieu_Activity extends ActionBarActivity {
 	ListView lvKhoanchi = null;
 	TextView txtConDu, txtTongThu;
 	double tongTien = 1000;
-	int conDu;
+	double conDu;
 	int moiNguoi = 0;
 	int khoanChi = 1;
 	String ten, tien;
 	String maLichTrinh = "562b1962bcb17fde6e619360";
 	int soThanhVien = 1;
 	double soTien = 500;
+	DecimalFormat df = new DecimalFormat("#.#");
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 
 					@Override
 					public boolean onMenuItemClick(MenuItem item) {
+						//deleteMoney(maLichTrinh,,positon);
 						updateTien(positon);
 						arrKhoanChi.remove(positon);
 						adapter.notifyDataSetChanged();
@@ -105,8 +107,11 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		adapter = new KhoanChiArrayAdapter(this, R.layout.list_itemdetail,
 				arrKhoanChi);
 		lvKhoanchi.setAdapter(adapter);
-		txtTongThu.setText(tongTien + "");
-
+	//	txtTongThu.setText(tongTien + "");
+		
+		txtTongThu.setText(df.format(tongTien));
+		//updateConDu();
+	
 	}
 
 	public void getChiPhi(String idTrip) {
@@ -124,7 +129,8 @@ public class ChiTieu_Activity extends ActionBarActivity {
 						// "v�o th�nh c�ng", Toast.LENGTH_SHORT).show();\
 						listChiPhi(response);
 						getTotalMoney(maLichTrinh);
-						//loadData();
+						
+						// loadData();
 					}
 
 					@Override
@@ -170,8 +176,7 @@ public class ChiTieu_Activity extends ActionBarActivity {
 						context, maLichTrinh, "Viet"));
 				arrChitieu.add(chitieu);
 				Log.e("listChiPhiVIet", sotien + "");
-				Toast.makeText(context, "Muc thu(" + i + "): " + sotien,
-						Toast.LENGTH_SHORT).show();
+				
 			}
 
 			// Toast.makeText(getApplicationContext(), "KQ JSON",
@@ -246,8 +251,13 @@ public class ChiTieu_Activity extends ActionBarActivity {
 						// "v�o th�nh c�ng", Toast.LENGTH_SHORT).show();\
 						numberMember(response);
 						tongTien = soThanhVien * soTien;
-						loadData();
+						conDu = tongTien;
+					//	updateConDu();
+					//	updateTien1();
 						
+						loadData();
+						hienConDu();
+
 					}
 
 					@Override
@@ -257,6 +267,19 @@ public class ChiTieu_Activity extends ActionBarActivity {
 
 					}
 				});
+	}
+	private void hienConDu(){
+		double chiTien = 0;
+		
+		for(int i = 0;i<arrKhoanChi.size();i++){
+			chiTien = arrKhoanChi.get(i).getSotien();
+			conDu -= chiTien;
+		}
+		
+		
+		
+		txtConDu.setText(df.format(conDu));
+		
 	}
 
 	private String numberMember(String response) {
@@ -288,20 +311,49 @@ public class ChiTieu_Activity extends ActionBarActivity {
 		double mucchi = 0;
 		int d = arrKhoanChi.size() - 1;
 		mucchi = arrKhoanChi.get(d).getSotien();
-		tongTien -= mucchi;
-		DecimalFormat df = new DecimalFormat("#.#");
-		txtConDu.setText(df.format(tongTien));
+		conDu -= mucchi;
+	
+		txtConDu.setText(df.format(conDu));
 
 	}
 
 	public void updateTien(int position) {
+		deleteMoney(maLichTrinh,arrKhoanChi.get(position).getMaChitieu());
 		double mucchi;
 		mucchi = arrKhoanChi.get(position).getSotien();
-		tongTien += mucchi;
-		DecimalFormat df = new DecimalFormat("#.#");
-		txtConDu.setText(df.format(tongTien));
+		conDu += mucchi;
+		
+		txtConDu.setText(df.format(conDu));
 
 	}
+	public void deleteMoney(String idTrip,String maChiPhi) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("trip_id", idTrip);
+		params.put("id", maChiPhi);
+
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_DELETECHIPHI_PATH + "?access_token=" + Global.getPreference(this, Global.USER_ACCESS_TOKEN, "")
+						, params, new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("deleteChiPhiThanhCong", response);
+						
+						
+						
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.e("__VietDelete", content);
+
+					}
+				});
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -362,14 +414,18 @@ public class ChiTieu_Activity extends ActionBarActivity {
 					Chitieu kc = new Chitieu();
 					kc.setTenChitieu(ten);
 					kc.setSotien(soTien);
-					arrKhoanChi.add(kc);
-					/*
-					 * SimpleDateFormat sdf = new
-					 * SimpleDateFormat("dd-MM-yyyy "); String day =
-					 * sdf.format(new Date());
-					 */
 
-					createChiPhi(maLichTrinh, ten, "2015-10-10 10:10:10", tien);
+					SimpleDateFormat sdf = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					String day = sdf.format(new Date());
+					Log.e("_thoigian :",day);
+					/*Toast.makeText(context, "_thoigian"  + day,
+							Toast.LENGTH_SHORT).show();*/
+					
+					kc.setThoigian(day);
+					arrKhoanChi.add(kc);
+
+					createChiPhi(maLichTrinh, ten, day, tien);
 					adapter.notifyDataSetChanged();
 					dialog.dismiss();
 
