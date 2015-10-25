@@ -9,13 +9,13 @@ public class Sukien implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String maSukien;
-	private String maLichtrinh;
-	private String tenSukien;
-	private String thoigian;
-	private String diadiem;
-	private String lat;
-	private String lon;
+	private String maSukien = "";
+	private String maLichtrinh = "";
+	private String tenSukien = "";
+	private String thoigian = "";
+	private String diadiem = "";
+	private String lat = "";
+	private String lon = "";
 	
 	public Sukien() {
 		

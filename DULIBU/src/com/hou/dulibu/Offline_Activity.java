@@ -245,13 +245,19 @@ public class Offline_Activity extends ActionBarActivity {
 					}
 					
 					Sukien sk = new Sukien();
-					Address vitri;
 					sk.setTenSukien(ten);
 					sk.setThoigian(thoigian);
 					sk.setDiadiem(diadiem);
-					vitri = getLocationFromAddress(diadiem);
-					sk.setLat(vitri.getLatitude()+"");
-					sk.setLon(vitri.getLongitude()+"");
+					
+					Address vitri = getLocationFromAddress(diadiem);
+					
+					if (vitri != null) {
+						sk.setLat(vitri.getLatitude()+"");
+						sk.setLon(vitri.getLongitude()+"");
+					} else {
+						sk.setLat("20.984434");
+						sk.setLon("105.838914");
+					}
 					
 					
 					
@@ -264,8 +270,7 @@ public class Offline_Activity extends ActionBarActivity {
 		    	
 
 					arrSuKien.add(sk);
-					createEvent(maLichTrinh, ten, thoigian, vitri.getLatitude()+"",vitri.getLongitude()+"");
-					
+					createEvent(maLichTrinh, sk.getTenSukien(), sk.getThoigian(), sk.getLat(), sk.getLon());
 					
 					// LatLng latLng=new LatLng(-14.235004,-51.925280);
 					// map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
@@ -303,18 +308,18 @@ public class Offline_Activity extends ActionBarActivity {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			
 		}
     			
-    	Toast.makeText(getApplicationContext(),strTim, Toast.LENGTH_LONG).show();
-			
-    	    Address location = address.get(0);
-    	    String locality = location.getLocality();
-    	    location.getLatitude();
-    	    location.getLongitude();
-    	    return location;
-//    	    Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_LONG).show();
-//    	    Toast.makeText(getApplicationContext(),locality+"", Toast.LENGTH_LONG).show();
+    	//Toast.makeText(getApplicationContext(),strTim, Toast.LENGTH_LONG).show();
+    	Address location = null;
+    	if (address.size() > 0) {
+    		location = address.get(0);
+    	}
+    	
+    	return location;
 	
-}
+	}
 
 }
