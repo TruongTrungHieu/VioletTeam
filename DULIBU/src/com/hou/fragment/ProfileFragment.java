@@ -1,23 +1,29 @@
 package com.hou.fragment;
 
-import java.io.ByteArrayOutputStream;
+import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import com.hou.app.Global;
+import com.hou.dulibu.ProfileManagerActivity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.SettingActivity;
+import com.hou.fragment.ListTripFragment.getImage;
 import com.hou.model.Trangthai_User;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
 import com.hou.upload.ImageDownloader;
+import com.hou.upload.MD5;
+import com.hou.upload.imageOnServer;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,6 +31,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -45,14 +52,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileFragment extends Fragment implements OnClickListener {
-	private ProgressDialog pDialog;
 	private Menu currentMenu;
 	public static Point screenSize = new Point();
 	RelativeLayout lnImgInfo;
@@ -68,7 +73,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private String path;
 	private ImageDownloader downloader;
 	private static Bitmap bmp;
-	private FileOutputStream fos;
+	String pathAvartar = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -87,25 +92,63 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		getActivity().getWindowManager().getDefaultDisplay()
 				.getSize(screenSize);
-
+		pathAvartar = Global.getPreference(getActivity(),
+				Global.USER_AVATAR, "");
 		initView(view);
 		statusList = new ArrayList<Trangthai_User>();
 		statusList.add(new Trangthai_User("1", "Tot", "brown"));
 		statusList.add(new Trangthai_User("2", "Kha", "green"));
 		statusList.add(new Trangthai_User("3", "Trung binh", "orange"));
 		statusList.add(new Trangthai_User("4", "Yeu", "pink"));
-
-		String pathAvartar = Global.getPreference(getActivity(),
-				Global.USER_AVATAR, "");
-		downloader = new ImageDownloader(pathAvartar, ivProfile, getActivity(),
-				bmp);
-		downloader.execute();
-		if (bmp != null) {
-			saveImageToSD();
+		File f = ImageUltiFunctions
+				.getFileFromUri(Global.getURI(getFileName(pathAvartar)));
+		if (f != null) {
+			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
+			ivProfile.setImageBitmap(bm);
+		}else{
+			new getAvatarFromUser().execute(getFileName(pathAvartar), pathAvartar);
 		}
 		FillDataProfile();
 
 		return view;
+	}
+
+	public String getFileName(String path) {		
+		String[] temp = path.split("/");
+
+		return temp[temp.length - 1];
+	}
+
+	public class getAvatarFromUser extends AsyncTask<String, Void, Void> {
+		String fileName;
+		@Override
+		protected Void doInBackground(String... params) {
+			// TODO Auto-generated method stub
+					
+			try {
+				fileName = params[0];
+				imageOnServer.downloadFileFromServer(params[0], params[1]);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			File file = ImageUltiFunctions.getFileFromUri(Global
+					.getURI(fileName));
+			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file, 500, 500);
+			ivProfile.setImageBitmap(bm);
+			ProfileManagerActivity activity = (ProfileManagerActivity) getActivity();
+			MaterialAccount account = activity.getAccount();
+			account.setPhoto(bm);
+			activity.setAccount(account);
+		}
 	}
 
 	public void initView(View view) {
@@ -163,7 +206,6 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		case R.id.editting_actionbar:
 			currentMenu.getItem(0).setVisible(false);
 			currentMenu.getItem(1).setVisible(true);
-			// Toast.makeText(getActivity(), "Hello", Toast.LENGTH_LONG).show();
 			setEnable();
 			InputMethodManager mgr = (InputMethodManager) getActivity()
 					.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -173,16 +215,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		case R.id.done_setting_actionbar:
 			currentMenu.getItem(0).setVisible(true);
 			currentMenu.getItem(1).setVisible(false);
-			// Toast.makeText(getActivity(), "Hell", Toast.LENGTH_LONG).show();
 			setDisable();
 			break;
 		/*case R.id.setting:
 			Intent intent = new Intent(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;*/
-//		case R.id.messages:
-//			break;
-
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -269,12 +307,13 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == PICK_FROM_FILE) {
-				Uri selectedImage = data.getData();
+				Uri selectedImage = data.getData();				
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
 				// Get the cursor
@@ -287,9 +326,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				String imgDecodableString = cursor.getString(columnIndex);
 				cursor.close();
 				// Set the Image in ImageView after decoding the String
-				ivProfile.setImageBitmap(BitmapFactory
-						.decodeFile(imgDecodableString));
-
+				String fileName = getFileName(imgDecodableString);
+				fromCameraFile = ImageUltiFunctions.getFileFromUri(Global.getURI(fileName));				
+				
 			} else {
 				path = mImageCaptureUri.getPath();
 			}
@@ -297,9 +336,36 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
 						fromCameraFile, 500, 500);
 				ivProfile.setImageBitmap(bm);
+				
+				updateAva();
 			}
 
 		}
+	}
+	
+	public void updateAva(){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		try {
+			params.put("file", fromCameraFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		client.post(Global.URI_UPDATEAVATAR_PATH +"?access_token=" + Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, ""), params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.update_ava_success), Toast.LENGTH_LONG).show();
+					//new File().delete();
+						
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.update_ava_false), Toast.LENGTH_LONG).show();
+					}
+				});
 	}
 
 	public void listDialog() {
@@ -373,6 +439,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			this.list = objects;
 		}
 
+		@SuppressWarnings("static-access")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
@@ -443,39 +510,5 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		etContact.setEnabled(false);
 		etFullName.setEnabled(false);
 		etPhone.setEnabled(false);
-	}
-
-	private void saveImageToSD() {
-
-		/*--- this method will save your downloaded image to SD card ---*/
-
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		/*--- you can select your preferred CompressFormat and quality. 
-		 * I'm going to use JPEG and 100% quality ---*/
-		bmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-		/*--- create a new file on SD card ---*/
-		File file = new File(Environment.getExternalStorageDirectory()
-				+ File.separator + "myDownloadedImage.jpg");
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		/*--- create a new FileOutputStream and write bytes to file ---*/
-		try {
-			fos = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			fos.write(bytes.toByteArray());
-			fos.close();
-			Log.e("File Path", file.getPath());
-			Toast.makeText(getActivity(), "Image saved", Toast.LENGTH_SHORT)
-					.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 }

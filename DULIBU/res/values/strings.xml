@@ -30,6 +30,9 @@
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
     <string name="done_profile_actionbar"></string>
+    <string name="update_ava_success">Avatar đã được cập nhật</string>
+    <string name="update_ava_false">Cập nhật avatar thất bại</string>
+    
     <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
 
     <!-- change_pass -->

@@ -1,5 +1,8 @@
 package com.hou.dulibu;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.hou.app.Global;
 import com.hou.fragment.ListPhuotFragment;
 import com.hou.fragment.ListTripFragment;
@@ -8,13 +11,21 @@ import com.hou.fragment.MyTrips;
 import com.hou.fragment.ProfileFragment;
 import com.hou.fragment.SettingFragment;
 import com.hou.fragment.ThongTinUngDung;
+import com.hou.ultis.ImageUltiFunctions;
+import com.hou.upload.MD5;
+import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Build.VERSION_CODES;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,16 +40,43 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		MaterialAccountListener {
 
 	private MaterialAccount account;
-	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,
-			mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
+	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
+
+	private File avaFile;
+
+			
+
+
+	public MaterialAccount getAccount() {
+		return account;
+	}
+
+	public void setAccount(MaterialAccount account) {
+		this.account = account;
+	}
 
 	@Override
 	public void init(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		// this.getSupportActionBar().setElevation(20);
-		account = new MaterialAccount(this.getResources(), "DULIBU",
-				"FITHOU-2015", R.drawable.default_avartar,
-				R.drawable.default_bg);
+
+		String fullname = Global.getPreference(getApplicationContext(),
+				Global.USER_FULLNAME, "");
+		String avatarUrl = Global.getPreference(getApplicationContext(),
+				Global.USER_AVATAR, "");
+		String[] temp = avatarUrl.split("/");
+		String fileName = temp[temp.length - 1];
+		setAccount(new MaterialAccount(this.getResources(),
+				fullname.toUpperCase(), "", R.drawable.ic_launcher,
+				R.drawable.default_bg));
+		File f;
+		f = ImageUltiFunctions.getFileFromUri(Global.getURI(fileName));
+		if (f != null) {
+			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
+					500);
+			account = new MaterialAccount(this.getResources(),
+					fullname.toUpperCase(), "", b, R.drawable.default_bg);
+		}
+		
 		this.addAccount(account);
 		this.disableLearningPattern();
 
@@ -106,6 +144,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub

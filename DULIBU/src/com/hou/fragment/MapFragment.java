@@ -352,7 +352,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void markerShow(ArrayList<Nearby> listNearby) {
