@@ -120,6 +120,7 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/edittext_default_bg"
             android:editable="false"
+            android:focusable="false"
             android:padding="10dp"
             android:singleLine="true"
             android:text="@string/fomatDate"
@@ -171,6 +172,8 @@
                 android:layout_height="wrap_content"
                 android:text="điều khoản sử dụng"
                 android:textColor="#0aae44"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:textSize="14sp" />
         </LinearLayout>
 

@@ -25,9 +25,9 @@
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@drawable/edittext_default_bg"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:padding="10dp"
-            android:scrollbars=""
             android:textColorHint="#bbbbbb"
             android:textSize="14sp" />
 
@@ -114,14 +114,16 @@
                     android:text="@string/startDay"
                     android:textColor="#000" />
 
-                <TextView
+                <EditText
                     android:id="@+id/txtStartDay"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:background="@drawable/edittext_default_bg"
+                    android:editable="false"
+                    android:focusable="false"
                     android:padding="10dp"
-                    android:text="@string/fomatDate"
+                    android:hint="@string/fomatDate"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -140,14 +142,16 @@
                     android:text="@string/endDay"
                     android:textColor="#000" />
 
-                <TextView
+                <EditText
                     android:id="@+id/txtEndDay"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:background="@drawable/edittext_default_bg"
                     android:padding="10dp"
-                    android:text="@string/fomatDate"
+                    android:editable="false"
+            		android:focusable="false"
+                    android:hint="@string/fomatDate"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
@@ -174,14 +178,16 @@
                     android:text="@string/startTime"
                     android:textColor="#000" />
 
-                <TextView
+                <EditText
                     android:id="@+id/txtStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:background="@drawable/edittext_default_bg"
                     android:padding="10dp"
-                    android:text="@string/fomatTime"
+                    android:editable="false"
+            		android:focusable="false"
+                    android:hint="@string/fomatTime"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -200,14 +206,16 @@
                     android:text="@string/endTime"
                     android:textColor="#000" />
 
-                <TextView
+                <EditText
                     android:id="@+id/txtEndTime"
+                    android:editable="false"
+            		android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:background="@drawable/edittext_default_bg"
                     android:padding="10dp"
-                    android:text="@string/fomatTime"
+                    android:hint="@string/fomatTime"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
@@ -238,9 +246,10 @@
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@drawable/edittext_default_bg"
+            android:hint="VND/NG"
             android:inputType="number"
             android:padding="10dp"
-            android:hint="VND/ng"
+            android:imeOptions="actionDone"
             android:textColorHint="#bbbbbb"
             android:textSize="14sp" />
 
@@ -292,7 +301,8 @@
                     android:text="@string/create_place"
                     android:textAllCaps="false" />
 
-                <!-- <Button
+                <!--
+                     <Button
                     android:id="@+id/btnSuggest"
                     style="@style/DefaultButtonText"
                     android:layout_width="match_parent"
@@ -301,7 +311,8 @@
                     android:layout_weight="0.4"
                     android:background="@drawable/button_default_bg"
                     android:text="@string/suggest_place"
-                    android:textAllCaps="false" /> -->
+                    android:textAllCaps="false" />
+                -->
             </LinearLayout>
         </LinearLayout>
 
@@ -333,6 +344,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="#d2d2d2" />
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -341,13 +353,16 @@
                 android:text="@string/dateOff"
                 android:textColor="#000" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtDateOffline"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:background="@drawable/edittext_default_bg"
                 android:padding="10dp"
+                android:editable="false"
+            	android:focusable="false"
+            	android:hint="@string/fomatDate"
                 android:textSize="14sp" />
 
             <TextView
@@ -358,13 +373,16 @@
                 android:text="@string/timeOff"
                 android:textColor="#000" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtTimeOffline"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:background="@drawable/edittext_default_bg"
                 android:padding="10dp"
+                android:editable="false"
+            	android:focusable="false"
+            	android:hint="@string/fomatTime"
                 android:textSize="14sp" />
 
             <TextView
@@ -383,6 +401,7 @@
                 android:background="@drawable/edittext_default_bg"
                 android:inputType="text"
                 android:padding="10dp"
+                android:imeOptions="actionDone"
                 android:textColorHint="#bbbbbb"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -438,14 +457,16 @@
                 android:textSize="14sp" />
             -->
 
-            <TextView
+            <EditText
                 android:id="@+id/txtTimePlace"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:background="@drawable/edittext_default_bg"
                 android:padding="10dp"
-                android:text="@string/titleSetTime"
+                android:editable="false"
+            	android:focusable="false"
+                android:hint="@string/fomatTime"
                 android:textSize="14sp" />
 
             <TextView
@@ -464,6 +485,7 @@
                 android:background="@drawable/edittext_default_bg"
                 android:inputType="text"
                 android:padding="10dp"
+                android:imeOptions="actionNext"
                 android:textColorHint="#bbbbbb"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -504,6 +526,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edittext_default_bg"
                 android:inputType="textMultiLine"
+                android:imeOptions="actionDone"
                 android:lines="8"
                 android:maxLines="10"
                 android:minLines="6"
@@ -521,7 +544,6 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/button_default_bg"
             android:text="@string/creatTrip" />
-        
     </LinearLayout>
 
 </ScrollView>
