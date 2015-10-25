@@ -29,6 +29,7 @@ public class PhuotDetailLocation extends Fragment {    private GoogleMap mMap;
     private MapView mMapView;
     private LatLng latlg;
     Double lat,lng;
+    String diemphuot = "";
 
 	@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,9 +37,10 @@ public class PhuotDetailLocation extends Fragment {    private GoogleMap mMap;
         mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();// needed to get the map to display immediately
-       lat = Double.parseDouble(com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lat_diemphuot","98"));
-       lng = Double.parseDouble(com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lon_diemphuot","89"));
-       latlg = new LatLng(lat, lng);
+        lat = Double.parseDouble(com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lat_diemphuot","98"));
+        lng = Double.parseDouble(com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lon_diemphuot","89"));
+        diemphuot = com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"tenDiemPhuot","tenDiemPhuot");
+        latlg = new LatLng(lat, lng);
 		Log.e("aaaaa", com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lo_diemphuot","Viet"));
 		try {
 			MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -48,9 +50,9 @@ public class PhuotDetailLocation extends Fragment {    private GoogleMap mMap;
 		mMap = mMapView.getMap();
 		mMap.addMarker(new MarkerOptions()
 		    .position(latlg)
-		    .title("Hello world:"));
+		    .title(diemphuot));
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-				latlg, 15f);	
+				latlg, 11f);	
 		mMap.moveCamera(cameraUpdate);
 		mMap.setMyLocationEnabled(true);
         return v;
