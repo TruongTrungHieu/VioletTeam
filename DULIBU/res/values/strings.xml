@@ -51,7 +51,7 @@
     <!-- Thông tin ứng dụng -->
     <string name="app_name_tt">Dulibu</string>
     <string name="madeBy">Thiết kế &amp; Phát triển bởi</string>
-    <string name="developed_by">Nhóm giảng viên, sinh viên\nKhoa CNTT - Viện Đại học Mở Hà Nội</string>
+    <string name="developed_by">Nhóm sinh viên phát triển\nDULIBU TEAM</string>
     <string name="tv_version">Phiên bản</string>
     <string name="tvcontact">Liên lạc</string>
     <string name="contactInfo">Email: abc@gmail.com</string>

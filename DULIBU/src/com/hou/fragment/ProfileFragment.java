@@ -6,12 +6,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
 import com.hou.app.Global;
 import com.hou.dulibu.ProfileManagerActivity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.SettingActivity;
+import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
 import com.hou.fragment.ListTripFragment.getImage;
 import com.hou.model.Trangthai_User;
 import com.hou.ultis.CircularImageView;
@@ -23,6 +28,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +41,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,6 +58,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -63,7 +71,10 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	RelativeLayout lnImgInfo;
 	CircularImageView ivProfile;
 	TextView tvUserName, tvStatus;
-	EditText etFullName, etUserName, etEmail, etBirthday, etPhone, etContact;
+	EditText etFullName, etUserName, etEmail;
+	static EditText etBirthday;
+	EditText etPhone;
+	EditText etContact;
 	private CircularImageView ivStatus;
 	List<Trangthai_User> statusList;
 	private static final int PICK_FROM_CAMERA = 1;
@@ -71,6 +82,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private File fromCameraFile;
 	private Uri mImageCaptureUri;
 	private String path;
+	private static String ngaysinh = "";
 	private ImageDownloader downloader;
 	private static Bitmap bmp;
 	String pathAvartar = "";
@@ -166,6 +178,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		ivProfile.setOnClickListener(this);
 		ivStatus.setOnClickListener(this);
+		etBirthday.setOnClickListener(this);
 	}
 
 	private void FillDataProfile() {
@@ -236,9 +249,49 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		case R.id.ivStatus:
 			listDialog();
 			break;
+		case R.id.etBirthday:
+			showDatePickerDialog(v);
+			etBirthday.setFocusableInTouchMode(true);
+			etBirthday.setFocusable(true);
+			break;
 		}
 
 	}
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getChildFragmentManager(), "datePicker");
+	}
+
+	public static class DatePickerFragment extends DialogFragment implements
+			DatePickerDialog.OnDateSetListener {
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			// Do something with the date chosen by the user
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+					Locale.US);
+			try {
+				ngaysinh = dateFormat
+						.format(Global.getDateFromDatePicket(view));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			etBirthday.setText(ngaysinh);
+
+		}
+	}
+
 
 	public class ImageDialog extends Dialog implements View.OnClickListener {
 		private final TextView tvFromCamera;
