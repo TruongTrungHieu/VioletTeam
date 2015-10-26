@@ -321,6 +321,7 @@
 
     <!-- Error from server -->
     <string name="e400">Đăng ký thất bại!</string>
+    <string name="er400">Thông tin đăng nhập không đúng!</string>
     <string name="e403">Thiếu quyền thực hiện chức năng !</string>
     <string name="e404">Chức năng đang sửa !</string>
     <string name="e503">Hệ thống đang bảo trì !</string>
