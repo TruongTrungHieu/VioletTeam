@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.hou.dulibu.R;
 import com.hou.model.Lichtrinh;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -27,6 +28,7 @@ public class MyTripAdapter extends ArrayAdapter<Lichtrinh>{
 		this.layoutId = layoutId;
 		this.myArray = arr;
 	}
+	@SuppressLint("ViewHolder") 
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		LayoutInflater inflater = context.getLayoutInflater();
@@ -37,7 +39,6 @@ public class MyTripAdapter extends ArrayAdapter<Lichtrinh>{
 			final TextView txtTripTitle = (TextView) convertView.findViewById(R.id.titleTrip);
 			final TextView txtTripTimeBegin = (TextView) convertView.findViewById(R.id.tvTimeBeginTrip);
 			final TextView txtTripTimeEnd = (TextView) convertView.findViewById(R.id.tvTimeEndTrip);
-			//final TextView txtTripNumberMember = (TextView) convertView.findViewById(R.id.tvCountMember);
 			final TextView txtBeginPoint = (TextView) convertView.findViewById(R.id.tvBeginPoint);
 			final TextView txtEndPoint = (TextView) convertView.findViewById(R.id.tvEndPoint);
 			
