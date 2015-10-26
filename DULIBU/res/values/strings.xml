@@ -42,10 +42,10 @@
     <string name="save_new_pass">Đổi mật khẩu</string>
     
     <!-- Thông báo -->
-    <string name="success">Thành công !</string>
+    <string name="success">Thành công</string>
     <string name="successRegis">Đăng ký thành công !</string>
     <string name="create_success">Thông tin đã được gửi tới email của bạn, Vui lòng kiểm tra email !</string>
-    <string name="ConfirmFalse">Thất bại !</string>
+    <string name="ConfirmFalse">Thất bại</string>
     <string name="create_false">Không thể gửi thông tin tới server !</string>
 
     <!-- Thông tin ứng dụng -->
@@ -378,5 +378,12 @@
     <string name="error_TimeOffTrip">Thời gian off phải diễn ra trước!</string>
     <string name="error_TimeOffPlace">Thời gian tập trung phải diễn ra trước!</string>
     <string name="title_activity_change_map">ChangeMap</string>
+    <!-- Trip-Invite -->
+    <string name="invite">Mời</string>
+    <string name="confim_cancel">Hủy</string>
+    <string name="title_confirm">Mời tham gia</string>
+    <string name="title_invite">Nhập Email người được mời</string>
+    <string name="invite_success">Lời mời đã được gửi !</string>
+    <string name="invite_false">Bạn không thể gửi lời mời tới email này !</string>
 
 </resources>

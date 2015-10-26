@@ -45,35 +45,37 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/btnJoin"
-                    style="@style/DefaultButtonText"
-                    android:layout_width="80dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/button_login_dangky"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Tham gia"
-                    android:textAllCaps="false"
-                    android:textSize="9sp"
-                    android:textStyle="bold" />
-
-                <Button
                     android:id="@+id/btnLeave"
                     style="@style/DefaultButtonText"
                     android:layout_width="80dp"
                     android:layout_height="25dp"
-                    android:layout_alignLeft="@+id/btnJoin"
-                    android:layout_alignTop="@+id/btnJoin"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
                     android:background="@drawable/button_login_dangky"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Hủy Tham gia"
                     android:textAllCaps="false"
                     android:textSize="9sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:textStyle="bold" />
+                <Button
+                    android:id="@+id/btnInvite"
+                    style="@style/DefaultButtonText"
+                    android:layout_width="50dp"
+                    android:paddingLeft="5dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/btnLeave"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_login_dangky"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Mời"
+                    android:drawableLeft="@drawable/add_user_24"
+                    android:textAllCaps="false"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <LinearLayout
@@ -163,8 +165,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:gravity="center_vertical"
                     android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <TextView
