@@ -41,6 +41,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	private String id;
 	private String path;
 	private ExecuteQuery exeQ;
+	private Context mContext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,14 +72,18 @@ public class SplashScreenActivity extends ActionBarActivity {
 		editor.putFloat("totalDistanceInMeters", 0f);
 		editor.commit();
 
+		mContext = this;
+		final String token = Global.getPreference(mContext, Global.USER_ACCESS_TOKEN, null);
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-
-				Intent intent = new Intent(SplashScreenActivity.this,
-						LoginManagerActivity.class);
-				startActivity(intent);
-
+				if (token != null) {
+					Intent intent = new Intent(SplashScreenActivity.this, ProfileManagerActivity.class);
+					startActivity(intent);
+				} else {
+					Intent intent = new Intent(SplashScreenActivity.this, LoginManagerActivity.class);
+					startActivity(intent);
+				}
 			}
 		}, SPLASH_DISPLAY_LENGTH);
 		Typeface tf = Typeface.createFromAsset(this.getAssets(),

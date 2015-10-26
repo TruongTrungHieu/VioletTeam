@@ -19,9 +19,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +35,14 @@ import android.widget.Toast;
 	private String username;
 	private String password;
 	private TextView tvForgetPassword;
+	private ProgressBar pb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_manager);
+		pb = (ProgressBar) findViewById(R.id.pb);
+		pb.setVisibility(View.GONE);
 
 		if (getSupportActionBar() != null) {
 			getSupportActionBar().hide();
@@ -87,6 +92,8 @@ import android.widget.Toast;
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				pb.setVisibility(View.VISIBLE);
 				username = edtUsername.getText().toString().toLowerCase();
 				password = edtPassword.getText().toString();
 				if (username.equalsIgnoreCase("")) {
@@ -137,6 +144,7 @@ import android.widget.Toast;
 	}
 
 	private void loginToServer() {
+		
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("username", username);
@@ -149,6 +157,7 @@ import android.widget.Toast;
 							Intent intent = new Intent(
 									LoginManagerActivity.this,
 									ProfileManagerActivity.class);
+							pb.setVisibility(View.GONE);
 							startActivity(intent);
 						} else {
 							Toast.makeText(

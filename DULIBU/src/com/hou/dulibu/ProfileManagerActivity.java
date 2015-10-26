@@ -34,14 +34,14 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 import it.neokree.materialnavigationdrawer.elements.listeners.MaterialAccountListener;
+import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionListener;
 
 @SuppressWarnings("rawtypes")
-public class ProfileManagerActivity extends MaterialNavigationDrawer implements
-		MaterialAccountListener {
+public class ProfileManagerActivity extends MaterialNavigationDrawer implements MaterialAccountListener {
 
 	private MaterialAccount account;
-	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,
-			mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
+	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip, mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip,
+			mnuSetting;
 
 	private File avaFile;
 
@@ -57,60 +57,53 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 	public void init(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 
-		String fullname = Global.getPreference(getApplicationContext(),
-				Global.USER_FULLNAME, "");
-		String avatarUrl = Global.getPreference(getApplicationContext(),
-				Global.USER_AVATAR, "");
+		String fullname = Global.getPreference(getApplicationContext(), Global.USER_FULLNAME, "");
+		String avatarUrl = Global.getPreference(getApplicationContext(), Global.USER_AVATAR, "");
 		String[] temp = avatarUrl.split("/");
 		String fileName = temp[temp.length - 1];
-		setAccount(new MaterialAccount(this.getResources(),
-				fullname.toUpperCase(), "", R.drawable.ic_launcher,
+		setAccount(new MaterialAccount(this.getResources(), fullname.toUpperCase(), "", R.drawable.ic_launcher,
 				R.drawable.default_bg));
 		File f;
 		f = ImageUltiFunctions.getFileFromUri(Global.getURI(fileName));
 		if (f != null) {
-			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
-					500);
-			account = new MaterialAccount(this.getResources(),
-					fullname.toUpperCase(), "", b, R.drawable.default_bg);
+			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
+			account = new MaterialAccount(this.getResources(), fullname.toUpperCase(), "", b, R.drawable.default_bg);
 		}
 
 		this.addAccount(account);
 		this.disableLearningPattern();
 
-		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan),
-				R.drawable.icon_profile, new ProfileFragment());
+		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan), R.drawable.icon_profile, new ProfileFragment());
 		this.addSection(mnuInfo);
 
 		// Intent mnuLstTrip = new Intent(ProfileManagerActivity.this,
 		// ListTripFragment.class);
 		// mnuLstTrip.putExtra("NameIntent", "mnuLstTrip");
 
-		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi),
-				R.drawable.icon_list_trip, new MyTrips()));
+		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi), R.drawable.icon_list_trip, new MyTrips()));
 
-		this.addSection(newSection(getString(R.string.menuDiemPhuot),
-				R.drawable.icon_place, new ListPhuotFragment()));
+		this.addSection(newSection(getString(R.string.menuDiemPhuot), R.drawable.icon_place, new ListPhuotFragment()));
 
-		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi),
-				R.drawable.icon_heart, new ListTripFragment());
+		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi), R.drawable.icon_heart, new ListTripFragment());
 		this.addSection(mnuMyTrip);
 
-		mnuMyMap = newSection(getString(R.string.menuBanDo),
-				R.drawable.icon_map, new MapFragment());
+		mnuMyMap = newSection(getString(R.string.menuBanDo), R.drawable.icon_map, new MapFragment());
 		this.addSection(mnuMyMap);
 
-		mnuSetting = newSection(getString(R.string.menuCaiDat),
-				R.drawable.icon_setting, new SettingFragment());
+		mnuSetting = newSection(getString(R.string.menuCaiDat), R.drawable.icon_setting, new SettingFragment());
 		this.addSection(mnuSetting);
 
-		mnuLogout = newSection(getString(R.string.menuDangXuat),
-				R.drawable.icon_logout, new Intent(this,
-						LoginManagerActivity.class));
+		mnuLogout = newSection(getString(R.string.menuDangXuat), R.drawable.icon_logout, new MaterialSectionListener() {
+
+			@Override
+			public void onClick(MaterialSection section) {
+				// TODO Auto-generated method stub
+				logoutToServer();
+			}
+		});
 		this.addSection(mnuLogout);
 
-		mnuAbout = newSection(getString(R.string.menuThongTin),
-				R.drawable.icon_about, new ThongTinUngDung());
+		mnuAbout = newSection(getString(R.string.menuThongTin), R.drawable.icon_about, new ThongTinUngDung());
 		this.addSection(mnuAbout);
 
 	}
@@ -155,48 +148,41 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 
 	private void logoutToServer() {
 		AsyncHttpClient client = new AsyncHttpClient();
-		RequestParams params = new RequestParams();
+		// RequestParams params = new RequestParams();
 
-		String access_token = Global.getPreference(getApplicationContext(),
-				Global.USER_ACCESS_TOKEN, Global.ACCESS_TOKEN_DEFAULT);
+		String access_token = Global.getPreference(getApplicationContext(), Global.USER_ACCESS_TOKEN,
+				Global.ACCESS_TOKEN_DEFAULT);
 
-		params.put("access_token", access_token);
+		// params.put("access_token", access_token);
 
-		client.post(Global.BASE_URI + "/" + Global.URI_DANGXUAT_PATH, params,
+		client.post(Global.BASE_URI + "/" + Global.URI_DANGXUAT_PATH + "?access_token=" + access_token,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("logoutToServer", response);
-						Global.savePreference(getApplicationContext(),
-								Global.USER_ACCESS_TOKEN, null);
+						Global.savePreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, null);
 
-						Intent intent = new Intent(ProfileManagerActivity.this,
-								LoginManagerActivity.class);
+						Intent intent = new Intent(ProfileManagerActivity.this, LoginManagerActivity.class);
 						startActivity(intent);
 
 					}
 
 					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
+					public void onFailure(int statusCode, Throwable error, String content) {
 						switch (statusCode) {
 						case 400:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e400),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 403:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e403),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e403),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 404:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e404),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e404),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 503:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e503),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e503),
 									Toast.LENGTH_LONG).show();
 							break;
 						default:
