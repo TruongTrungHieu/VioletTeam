@@ -58,6 +58,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	private GoogleMap googleMap;
 	private MapView mMapView;
 
+	private Location currentLocation;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -103,6 +105,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 		}
 		locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
 
+		currentLocation = googleMap.getMyLocation();
+		
 		imgMapWarnning = (ImageView) v.findViewById(R.id.imgMapWarnning);
 		imgMapHospital = (ImageView) v.findViewById(R.id.imgMapHospital);
 		imgMapGas = (ImageView) v.findViewById(R.id.imgMapGas);
@@ -262,7 +266,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
-		// inflater.inflate(R.menu.fragment_profile, menu);
+//		 inflater.inflate(R.menu., menu);
 	}
 
 	@Override
@@ -280,8 +284,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
+		currentLocation = location;
 		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				location.getLatitude(), location.getLongitude()), 13));
+				currentLocation.getLatitude(), currentLocation.getLongitude()), 13));
 	}
 
 	@Override
@@ -293,8 +298,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	private void getNearbyFromGoogle(final String type) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		String url = Global.URL_NEARBY(location.getLatitude(),
-				location.getLongitude(), Global.NEARBY_RADIUS, type);
+		String url = Global.URL_NEARBY(currentLocation.getLatitude(),
+				currentLocation.getLongitude(), Global.NEARBY_RADIUS, type);
 		client.get(url, params, new AsyncHttpResponseHandler() {
 			public void onSuccess(String response) {
 				Log.e("getNearbyFromGoogle", response);

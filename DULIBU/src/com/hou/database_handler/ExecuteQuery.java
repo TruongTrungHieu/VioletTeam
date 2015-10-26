@@ -288,11 +288,8 @@ public class ExecuteQuery {
 	public boolean delete_tbl_tinh_thanhpho() {
 		try {
 			database = mDbHelper.getWritableDatabase();
-			if (database.delete(ColumnName.TBL_TINH_THANHPHO_TABLE, null, null) == 1) {
-				return true;
-			} else {
-				return false;
-			}
+			database.delete(ColumnName.TBL_TINH_THANHPHO_TABLE, null, null); 
+			return true;
 		} catch (SQLiteException e) {
 			Log.e("delete_tbl_tinh_thanhpho", e.getMessage());
 			return false;

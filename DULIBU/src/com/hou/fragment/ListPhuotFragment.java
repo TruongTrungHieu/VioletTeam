@@ -124,7 +124,7 @@ public class ListPhuotFragment extends Fragment {
 					getPlacetoServer();
 				} else if (a.equals("NoInternetAccess")) {
 					Toast.makeText(getActivity(),
-							"No connection, try again later",
+							"No connection. Please try again later !",
 							Toast.LENGTH_SHORT).show();
 				}
 				Handler h = new Handler();
@@ -284,7 +284,6 @@ public class ListPhuotFragment extends Fragment {
 					}
 				}
 			}
-
 			return null;
 		}
 
