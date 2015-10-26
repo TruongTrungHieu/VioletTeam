@@ -136,7 +136,7 @@ public class ListPhuotFragment extends Fragment {
 			}
 		});
 		// showSlideImage(SlideImageArr);
-		LoadGrid(view);
+		//LoadGrid(view);
 		gv_phuot.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -153,24 +153,24 @@ public class ListPhuotFragment extends Fragment {
 				// Bundle bundle = new Bundle();
 				// bundle.putString("",);
 				//ListPhuotFragment f = new ListPhuotFragment();
-				Bundle b = new Bundle();
-				b.putString("maDiemPhuot", phuots.get(position)
-						.getMaDiemphuot());
-				b.putString("tenDiemPhuot", phuots.get(position)
-						.getTenDiemphuot());
-				b.putString("ghiChu", phuots.get(position).getGhichu());
-				b.putInt("trangThaiChuan", phuots.get(position)
-						.getTrangthaiChuan());
-				b.putString("image", phuots.get(position).getImage());
-				b.putString("lat_diemphuot",phuots.get(position).getLat());
-				b.putString("lon_diemphuot",phuots.get(position).getLon());
-				Log.e("OnClickViet","Link anh:" +phuots.get(position).getImage() );
-				//f.setArguments(b);
-
-				
-				Intent intent = new Intent(getActivity(),
-						PhuotDetailManager.class);
-				intent.putExtra("myBundle",b);
+//				Bundle b = new Bundle();
+//				b.putString("maDiemPhuot", phuots.get(position)
+//						.getMaDiemphuot());
+//				b.putString("tenDiemPhuot", phuots.get(position)
+//						.getTenDiemphuot());
+//				b.putString("ghiChu", phuots.get(position).getGhichu());
+//				b.putInt("trangThaiChuan", phuots.get(position)
+//						.getTrangthaiChuan());
+//				b.putString("image", phuots.get(position).getImage());
+//				b.putString("lat_diemphuot",phuots.get(position).getLat());
+//				b.putString("lon_diemphuot",phuots.get(position).getLon());
+//				Log.e("OnClickViet","Link anh:" +phuots.get(position).getImage() );
+//				//f.setArguments(b);
+//
+//				
+//				Intent intent = new Intent(getActivity(),
+//						PhuotDetailManager.class);
+//				intent.putExtra("myBundle",b);
 
 				/*intent.putExtra("maDiemPhuot", phuots.get(position)
 						.getMaDiemphuot());
@@ -180,7 +180,7 @@ public class ListPhuotFragment extends Fragment {
 				intent.putExtra("trangThaiChuan", phuots.get(position)
 						.getTrangthaiChuan());*/
 
-				startActivity(intent);
+				//startActivity(intent);
 			}
 		});
 		return view;
