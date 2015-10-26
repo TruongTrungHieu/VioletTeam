@@ -109,8 +109,7 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 				RequestParams params = new RequestParams();
 				params.put("id", Global.getPreference(context,
 						Global.TRIP_TRIP_ID, "id"));
-				params.put("user_id", Global.getPreference(context,
-						Global.USER_MAUSER, "user_id"));
+				params.put("user_id", member.getMaUser());
 				params.put("role", Global.USER_ROLE_MEMBER);
 
 				client.post(
@@ -124,6 +123,7 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 						new AsyncHttpResponseHandler() {
 							public void onSuccess(String response) {
 								Log.e("change_role", response);
+								imgRole.setImageDrawable(null);
 								imgRole.setEnabled(false);
 							}
 

@@ -55,6 +55,10 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 		btnJoinUser.setOnClickListener(this);
 		btnLeaveUser.setOnClickListener(this);
 		LoadDataFromServer();
+		if (Global.getPreference(getActivity(), "check_role_1", "0").equals("1")) {
+			btnJoinUser.setVisibility(View.INVISIBLE);
+			btnLeaveUser.setVisibility(View.VISIBLE);
+		}
 
 		return v;
 	}
@@ -162,19 +166,9 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 				checkJoin = item.getJSONObject("created_by").optString(
 						"username");
 				
-				Log.e("xxxxxxxx",item.optJSONObject("created_by").toString());
-				
 				Global.savePreference(getActivity(), Global.USER_CREATEBY_TRIP,
 						item.getJSONObject("created_by").optString("_id"));
 			}
-//			
-//			if (!item.optString("created_by").equals("")) {
-//				admin = item.getJSONObject("created_by").optString("fullname");
-//				checkJoin = item.getJSONObject("created_by").optString(
-//						"username");
-//				Global.savePreference(getActivity(), Global.USER_CREATEBY_TRIP,
-//						item.getJSONObject("created_by").optString("_id"));
-//			}
 			String chiphicanhan = item.optString("expense", "0");
 			double chiphicanhans = Double.parseDouble(chiphicanhan);
 			String thoigian_xuatphat = item.optString("gathering_time");

@@ -189,6 +189,8 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 						default:
 							break;
 						}
+						Intent intent = new Intent(ProfileManagerActivity.this, LoginManagerActivity.class);
+						startActivity(intent);
 					}
 				});
 	}

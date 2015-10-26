@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.hou.adapters.MemberAdapterForAdmin;
+import com.hou.adapters.MemberAdminAdapter;
 import com.hou.adapters.MemberAdapter;
 import com.hou.adapters.MemberAdminAdapter;
 import com.hou.app.Global;
@@ -37,7 +39,7 @@ public class TripDetailMemberActivity extends Fragment {
 	ListView lvMember = null;
 	int trangthai;
 	MemberAdapter adapter;
-	MemberAdminAdapter adapterForAdmin;
+	MemberAdapterForAdmin adapterForAdmin;
 	private boolean checkAdmin = false;
 
 	@Override
@@ -51,7 +53,7 @@ public class TripDetailMemberActivity extends Fragment {
 		arrListUsers = new ArrayList<LichtrinhMember>();
 		adapter = new MemberAdapter(getActivity(),
 				R.layout.trip_detail_member_after_start, arrListMember);
-		adapterForAdmin = new MemberAdminAdapter(getActivity(),
+		adapterForAdmin = new MemberAdapterForAdmin(getActivity(),
 				R.layout.trip_detail_member_after_start, arrListUsers);
 		getTripMember(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
 				""));
@@ -140,7 +142,6 @@ public class TripDetailMemberActivity extends Fragment {
 				if (_id.equals(Global.getPreference(getActivity(), Global.USER_MAUSER, "ma_user")) && role.equals(Global.USER_ROLE_ADMIN)) {
 					checkAdmin = true;
 				}
-				Log.d("memberLog", fullname);
 			}
 			for (int i = 0; i < arrListMember.size(); i++) {
 				if (arrListMember.get(i).getQuyen()

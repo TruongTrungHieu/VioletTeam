@@ -264,27 +264,34 @@ import android.widget.Toast;
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
 		alert.setTitle("Quên Mật Khẩu");
-		alert.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+		alert.setNegativeButton("Hủy", null);
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				return;
-
-			}
-		});
-
-		alert.setPositiveButton("Gửi",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						SendForgetPass(txtActiveCode.getText().toString());
-						dialog.dismiss();
-						return;
-					}
-				});
+		alert.setPositiveButton("Gửi",null);
 		AlertDialog dialog = alert.create();
+		
+		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+	        @Override
+	        public void onShow(final DialogInterface dialog) {
+
+	            Button b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+	            b.setOnClickListener(new View.OnClickListener() {
+
+	                @Override
+	                public void onClick(View view) {
+	                    // TODO Do something
+	                	if (!Global.isValidEmail(txtActiveCode.getText().toString())) {
+	            			txtActiveCode.setError(getString(R.string.register_err_email));
+	            			txtActiveCode.requestFocus();
+	            		}else {
+	            			SendForgetPass(txtActiveCode.getText().toString());
+	            			dialog.dismiss();
+	            			return;
+	            		}
+	                }
+	            });
+	        }
+	    });
 		dialog.show();
 	}
 	private void SendForgetPass(String txtemail) {

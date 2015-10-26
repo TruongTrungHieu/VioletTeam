@@ -9,8 +9,10 @@ import org.json.JSONObject;
 
 import com.hou.app.Global;
 import com.hou.dulibu.ChiTieu_Activity;
+import com.hou.dulibu.LoginManagerActivity;
 import com.hou.dulibu.Offline_Activity;
 import com.hou.dulibu.R;
+import com.hou.dulibu.RegisterManagerActivity;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.R.layout;
 import com.hou.model.Lichtrinh;
@@ -21,7 +23,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -36,6 +41,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +49,7 @@ import android.widget.Toast;
 public class TripDetailInfoActivity extends Fragment implements OnClickListener {
 	TextView tvKinhPhi, tvBtnOffline, tvTitleTrip, tvleader, tvTimeTrip,
 			tvTimeStart, tvKinhPhis, tvNotes, tvMoneyTrip, tvLotrinh;
-	Button btnJoinUser, btnLeaveUser;
+	Button btnInviteUser, btnLeaveUser;
 	ImageView ivTripBG;
 	private static Bitmap bmp;
 
@@ -54,7 +60,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		findViewById(v);
 		tvKinhPhi.setOnClickListener(this);
 		tvBtnOffline.setOnClickListener(this);
-		btnJoinUser.setOnClickListener(this);
+		btnInviteUser.setOnClickListener(this);
 		btnLeaveUser.setOnClickListener(this);
 		LoadDataFromServer();
 
@@ -64,7 +70,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 	public void findViewById(View v) {
 		tvKinhPhi = (TextView) v.findViewById(R.id.tvKinhPhi);
 		tvBtnOffline = (TextView) v.findViewById(R.id.tvBtnOffline);
-		btnJoinUser = (Button) v.findViewById(R.id.btnJoin);
+		btnInviteUser = (Button) v.findViewById(R.id.btnInvite);
 		btnLeaveUser = (Button) v.findViewById(R.id.btnLeave);
 
 		tvTitleTrip = (TextView) v.findViewById(R.id.tvTitleTrip);
@@ -86,17 +92,12 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			Intent i = new Intent(getActivity(), ChiTieu_Activity.class);
 			startActivity(i);
 			break;
-		case R.id.btnJoin:
-			btnJoinUser.setVisibility(View.INVISIBLE);
-			btnLeaveUser.setVisibility(View.VISIBLE);
-			
-			Toast.makeText(getActivity(), "join", Toast.LENGTH_SHORT).show();
-			joinTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "id"));
+		case R.id.btnInvite:
+			inviteUser();
 			break;
 		case R.id.btnLeave:
-			btnJoinUser.setVisibility(View.VISIBLE);
-			btnLeaveUser.setVisibility(View.INVISIBLE);
-			leaveTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "id"));
+			leaveTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
+					"id"));
 			break;
 		case R.id.tvBtnOffline:
 			Intent offline = new Intent(getActivity(), Offline_Activity.class);
@@ -165,12 +166,12 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			String tgKetthuc = item.optString("end_date");
 			String admin = "";
 			String checkJoin = "";
-			
+
 			if (!item.optString("created_by").equals("")) {
 				admin = item.getJSONObject("created_by").optString("fullname");
 				checkJoin = item.getJSONObject("created_by").optString(
 						"username");
-				
+
 				Global.savePreference(getActivity(), Global.USER_CREATEBY_TRIP,
 						item.getJSONObject("created_by").optString("_id"));
 			}
@@ -187,7 +188,8 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 					thoigian_xuatphat, note);
 			if (Global.getPreference(getActivity(), Global.USER_USERNAME, " ")
 					.equalsIgnoreCase(checkJoin)) {
-				btnJoinUser.setEnabled(false);
+				btnLeaveUser.setText("Admin");
+				btnLeaveUser.setEnabled(false);
 			}
 			tvTitleTrip.setText(dataTrip.getTenLichtrinh());
 			tvLotrinh.setText(dataTrip.getDiemBatdau() + " - "
@@ -198,7 +200,8 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			tvTimeStart.setText(dataTrip.getThoigian_xuatphat() + " - \n"
 					+ dataTrip.getDiadiem_xuatphat());
 			tvMoneyTrip.setText(dataTrip.getChiphicanhan() + "");
-			Global.savePreference(getActivity(), Global.TRIP_MONEY, dataTrip.getChiphicanhan() + "");
+			Global.savePreference(getActivity(), Global.TRIP_MONEY,
+					dataTrip.getChiphicanhan() + "");
 			tvNotes.setText(dataTrip.getNote());
 			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(new MD5()
 					.getMD5(dataTrip.getImage())));
@@ -219,11 +222,18 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		}
 
 	}
-	public void joinTrip(String _idTrip){
+
+	public void inviteUser(String _idTrip) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("id", _idTrip);
-		client.post(Global.BASE_URI + "/" + Global.TRIP_REGISTER+"?access_token="+Global.getPreference(getActivity(), Global.ACCESS_TOKEN, " "),params,
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.TRIP_REGISTER
+						+ "?access_token="
+						+ Global.getPreference(getActivity(),
+								Global.ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("DATA", response);
@@ -260,11 +270,18 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 					}
 				});
 	}
-	public void leaveTrip(String _idTrip){
+
+	public void leaveTrip(String _idTrip) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("id", _idTrip);
-		client.post(Global.BASE_URI + "/" + Global.TRIP_LEAVE+"?access_token="+Global.getPreference(getActivity(), Global.ACCESS_TOKEN, " "),params,
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.TRIP_LEAVE
+						+ "?access_token="
+						+ Global.getPreference(getActivity(),
+								Global.ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("DATA", response);
@@ -300,5 +317,132 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 						}
 					}
 				});
+	}
+
+	@SuppressLint("InflateParams")
+	private void inviteUser() {
+		
+		
+		
+		
+		
+		LayoutInflater inflater = getActivity().getLayoutInflater();
+		View alertLayout = inflater.inflate(R.layout.dialog_active_register,
+				null);
+		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		final EditText txtActiveCode = (EditText) alertLayout
+				.findViewById(R.id.edActiveCode);
+		final TextView tvForget = (TextView) alertLayout
+				.findViewById(R.id.tvCaption);
+		tvForget.setText(getString(R.string.title_invite));
+		txtActiveCode.setHint(R.string.hintDialogForget);
+		alert.setView(alertLayout);
+		alert.setCancelable(false);
+		alert.setTitle(getString(R.string.title_confirm));
+		alert.setNegativeButton(getString(R.string.confim_cancel),null);
+
+		alert.setPositiveButton(getString(R.string.invite),null);
+		AlertDialog dialog = alert.create();
+		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+	        @Override
+	        public void onShow(final DialogInterface dialog) {
+
+	            Button b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+	            b.setOnClickListener(new View.OnClickListener() {
+
+	                @Override
+	                public void onClick(View view) {
+	                    // TODO Do something
+	                	if (!Global.isValidEmail(txtActiveCode.getText().toString())) {
+	            			txtActiveCode.setError(getString(R.string.register_err_email));
+	            			txtActiveCode.requestFocus();
+	            		}else {
+	            			InviteUser(txtActiveCode.getText().toString());
+	            			dialog.dismiss();
+	            			return;
+	            		}
+	                }
+	            });
+	        }
+	    });
+		dialog.show();
+	}
+
+	private void InviteUser(String txtEmail) {
+		// TODO Auto-generated method stub
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("email", txtEmail);
+		params.put("id", Global.getPreference(getActivity(),
+				Global.TRIP_TRIP_ID, "_id_trip"));
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.TRIP_INVITE
+						+ "?access_token="
+						+ Global.getPreference(getActivity(),
+								Global.ACCESS_TOKEN, "access_token"), params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						 Log.e("Invite", response);
+						NoticeRegisSuccsess(getString(R.string.success),
+								getString(R.string.invite_success));
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.e("ERROR_INVITE", content);
+						NoticeRegisFalse(getString(R.string.ConfirmFalse),
+								getString(R.string.invite_false));
+					}
+				});
+
+	}
+
+	private void NoticeRegisSuccsess(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+				.create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_tick);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+	}
+
+	private void NoticeRegisFalse(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+				.create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_error);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
 	}
 }

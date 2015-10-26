@@ -537,6 +537,9 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 				if (_id.equals(maUser) && role.compareTo("1")>0) {
 					activityDetail = true;
 				}
+				if (_id.equals(maUser) && role.compareTo("1") == 0) {
+					Global.savePreference(getActivity(), "check_role_1", "1");
+				}
 		
 			}
 			

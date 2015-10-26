@@ -50,6 +50,8 @@ public class Global {
 	public static String URI_DELETECHIPHI_PATH ="trip/expense/delete";
 	public static String URI_POSTEVENT_PATH ="trip/event";
 	public static String URI_GETEVENT_PATH ="trip/event";
+	public static String TRIP_INVITE ="trip/invite";
+	
 	
 	public static String URI_UPDATEAVATAR_PATH = BASE_URI +  "/user/avatar";
 	public static String DIEMPHUOT_P = "20";

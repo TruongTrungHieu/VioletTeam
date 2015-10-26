@@ -43,13 +43,6 @@ public class TripDetailTripActivity extends Fragment {
 		lstImg.add(imgMapHospital);
 		lstImg.add(imgMapGas);
 
-		com.google.android.gms.maps.MapFragment mMapFragment;
-		mMapFragment = com.google.android.gms.maps.MapFragment.newInstance();
-		FragmentTransaction fragmentTransaction = getActivity()
-				.getFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.map, mMapFragment);
-		fragmentTransaction.commit();
-
 		imgMapPlace = (ImageView) v.findViewById(R.id.imgMapPlace);
 		imgMapWarnning = (ImageView) v.findViewById(R.id.imgMapWarnning);
 		imgMapTeam = (ImageView) v.findViewById(R.id.imgMapTeam);
@@ -151,7 +144,7 @@ public class TripDetailTripActivity extends Fragment {
 
 	}
 
-	// icon nào đang được chọn
+	// icon nÃ o Ä‘ang Ä‘Æ°á»£c chá»�n
 	public void ImgIsSelected() {
 		if (((status >> 4) & 1) == 1) {
 			// place
@@ -171,7 +164,7 @@ public class TripDetailTripActivity extends Fragment {
 		}
 	}
 
-	// căn chỉnh khi thay đổi kích thước màn hình
+	// cÄƒn chá»‰nh khi thay Ä‘á»•i kÃ­ch thÆ°á»›c mÃ n hÃ¬nh
 	public void FixWidthBottom(ImageView place, ImageView warnning,
 			ImageView team, ImageView hospital, ImageView gas) {
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
