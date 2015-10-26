@@ -40,12 +40,10 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		MaterialAccountListener {
 
 	private MaterialAccount account;
-	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
+	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,
+			mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
 
 	private File avaFile;
-
-			
-
 
 	public MaterialAccount getAccount() {
 		return account;
@@ -76,12 +74,12 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 			account = new MaterialAccount(this.getResources(),
 					fullname.toUpperCase(), "", b, R.drawable.default_bg);
 		}
-		
+
 		this.addAccount(account);
 		this.disableLearningPattern();
 
-		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan), R.drawable.icon_profile,
-				new ProfileFragment());
+		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan),
+				R.drawable.icon_profile, new ProfileFragment());
 		this.addSection(mnuInfo);
 
 		// Intent mnuLstTrip = new Intent(ProfileManagerActivity.this,
@@ -91,25 +89,28 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi),
 				R.drawable.icon_list_trip, new MyTrips()));
 
-		this.addSection(newSection(getString(R.string.menuDiemPhuot), R.drawable.icon_place,
-				new ListPhuotFragment()));
+		this.addSection(newSection(getString(R.string.menuDiemPhuot),
+				R.drawable.icon_place, new ListPhuotFragment()));
 
-		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi), R.drawable.icon_heart,
-				new ListTripFragment());
+		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi),
+				R.drawable.icon_heart, new ListTripFragment());
 		this.addSection(mnuMyTrip);
 
-		mnuMyMap = newSection(getString(R.string.menuBanDo), R.drawable.icon_map, new MapFragment());
+		mnuMyMap = newSection(getString(R.string.menuBanDo),
+				R.drawable.icon_map, new MapFragment());
 		this.addSection(mnuMyMap);
-		
-		mnuSetting = newSection(getString(R.string.menuCaiDat), R.drawable.icon_setting, new SettingFragment());
+
+		mnuSetting = newSection(getString(R.string.menuCaiDat),
+				R.drawable.icon_setting, new SettingFragment());
 		this.addSection(mnuSetting);
 
-		mnuLogout = newSection(getString(R.string.menuDangXuat), R.drawable.icon_logout,
-				new Intent(this, LoginManagerActivity.class));
+		mnuLogout = newSection(getString(R.string.menuDangXuat),
+				R.drawable.icon_logout, new Intent(this,
+						LoginManagerActivity.class));
 		this.addSection(mnuLogout);
 
-		mnuAbout = newSection(getString(R.string.menuThongTin), R.drawable.icon_about,
-				new ThongTinUngDung());
+		mnuAbout = newSection(getString(R.string.menuThongTin),
+				R.drawable.icon_about, new ThongTinUngDung());
 		this.addSection(mnuAbout);
 
 	}

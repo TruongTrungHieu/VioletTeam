@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.hou.app.Global;
@@ -13,29 +12,27 @@ import com.hou.model.Diemphuot;
 import com.hou.ultis.ImageUltiFunctions;
 
 import android.R.integer;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DiemphuotAdapter extends BaseAdapter {
-	Context context;
-	List<Diemphuot> phuots;
-	List<Bitmap> bitmaps;
+	@SuppressWarnings("unused")
+	private Context context;
+	private List<Diemphuot> phuots;
+	private List<Bitmap> bitmaps;
 	private static LayoutInflater inflater = null;
-	Bitmap bmp;
-	String ImageUrl;
-	ImageView im;
+	private Bitmap bmp;
+//	private String ImageUrl;
+	private ImageView im;
 	
 
 	public DiemphuotAdapter(Context context, List<Diemphuot> phuots) {
@@ -62,7 +59,7 @@ public class DiemphuotAdapter extends BaseAdapter {
 		return 0;
 	}
 
-	@Override
+	@SuppressLint({ "InflateParams", "ViewHolder" }) @Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		v = inflater.inflate(R.layout.list_phuot_item, null);

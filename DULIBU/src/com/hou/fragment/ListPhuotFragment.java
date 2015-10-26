@@ -2,7 +2,6 @@ package com.hou.fragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,18 +60,14 @@ public class ListPhuotFragment extends Fragment {
 		exeQ.open();
 		
 		listPhuot = new ArrayList<Diemphuot>();
+		listPhuot = exeQ.getAllDiemphuot();
+		
 		adapter = new DiemphuotAdapter(getActivity(), listPhuot);
 		
-		listPhuot = exeQ.getAllDiemphuot();
-		gv_phuot.setAdapter(adapter);
 		/*
 		 * loadAnh(adapter, listPhuot);
 		 */
-		DeviceStatus ds = new DeviceStatus();
-		String a = ds.getCurrentConnection(getActivity());
-		if (a.equals("Wifi") || a.equals("3G")) {
-			getPlacetoServer();
-		}
+		
 	}
 
 	@Override
@@ -105,6 +100,13 @@ public class ListPhuotFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		gv_phuot.setAdapter(adapter);
+		
+		DeviceStatus ds = new DeviceStatus();
+		String a = ds.getCurrentConnection(getActivity());
+		if (a.equals("Wifi") || a.equals("3G")) {
+			getPlacetoServer();
+		}
 		
 		swipeRefreshLayoutPhuot = (SwipeRefreshLayout) view
 				.findViewById(R.id.swipe_refresh_layout_phuot);
@@ -133,54 +135,6 @@ public class ListPhuotFragment extends Fragment {
 						swipeRefreshLayoutPhuot.setRefreshing(false);
 					}
 				}, 3000);
-			}
-		});
-		// showSlideImage(SlideImageArr);
-		//LoadGrid(view);
-		gv_phuot.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				/*
-				 * Toast.makeText(getActivity(), "TÃªn: " + ((Diemphuot)
-				 * phuots.get(position)).getTenDiemphuot() + "\n" + "id áº£nh: "
-				 * + ((Diemphuot) phuots.get(position)).getImage(),
-				 * Toast.LENGTH_LONG).show();
-				 */
-				// Intent intent = new Intent(getActivity(),
-				// PhuotDetailManager.class);
-				// Bundle bundle = new Bundle();
-				// bundle.putString("",);
-				//ListPhuotFragment f = new ListPhuotFragment();
-//				Bundle b = new Bundle();
-//				b.putString("maDiemPhuot", phuots.get(position)
-//						.getMaDiemphuot());
-//				b.putString("tenDiemPhuot", phuots.get(position)
-//						.getTenDiemphuot());
-//				b.putString("ghiChu", phuots.get(position).getGhichu());
-//				b.putInt("trangThaiChuan", phuots.get(position)
-//						.getTrangthaiChuan());
-//				b.putString("image", phuots.get(position).getImage());
-//				b.putString("lat_diemphuot",phuots.get(position).getLat());
-//				b.putString("lon_diemphuot",phuots.get(position).getLon());
-//				Log.e("OnClickViet","Link anh:" +phuots.get(position).getImage() );
-//				//f.setArguments(b);
-//
-//				
-//				Intent intent = new Intent(getActivity(),
-//						PhuotDetailManager.class);
-//				intent.putExtra("myBundle",b);
-
-				/*intent.putExtra("maDiemPhuot", phuots.get(position)
-						.getMaDiemphuot());
-				intent.putExtra("tenDiemPhuot", phuots.get(position)
-						.getTenDiemphuot());
-				intent.putExtra("ghiChu", phuots.get(position).getGhichu());
-				intent.putExtra("trangThaiChuan", phuots.get(position)
-						.getTrangthaiChuan());*/
-
-				//startActivity(intent);
 			}
 		});
 		return view;
@@ -226,8 +180,7 @@ public class ListPhuotFragment extends Fragment {
 	public void getPlacetoServer() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		params.put("p", p);
-		client.get(Global.BASE_URI + "/" + Global.URI_GETPLACE_PATH, params,
+		client.get(Global.BASE_URI + "/" + Global.URI_GETPLACE_PATH + "?p=" + p, params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getPlacetoServer", response);						
@@ -250,9 +203,9 @@ public class ListPhuotFragment extends Fragment {
 				Diemphuot place = new Diemphuot();
 
 				String _id = placeLocationJson.optString("_id");
-				String note = placeLocationJson.optString("note");
-				String lat = placeLocationJson.optString("lat") + "";
-				String lon = placeLocationJson.optString("lon") + "";
+				String note = placeLocationJson.optString("note","");
+				String lat = placeLocationJson.optString("lat");
+				String lon = placeLocationJson.optString("lon");
 				String name = placeLocationJson.optString("name");
 				String image = placeLocationJson.optString("image");
 				String address = placeLocationJson.optString("address");
@@ -295,7 +248,6 @@ public class ListPhuotFragment extends Fragment {
 	private void loadAnh(ArrayList<Diemphuot> dps) {
 		getImagePhuot gidp = new getImagePhuot(dps);
 		gidp.execute();
-		adapter.notifyDataSetChanged();
 	}
 
 	public class getImagePhuot extends AsyncTask<Void, Void, Void> {
@@ -347,9 +299,6 @@ public class ListPhuotFragment extends Fragment {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-
-			Toast.makeText(getActivity(), "Ä�Ã£ xong: áº£nh",
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 
