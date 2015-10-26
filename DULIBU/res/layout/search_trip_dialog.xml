@@ -87,7 +87,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/custom_spiner_bg"
                     android:dropDownHeight="150dp"
-                    android:entries="@array/city_arrays"
+                    android:entries="@array/city_arrays_search"
                     android:popupBackground="#FFF"
                     android:prompt="@string/city_prompt" />
             </LinearLayout>
