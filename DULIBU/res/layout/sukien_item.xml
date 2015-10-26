@@ -3,17 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/shadow_sukien_bg" >
+    
+    android:background="@drawable/shadow_sukien_bg"
+    android:orientation="vertical" >
 
-    <TextView
+
+
+    <com.google.android.gms.maps.MapView
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="0dp"
-        android:text="@string/str_ten"
-        android:textColor="@color/counter_text_bg"
-        android:textSize="14sp" />
+        android:layout_height="250dp"
+        
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        map:cameraZoom="25"
+        map:liteMode="true"
+        map:mapType="normal" />
+
+    
+   
 
     <TextView
         android:id="@+id/tvTenSuKien"
@@ -40,28 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/str_thoigian"
         android:textColor="@color/ActionBarColor"
         android:textSize="14sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/str_bando"
-        android:textColor="@color/counter_text_bg"
-        android:textSize="14sp" />
-
-    <com.google.android.gms.maps.MapView
-        android:layout_marginTop="5dp"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        map:cameraZoom="25"
-        map:liteMode="true"
-        map:mapType="normal" />
 
 </LinearLayout>

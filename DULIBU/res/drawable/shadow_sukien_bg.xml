@@ -28,10 +28,10 @@
 
             <gradient
                 android:angle="270"
-                android:centerColor="#e0e0e0"
+                android:centerColor="@color/white"
                 android:centerX="0.15"
-                android:endColor="#e0e0e0"
-                android:startColor="#e0e0e0" >
+                android:endColor="@color/white"
+                android:startColor="@color/white" >
             </gradient>
         </shape>
     </item>
@@ -39,7 +39,7 @@
     <!-- White Top color -->
     <item>
         <shape android:shape="line" >
-            <solid android:color="#f5f5f5" />
+            <solid android:color="@color/white" />
 
             <corners android:radius="10dp" />
         </shape>

@@ -74,11 +74,13 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 			 * map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 			 */
 			final Sukien sk = myArray.get(position);
+			
+			sydney = new LatLng(Double.parseDouble(sk.getLat()), Double.parseDouble(sk.getLon()));
 
 			tvTenSuKien.setText(sk.getTenSukien());
-
 			tvThoiGian.setText(sk.getThoigian());
-			sydney = new LatLng(Double.parseDouble(sk.getLat()), Double.parseDouble(sk.getLon()));
+
+		
 		}
 
 		return convertView;
