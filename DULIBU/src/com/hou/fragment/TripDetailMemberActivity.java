@@ -32,8 +32,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hou.adapters.MemberAdapterForAdmin;
-import com.hou.adapters.MemberStartAdapter;
+import com.hou.adapters.MemberAdminAdapter;
+import com.hou.adapters.MemberAdapter;
 import com.hou.app.Global;
 import com.hou.dulibu.ChiTieu_Activity;
 import com.hou.dulibu.R;
@@ -50,12 +50,12 @@ import com.loopj.android.http.RequestParams;
 public class TripDetailMemberActivity extends Fragment {
 	// final Activity context = this;
 
-	ArrayList<LichtrinhMember> arrListMember = new ArrayList<LichtrinhMember>();
-	ArrayList<LichtrinhMember> arrListUsers = new ArrayList<LichtrinhMember>();
+	ArrayList<LichtrinhMember> arrListMember ;
+	ArrayList<LichtrinhMember> arrListUsers ;
 	ListView lvMember = null;
 	int trangthai;
-	MemberStartAdapter adapter;
-	MemberAdapterForAdmin adapterForAdmin;
+	MemberAdapter adapter;
+	MemberAdminAdapter adapterForAdmin;
 	private boolean checkAdmin = false;
 
 	@Override
@@ -67,9 +67,9 @@ public class TripDetailMemberActivity extends Fragment {
 		trangthai = 1;
 		arrListMember = new ArrayList<LichtrinhMember>();
 		arrListUsers = new ArrayList<LichtrinhMember>();
-		adapter = new MemberStartAdapter(getActivity(),
+		adapter = new MemberAdapter(getActivity(),
 				R.layout.trip_detail_member_after_start, arrListMember);
-		adapterForAdmin = new MemberAdapterForAdmin(getActivity(),
+		adapterForAdmin = new MemberAdminAdapter(getActivity(),
 				R.layout.trip_detail_member_after_start, arrListUsers);
 		getTripMember(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
 				""));

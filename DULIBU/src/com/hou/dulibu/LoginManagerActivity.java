@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,7 +61,7 @@ import android.widget.Toast;
 			}
 		});
 
-		edtUsername.setText("thanhtunguong");
+		edtUsername.setText("furi");
 		edtPassword.setText("123456");
 		
 		edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -173,10 +174,14 @@ import android.widget.Toast;
 							String content) {
 						edtPassword.setText(null);
 						edtUsername.setText(null);
+						
+						
+						Log.e("Login fail", content);
+						
 						switch (statusCode) {
 						case 400:
 							
-							edtUsername.setError(getString(R.string.e401));
+							edtUsername.setError(getString(R.string.er400));
 							edtUsername.requestFocus();
 									
 							break;

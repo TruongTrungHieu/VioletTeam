@@ -80,7 +80,8 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 		// ListTripFragment.class);
 		// mnuLstTrip.putExtra("NameIntent", "mnuLstTrip");
 
-		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi), R.drawable.icon_list_trip, new MyTrips()));
+		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi),
+				R.drawable.icon_list_trip, new ListTripFragment()));
 
 		this.addSection(newSection(getString(R.string.menuDiemPhuot), R.drawable.icon_place, new ListPhuotFragment()));
 

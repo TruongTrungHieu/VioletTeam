@@ -18,6 +18,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.DatePicker;
 
@@ -54,8 +55,9 @@ public class Global {
 	public static String DIEMPHUOT_P = "20";
 	public static String TRIP_TRIP_ID = "_id_trip";
 	public static String TRIP_MONEY = "_trip_money";
-	
-//http://128.199.112.15/static/travel/5610/f3599b7c4dc80e5e0319.jpg
+	public static String TRIP_REGISTER = "trip/register";
+	public static String TRIP_LEAVE = "trip/leave";
+	public static String TRIP_ROLE = "trip/role";
 
 
 	/*
@@ -124,6 +126,7 @@ public class Global {
 	public static void savePreference(Context mContext, String key, String value) {
 		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
 				XML_FILE_NAME, Context.MODE_PRIVATE);
+		
 		Editor mEditor = mSharedPrefences.edit();
 		mEditor.putString(key, value);
 		mEditor.commit();

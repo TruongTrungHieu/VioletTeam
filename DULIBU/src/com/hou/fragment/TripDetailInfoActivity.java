@@ -19,6 +19,7 @@ import com.hou.upload.ImageDownloader;
 import com.hou.upload.MD5;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -88,12 +89,14 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		case R.id.btnJoin:
 			btnJoinUser.setVisibility(View.INVISIBLE);
 			btnLeaveUser.setVisibility(View.VISIBLE);
+			
 			Toast.makeText(getActivity(), "join", Toast.LENGTH_SHORT).show();
+			joinTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "id"));
 			break;
 		case R.id.btnLeave:
 			btnJoinUser.setVisibility(View.VISIBLE);
 			btnLeaveUser.setVisibility(View.INVISIBLE);
-			Toast.makeText(getActivity(), "leave", Toast.LENGTH_SHORT).show();
+			leaveTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "id"));
 			break;
 		case R.id.tvBtnOffline:
 			Intent offline = new Intent(getActivity(), Offline_Activity.class);
@@ -162,10 +165,12 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			String tgKetthuc = item.optString("end_date");
 			String admin = "";
 			String checkJoin = "";
+			
 			if (!item.optString("created_by").equals("")) {
 				admin = item.getJSONObject("created_by").optString("fullname");
 				checkJoin = item.getJSONObject("created_by").optString(
 						"username");
+				
 				Global.savePreference(getActivity(), Global.USER_CREATEBY_TRIP,
 						item.getJSONObject("created_by").optString("_id"));
 			}
@@ -213,5 +218,87 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			e.printStackTrace();
 		}
 
+	}
+	public void joinTrip(String _idTrip){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", _idTrip);
+		client.post(Global.BASE_URI + "/" + Global.TRIP_REGISTER+"?access_token="+Global.getPreference(getActivity(), Global.ACCESS_TOKEN, " "),params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("DATA", response);
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						switch (statusCode) {
+						case 400:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e400),
+									Toast.LENGTH_LONG).show();
+							break;
+						case 403:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e403),
+									Toast.LENGTH_LONG).show();
+							break;
+						case 404:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e404),
+									Toast.LENGTH_LONG).show();
+							break;
+						case 503:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e503),
+									Toast.LENGTH_LONG).show();
+							break;
+						default:
+							break;
+						}
+					}
+				});
+	}
+	public void leaveTrip(String _idTrip){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("id", _idTrip);
+		client.post(Global.BASE_URI + "/" + Global.TRIP_LEAVE+"?access_token="+Global.getPreference(getActivity(), Global.ACCESS_TOKEN, " "),params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("DATA", response);
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						switch (statusCode) {
+						case 400:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e400),
+									Toast.LENGTH_LONG).show();
+							break;
+						case 403:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e403),
+									Toast.LENGTH_LONG).show();
+							break;
+						case 404:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e404),
+									Toast.LENGTH_LONG).show();
+							break;
+						case 503:
+							Toast.makeText(getActivity(),
+									getResources().getString(R.string.e503),
+									Toast.LENGTH_LONG).show();
+							break;
+						default:
+							break;
+						}
+					}
+				});
 	}
 }
