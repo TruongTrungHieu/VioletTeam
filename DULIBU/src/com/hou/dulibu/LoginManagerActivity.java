@@ -31,7 +31,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("DefaultLocale") public class LoginManagerActivity extends ActionBarActivity {
+@SuppressLint("DefaultLocale")
+public class LoginManagerActivity extends ActionBarActivity {
 	private Button btnLogin;
 	private Button btnDangky;
 	private EditText edtUsername;
@@ -56,7 +57,7 @@ import android.widget.Toast;
 		edtUsername = (EditText) findViewById(R.id.edtUsername);
 		edtPassword = (EditText) findViewById(R.id.edtPassword);
 		tvForgetPassword.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -66,22 +67,19 @@ import android.widget.Toast;
 
 		edtUsername.setText("thanhtunguong");
 		edtPassword.setText("123456");
-		
+
 		edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
-			public boolean onEditorAction(TextView v, int id,
-					KeyEvent event) {
+			public boolean onEditorAction(TextView v, int id, KeyEvent event) {
 				if (id == R.id.login || id == EditorInfo.IME_NULL) {
 					username = edtUsername.getText().toString().toLowerCase();
 					password = edtPassword.getText().toString();
-					if (username != null && edtPassword != null
-							&& username.trim().length() > 0
+					if (username != null && edtPassword != null && username.trim().length() > 0
 							&& password.trim().length() > 0) {
 						// send request login to server
 						loginToServer();
 					} else {
-						Toast.makeText(getApplicationContext(),
-								getResources().getString(R.string.validator_login),
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.validator_login),
 								Toast.LENGTH_LONG).show();
 					}
 					return true;
@@ -96,18 +94,20 @@ import android.widget.Toast;
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+
 				pb.setVisibility(View.VISIBLE);
 				username = edtUsername.getText().toString().toLowerCase();
 				password = edtPassword.getText().toString();
 				if (username.equalsIgnoreCase("")) {
+					pb.setVisibility(View.GONE);
 					edtUsername.setError(getString(R.string.checknull));
 					edtUsername.requestFocus();
-				}else {
+				} else {
 					if (password.equalsIgnoreCase("")) {
+						pb.setVisibility(View.GONE);
 						edtPassword.setError(getString(R.string.checknull));
 						edtPassword.requestFocus();
-					}else {
+					} else {
 						loginToServer();
 					}
 				}
@@ -121,8 +121,7 @@ import android.widget.Toast;
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Global.createFolderDULIBU();
-				Intent intent = new Intent(LoginManagerActivity.this,
-						RegisterManagerActivity.class);
+				Intent intent = new Intent(LoginManagerActivity.this, RegisterManagerActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -148,65 +147,58 @@ import android.widget.Toast;
 	}
 
 	private void loginToServer() {
-		
+
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("username", username);
 		params.put("password", password);
-		client.post(Global.BASE_URI + "/" + Global.URI_DANGNHAP_PATH, params,
-				new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-//						Log.e("loginToServer", response);
-						if (executeWhenLoginSuccess(response)) {
-							Intent intent = new Intent(
-									LoginManagerActivity.this,
-									ProfileManagerActivity.class);
-							pb.setVisibility(View.GONE);
-							
-							Global.TIMESTAMP = (new Date()).getTime() + "";
-							startActivity(intent);
-						} else {
-							Toast.makeText(
-									getApplicationContext(),
-									getResources().getString(
-											R.string.login_again),
-									Toast.LENGTH_LONG).show();
-						}
-					}
+		client.post(Global.BASE_URI + "/" + Global.URI_DANGNHAP_PATH, params, new AsyncHttpResponseHandler() {
+			public void onSuccess(String response) {
+				// Log.e("loginToServer", response);
+				if (executeWhenLoginSuccess(response)) {
+					Intent intent = new Intent(LoginManagerActivity.this, ProfileManagerActivity.class);
+					pb.setVisibility(View.GONE);
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						edtPassword.setText(null);
-						edtUsername.setText(null);
-						
-						Log.e("Login fail", statusCode+"");
-						
-						switch (statusCode) {
-						case 400:
-							
-							edtUsername.setError(getString(R.string.er400));
-							edtUsername.requestFocus();
-									
-							break;
-						case 403:
-							edtUsername.setError(getString(R.string.e403));
-							edtUsername.requestFocus();
-							break;
-						case 404:
-							
-							edtUsername.setError(getString(R.string.e404));
-							edtUsername.requestFocus();
-							break;
-						case 503:
-							edtUsername.setError(getString(R.string.e503));
-							edtUsername.requestFocus();
-							break;
-						default:
-							break;
-						}
-					}
-				});
+					Global.TIMESTAMP = (new Date()).getTime() + "";
+					startActivity(intent);
+				} else {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_again),
+							Toast.LENGTH_LONG).show();
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Throwable error, String content) {
+				edtPassword.setText(null);
+				edtUsername.setText(null);
+
+				Log.e("Login fail", statusCode + "");
+
+				switch (statusCode) {
+				case 400:
+
+					edtUsername.setError(getString(R.string.er400));
+					edtUsername.requestFocus();
+
+					break;
+				case 403:
+					edtUsername.setError(getString(R.string.e403));
+					edtUsername.requestFocus();
+					break;
+				case 404:
+
+					edtUsername.setError(getString(R.string.e404));
+					edtUsername.requestFocus();
+					break;
+				case 503:
+					edtUsername.setError(getString(R.string.e503));
+					edtUsername.requestFocus();
+					break;
+				default:
+					break;
+				}
+			}
+		});
 	}
 
 	private boolean executeWhenLoginSuccess(String response) {
@@ -225,27 +217,17 @@ import android.widget.Toast;
 			String ghichu = userJson.optString("note");
 			String avatar = userJson.optString("avatar");
 
-			Global.savePreference(getApplicationContext(), Global.USER_MAUSER,
-					_id);
-			Global.savePreference(getApplicationContext(),
-					Global.USER_USERNAME, username);
-			Global.savePreference(getApplicationContext(),
-					Global.USER_FULLNAME, fullname);
-			Global.savePreference(getApplicationContext(), Global.USER_EMAIL,
-					email);
-			Global.savePreference(getApplicationContext(),
-					Global.USER_NGAYSINH, ngaysinh);
+			Global.savePreference(getApplicationContext(), Global.USER_MAUSER, _id);
+			Global.savePreference(getApplicationContext(), Global.USER_USERNAME, username);
+			Global.savePreference(getApplicationContext(), Global.USER_FULLNAME, fullname);
+			Global.savePreference(getApplicationContext(), Global.USER_EMAIL, email);
+			Global.savePreference(getApplicationContext(), Global.USER_NGAYSINH, ngaysinh);
 			Global.savePreference(getApplicationContext(), Global.USER_SDT, sdt);
-			Global.savePreference(getApplicationContext(),
-					Global.USER_GIOITINH, gioitinh);
-			Global.savePreference(getApplicationContext(),
-					Global.USER_SDT_LIENHE, sdt_lienhe);
-			Global.savePreference(getApplicationContext(), Global.USER_AVATAR,
-					avatar);
-			Global.savePreference(getApplicationContext(), Global.USER_GHICHU,
-					ghichu);
-			Global.savePreference(getApplicationContext(),
-					Global.USER_ACCESS_TOKEN, access_token);
+			Global.savePreference(getApplicationContext(), Global.USER_GIOITINH, gioitinh);
+			Global.savePreference(getApplicationContext(), Global.USER_SDT_LIENHE, sdt_lienhe);
+			Global.savePreference(getApplicationContext(), Global.USER_AVATAR, avatar);
+			Global.savePreference(getApplicationContext(), Global.USER_GHICHU, ghichu);
+			Global.savePreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, access_token);
 
 			return true;
 		} catch (JSONException e) {
@@ -253,14 +235,13 @@ import android.widget.Toast;
 			return false;
 		}
 	}
+
 	@SuppressLint("InflateParams")
 	private void ForgetPass() {
 		LayoutInflater inflater = getLayoutInflater();
-		View alertLayout = inflater.inflate(R.layout.dialog_active_register,
-				null);
+		View alertLayout = inflater.inflate(R.layout.dialog_active_register, null);
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		final EditText txtActiveCode = (EditText) alertLayout
-				.findViewById(R.id.edActiveCode);
+		final EditText txtActiveCode = (EditText) alertLayout.findViewById(R.id.edActiveCode);
 		final TextView tvForget = (TextView) alertLayout.findViewById(R.id.tvCaption);
 		tvForget.setText(getString(R.string.hintDialogForgetPass));
 		txtActiveCode.setHint(R.string.hintDialogForget);
@@ -269,76 +250,76 @@ import android.widget.Toast;
 		alert.setTitle("Quên Mật Khẩu");
 		alert.setNegativeButton("Hủy", null);
 
-		alert.setPositiveButton("Gửi",null);
+		alert.setPositiveButton("Gửi", null);
 		AlertDialog dialog = alert.create();
-		
+
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
-	        @Override
-	        public void onShow(final DialogInterface dialog) {
+			@Override
+			public void onShow(final DialogInterface dialog) {
 
-	            Button b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-	            b.setOnClickListener(new View.OnClickListener() {
+				Button b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+				b.setOnClickListener(new View.OnClickListener() {
 
-	                @Override
-	                public void onClick(View view) {
-	                    // TODO Do something
-	                	if (!Global.isValidEmail(txtActiveCode.getText().toString())) {
-	            			txtActiveCode.setError(getString(R.string.register_err_email));
-	            			txtActiveCode.requestFocus();
-	            		}else {
-	            			SendForgetPass(txtActiveCode.getText().toString());
-	            			dialog.dismiss();
-	            			return;
-	            		}
-	                }
-	            });
-	        }
-	    });
+					@Override
+					public void onClick(View view) {
+						// TODO Do something
+						if (!Global.isValidEmail(txtActiveCode.getText().toString())) {
+							txtActiveCode.setError(getString(R.string.register_err_email));
+							txtActiveCode.requestFocus();
+						} else {
+							SendForgetPass(txtActiveCode.getText().toString());
+							dialog.dismiss();
+							return;
+						}
+					}
+				});
+			}
+		});
 		dialog.show();
 	}
+
 	private void SendForgetPass(String txtemail) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("email", txtemail);
-		client.post(Global.BASE_URI + "/" + Global.URI_FORGET_PASS, params,
-				new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-//						Log.e("loginToServer", response);
-						NoticeRegisSuccsess(getString(R.string.success),getString(R.string.create_success));
-						
-					}
+		client.post(Global.BASE_URI + "/" + Global.URI_FORGET_PASS, params, new AsyncHttpResponseHandler() {
+			public void onSuccess(String response) {
+				// Log.e("loginToServer", response);
+				NoticeRegisSuccsess(getString(R.string.success), getString(R.string.create_success));
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						NoticeRegisFalse(getString(R.string.ConfirmFalse),getString(R.string.create_false));
-						switch (statusCode) {
-						case 400:
-							
-							edtUsername.setError(getString(R.string.e401));
-							edtUsername.requestFocus();
-									
-							break;
-						case 403:
-							edtUsername.setError(getString(R.string.e403));
-							edtUsername.requestFocus();
-							break;
-						case 404:
-							
-							edtUsername.setError(getString(R.string.e404));
-							edtUsername.requestFocus();
-							break;
-						case 503:
-							edtUsername.setError(getString(R.string.e503));
-							edtUsername.requestFocus();
-							break;
-						default:
-							break;
-						}
-					}
-				});
+			}
+
+			@Override
+			public void onFailure(int statusCode, Throwable error, String content) {
+				NoticeRegisFalse(getString(R.string.ConfirmFalse), getString(R.string.create_false));
+				switch (statusCode) {
+				case 400:
+
+					edtUsername.setError(getString(R.string.e401));
+					edtUsername.requestFocus();
+
+					break;
+				case 403:
+					edtUsername.setError(getString(R.string.e403));
+					edtUsername.requestFocus();
+					break;
+				case 404:
+
+					edtUsername.setError(getString(R.string.e404));
+					edtUsername.requestFocus();
+					break;
+				case 503:
+					edtUsername.setError(getString(R.string.e503));
+					edtUsername.requestFocus();
+					break;
+				default:
+					break;
+				}
+			}
+		});
 	}
+
 	private void NoticeRegisSuccsess(String title, String content) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
@@ -360,6 +341,7 @@ import android.widget.Toast;
 		// Showing Alert Message
 		alertDialog.show();
 	}
+
 	private void NoticeRegisFalse(String title, String content) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
