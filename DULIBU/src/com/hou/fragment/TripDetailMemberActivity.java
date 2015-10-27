@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.hou.adapters.MemberAdapterForAdmin;
 import com.hou.adapters.MemberAdminAdapter;
@@ -120,7 +122,6 @@ public class TripDetailMemberActivity extends Fragment {
 
 		try {
 			JSONArray arrObj = new JSONArray(response);
-			Log.e("StringResponse", response);
 			for (int i = 0; i < arrObj.length(); i++) {
 				JSONObject memberTripJson = arrObj.getJSONObject(i);
 
