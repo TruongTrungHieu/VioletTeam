@@ -46,22 +46,13 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
-		// Creating The Toolbar and setting it as the Toolbar for the activity
 
-		// Creating The ViewPagerAdapter and Passing Fragment Manager, Titles
-		// fot the Tabs and Number Of Tabs.
 		adapter = new TripForUserViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs, getBaseContext());
 
-		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) findViewById(R.id.trip_for_user_pager);
 		pager.setAdapter(adapter);
-		// Assiging the Sliding Tab Layout View
 		tabs = (TripForUserSlidingTabLayout) findViewById(R.id.trip_for_user_tabs);
-		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
-										// This makes the tabs Space Evenly in
-										// Available width
-
-		// Setting Custom Color for the Scroll bar indicator of the Tab View
+		tabs.setDistributeEvenly(true); 
 		tabs.setCustomTabColorizer(new TripForUserSlidingTabLayout.TabColorizer() {
 			@Override
 			public int getIndicatorColor(int position) {
@@ -69,52 +60,13 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 			}
 		});
 
-		tabs.setCustomTabView(R.layout.custom_tab, 0);//test
-		// Setting the ViewPager For the SlidingTabsLayout
+		tabs.setCustomTabView(R.layout.custom_tab, 0);
 		tabs.setViewPager(pager);
 
-		// tabhost cÅ©
-		/*
-		 * LocalActivityManager lam = new LocalActivityManager(this, false);
-		 * 
-		 * tabHost = (TabHost) findViewById(android.R.id.tabhost);
-		 * lam.dispatchCreate(savedInstanceState); tabHost.setup(lam);
-		 * tabHost.getTabWidget().getLayoutParams().height = 80; // Tab for
-		 * infoSpec = tabHost.newTabSpec("ThÃ´ng tin"); infoSpec.setIndicator(
-		 * "ThÃ´ng tin", getResources().getDrawable(R.drawable.icon_info));
-		 * Intent infoIntent = new Intent(this, TripDetailInfoActivity.class);
-		 * infoSpec.setContent(infoIntent); tabHost.addTab(infoSpec);
-		 * 
-		 * // Tab for Member memberSpec = tabHost.newTabSpec("Member"); //
-		 * setting Title and Icon for the Tab memberSpec.setIndicator("Member",
-		 * getResources().getDrawable(R.drawable.icon_male)); Intent
-		 * memberIntent = new Intent(this, TripDetailMemberActivity.class);
-		 * memberSpec.setContent(memberIntent); tabHost.addTab(memberSpec);
-		 * 
-		 * // Tab for Message messageSpec = tabHost.newTabSpec("Member"); //
-		 * setting Title and Icon for the Tab messageSpec.setIndicator("Member",
-		 * getResources().getDrawable(R.drawable.icon_male)); Intent
-		 * messageIntent = new Intent(this, TripDetailMemberActivity.class);
-		 * messageSpec.setContent(memberIntent); tabHost.addTab(messageSpec);
-		 * 
-		 * // Tab for Message tripSpec = tabHost.newTabSpec("Member"); //
-		 * setting Title and Icon for the Tab tripSpec.setIndicator("Member",
-		 * getResources().getDrawable(R.drawable.icon_male)); Intent tripIntent
-		 * = new Intent(this, TripDetailMemberActivity.class);
-		 * tripSpec.setContent(memberIntent); tabHost.addTab(tripSpec);
-		 */
-
-		/*
-		 * for (int i = 0; i < tabHost.getChildCount(); i++) {
-		 * tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
-		 * 
-		 * }
-		 */
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.trip_detail_manager_for_user_menu, menu);
 		
 		currentMenu = menu;
@@ -137,14 +89,7 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		/*switch (item.getItemId()) {
-		case android.R.id.home:
-			onBackPressed();
-			break;
-		}*/
+
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.btnSaveTripForUser:

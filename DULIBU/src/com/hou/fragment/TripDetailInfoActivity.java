@@ -51,7 +51,6 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			tvTimeStart, tvKinhPhis, tvNotes, tvMoneyTrip, tvLotrinh;
 	Button btnInviteUser, btnLeaveUser;
 	ImageView ivTripBG;
-	private static Bitmap bmp;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -98,6 +97,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		case R.id.btnLeave:
 			leaveTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
 					"id"));
+			getActivity().onBackPressed();
 			break;
 		case R.id.tvBtnOffline:
 			Intent offline = new Intent(getActivity(), Offline_Activity.class);

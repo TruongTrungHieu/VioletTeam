@@ -104,6 +104,49 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 		}
 	}
 
+//	public void LoadDataFromServer() {
+//		Log.d("adasd", "đang load...");
+//		AsyncHttpClient client = new AsyncHttpClient();
+//		client.get(Global.BASE_URI + "/" + Global.URI_TRIP_GET_TRIP + "?id="
+//				+ Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, ""),
+//				new AsyncHttpResponseHandler() {
+//					public void onSuccess(String response) {
+//						Log.e("DATA", response);
+//						executeWhenSendDataSuccess(response);
+//
+//					}
+//
+//					@Override
+//					public void onFailure(int statusCode, Throwable error,
+//							String content) {
+//						Log.d("Lỗi rồi", content + statusCode);
+//						switch (statusCode) {
+//						case 400:
+//							Toast.makeText(getActivity(),
+//									getResources().getString(R.string.e400),
+//									Toast.LENGTH_LONG).show();
+//							break;
+//						case 403:
+//							Toast.makeText(getActivity(),
+//									getResources().getString(R.string.e403),
+//									Toast.LENGTH_LONG).show();
+//							break;
+//						case 404:
+//							Toast.makeText(getActivity(),
+//									getResources().getString(R.string.e404),
+//									Toast.LENGTH_LONG).show();
+//							break;
+//						case 503:
+//							Toast.makeText(getActivity(),
+//									getResources().getString(R.string.e503),
+//									Toast.LENGTH_LONG).show();
+//							break;
+//						default:
+//							break;
+//						}
+//					}
+//				});
+//	}
 	public void LoadDataFromServer() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(Global.BASE_URI + "/" + Global.URI_TRIP_GET_TRIP + "?id="
@@ -145,7 +188,6 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 					}
 				});
 	}
-
 	private void executeWhenSendDataSuccess(String response) {
 		JSONObject item;
 		try {
