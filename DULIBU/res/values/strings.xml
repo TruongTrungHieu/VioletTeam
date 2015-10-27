@@ -182,6 +182,8 @@
     <string name="btnCancelActiveRegister">Thoát</string>
     <string name="DoneActive">Xác nhận thành công!</string>
     <string name="FailActive">Mã xác nhận không đúng, vui lòng thử lại!</string>
+    <string name="Hanoi">Hà Nội</string>
+    <string name="Hagiang">Hà Giang</string>
 
     <string-array name="city_arrays">
         <item>An Giang</item>

@@ -62,7 +62,7 @@ import android.widget.Toast;
 			}
 		});
 
-		edtUsername.setText("furi");
+		edtUsername.setText("thanhtunguong");
 		edtPassword.setText("123456");
 		
 		edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {

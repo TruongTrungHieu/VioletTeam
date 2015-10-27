@@ -1,19 +1,44 @@
 package com.hou.fragment;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.hou.adapters.LichtrinhAdapter;
 import com.hou.adapters.MyTripAdapter;
+import com.hou.app.Global;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.dulibu.CreateTripManagerActivity;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
+import com.hou.fragment.ListTripFragment.getImage;
 import com.hou.model.Lichtrinh;
+import com.hou.model.LichtrinhMember;
+import com.hou.model.Tinh_Thanhpho;
+import com.hou.ultis.ImageUltiFunctions;
+import com.hou.upload.MD5;
+import com.hou.upload.imageOnServer;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,13 +46,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MyTrips extends android.support.v4.app.Fragment {
 	ProgressDialog pDialog;
 	ArrayList<Lichtrinh> lichtrinh;
 	ListView lvListTrip;
+	private SwipeRefreshLayout swipeRefreshLayout;
+	LichtrinhAdapter adapter;
+	private ExecuteQuery exeQ;
+	private Tinh_Thanhpho startPlace, endPlace;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,15 +77,15 @@ public class MyTrips extends android.support.v4.app.Fragment {
 				.findViewById(R.id.lvMyTripList);
 		DeviceStatus ds = new DeviceStatus();
 
-//		Lichtrinh trip1 = new Lichtrinh("trip1", "DulibuTeam's Trip", "Hà Nội",
-//				"Hà Giang", "01/05/2015", "03/05/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
-//				"image");
-//		Lichtrinh trip2 = new Lichtrinh("trip2", "VioletTeam's Trip", "Hà Nội",
-//				"Hà Giang", "28/09/2015", "29/09/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
-//				"image");
+		/*Lichtrinh trip1 = new Lichtrinh("trip1", "DulibuTeam's Trip", "Hà Nội",
+				"Hà Giang", "01/05/2015", "03/05/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
+				"image");
+		Lichtrinh trip2 = new Lichtrinh("trip2", "VioletTeam's Trip", "Hà Nội",
+				"Hà Giang", "28/09/2015", "29/09/2015", "1", "1", "1", "1", "1", "1", 1, 1, "1",
+				"image");
 		lichtrinh = new ArrayList<Lichtrinh>();
-//		lichtrinh.add(trip1);
-//		lichtrinh.add(trip2);
+		lichtrinh.add(trip1);
+		lichtrinh.add(trip2);*/
 		MyTripAdapter adapter = new MyTripAdapter(getActivity(),
 				R.layout.list_trip_item, lichtrinh);
 		lvListTrip.setAdapter(adapter);
@@ -70,7 +101,7 @@ public class MyTrips extends android.support.v4.app.Fragment {
 								"" + lichtrinh.get(position).getMaLichtrinh(),
 								Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(getActivity(),
-								TripDetailManagerActivity.class);
+								TripDetailManagerForUser.class);
 						startActivity(intent);
 					}
 				});
@@ -82,6 +113,7 @@ public class MyTrips extends android.support.v4.app.Fragment {
 		return view;
 
 	}
+
 
 	@Override
 	public void onDestroy() {
