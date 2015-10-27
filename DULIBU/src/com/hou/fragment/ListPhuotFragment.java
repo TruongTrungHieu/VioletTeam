@@ -19,6 +19,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -83,20 +84,30 @@ public class ListPhuotFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				
-				Bundle b = new Bundle();
+				/*Bundle b = new Bundle();
 				b.putString("maDiemPhuot", listPhuot.get(position)
 						.getMaDiemphuot());
 				b.putString("tenDiemPhuot", listPhuot.get(position)
 						.getTenDiemphuot());
+				b.putString("lat_diemphuot", listPhuot.get(position).getLat());
+				b.putString("lon_diemphuot", listPhuot.get(position).getLon());
 				b.putString("ghiChu", listPhuot.get(position).getGhichu());
 				b.putInt("trangThaiChuan", listPhuot.get(position)
 						.getTrangthaiChuan());
-				b.putString("image", listPhuot.get(position).getImage());
+				b.putString("image", listPhuot.get(position).getImage());*/
 				Log.e("OnClickViet","Link anh:" + listPhuot.get(position).getImage() );
+				Context context = getActivity();
+				com.hou.app.Global.savePreference(context,"maDiemPhuot", listPhuot.get(position).getMaDiemphuot());
+				com.hou.app.Global.savePreference(context,"tenDiemPhuot",listPhuot.get(position).getTenDiemphuot());
+				com.hou.app.Global.savePreference(context,"ghiChu",listPhuot.get(position).getGhichu());
+				com.hou.app.Global.savePreference(context,"image",listPhuot.get(position).getImage());
+				com.hou.app.Global.savePreference(context,"lat_diemphuot",listPhuot.get(position).getLat());
+				com.hou.app.Global.savePreference(context,"lon_diemphuot",listPhuot.get(position).getLon());
+				com.hou.app.Global.savePreference(context,"trangThaiChuan",listPhuot.get(position).getTrangthaiChuan()+"");
 				
 				Intent intent = new Intent(getActivity(),
 						PhuotDetailManager.class);
-				intent.putExtra("myBundle",b);
+				//intent.putExtra("myBundle",b);
 				startActivity(intent);
 			}
 		});

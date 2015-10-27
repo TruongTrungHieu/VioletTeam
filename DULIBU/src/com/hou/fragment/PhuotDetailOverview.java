@@ -68,26 +68,13 @@ public class PhuotDetailOverview extends Fragment {
         
         String maDiemPhuot = com.hou.app.Global.getPreference(context,"maDiemPhuot","Viet");
         String tenDiemPhuot = com.hou.app.Global.getPreference(context,"tenDiemPhuot","Viet");
+        String latDiemPhuot = com.hou.app.Global.getPreference(context,"lat_diemphuot","Viet");
+        String lonDiemPhuot = com.hou.app.Global.getPreference(context,"lon_diemphuot","Viet");
         String ghiChu = com.hou.app.Global.getPreference(context,"ghiChu","Viet");
         String image = com.hou.app.Global.getPreference(context,"image","Viet");
         String trangThaiChuan = com.hou.app.Global.getPreference(context,"trangThaiChuan","Viet");
        // String tenDiemPhuot = sharedPreferences.getString("tenDiemPhuot",null);
         Log.e("NQViet","Ghi LinhAnh:" + image );
-        
-       
- /*       Bundle b =getArguments();
-        String maDiemPhuot = b.getString("maDiemPhuot");    
-        tvPhuotName.setText(b.getString("tenDiemPhuot"));
-        tvGhiChu.setText(b.getString("ghiChu"));
-        if(b.getInt("trangThaiChuan")==1){
-        	tvTrangThaiChuan.setText("Recommended");
-        }
-        else{
-        	tvTrangThaiChuan.setText("ChÆ°a xÃ¡c minh");
-        }*/
-       
-     
-        
         tvPhuotName.setText(tenDiemPhuot);
         tvGhiChu.setText(ghiChu);
         if(trangThaiChuan.equals("1")){

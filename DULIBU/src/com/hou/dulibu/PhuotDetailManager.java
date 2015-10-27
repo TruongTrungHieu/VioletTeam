@@ -28,73 +28,18 @@ public class PhuotDetailManager extends ActionBarActivity {
 	PhuotSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Overview", "Location" };
 	int Numboftabs = 2;
-	String maDiemPhuot,tenDiemPhuot,ghiChu,image,lat_diemphuot,lon_diemphuot;
+	String maDiemPhuot, tenDiemPhuot, ghiChu, image, lat_diemphuot, lon_diemphuot;
 	int trangThaiChuan;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.phuot_detail_manager);
-		
+
 		Intent callerIntent = getIntent();
 		if (callerIntent != null) {
-		    String a = callerIntent.getStringExtra("test");
+			String a = callerIntent.getStringExtra("test");
 		}
-		Bundle myPackage = callerIntent.getBundleExtra("myBundle");
-		maDiemPhuot = myPackage.getString("maDiemPhuot");
-		tenDiemPhuot = myPackage.getString("tenDiemPhuot");
-		ghiChu = myPackage.getString("ghiChu");
-		image = myPackage.getString("image");
-		lat_diemphuot = myPackage.getString("lat_diemphuot");
-		lon_diemphuot = myPackage.getString("lon_diemphuot");
-		trangThaiChuan = myPackage.getInt("trangThaiChuan");
-		Log.e("Viet5091","Ma diem phuot:"+ maDiemPhuot + ";" + "Link anh  " +image);
-		
-		Context context = getApplicationContext();
-		com.hou.app.Global.savePreference(context,"maDiemPhuot",maDiemPhuot);
-		com.hou.app.Global.savePreference(context,"tenDiemPhuot",tenDiemPhuot);
-		com.hou.app.Global.savePreference(context,"ghiChu",ghiChu);
-		com.hou.app.Global.savePreference(context,"image",image);
-		com.hou.app.Global.savePreference(context,"lat_diemphuot",lat_diemphuot);
-		com.hou.app.Global.savePreference(context,"lon_diemphuot",lon_diemphuot);
-		com.hou.app.Global.savePreference(context,"trangThaiChuan",trangThaiChuan+"");
-		
-		
-	/*	
-		PhuotDetailOverview f = new PhuotDetailOverview();
-		Bundle bundle = new Bundle();
-		bundle.putString("maDiemPhuot", myPackage.getString("maDiemPhuot"));
-		bundle.putString("tenDiemPhuot", myPackage.getString("tenDiemPhuot"));
-		bundle.putString("ghiChu", myPackage.getString("ghiChu"));
-		
-		f.setArguments(bundle);
-*/
-		
-		
-	/*	Bundle bundle = new Bundle();
-		bundle.putString("maDiemPhuot", maDiemPhuot);
-		bundle.putString("tenDiemPhuot", tenDiemPhuot);
-		bundle.putString("ghiChu", ghiChu);
-	//	bundle.putInt("trangThaiChuan", trangThaiChuan);
-		// set Fragmentclass Arguments
-		ListPhuotFragment f = new ListPhuotFragment();
-		f.setArguments(bundle);*/
-		/*
-		 * Intent intent = getIntent(); String maDiemP =
-		 * intent.getStringExtra("maDiemPhuot"); String tenDiemP =
-		 * intent.getStringExtra("tenDiemPhuot"); String ghiChu =
-		 * intent.getStringExtra("ghiChu"); String trangThaiChuan =
-		 * intent.getStringExtra("trangThaiChuan");
-		 * 
-		 * Bundle b = new Bundle(); b.putString("maDiemPhuot", maDiemP);
-		 * b.putString("tenDiemPhuot", tenDiemP); b.putString("ghiChu", ghiChu);
-		 * b.putString("trangThaiChuan", trangThaiChuan);
-		 * 
-		 * PhuotDetailOverview fo = new PhuotDetailOverview();
-		 * fo.setArguments(b);
-		 */
-
 		toolbar = (Toolbar) findViewById(R.id.Phuottool_bar);
 		setSupportActionBar(toolbar);
 

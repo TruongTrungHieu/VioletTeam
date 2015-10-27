@@ -17,6 +17,7 @@ import com.hou.dulibu.R.layout;
 import com.hou.model.PhuotDetailComment;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,36 +26,48 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PhuotDetailLocation extends Fragment {    private GoogleMap mMap;
-    private MapView mMapView;
-    private LatLng latlg;
-    Double lat,lng;
-    String diemphuot = "";
+public class PhuotDetailLocation extends Fragment {
+	private GoogleMap mMap;
+	private MapView mMapView;
+	private LatLng latlg;
+	Double lat, lng;
+	String diemphuot = "";
 
 	@Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.phuot_detail_comment,container,false);
-        mMapView = (MapView) v.findViewById(R.id.map);
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+			@Nullable Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.phuot_detail_comment, container, false);
+		mMapView = (MapView) v.findViewById(R.id.mapPhuotLocation);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();// needed to get the map to display immediately
-        lat = Double.parseDouble(com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lat_diemphuot","98"));
-        lng = Double.parseDouble(com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lon_diemphuot","89"));
-        diemphuot = com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"tenDiemPhuot","tenDiemPhuot");
-        latlg = new LatLng(lat, lng);
-		Log.e("aaaaa", com.hou.app.Global.getPreference(getActivity().getApplicationContext(),"lo_diemphuot","Viet"));
+
+		Context context = getActivity().getApplicationContext();
+		String latDiemPhuot = com.hou.app.Global.getPreference(context, "lat_diemphuot", "89");
+		String lonDiemPhuot = com.hou.app.Global.getPreference(context, "lon_diemphuot", "98");
+		String tenDiemPhuot = com.hou.app.Global.getPreference(context, "tenDiemPhuot", "Viet");
+		lat = Double.parseDouble(latDiemPhuot);
+		lng = Double.parseDouble(lonDiemPhuot);
+		diemphuot = com.hou.app.Global.getPreference(getActivity().getApplicationContext(), "tenDiemPhuot",
+				"tenDiemPhuot");
+		latlg = new LatLng(lat, lng);
+		Log.e("aaaaa", com.hou.app.Global.getPreference(getActivity().getApplicationContext(), "lo_diemphuot", "Viet"));
 		try {
 			MapsInitializer.initialize(getActivity().getApplicationContext());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		mMap = mMapView.getMap();
-		mMap.addMarker(new MarkerOptions()
-		    .position(latlg)
-		    .title(diemphuot));
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-				latlg, 11f);	
-		mMap.moveCamera(cameraUpdate);
+		/*
+		 * mMap.addMarker(new MarkerOptions() .position(latlg)
+		 * .title(diemphuot)); CameraUpdate cameraUpdate =
+		 * CameraUpdateFactory.newLatLngZoom( latlg, 11f);
+		 * mMap.moveCamera(cameraUpdate); mMap.setMyLocationEnabled(true);
+		 */
+		mMap.addMarker(new MarkerOptions().position(latlg).title(tenDiemPhuot)
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch)));
+		mMap.getUiSettings().setMyLocationButtonEnabled(true);
 		mMap.setMyLocationEnabled(true);
-        return v;
-    }
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 7));
+		return v;
+	}
 }

@@ -98,7 +98,7 @@ public class TripDetailTripForUser extends Fragment {
 		}
 		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
 		lvSlide.setAdapter(adapter);
-		
+
 		mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
@@ -109,25 +109,24 @@ public class TripDetailTripForUser extends Fragment {
 		}
 		googleMap = mMapView.getMap();
 
-		/*startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem()
-				.toString());
-		endPlace = exeQ.getTinhByTentinh(spEndPlace.getSelectedItem()
-				.toString());*/
+		/*
+		 * startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem()
+		 * .toString()); endPlace =
+		 * exeQ.getTinhByTentinh(spEndPlace.getSelectedItem() .toString());
+		 */
 		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
-				endPlace.getMaTinh());
+		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(), endPlace.getMaTinh());
 
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-				new LatLng(Double.parseDouble(startPlace.getLat()), Double
-						.parseDouble(startPlace.getLon())), 7));
+				new LatLng(Double.parseDouble(startPlace.getLat()), Double.parseDouble(startPlace.getLon())), 7));
 
 		showMakerFirst();
-		//googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater));
-		
+		// googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater));
+
 		mLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
 		mLayout.setPanelSlideListener(new PanelSlideListener() {
 			@Override
@@ -160,48 +159,45 @@ public class TripDetailTripForUser extends Fragment {
 
 		return v;
 	}
+
 	private void showMakerFirst() {
 		// End
-		googleMap.addMarker(new MarkerOptions()
-				.position(
-						new LatLng(Double.parseDouble(startPlace.getLat()),
+		googleMap
+				.addMarker(new MarkerOptions()
+						.position(new LatLng(Double.parseDouble(startPlace.getLat()),
 								Double.parseDouble(startPlace.getLon())))
-				.title(startPlace.getTenTinh())
-				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.marker_start_end_places))
-				.snippet(startPlace.getMaTinh()));
+						.title(startPlace.getTenTinh())
+						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
+						.snippet(startPlace.getMaTinh()));
 
 		// Start
-		googleMap.addMarker(new MarkerOptions()
-				.position(
-						new LatLng(Double.parseDouble(endPlace.getLat()),
+		googleMap
+				.addMarker(new MarkerOptions()
+						.position(new LatLng(Double.parseDouble(endPlace.getLat()),
 								Double.parseDouble(endPlace.getLon())))
-				.title(endPlace.getTenTinh())
-				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.marker_start_end_places))
-				.snippet(endPlace.getTenTinh()));
+						.title(endPlace.getTenTinh())
+						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
+						.snippet(endPlace.getTenTinh()));
 
 		// Diemphuot thuoc Start + end
 		for (Diemphuot dp : listPlace) {
-			googleMap.addMarker(new MarkerOptions()
-					.position(
-							new LatLng(Double.parseDouble(dp.getLat()), Double
-									.parseDouble(dp.getLon())))
-					.title(dp.getTenDiemphuot())
-					.icon(BitmapDescriptorFactory
-							.fromResource(R.drawable.marker_touch))
-					.snippet(dp.getDiachi()));
+			googleMap
+					.addMarker(
+							new MarkerOptions()
+									.position(new LatLng(Double.parseDouble(dp.getLat()),
+											Double.parseDouble(dp.getLon())))
+									.title(dp.getTenDiemphuot())
+									.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch))
+									.snippet(dp.getDiachi()));
 		}
 	}
+
 	private void markerShow(ArrayList<Nearby> listNearby) {
 		for (Nearby nearby : listNearby) {
-			int id = getActivity().getResources().getIdentifier(
-					nearby.getIcon(), "drawable",
+			int id = getActivity().getResources().getIdentifier(nearby.getIcon(), "drawable",
 					getActivity().getPackageName());
-			googleMap.addMarker(new MarkerOptions()
-					.position(new LatLng(nearby.getLat(), nearby.getLon()))
-					.title(nearby.getTen()).snippet(nearby.getDiachi())
-					.icon(BitmapDescriptorFactory.fromResource(id)));
+			googleMap.addMarker(new MarkerOptions().position(new LatLng(nearby.getLat(), nearby.getLon()))
+					.title(nearby.getTen()).snippet(nearby.getDiachi()).icon(BitmapDescriptorFactory.fromResource(id)));
 		}
 	}
 
@@ -324,6 +320,7 @@ public class TripDetailTripForUser extends Fragment {
 			super.onPostExecute(result);
 		}
 	}
+
 	class MyInfoWindowAdapter implements InfoWindowAdapter {
 
 		private final View myContentsView;
