@@ -42,6 +42,7 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 	TextView tv_fullname;
 	ImageButton imgRole;
 	LichtrinhMember member;
+
 	public MemberAdapterForAdmin(Activity context, int layoutId,
 			ArrayList<LichtrinhMember> arr) {
 		super(context, layoutId, arr);
@@ -54,13 +55,11 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 
 		LayoutInflater inflater = context.getLayoutInflater();
 		convertView = inflater.inflate(layoutId, null);
-		
+
 		iv_avatar = (CircularImageView) convertView
 				.findViewById(R.id.iv_avarta);
-		tv_fullname = (TextView) convertView
-				.findViewById(R.id.tv_fullname);
-		imgRole = (ImageButton) convertView
-				.findViewById(R.id.imgRole);
+		tv_fullname = (TextView) convertView.findViewById(R.id.tv_fullname);
+		imgRole = (ImageButton) convertView.findViewById(R.id.imgRole);
 		member = myArray.get(position);
 
 		if (myArray.size() > 0 && position >= 0) {
@@ -84,7 +83,7 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 			if (member.getQuyen().equals(Global.USER_ROLE_USER)) {
 				imgRole.setImageResource(R.drawable.icon_add_user);
 				imgRole.setTag(position);
-				
+
 			}
 			if (member.getQuyen().equals(Global.USER_ROLE_ADMIN)) {
 				imgRole.setImageResource(R.drawable.icon_admin);
@@ -118,13 +117,11 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 								+ Global.TRIP_ROLE
 								+ "?access_token="
 								+ Global.getPreference(context,
-										Global.ACCESS_TOKEN,
-										"access_token"), params,
-						new AsyncHttpResponseHandler() {
+										Global.ACCESS_TOKEN, "access_token"),
+						params, new AsyncHttpResponseHandler() {
 							public void onSuccess(String response) {
 								Log.e("change_role", response);
-								imgRole.setImageDrawable(null);
-								imgRole.setEnabled(false);
+
 							}
 
 							@Override
@@ -134,13 +131,16 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 
 							}
 						});
+				imgRole.setImageDrawable(null);
+				imgRole.setEnabled(false);
 			}
 		});
 
 		return convertView;
 
 	}
-	public void ChangeRoleUser(){
+
+	public void ChangeRoleUser() {
 		Log.e("CHeck", "Check success!");
 	}
 

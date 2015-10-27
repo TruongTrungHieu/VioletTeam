@@ -6,6 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -48,12 +53,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback,
-		LocationListener {
+public class MapFragment extends Fragment implements
+		GoogleApiClient.ConnectionCallbacks,
+		GoogleApiClient.OnConnectionFailedListener,
+		com.google.android.gms.location.LocationListener {
 	private ProgressDialog pDialog;
 	private ImageView imgMapWarnning, imgMapHospital, imgMapGas;
 	private int status = 0;
-	private Location location;
+	private LocationRequest locationRequest;
+	private GoogleApiClient googleApiClient;
+	private Location mLastLocation;
+	String url = "";
 
 	private ArrayList<ImageView> lstImg;
 	private ArrayList<Nearby> listHospital, listGas;
@@ -61,6 +71,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
 	private GoogleMap googleMap;
 	private MapView mMapView;
+	double lat;
+	double lon;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -95,17 +107,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 		}
 		googleMap = mMapView.getMap();
 		googleMap.setMyLocationEnabled(true);
-
-		// GPS when leave
-		LocationManager locationManager = (LocationManager) getActivity()
-				.getSystemService(Context.LOCATION_SERVICE);
-		Criteria criteria = new Criteria();
-		String bestProvider = locationManager.getBestProvider(criteria, true);
-		location = locationManager.getLastKnownLocation(bestProvider);
-		if (location != null) {
-			onLocationChanged(location);
-		}
-		locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+		startTracking();
 
 		imgMapWarnning = (ImageView) v.findViewById(R.id.imgMapWarnning);
 		imgMapHospital = (ImageView) v.findViewById(R.id.imgMapHospital);
@@ -133,8 +135,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 				// mMap.clear();
 				// onMapReady(mMap);
 				if (((status >> 1) & 1) == 1) {
-						imgMapHospital.setImageResource(R.drawable.map_hospital1);
-						getNearbyFromGoogle(Global.NEARBY_HOSPITAL);
+					imgMapHospital.setImageResource(R.drawable.map_hospital1);
+					getNearbyFromGoogle(Global.NEARBY_HOSPITAL);
 				} else {
 					imgMapHospital.setImageResource(R.drawable.map_hospital);
 				}
@@ -149,8 +151,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 				// mMap.clear();
 				// onMapReady(mMap);
 				if (((status >> 3) & 1) == 1) {
-						imgMapGas.setImageResource(R.drawable.map_gas1);
-						getNearbyFromGoogle(Global.NEARBY_GAS);
+					imgMapGas.setImageResource(R.drawable.map_gas1);
+					getNearbyFromGoogle(Global.NEARBY_GAS);
 				} else {
 					imgMapGas.setImageResource(R.drawable.map_gas);
 				}
@@ -162,7 +164,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	}
 
 	private void updateMarked() {
-		
+
 		googleMap.clear();
 		// warning
 		if (((status >> 0) & 1) == 1) {
@@ -285,21 +287,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
-		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				location.getLatitude(), location.getLongitude()), 13));
+		if (location != null) {
+
+			lat = location.getLatitude();
+			lon = location.getLongitude();
+		}
 	}
 
-	@Override
-	public void onMapReady(GoogleMap mMap) {
-		// TODO Auto-generated method stub
-		updateMarked();
-	}
 
 	private void getNearbyFromGoogle(final String type) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		String url = Global.URL_NEARBY(location.getLatitude(),
-				location.getLongitude(), Global.NEARBY_RADIUS, type);
+		url = Global.URL_NEARBY(lat, lon, Global.NEARBY_RADIUS, type);
 		client.get(url, params, new AsyncHttpResponseHandler() {
 			public void onSuccess(String response) {
 				Log.e("getNearbyFromGoogle", response);
@@ -334,14 +333,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 				Nearby n = new Nearby(name, vicinity, Double.parseDouble(lat),
 						Double.parseDouble(lon), icon);
 
-				int id = getActivity().getResources().getIdentifier(
-						n.getIcon(), "drawable",
-						getActivity().getPackageName());
+				int id = getActivity().getResources()
+						.getIdentifier(n.getIcon(), "drawable",
+								getActivity().getPackageName());
 				googleMap.addMarker(new MarkerOptions()
 						.position(new LatLng(n.getLat(), n.getLon()))
 						.title(n.getTen()).snippet(n.getDiachi())
 						.icon(BitmapDescriptorFactory.fromResource(id)));
-				
+
 				list.add(n);
 			}
 
@@ -352,13 +351,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 				listHospital.clear();
 				listHospital.addAll(list);
 			}
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	private void startTracking() {
+
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
+
+			googleApiClient = new GoogleApiClient.Builder(getActivity())
+					.addApi(LocationServices.API).addConnectionCallbacks(this)
+					.addOnConnectionFailedListener(this).build();
+
+			if (!googleApiClient.isConnected()
+					|| !googleApiClient.isConnecting()) {
+				googleApiClient.connect();
+			}
+		} else {
+		}
+	}
+
 	private void markerShow(ArrayList<Nearby> listNearby) {
 		for (Nearby nearby : listNearby) {
 			int id = getActivity().getResources().getIdentifier(
@@ -368,40 +382,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 					.position(new LatLng(nearby.getLat(), nearby.getLon()))
 					.title(nearby.getTen()).snippet(nearby.getDiachi())
 					.icon(BitmapDescriptorFactory.fromResource(id)));
-			
+
 		}
-		
-		
-		
-	}
-	
-	private void moving(Marker trackingMarker)
-	{
-
-		double lat = trackingMarker.getPosition().latitude + 100;
-		double lon = trackingMarker.getPosition().longitude + 100;
-		LatLng intermediatePosition = new LatLng(lat, lon);
-				
-		trackingMarker.setPosition(intermediatePosition);
 
 	}
 
 	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
+	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
-
+		stopLocationUpdates();
+	}
+	private void stopLocationUpdates() {
+		if (googleApiClient != null && googleApiClient.isConnected()) {
+			googleApiClient.disconnect();
+		}
 	}
 
 	@Override
-	public void onProviderEnabled(String provider) {
+	public void onConnected(Bundle arg0) {
 		// TODO Auto-generated method stub
+		locationRequest = LocationRequest.create();
+		locationRequest.setInterval(5000); // milliseconds
+		locationRequest.setFastestInterval(5000); // the fastest rate in
+													// milliseconds at which
+													// your app can handle
+													// location updates
+		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+		LocationServices.FusedLocationApi.requestLocationUpdates(
+				googleApiClient, locationRequest, this);
+		mLastLocation = LocationServices.FusedLocationApi
+				.getLastLocation(googleApiClient);
+		if (mLastLocation != null) {
+			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+					new LatLng(mLastLocation.getLatitude(), mLastLocation
+							.getLongitude()), 13));
+		}
 	}
 
 	@Override
-	public void onProviderDisabled(String provider) {
+	public void onConnectionSuspended(int arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

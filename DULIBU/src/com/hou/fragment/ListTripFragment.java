@@ -205,8 +205,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 																Intent intent = new Intent(
 																		getActivity(),
 																		TripDetailManagerActivity.class);
-																// intent.putExtra("_id",
-																// lichtrinh.get(position).getMaLichtrinh());
 																Global.savePreference(
 																		getActivity(),
 																		Global.TRIP_TRIP_ID,
