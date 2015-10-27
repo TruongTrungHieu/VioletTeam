@@ -287,7 +287,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			client.get(Global.BASE_URI + "/" + Global.URI_TRIP_TRIP + "?p=1",
 					new AsyncHttpResponseHandler() {
 						public void onSuccess(String response) {
-//							Log.e("DATA", response);
+							Log.e("DATA", response);
 							executeWhenSendDataSuccess(response);
 							if (lichtrinh.size() > 0) {
 								lvListTrip.setAdapter(adapter);
@@ -311,7 +311,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 												
 												getTripMember(lichtrinh.get(position).getMaLichtrinh(), new AsyncHttpResponseHandler() {
 													public void onSuccess(String content) {
-														
+														Log.d("data list trip", content);
 														listMember(content);
 														
 														Intent intent;
@@ -329,7 +329,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 														
 													}
 													public void onFailure(int statusCode, Throwable error, String content) {
-														Log.e("load member false", content);
+														Log.e("load member false", content+"");
 													}
 												});
 												

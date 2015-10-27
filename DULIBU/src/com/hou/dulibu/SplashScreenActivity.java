@@ -156,15 +156,5 @@ public class SplashScreenActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public boolean isServiceRunning() {
-		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager
-				.getRunningServices(Integer.MAX_VALUE)) {
-			if ("com.hou.gps.GetLocationService".equals(service.service
-					.getClassName())) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
 }

@@ -1,10 +1,13 @@
 package com.hou.dulibu;
 
 import com.hou.adapters.LichtrinhViewPagerAdapter;
+import com.hou.gps.GetLocationService;
 import com.hou.sliding_tab.LichTrinhSlidingTabLayout;
 
+import android.app.ActivityManager;
 import android.app.LocalActivityManager;
 import android.app.TabActivity;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -30,11 +33,18 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 	LichTrinhSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Info", "Members", "Message", "Trip" };
 	int Numboftabs = 4;
+	Intent serviceGetLocation;
+	
+	public TripDetailManagerActivity() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trip_detail_manager);
+		
+		
 
 		toolbar = (Toolbar) findViewById(R.id.tool_bar);
 		setSupportActionBar(toolbar);
@@ -45,6 +55,8 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
+		serviceGetLocation = new Intent(this, GetLocationService.class);
+		
 		// Creating The Toolbar and setting it as the Toolbar for the activity
 
 		// Creating The ViewPagerAdapter and Passing Fragment Manager, Titles
@@ -115,5 +127,26 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void StartServiceGetLocation(){
+		if (!isServiceRunning()) {
+			startService(serviceGetLocation);
+		}
+	}
+	public void StopServiceGetLocation(){
+		if (isServiceRunning()) {
+			stopService(serviceGetLocation);
+		}
+	}
+	public boolean isServiceRunning() {
+		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if ("com.hou.gps.GetLocationService".equals(service.service
+					.getClassName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

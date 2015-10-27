@@ -10,7 +10,11 @@ import java.util.Locale;
 
 import com.hou.model.Diemphuot;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
@@ -228,7 +232,29 @@ public class Global {
 
 	    return calendar.getTime();
 	}
+
+	public static void StartServiceGetLocation(Activity atv, Intent intent){
+		if (!isServiceRunning(atv, Activity.ACTIVITY_SERVICE)) {
+			atv.startService(intent);
+		}
+	}
+	public static void StopServiceGetLocation(Activity atv, Intent intent){
+		if (!isServiceRunning(atv, Activity.ACTIVITY_SERVICE)) {
+			atv.stopService(intent);
+		}
+	}
 	
+	public static boolean isServiceRunning(Activity atv, String name) {
+		ActivityManager manager = (ActivityManager) atv.getSystemService(name);
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if ("com.hou.gps.GetLocationService".equals(service.service
+					.getClassName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	

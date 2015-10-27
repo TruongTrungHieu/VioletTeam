@@ -21,19 +21,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.app.Global;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
+import com.hou.dulibu.TripDetailManagerActivity;
+import com.hou.gps.GetLocationService;
 import com.hou.model.Nearby;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.app.ActivityManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -47,17 +53,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TripDetailTripActivity extends Fragment implements
-		OnMapReadyCallback, LocationListener {
+		OnMapReadyCallback, LocationListener, Runnable {
 	private ProgressDialog pDialog;
-	ImageButton ivShareLocation;
+	ImageButton ivShareLocation,ivStopShareLocation;
 	ImageView imgMapPlace, imgMapWarnning, imgMapTeam, imgMapHospital,
 			imgMapGas;
 	int status = 0; // 0b
+	TextView tvShare;
 	Boolean stSlide = true;
 	private Location location;
+	ProgressBar mProgressBar;
 
 	ArrayList<ImageView> lstImg;
 	private ArrayList<Nearby> listHospital, listGas;
@@ -78,8 +87,14 @@ public class TripDetailTripActivity extends Fragment implements
 		lstImg.add(imgMapTeam);
 		lstImg.add(imgMapHospital);
 		lstImg.add(imgMapGas);
+		tvShare = (TextView) v.findViewById(R.id.tvShare);
 
+		Thread thread = new Thread(this);
+		thread.start();
+		mProgressBar = (ProgressBar) v.findViewById(R.id.pb);
+		mProgressBar.setVisibility(View.GONE);
 		ivShareLocation = (ImageButton) v.findViewById(R.id.ivShareLocation);
+		ivStopShareLocation = (ImageButton) v.findViewById(R.id.ivStopShareLocation);
 		imgMapPlace = (ImageView) v.findViewById(R.id.imgMapPlace);
 		imgMapWarnning = (ImageView) v.findViewById(R.id.imgMapWarnning);
 		imgMapTeam = (ImageView) v.findViewById(R.id.imgMapTeam);
@@ -109,11 +124,53 @@ public class TripDetailTripActivity extends Fragment implements
 		}
 		locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
 
+		ivStopShareLocation.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ivStopShareLocation.setVisibility(View.INVISIBLE);
+				ivShareLocation.setVisibility(View.VISIBLE);
+				
+				mProgressBar.setVisibility(View.VISIBLE);
+				
+				Global.StopServiceGetLocation(getActivity(), new Intent(getActivity(), GetLocationService.class));	
+				
+				(new Handler()).postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						ivShareLocation.setVisibility(View.GONE);
+						mProgressBar.setVisibility(View.GONE);
+					}
+					
+				}, 3000);
+			}
+		});
 		ivShareLocation.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				ivShareLocation.setVisibility(View.INVISIBLE);
+				ivStopShareLocation.setVisibility(View.VISIBLE);
+				
+				mProgressBar.setVisibility(View.VISIBLE);
+				tvShare.setVisibility(View.VISIBLE);
+				
+				Global.StartServiceGetLocation(getActivity(), new Intent(getActivity(), GetLocationService.class));
+				
+				(new Handler()).postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						mProgressBar.setVisibility(View.GONE);
+						tvShare.setVisibility(View.GONE);
+					}
+				}, 3000);
+				
 			}
 		});
 		
@@ -312,8 +369,11 @@ public class TripDetailTripActivity extends Fragment implements
 	private void getNearbyFromGoogle(final String type) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		String url = Global.URL_NEARBY(location.getLatitude(),
-				location.getLongitude(), Global.NEARBY_RADIUS, type);
+		String url = "";
+		if (location != null) {
+			url = Global.URL_NEARBY(location.getLatitude(),
+					location.getLongitude(), Global.NEARBY_RADIUS, type);
+		}
 		client.get(url, params, new AsyncHttpResponseHandler() {
 			public void onSuccess(String response) {
 				Log.e("getNearbyFromGoogle", response);
@@ -405,5 +465,11 @@ public class TripDetailTripActivity extends Fragment implements
 	public void onMapReady(GoogleMap arg0) {
 		// TODO Auto-generated method stub
 		updateMarked();
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -92,7 +92,7 @@ public class GetLocationService extends Service implements
 
 		final JSONObject checkPoint = new JSONObject();
 		checkPoint.put("access_token", Global.ACCESS_TOKEN);
-		checkPoint.put("target_id", location.getLatitude());
+		checkPoint.put("target_id", Global.getPreference(getBaseContext(), Global.TRIP_TRIP_ID, "trip_id"));
 		checkPoint.put("target_type", Global.TARGET_TRIP);
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
