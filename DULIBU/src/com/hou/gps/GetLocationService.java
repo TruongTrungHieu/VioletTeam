@@ -49,7 +49,7 @@ public class GetLocationService extends Service implements
 	private boolean currentlyProcessingLocation = false;
 	private LocationRequest locationRequest;
 	private GoogleApiClient googleApiClient;
-
+	private boolean updateLocation = true;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -85,14 +85,17 @@ public class GetLocationService extends Service implements
 			Log.e(TAG, "unable to connect to google play services.");
 		}
 	}
+	
 
 	protected void sendLocationDataToWebsite(Location location)
 			throws MalformedURLException, JSONException {
 		// formatted for mysql datetime format
+		float distance = 0f;
 
 		final JSONObject checkPoint = new JSONObject();
 		checkPoint.put("access_token", Global.ACCESS_TOKEN);
-		checkPoint.put("target_id", Global.getPreference(getBaseContext(), Global.TRIP_TRIP_ID, "trip_id"));
+		checkPoint.put("target_id", Global.getPreference(getBaseContext(),
+				Global.TRIP_TRIP_ID, "trip_id"));
 		checkPoint.put("target_type", Global.TARGET_TRIP);
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -103,14 +106,11 @@ public class GetLocationService extends Service implements
 				"gpstracker", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
-		float totalDistanceInMeters = sharedPreferences.getFloat(
-				"totalDistanceInMeters", 0f);
 
-		boolean firstTimeGettingPosition = sharedPreferences.getBoolean(
-				"firstTimeGettingPosition", true);
-
-		if (firstTimeGettingPosition) {
-			editor.putBoolean("firstTimeGettingPosition", false);
+		if (Global.FIRST_TIME_TRACKING) {
+			Log.d("đây là lần đầu", "!");
+			updateLocation = true;
+			Global.FIRST_TIME_TRACKING = false;
 		} else {
 			Location previousLocation = new Location("");
 			previousLocation.setLatitude(sharedPreferences.getFloat(
@@ -118,14 +118,19 @@ public class GetLocationService extends Service implements
 			previousLocation.setLongitude(sharedPreferences.getFloat(
 					"previousLongitude", 0f));
 
-			float distance = location.distanceTo(previousLocation);
-			totalDistanceInMeters += distance;
-			editor.putFloat("totalDistanceInMeters", totalDistanceInMeters);
+			distance = location.distanceTo(previousLocation);
+			if (distance > 2 || true) {
+				Log.d("lớn hơn 2m", "!");
+				editor.putFloat("previousLatitude",
+						(float) location.getLatitude());
+				editor.putFloat("previousLongitude",
+						(float) location.getLongitude());
+				editor.commit();
+				updateLocation = true;
+			} else {
+				updateLocation = false;
+			}
 		}
-
-		editor.putFloat("previousLatitude", (float) location.getLatitude());
-		editor.putFloat("previousLongitude", (float) location.getLongitude());
-		editor.commit();
 
 		checkPoint.put("lat", Double.toString(location.getLatitude()));
 		checkPoint.put("lon", Double.toString(location.getLongitude()));
@@ -136,10 +141,8 @@ public class GetLocationService extends Service implements
 		} catch (UnsupportedEncodingException e) {
 		}
 
-		if (totalDistanceInMeters > 0) {
-			checkPoint.put("distance",
-					String.format("%.1f", totalDistanceInMeters));
-		}
+		checkPoint
+				.put("distance", String.format("%.1f", distance));
 
 		// Double accuracyInFeet = location.getAccuracy() * 3.28;
 		// checkPoint.put("accuracy",
@@ -153,10 +156,14 @@ public class GetLocationService extends Service implements
 		//
 		// Float direction = location.getBearing();
 		// checkPoint.put("direction", Integer.toString(direction.intValue()));
-
+		if (!updateLocation) {
+			return;
+		}
+		
 		if (socket != null) {
 			if (socket.connected()) {
 				socket.emit("tracking", checkPoint);
+				Log.d("check point", checkPoint+"");
 			}
 		} else {
 			try {
@@ -216,15 +223,11 @@ public class GetLocationService extends Service implements
 							+ location.getLongitude() + " accuracy: "
 							+ location.getAccuracy());
 
-			// we have our desired accuracy of 500 meters so lets quit this
-			// service,
-			// onDestroy will be called and stop our location uodates
-			// if (location.getAccuracy() < 500.0f) {
-			// stopLocationUpdates();
-			// sendLocationDataToWebsite(location);
-			// }
 			try {
-				sendLocationDataToWebsite(location);
+//				if (updateLocation) {
+					sendLocationDataToWebsite(location);
+//				}
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

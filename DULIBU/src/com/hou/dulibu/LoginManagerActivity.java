@@ -1,5 +1,7 @@
 package com.hou.dulibu;
 
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -160,6 +162,8 @@ import android.widget.Toast;
 									LoginManagerActivity.this,
 									ProfileManagerActivity.class);
 							pb.setVisibility(View.GONE);
+							
+							Global.TIMESTAMP = (new Date()).getTime() + "";
 							startActivity(intent);
 						} else {
 							Toast.makeText(
@@ -176,8 +180,7 @@ import android.widget.Toast;
 						edtPassword.setText(null);
 						edtUsername.setText(null);
 						
-						
-						Log.e("Login fail", content);
+						Log.e("Login fail", statusCode+"");
 						
 						switch (statusCode) {
 						case 400:

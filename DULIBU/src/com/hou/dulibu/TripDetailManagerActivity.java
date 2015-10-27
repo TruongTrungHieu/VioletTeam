@@ -128,25 +128,4 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	public void StartServiceGetLocation(){
-		if (!isServiceRunning()) {
-			startService(serviceGetLocation);
-		}
-	}
-	public void StopServiceGetLocation(){
-		if (isServiceRunning()) {
-			stopService(serviceGetLocation);
-		}
-	}
-	public boolean isServiceRunning() {
-		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager
-				.getRunningServices(Integer.MAX_VALUE)) {
-			if ("com.hou.gps.GetLocationService".equals(service.service
-					.getClassName())) {
-				return true;
-			}
-		}
-		return false;
-	}
 }

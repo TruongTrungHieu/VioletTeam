@@ -13,6 +13,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.app.Global;
 import com.hou.dulibu.R;
@@ -25,11 +26,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Interpolator;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -158,6 +162,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 	}
 
 	private void updateMarked() {
+		
 		googleMap.clear();
 		// warning
 		if (((status >> 0) & 1) == 1) {
@@ -353,7 +358,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 			e.printStackTrace();
 		}
 	}
-
+	
 	private void markerShow(ArrayList<Nearby> listNearby) {
 		for (Nearby nearby : listNearby) {
 			int id = getActivity().getResources().getIdentifier(
@@ -363,7 +368,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 					.position(new LatLng(nearby.getLat(), nearby.getLon()))
 					.title(nearby.getTen()).snippet(nearby.getDiachi())
 					.icon(BitmapDescriptorFactory.fromResource(id)));
+			
 		}
+		
+		
+		
+	}
+	
+	private void moving(Marker trackingMarker)
+	{
+
+		double lat = trackingMarker.getPosition().latitude + 100;
+		double lon = trackingMarker.getPosition().longitude + 100;
+		LatLng intermediatePosition = new LatLng(lat, lon);
+				
+		trackingMarker.setPosition(intermediatePosition);
+
 	}
 
 	@Override

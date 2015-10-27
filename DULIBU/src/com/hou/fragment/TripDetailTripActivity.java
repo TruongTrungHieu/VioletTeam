@@ -1,15 +1,23 @@
 package com.hou.fragment;
 
+import io.socket.emitter.Emitter;
+
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.ls.LSSerializer;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,7 +30,10 @@ import com.hou.app.Global;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
 import com.hou.dulibu.TripDetailManagerActivity;
+import com.hou.fragment.TripDetailMemberActivity.getImage;
 import com.hou.gps.GetLocationService;
+import com.hou.model.InfoTracking;
+import com.hou.model.LichtrinhMember;
 import com.hou.model.Nearby;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -39,6 +50,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -57,23 +69,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TripDetailTripActivity extends Fragment implements
-		OnMapReadyCallback, LocationListener, Runnable {
+		GoogleApiClient.ConnectionCallbacks,
+		GoogleApiClient.OnConnectionFailedListener,
+		com.google.android.gms.location.LocationListener {
 	private ProgressDialog pDialog;
-	ImageButton ivShareLocation,ivStopShareLocation;
+	private LocationRequest locationRequest;
+	private GoogleApiClient googleApiClient;
+	ImageButton ivShareLocation, ivStopShareLocation;
 	ImageView imgMapPlace, imgMapWarnning, imgMapTeam, imgMapHospital,
 			imgMapGas;
+	private Location mLastLocation;
 	int status = 0; // 0b
 	TextView tvShare;
 	Boolean stSlide = true;
-	private Location location;
 	ProgressBar mProgressBar;
-
+	String url = "";
 	ArrayList<ImageView> lstImg;
 	private ArrayList<Nearby> listHospital, listGas;
+	private ArrayList<InfoTracking> lstInforTracking;
+	ArrayList<LichtrinhMember> arrListMember;
 	// private ArrayList<Nearby> listWarning;
 
 	private GoogleMap googleMap;
 	private MapView mMapView;
+	double lat;
+	double lon;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -88,13 +108,15 @@ public class TripDetailTripActivity extends Fragment implements
 		lstImg.add(imgMapHospital);
 		lstImg.add(imgMapGas);
 		tvShare = (TextView) v.findViewById(R.id.tvShare);
+		startTracking();
+		arrListMember = new ArrayList<LichtrinhMember>();
+		lstInforTracking = new ArrayList<InfoTracking>();
 
-		Thread thread = new Thread(this);
-		thread.start();
 		mProgressBar = (ProgressBar) v.findViewById(R.id.pb);
 		mProgressBar.setVisibility(View.GONE);
 		ivShareLocation = (ImageButton) v.findViewById(R.id.ivShareLocation);
-		ivStopShareLocation = (ImageButton) v.findViewById(R.id.ivStopShareLocation);
+		ivStopShareLocation = (ImageButton) v
+				.findViewById(R.id.ivStopShareLocation);
 		imgMapPlace = (ImageView) v.findViewById(R.id.imgMapPlace);
 		imgMapWarnning = (ImageView) v.findViewById(R.id.imgMapWarnning);
 		imgMapTeam = (ImageView) v.findViewById(R.id.imgMapTeam);
@@ -105,6 +127,23 @@ public class TripDetailTripActivity extends Fragment implements
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
 		
+		Global.getSocketServer(getActivity()).on("tracking", new Emitter.Listener() {
+			
+			@Override
+			public void call(Object... arg0) {
+				// TODO Auto-generated method stub
+				getMemberTracking(arg0[0]);
+				
+			}
+		});
+		
+		
+		if (Global.isServiceRunning(getActivity(),
+				getActivity().ACTIVITY_SERVICE)) {
+			ivShareLocation.setVisibility(View.INVISIBLE);
+			ivStopShareLocation.setVisibility(View.VISIBLE);
+		}
+
 		try {
 			MapsInitializer.initialize(getActivity().getApplicationContext());
 		} catch (Exception e) {
@@ -113,68 +152,58 @@ public class TripDetailTripActivity extends Fragment implements
 		googleMap = mMapView.getMap();
 		googleMap.setMyLocationEnabled(true);
 
-		// GPS when leave
-		LocationManager locationManager = (LocationManager) getActivity()
-				.getSystemService(Context.LOCATION_SERVICE);
-		Criteria criteria = new Criteria();
-		String bestProvider = locationManager.getBestProvider(criteria, true);
-		location = locationManager.getLastKnownLocation(bestProvider);
-		if (location != null) {
-			onLocationChanged(location);
-		}
-		locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
-
 		ivStopShareLocation.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ivStopShareLocation.setVisibility(View.INVISIBLE);
 				ivShareLocation.setVisibility(View.VISIBLE);
-				
+
 				mProgressBar.setVisibility(View.VISIBLE);
-				
-				Global.StopServiceGetLocation(getActivity(), new Intent(getActivity(), GetLocationService.class));	
-				
+
+				Global.StopServiceGetLocation(getActivity(), new Intent(
+						getActivity(), GetLocationService.class));
+
 				(new Handler()).postDelayed(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						ivShareLocation.setVisibility(View.GONE);
 						mProgressBar.setVisibility(View.GONE);
 					}
-					
+
 				}, 3000);
 			}
 		});
 		ivShareLocation.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ivShareLocation.setVisibility(View.INVISIBLE);
 				ivStopShareLocation.setVisibility(View.VISIBLE);
-				
+
 				mProgressBar.setVisibility(View.VISIBLE);
 				tvShare.setVisibility(View.VISIBLE);
-				
-				Global.StartServiceGetLocation(getActivity(), new Intent(getActivity(), GetLocationService.class));
-				
+
+				Global.StartServiceGetLocation(getActivity(), new Intent(
+						getActivity(), GetLocationService.class));
+
 				(new Handler()).postDelayed(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						mProgressBar.setVisibility(View.GONE);
+
 						tvShare.setVisibility(View.GONE);
 					}
 				}, 3000);
-				
+
 			}
 		});
-		
-		
+
 		imgMapPlace.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -302,15 +331,17 @@ public class TripDetailTripActivity extends Fragment implements
 			}
 		}
 	}
+
 	private void updateMarked() {
 		googleMap.clear();
-		
+
 		if (((status >> 4) & 1) == 1) {
 			// place
 
 		}
 		if (((status >> 2) & 1) == 1) {
 			// team
+			// markerGps(lstTracking);
 		}
 		if (((status >> 1) & 1) == 1) {
 			// hospital
@@ -321,10 +352,11 @@ public class TripDetailTripActivity extends Fragment implements
 			markerShow(listGas);
 		}
 		if (((status >> 0) & 1) == 1) {
-			//warning
-			
+			// warning
+
 		}
 	}
+
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -334,6 +366,7 @@ public class TripDetailTripActivity extends Fragment implements
 		}
 		mMapView.onDestroy();
 	}
+
 	@Override
 	public void onDestroyView() {
 		// TODO Auto-generated method stub
@@ -354,26 +387,17 @@ public class TripDetailTripActivity extends Fragment implements
 		super.onPause();
 		mMapView.onPause();
 	}
+
 	@Override
 	public void onLowMemory() {
 		super.onLowMemory();
 		mMapView.onLowMemory();
 	}
 
-	@Override
-	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				location.getLatitude(), location.getLongitude()), 13));
-	}
 	private void getNearbyFromGoogle(final String type) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		String url = "";
-		if (location != null) {
-			url = Global.URL_NEARBY(location.getLatitude(),
-					location.getLongitude(), Global.NEARBY_RADIUS, type);
-		}
+		url = Global.URL_NEARBY(lat, lon, Global.NEARBY_RADIUS, type);
 		client.get(url, params, new AsyncHttpResponseHandler() {
 			public void onSuccess(String response) {
 				Log.e("getNearbyFromGoogle", response);
@@ -389,6 +413,7 @@ public class TripDetailTripActivity extends Fragment implements
 			}
 		});
 	}
+
 	private void saveNearby(String type, String response) {
 		ArrayList<Nearby> list = new ArrayList<Nearby>();
 		try {
@@ -407,14 +432,14 @@ public class TripDetailTripActivity extends Fragment implements
 				Nearby n = new Nearby(name, vicinity, Double.parseDouble(lat),
 						Double.parseDouble(lon), icon);
 
-				int id = getActivity().getResources().getIdentifier(
-						n.getIcon(), "drawable",
-						getActivity().getPackageName());
+				int id = getActivity().getResources()
+						.getIdentifier(n.getIcon(), "drawable",
+								getActivity().getPackageName());
 				googleMap.addMarker(new MarkerOptions()
 						.position(new LatLng(n.getLat(), n.getLon()))
 						.title(n.getTen()).snippet(n.getDiachi())
 						.icon(BitmapDescriptorFactory.fromResource(id)));
-				
+
 				list.add(n);
 			}
 
@@ -425,12 +450,13 @@ public class TripDetailTripActivity extends Fragment implements
 				listHospital.clear();
 				listHospital.addAll(list);
 			}
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	private void markerShow(ArrayList<Nearby> listNearby) {
 		for (Nearby nearby : listNearby) {
 			int id = getActivity().getResources().getIdentifier(
@@ -443,33 +469,111 @@ public class TripDetailTripActivity extends Fragment implements
 		}
 	}
 
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
+	private void markerGps(ArrayList<InfoTracking> lstTracking) {
+		if (lstTracking.size() > 0) {
+			for (InfoTracking infoTracking : lstTracking) {
+				int id = getActivity().getResources().getIdentifier(
+						infoTracking.getAvatar(),
+						Environment.getExternalStorageDirectory() + "/"
+								+ "DULIBU", getActivity().getPackageName());
+				googleMap.addMarker(new MarkerOptions()
+						.position(
+								new LatLng(Double.parseDouble(infoTracking
+										.getLat()), Double
+										.parseDouble(infoTracking.getLon())))
+						.title(infoTracking.getUser_fullname())
+						.icon(BitmapDescriptorFactory.fromResource(id)));
+			}
+		}
+
+	}
+
+	private void startTracking() {
+
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
+
+			googleApiClient = new GoogleApiClient.Builder(getActivity())
+					.addApi(LocationServices.API).addConnectionCallbacks(this)
+					.addOnConnectionFailedListener(this).build();
+
+			if (!googleApiClient.isConnected()
+					|| !googleApiClient.isConnecting()) {
+				googleApiClient.connect();
+			}
+		} else {
+		}
 	}
 
 	@Override
-	public void onProviderEnabled(String provider) {
+	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
-		
+		if (location != null) {
+			// url = Global.URL_NEARBY(location.getLatitude(),
+			// location.getLongitude(), Global.NEARBY_RADIUS, type);
+
+			lat = location.getLatitude();
+			lon = location.getLongitude();
+		}
 	}
 
 	@Override
-	public void onProviderDisabled(String provider) {
+	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
-		
+		stopLocationUpdates();
+	}
+
+	private void stopLocationUpdates() {
+		if (googleApiClient != null && googleApiClient.isConnected()) {
+			googleApiClient.disconnect();
+		}
 	}
 
 	@Override
-	public void onMapReady(GoogleMap arg0) {
+	public void onConnected(Bundle arg0) {
 		// TODO Auto-generated method stub
-		updateMarked();
+		locationRequest = LocationRequest.create();
+		locationRequest.setInterval(5000); // milliseconds
+		locationRequest.setFastestInterval(5000); // the fastest rate in
+													// milliseconds at which
+													// your app can handle
+													// location updates
+		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+		LocationServices.FusedLocationApi.requestLocationUpdates(
+				googleApiClient, locationRequest, this);
+		mLastLocation = LocationServices.FusedLocationApi
+				.getLastLocation(googleApiClient);
+		if (mLastLocation != null) {
+			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+					new LatLng(mLastLocation.getLatitude(), mLastLocation
+							.getLongitude()), 13));
+		}
+
 	}
 
 	@Override
-	public void run() {
+	public void onConnectionSuspended(int arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
+	private void getMemberTracking(Object resposive) {
+		try {
+			JSONObject data = (JSONObject)resposive;
+			String target_id = data.optString("target_id");
+			String target_type = data.optString("target_type");
+			String user_id = data.getJSONObject("sender").optString("_id");
+			String user_fullname = data.getJSONObject("sender").optString("fullname");
+			String avatar = data.getJSONObject("sender").optString("avatar");
+			String lat = data.optString("lat");
+			String lon = data.optString("lon");
+			InfoTracking infoTracking = new InfoTracking(target_id, target_type, user_id, user_fullname, avatar, lat, lon);
+			lstInforTracking.add(infoTracking);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

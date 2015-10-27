@@ -3,6 +3,9 @@ package com.hou.dulibu;
 import java.io.File;
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.hou.app.Global;
 import com.hou.fragment.ListPhuotFragment;
 import com.hou.fragment.ListTripFragment;
@@ -18,7 +21,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,6 +35,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import io.socket.emitter.Emitter;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
@@ -106,7 +112,31 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 
 		mnuAbout = newSection(getString(R.string.menuThongTin), R.drawable.icon_about, new ThongTinUngDung());
 		this.addSection(mnuAbout);
-
+		
+		
+		Global.getSocketServer(this)
+			.on(".join", new Emitter.Listener() {
+				
+				@Override
+				public void call(Object... arg0) {
+					// TODO Auto-generated method stub
+					JSONObject data = (JSONObject)arg0[0];
+					
+					String user_id = Global.getPreference(ProfileManagerActivity.this, Global.USER_MAUSER, "###");
+					try {
+						if (data.getJSONObject("sender").optString("_id").equals(user_id)) {
+							if (data.optString("timestamp").compareTo(Global.TIMESTAMP)!=0) {
+								// logout here
+								//Toast.makeText(ProfileManagerActivity.this, "Bị hack cmnr", Toast.LENGTH_SHORT).show();
+								NoticeRegisFalse("Nguy hiểm!", "Tài khoản của bạn đã bị đăng nhập ở một nơi khác!");
+							}
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
 	}
 
 	@Override
@@ -193,6 +223,27 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 						startActivity(intent);
 					}
 				});
+	}
+	private void NoticeRegisFalse(String title, String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(content);
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(R.drawable.icon_error);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// do something!
+				startActivity(new Intent(ProfileManagerActivity.this,LoginManagerActivity.class));
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
 	}
 
 }

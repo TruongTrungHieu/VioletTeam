@@ -1,12 +1,20 @@
 package com.hou.app;
 
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
 import java.io.File;
+import java.net.URISyntaxException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.hou.model.Diemphuot;
 
@@ -110,6 +118,8 @@ public class Global {
 	//Target
 	public static String TARGET_TRIP = "TRIP";
 	public static String TARGET_USER = "USER";
+	//Start tracking first time
+	public static boolean FIRST_TIME_TRACKING = false;
 	/*
 	 * End ShareReferences Key and Default value
 	 */
@@ -236,11 +246,13 @@ public class Global {
 	public static void StartServiceGetLocation(Activity atv, Intent intent){
 		if (!isServiceRunning(atv, Activity.ACTIVITY_SERVICE)) {
 			atv.startService(intent);
+			FIRST_TIME_TRACKING = true;
 		}
 	}
 	public static void StopServiceGetLocation(Activity atv, Intent intent){
-		if (!isServiceRunning(atv, Activity.ACTIVITY_SERVICE)) {
+		if (isServiceRunning(atv, Activity.ACTIVITY_SERVICE)) {
 			atv.stopService(intent);
+			FIRST_TIME_TRACKING = false;
 		}
 	}
 	
@@ -256,7 +268,45 @@ public class Global {
 		return false;
 	}
 	
-	
+	private static Socket socket;
+	public static String TIMESTAMP = "";
+	public static Socket getSocketServer(final Activity context){
+		if (socket == null) {
+			try {
+				socket = IO.socket(BASE_URI);
+				
+				socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+					
+					@Override
+					public void call(Object... arg0) {
+						// TODO Auto-generated method stub
+						JSONObject data = new JSONObject();
+						
+						try {
+							data.put("timestamp", Global.TIMESTAMP)
+								.put("access_token", Global.getPreference(context, Global.ACCESS_TOKEN, ""));
+							socket.emit(".join", data);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				});
+				
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if (!socket.connected()) {
+			socket.connect();
+		}
+		
+		return socket;
+		
+	}
 	
 	
 
