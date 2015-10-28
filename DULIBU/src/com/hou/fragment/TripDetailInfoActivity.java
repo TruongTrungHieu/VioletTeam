@@ -167,7 +167,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			String admin = "";
 			String checkJoin = "";
 
-			if (!item.optString("created_by").equals("")) {
+			if (!(item.optString("created_by").equals("")) && !(item.optString("created_by").isEmpty()) ) {
 				admin = item.getJSONObject("created_by").optString("fullname");
 				checkJoin = item.getJSONObject("created_by").optString(
 						"username");

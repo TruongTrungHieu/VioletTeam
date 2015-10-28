@@ -73,7 +73,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class CreateTripManagerActivity extends ActionBarActivity implements OnMapReadyCallback {
+public class CreateTripManagerActivity extends ActionBarActivity implements
+		OnMapReadyCallback {
 	private Spinner spStartPlace;
 	private Spinner spEndPlace;
 	public static Point screenSize = new Point();
@@ -87,8 +88,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 	Button btnCreatePlace, btnCreateTrip, btnChooseImage;
 	// TimePicker tpTimePK;
 	GoogleMap mMap;
-	EditText edTripName, edKinhPhi, edPlaceStart, edPlaceOffline, edNotes;
-	EditText edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime, edOfflineTime, edDateOffline;
+	EditText edTripName, edKinhPhi, edPlaceStart, edNotes;
+	EditText edTimePlace, edDayStart, edDayEnd, edStartTime, edEndTime;
 
 	private ArrayList<Diemphuot> listAll, listPlace;
 	private ArrayList<Diemphuot> listTouch;
@@ -106,16 +107,19 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_trip_manager);
 
-		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		this.getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		this.getWindowManager().getDefaultDisplay().getSize(screenSize);
 
 		if (getSupportActionBar() != null) {
 			// getSupportActionBar().setDisplayShowCustomEnabled(true);
-			getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0aae44")));
+			getSupportActionBar().setBackgroundDrawable(
+					new ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		Calendar c = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.US);
 		dateNow = dateFormat.format(c.getTime());
 		edTripName = (EditText) findViewById(R.id.txtNameTrip);
 		edDayStart = (EditText) findViewById(R.id.txtStartDay);
@@ -125,9 +129,6 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		edPlaceStart = (EditText) findViewById(R.id.txtPlaceStart);
 		edStartTime = (EditText) findViewById(R.id.txtStartTime);
 		edEndTime = (EditText) findViewById(R.id.txtEndTime);
-		edOfflineTime = (EditText) findViewById(R.id.txtTimeOffline);
-		edDateOffline = (EditText) findViewById(R.id.txtDateOffline);
-		edPlaceOffline = (EditText) findViewById(R.id.txtPlaceOffline);
 		edNotes = (EditText) findViewById(R.id.txtNotes);
 
 		exeQ = new ExecuteQuery(getApplicationContext());
@@ -170,33 +171,24 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				// TODO Auto-generated method stub
 				if (validatorButton() == true) {
 					if (startPlace == null) {
-						startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem().toString());
+						startPlace = exeQ.getTinhByTentinh(spStartPlace
+								.getSelectedItem().toString());
 					}
 					if (endPlace == null) {
-						endPlace = exeQ.getTinhByTentinh(spEndPlace.getSelectedItem().toString());
+						endPlace = exeQ.getTinhByTentinh(spEndPlace
+								.getSelectedItem().toString());
 					}
-					createNewTrip(edTripName.getText().toString().trim(), startPlace.getMaTinh(), endPlace.getMaTinh(),
-							edDayStart.getText().toString(), edDayEnd.getText().toString(),
-							edStartTime.getText().toString(), edEndTime.getText().toString(),
-							edKinhPhi.getText().toString(), edDateOffline.getText().toString(),
-							edOfflineTime.getText().toString(), edPlaceOffline.getText().toString(),
-							edTimePlace.getText().toString(), edPlaceStart.getText().toString(),
-							edNotes.getText().toString());
+					createNewTrip(edTripName.getText().toString().trim(),
+							startPlace.getMaTinh(), endPlace.getMaTinh(),
+							edDayStart.getText().toString(), edDayEnd.getText()
+									.toString(), edStartTime.getText()
+									.toString(),
+							edEndTime.getText().toString(), edKinhPhi.getText()
+									.toString(), edTimePlace.getText()
+									.toString(), edPlaceStart.getText()
+									.toString(), edNotes.getText().toString());
 
 				}
-			}
-		});
-		edOfflineTime.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker,
-						R.id.btnCancelCreateTripTimePiker, edOfflineTime, R.layout.time_picker,
-						R.string.titleTimeDialog);
-				edOfflineTime.setError(null);
-				edOfflineTime.setFocusableInTouchMode(true);
-				edOfflineTime.setFocusable(true);
 			}
 		});
 		edEndTime.setOnClickListener(new OnClickListener() {
@@ -204,8 +196,10 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker,
-						R.id.btnCancelCreateTripTimePiker, edEndTime, R.layout.time_picker, R.string.titleTimeDialog);
+				timePikerDialog(R.id.tpCreateTripTimePicker,
+						R.id.btnDoneCreateTripTimePiker,
+						R.id.btnCancelCreateTripTimePiker, edEndTime,
+						R.layout.time_picker, R.string.titleTimeDialog);
 				edEndTime.setError(null);
 				edEndTime.setFocusableInTouchMode(true);
 				edEndTime.setFocusable(true);
@@ -216,8 +210,10 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker,
-						R.id.btnCancelCreateTripTimePiker, edStartTime, R.layout.time_picker, R.string.titleTimeDialog);
+				timePikerDialog(R.id.tpCreateTripTimePicker,
+						R.id.btnDoneCreateTripTimePiker,
+						R.id.btnCancelCreateTripTimePiker, edStartTime,
+						R.layout.time_picker, R.string.titleTimeDialog);
 				edStartTime.setError(null);
 				edStartTime.setFocusableInTouchMode(true);
 				edStartTime.setFocusable(true);
@@ -228,8 +224,10 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker,
-						R.id.btnCancelCreateTripDatePiker, edDayEnd, R.layout.date_picker, R.string.titleTimeDialog);
+				datePikerDialog(R.id.dpCreateDatePicker,
+						R.id.btnDoneCreateTripDatePiker,
+						R.id.btnCancelCreateTripDatePiker, edDayEnd,
+						R.layout.date_picker, R.string.titleTimeDialog);
 				edDayEnd.setError(null);
 				edDayEnd.setFocusableInTouchMode(true);
 				edDayEnd.setFocusable(true);
@@ -240,24 +238,13 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker,
-						R.id.btnCancelCreateTripDatePiker, edDayStart, R.layout.date_picker, R.string.titleTimeDialog);
+				datePikerDialog(R.id.dpCreateDatePicker,
+						R.id.btnDoneCreateTripDatePiker,
+						R.id.btnCancelCreateTripDatePiker, edDayStart,
+						R.layout.date_picker, R.string.titleTimeDialog);
 				edDayStart.setError(null);
 				edDayStart.setFocusableInTouchMode(true);
 				edDayStart.setFocusable(true);
-			}
-		});
-		edDateOffline.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				datePikerDialog(R.id.dpCreateDatePicker, R.id.btnDoneCreateTripDatePiker,
-						R.id.btnCancelCreateTripDatePiker, edDateOffline, R.layout.date_picker,
-						R.string.titleTimeDialog);
-				edDateOffline.setError(null);
-				edDateOffline.setFocusableInTouchMode(true);
-				edDateOffline.setFocusable(true);
 			}
 		});
 		edTimePlace.setOnClickListener(new OnClickListener() {
@@ -266,8 +253,10 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// timePlacePikerDialog();
-				timePikerDialog(R.id.tpCreateTripTimePicker, R.id.btnDoneCreateTripTimePiker,
-						R.id.btnCancelCreateTripTimePiker, edTimePlace, R.layout.time_picker, R.string.titleTimeDialog);
+				timePikerDialog(R.id.tpCreateTripTimePicker,
+						R.id.btnDoneCreateTripTimePiker,
+						R.id.btnCancelCreateTripTimePiker, edTimePlace,
+						R.layout.time_picker, R.string.titleTimeDialog);
 				edTimePlace.setError(null);
 				edTimePlace.setFocusableInTouchMode(true);
 				edTimePlace.setFocusable(true);
@@ -276,13 +265,14 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		});
 	}
 
-	public void datePikerDialog(int datePickerID, int btnDoneID, int btnCancelID, final TextView tv, int Layout,
-			int dialogTitle) {
+	public void datePikerDialog(int datePickerID, int btnDoneID,
+			int btnCancelID, final TextView tv, int Layout, int dialogTitle) {
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(Layout);
 		dialog.setTitle(dialogTitle);
 		dialog.setCancelable(true);
-		final DatePicker dpDatePK = (DatePicker) dialog.findViewById(datePickerID);
+		final DatePicker dpDatePK = (DatePicker) dialog
+				.findViewById(datePickerID);
 
 		Button btnCancelDatePiker = (Button) dialog.findViewById(btnCancelID);
 		btnCancelDatePiker.setOnClickListener(new OnClickListener() {
@@ -322,13 +312,14 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		dialog.show();
 	}
 
-	public void timePikerDialog(int timePickerID, int btnDoneID, int btnCancelID, final TextView tv, int Layout,
-			int dialogTitle) {
+	public void timePikerDialog(int timePickerID, int btnDoneID,
+			int btnCancelID, final TextView tv, int Layout, int dialogTitle) {
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(Layout);
 		dialog.setTitle(dialogTitle);
 		dialog.setCancelable(true);
-		final TimePicker tpTimePK = (TimePicker) dialog.findViewById(timePickerID);
+		final TimePicker tpTimePK = (TimePicker) dialog
+				.findViewById(timePickerID);
 		tpTimePK.setIs24HourView(true);
 		Button btnCancelTimePiker = (Button) dialog.findViewById(btnCancelID);
 		btnCancelTimePiker.setOnClickListener(new OnClickListener() {
@@ -371,24 +362,31 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		LayoutInflater inflater = getLayoutInflater();
 		View alertLayout = inflater.inflate(R.layout.choose_place_maps, null);
 
-		ImageButton btnImDeletePlace = (ImageButton) alertLayout.findViewById(R.id.btnImDeletePlace);
-		ImageButton btnImAddPlace = (ImageButton) alertLayout.findViewById(R.id.btnImAddPlace);
+		ImageButton btnImDeletePlace = (ImageButton) alertLayout
+				.findViewById(R.id.btnImDeletePlace);
+		ImageButton btnImAddPlace = (ImageButton) alertLayout
+				.findViewById(R.id.btnImAddPlace);
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setView(alertLayout);
-		MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+		MapFragment mapFragment = (MapFragment) getFragmentManager()
+				.findFragmentById(R.id.map);
 		mapFragment.getMapAsync(this);
 
-		startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem().toString());
-		endPlace = exeQ.getTinhByTentinh(spEndPlace.getSelectedItem().toString());
-		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(), endPlace.getMaTinh());
+		startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem()
+				.toString());
+		endPlace = exeQ.getTinhByTentinh(spEndPlace.getSelectedItem()
+				.toString());
+		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
+				endPlace.getMaTinh());
 
 		mMap = mapFragment.getMap();
 		mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		mMap.getUiSettings().setMyLocationButtonEnabled(true);
 		mMap.setMyLocationEnabled(true);
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-				new LatLng(Double.parseDouble(startPlace.getLat()), Double.parseDouble(startPlace.getLon())), 7));
+				new LatLng(Double.parseDouble(startPlace.getLat()), Double
+						.parseDouble(startPlace.getLon())), 7));
 
 		showMakerFirst();
 
@@ -411,17 +409,20 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				mMap.clear();
 				// Loop for searching Diemphuot
 				for (Diemphuot dp : listAll) {
-					LatLng dpLL = new LatLng(Double.parseDouble(dp.getLat()), Double.parseDouble(dp.getLat()));
+					LatLng dpLL = new LatLng(Double.parseDouble(dp.getLat()),
+							Double.parseDouble(dp.getLat()));
 					double distance = CalculationByDistance(arg0, dpLL);
 					// 5km
 					if ((distance > 0) && (distance < 0.001)) {
-						mMap.addMarker(
-								new MarkerOptions()
-										.position(new LatLng(Double.parseDouble(dp.getLat()),
-												Double.parseDouble(dp.getLon())))
-										.title(dp.getTenDiemphuot())
-										.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch))
-										.snippet(dp.getMaDiemphuot()));
+						mMap.addMarker(new MarkerOptions()
+								.position(
+										new LatLng(Double.parseDouble(dp
+												.getLat()), Double
+												.parseDouble(dp.getLon())))
+								.title(dp.getTenDiemphuot())
+								.icon(BitmapDescriptorFactory
+										.fromResource(R.drawable.marker_touch))
+								.snippet(dp.getMaDiemphuot()));
 						listTouch.add(dp);
 					}
 				}
@@ -451,17 +452,22 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 
 			@Override
 			public void onClick(View v) {
-				if (markerTouch != null && markerTouch.getPosition().latitude != Double.parseDouble(startPlace.getLat())
-						&& markerTouch.getPosition().longitude != Double.parseDouble(endPlace.getLat())) {
+				if (markerTouch != null
+						&& markerTouch.getPosition().latitude != Double
+								.parseDouble(startPlace.getLat())
+						&& markerTouch.getPosition().longitude != Double
+								.parseDouble(endPlace.getLat())) {
 					boolean a = true;
 					for (Diemphuot dp : listCreate) {
-						if (dp.getMaDiemphuot().equals(markerTouch.getSnippet())) {
+						if (dp.getMaDiemphuot()
+								.equals(markerTouch.getSnippet())) {
 							a = !a;
 						}
 					}
 					if (a) {
 						for (Diemphuot dp : listAll) {
-							if (dp.getMaDiemphuot().equals(markerTouch.getSnippet())) {
+							if (dp.getMaDiemphuot().equals(
+									markerTouch.getSnippet())) {
 								listCreate.add(dp);
 								break;
 							}
@@ -475,16 +481,17 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		});
 
 		alert.setCancelable(false);
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		alert.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				removeFragmentMaps();
-				return;
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						removeFragmentMaps();
+						return;
 
-			}
-		});
+					}
+				});
 
 		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
@@ -502,8 +509,12 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		// Diemphuot da touch
 		for (Diemphuot dp : listTouch) {
 			mMap.addMarker(new MarkerOptions()
-					.position(new LatLng(Double.parseDouble(dp.getLat()), Double.parseDouble(dp.getLon())))
-					.title(dp.getTenDiemphuot()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch))
+					.position(
+							new LatLng(Double.parseDouble(dp.getLat()), Double
+									.parseDouble(dp.getLon())))
+					.title(dp.getTenDiemphuot())
+					.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.marker_touch))
 					.snippet(dp.getMaDiemphuot()));
 		}
 	}
@@ -512,36 +523,46 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		// Diemphuot da chon
 		for (Diemphuot dp : listCreate) {
 			mMap.addMarker(new MarkerOptions()
-					.position(new LatLng(Double.parseDouble(dp.getLat()), Double.parseDouble(dp.getLon())))
-					.title(dp.getTenDiemphuot()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_choice))
+					.position(
+							new LatLng(Double.parseDouble(dp.getLat()), Double
+									.parseDouble(dp.getLon())))
+					.title(dp.getTenDiemphuot())
+					.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.marker_choice))
 					.snippet(dp.getMaDiemphuot()));
 		}
 	}
 
 	private void showMakerFirst() {
 		// End
-		mMap.addMarker(
-				new MarkerOptions()
-						.position(new LatLng(Double.parseDouble(startPlace.getLat()),
+		mMap.addMarker(new MarkerOptions()
+				.position(
+						new LatLng(Double.parseDouble(startPlace.getLat()),
 								Double.parseDouble(startPlace.getLon())))
-						.title(startPlace.getTenTinh())
-						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
-						.snippet(startPlace.getMaTinh()));
+				.title(startPlace.getTenTinh())
+				.icon(BitmapDescriptorFactory
+						.fromResource(R.drawable.marker_start_end_places))
+				.snippet(startPlace.getMaTinh()));
 
 		// Start
-		mMap.addMarker(
-				new MarkerOptions()
-						.position(new LatLng(Double.parseDouble(endPlace.getLat()),
+		mMap.addMarker(new MarkerOptions()
+				.position(
+						new LatLng(Double.parseDouble(endPlace.getLat()),
 								Double.parseDouble(endPlace.getLon())))
-						.title(endPlace.getTenTinh())
-						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
-						.snippet(endPlace.getMaTinh()));
+				.title(endPlace.getTenTinh())
+				.icon(BitmapDescriptorFactory
+						.fromResource(R.drawable.marker_start_end_places))
+				.snippet(endPlace.getMaTinh()));
 
 		// Diemphuot thuoc Start + end
 		for (Diemphuot dp : listPlace) {
 			mMap.addMarker(new MarkerOptions()
-					.position(new LatLng(Double.parseDouble(dp.getLat()), Double.parseDouble(dp.getLon())))
-					.title(dp.getTenDiemphuot()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch))
+					.position(
+							new LatLng(Double.parseDouble(dp.getLat()), Double
+									.parseDouble(dp.getLon())))
+					.title(dp.getTenDiemphuot())
+					.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.marker_touch))
 					.snippet(dp.getMaDiemphuot()));
 		}
 	}
@@ -577,24 +598,6 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			edKinhPhi.requestFocus();
 			return true;
 		}
-		if (edDateOffline.getText().toString().equals("") || edOfflineTime.getText().toString().equals("")
-				|| edPlaceOffline.getText().toString().equals("")) {
-			if (edDateOffline.getText().toString().isEmpty()) {
-				edDateOffline.setError(getString(R.string.checknull));
-				edDateOffline.requestFocus();
-				return true;
-			}
-			if (edOfflineTime.getText().toString().isEmpty()) {
-				edOfflineTime.setError(getString(R.string.checknull));
-				edOfflineTime.requestFocus();
-				return true;
-			}
-			if (edPlaceOffline.getText().toString().isEmpty()) {
-				edPlaceOffline.setError(getString(R.string.checknull));
-				edPlaceOffline.requestFocus();
-				return true;
-			}
-		}
 
 		if (edTimePlace.getText().toString().isEmpty()) {
 			edTimePlace.setError(getString(R.string.checknull));
@@ -620,41 +623,24 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			edDayStart.requestFocus();
 			check = false;
 		}
-		if (edDayStart.getText().toString().compareTo(edDayEnd.getText().toString()) == 0) {
-			if (edStartTime.getText().toString().compareTo(edEndTime.getText().toString()) >= 0) {
+		if (edDayStart.getText().toString()
+				.compareTo(edDayEnd.getText().toString()) == 0) {
+			if (edStartTime.getText().toString()
+					.compareTo(edEndTime.getText().toString()) >= 0) {
 				edEndTime.setError(getString(R.string.error_time));
 				edEndTime.requestFocus();
 				check = false;
 			}
 		} else {
-			if (edDayStart.getText().toString().compareTo(edDayEnd.getText().toString()) > 0) {
+			if (edDayStart.getText().toString()
+					.compareTo(edDayEnd.getText().toString()) > 0) {
 				edDayEnd.setError(getString(R.string.error_dateTrip));
 				edDayEnd.requestFocus();
 				check = false;
 			}
 		}
-		if (edDateOffline.getText().toString().equals("") || edOfflineTime.getText().toString().equals("")
-				|| edPlaceOffline.getText().toString().equals("")) {
-			if (edDateOffline.getText().toString().compareTo(dateNow) < 0) {
-				edDateOffline.setError(getString(R.string.error_DateOffTrip));
-				edDateOffline.requestFocus();
-				check = false;
-			}
-			if (edDateOffline.getText().toString().compareTo(edDayStart.getText().toString()) == 0) {
-				if (edOfflineTime.getText().toString().compareTo(edStartTime.getText().toString()) >= 0) {
-					edOfflineTime.setError(getString(R.string.error_TimeOffTrip));
-					edOfflineTime.requestFocus();
-					check = false;
-				}
-			} else {
-				if (edDateOffline.getText().toString().compareTo(edDayStart.getText().toString()) > 0) {
-					edDateOffline.setError(getString(R.string.error_TimeOffTrip));
-					edDateOffline.requestFocus();
-					check = false;
-				}
-			}
-		}
-		if (edTimePlace.getText().toString().compareTo(edStartTime.getText().toString()) > 0) {
+		if (edTimePlace.getText().toString()
+				.compareTo(edStartTime.getText().toString()) > 0) {
 			edTimePlace.setError(getString(R.string.error_TimeOffPlace));
 			edTimePlace.requestFocus();
 			check = false;
@@ -716,7 +702,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			tvFromGallery = (TextView) findViewById(R.id.tvFromGallery);
 			tvFromCamera.setOnClickListener(this);
 			tvFromGallery.setOnClickListener(this);
-			getWindow().setLayout((int) (screenSize.x * 0.95), ViewGroup.LayoutParams.WRAP_CONTENT);
+			getWindow().setLayout((int) (screenSize.x * 0.95),
+					ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			WindowManager.LayoutParams wmlp = getWindow().getAttributes();
 
@@ -737,7 +724,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				// "Complete action using"), PICK_FROM_FILE);
 				// Create intent to Open Image applications like Gallery, Google
 				// Photos
-				Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+				Intent galleryIntent = new Intent(
+						Intent.ACTION_PICK,
 						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				// Start the Intent
 				startActivityForResult(galleryIntent, PICK_FROM_FILE);
@@ -746,11 +734,15 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 			case R.id.tvFromCamera:
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				Global.createFolderDULIBU();
-				fromCameraFile = new File(Environment.getExternalStorageDirectory() + "/" + Global.DULIBU,
-						"tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+				fromCameraFile = new File(
+						Environment.getExternalStorageDirectory() + "/"
+								+ Global.DULIBU, "tmp_avatar_"
+								+ String.valueOf(System.currentTimeMillis())
+								+ ".jpg");
 				mImageCaptureUri = Uri.fromFile(fromCameraFile);
 				try {
-					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
+							mImageCaptureUri);
 					intent.putExtra("return-data", true);
 					startActivityForResult(intent, PICK_FROM_CAMERA);
 				} catch (Exception e) {
@@ -771,7 +763,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
 				// Get the cursor
-				Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+				Cursor cursor = this.getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
 				// Move to first row
 				cursor.moveToFirst();
 
@@ -780,8 +773,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				cursor.close();
 				// Set the Image in ImageView after decoding the String
 				// ivProfile.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-				btnChooseImage.setBackground(
-						new BitmapDrawable(getResources(), BitmapFactory.decodeFile(imgDecodableString)));
+				btnChooseImage.setBackground(new BitmapDrawable(getResources(),
+						BitmapFactory.decodeFile(imgDecodableString)));
 				btnChooseImage.setText("");
 				fromGallery = new File(imgDecodableString);
 				fromCameraFile = null;
@@ -790,9 +783,11 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				path = mImageCaptureUri.getPath();
 			}
 			if (fromCameraFile != null) {
-				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(fromCameraFile, 500, 500);
+				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
+						fromCameraFile, 500, 500);
 				// ivProfile.setImageBitmap(bm);
-				BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bm);
+				BitmapDrawable bitmapDrawable = new BitmapDrawable(
+						getResources(), bm);
 				btnChooseImage.setBackground(bitmapDrawable);
 				btnChooseImage.setText("");
 				fromGallery = null;
@@ -808,15 +803,18 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		double lon2 = EndP.longitude / 1E6;
 		double dLat = Math.toRadians(lat2 - lat1);
 		double dLon = Math.toRadians(lon2 - lon1);
-		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1))
-				* Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(Math.toRadians(lat1))
+				* Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+				* Math.sin(dLon / 2);
 		double c = 2 * Math.asin(Math.sqrt(a));
 		return 6371.00 * c;
 	}
 
-	private void createNewTrip(String nameTrip, String startPlace, String endPlace, String startDay, String endDay,
-			String startTime, String endTime, String expense, String dateOffline, String timeOffline,
-			String placeOffline, String timeTaptrung, String PlaceTaptrung, String Notes) {
+	private void createNewTrip(String nameTrip, String startPlace,
+			String endPlace, String startDay, String endDay, String startTime,
+			String endTime, String expense, String timeTaptrung,
+			String PlaceTaptrung, String Notes) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		if (fromCameraFile == null) {
@@ -841,15 +839,17 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 		params.put("end_date", endDay);
 		params.put("end_time", endTime);
 		params.put("expense", expense);
-		params.put("offline_time", dateOffline + " " + timeOffline);
-		params.put("offline_position", placeOffline);
 		params.put("gathering_time", startDay + " " + timeTaptrung);
 		params.put("gathering_position", PlaceTaptrung);
 		params.put("note", Notes);
 		client.post(
-				Global.BASE_URI + "/" + Global.URI_CREATENEWTRIP_PATH + "?access_token="
-						+ Global.getPreference(this, Global.ACCESS_TOKEN, "none"),
-				params, new AsyncHttpResponseHandler() {
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_CREATENEWTRIP_PATH
+						+ "?access_token="
+						+ Global.getPreference(this, Global.ACCESS_TOKEN,
+								"none"), params,
+				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("createNewTrip", response + "");
 
@@ -860,7 +860,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 					}
 
 					@Override
-					public void onFailure(int statusCode, Throwable error, String content) {
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
 						NoticeRegisFalse();
 						Log.e("false_send", content + "");
 					}
@@ -930,16 +931,21 @@ public class CreateTripManagerActivity extends ActionBarActivity implements OnMa
 				params.put("path_lat", path_lat);
 				params.put("path_lon", path_lon);
 				client.post(
-						Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH + "?access_token="
-								+ Global.getPreference(this, Global.ACCESS_TOKEN, "none"),
-						params, new AsyncHttpResponseHandler() {
+						Global.BASE_URI
+								+ "/"
+								+ Global.URI_UPDATETRIPLOCATIONS_PATH
+								+ "?access_token="
+								+ Global.getPreference(this,
+										Global.ACCESS_TOKEN, "none"), params,
+						new AsyncHttpResponseHandler() {
 							public void onSuccess(String response) {
 								Log.e("send list", response);
 
 							}
 
 							@Override
-							public void onFailure(int statusCode, Throwable error, String content) {
+							public void onFailure(int statusCode,
+									Throwable error, String content) {
 								Log.e("false_send_list", content);
 							}
 						});
