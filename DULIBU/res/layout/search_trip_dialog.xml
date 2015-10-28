@@ -22,7 +22,7 @@
             android:textColor="#000" />
 
         <EditText
-            android:id="@+id/txtNameTrip"
+            android:id="@+id/txtNameTrip1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|center_horizontal"
@@ -55,7 +55,7 @@
                     android:textColor="#000" />
 
                 <Spinner
-                    android:id="@+id/spStartPlace"
+                    android:id="@+id/spStartPlace1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/custom_spiner_bg"
@@ -82,7 +82,7 @@
                     android:textColor="#000" />
 
                 <Spinner
-                    android:id="@+id/spEndPlace"
+                    android:id="@+id/spEndPlace1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/custom_spiner_bg"

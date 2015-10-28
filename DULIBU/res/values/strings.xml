@@ -32,7 +32,6 @@
     <string name="done_profile_actionbar"></string>
     <string name="update_ava_success">Avatar đã được cập nhật</string>
     <string name="update_ava_false">Cập nhật avatar thất bại</string>
-    
     <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
 
     <!-- change_pass -->
@@ -40,7 +39,7 @@
     <string name="new_pass">Mật khẩu mới</string>
     <string name="check_new_pass">Nhập lại mật khẩu mới</string>
     <string name="save_new_pass">Đổi mật khẩu</string>
-    
+
     <!-- Thông báo -->
     <string name="success">Thành công</string>
     <string name="successRegis">Đăng ký thành công !</string>
@@ -354,7 +353,7 @@
     <!-- Dialog search -->
     <string name="name_price">Giá</string>
     <string name="name_date">Ngày</string>
-    
+
     <!-- ChangeMap -->
     <string name="titleMapType">Kiểu bản đồ</string>
 
@@ -387,5 +386,6 @@
     <string name="title_invite">Nhập Email người được mời</string>
     <string name="invite_success">Lời mời đã được gửi !</string>
     <string name="invite_false">Bạn không thể gửi lời mời tới email này !</string>
+    <string name="title_activity_trip_detail_manager_user">Chi tiết chuyến đi</string>
 
 </resources>
