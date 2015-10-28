@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.adapters.MyArrayAdapterPlace;
+import com.hou.adapters.MyInfoWindowAdapter;
 import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -72,17 +73,6 @@ public class TripDetailTripForUser extends Fragment {
 		exeQ = new ExecuteQuery(getActivity());
 		exeQ.createDatabase();
 		exeQ.open();
-		//
-		// lstPlace = new ArrayList<Diemphuot>();
-		// lstPlace = exeQ.getAllDiemphuot();
-		//
-		// adapter = new MyArrayAdapterPlace(getActivity(),
-		// R.layout.list_row_slide, lstPlace);
-
-		/*
-		 * loadAnh(adapter, listPhuot);
-		 */
-
 	}
 
 	@Override
@@ -93,74 +83,35 @@ public class TripDetailTripForUser extends Fragment {
 		imgSlide = (ImageView) v.findViewById(R.id.imgSlide);
 		lvSlide = (ListView) v.findViewById(R.id.lvSlide);
 
+		lstPlace = new ArrayList<Diemphuot>();
+		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+		lvSlide.setAdapter(adapter);
+		
 		Context context = getActivity().getApplicationContext();
 		String maDiemPhuot = com.hou.app.Global.getPreference(context, Global.TRIP_TRIP_ID, "Viet");
-
-		//adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
-		lstPlace = new ArrayList<Diemphuot>();
-		DeviceStatus ds = new DeviceStatus();
-		String a = ds.getCurrentConnection(getActivity());
-		if (a.equals("Wifi") || a.equals("3G")) {
-			getTripPlaces(maDiemPhuot);
-			
-		}
-		/*exeQ = new ExecuteQuery(getActivity());
-		exeQ.createDatabase();
-		exeQ.open();
-		lstPlace = new ArrayList<Diemphuot>();
-		lstPlace = exeQ.getAllDiemphuot();*/
 
 		mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
-		// try {
-		// MapsInitializer.initialize(getActivity().getApplicationContext());
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
 		googleMap = mMapView.getMap();
-
-		/*
-		 * startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem()
-		 * .toString()); endPlace =
-		 * exeQ.getTinhByTentinh(spEndPlace.getSelectedItem() .toString());
-		 */
-		// startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
-		// endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		// listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
-		// endPlace.getMaTinh());
+		
 		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		//listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(), endPlace.getMaTinh());
-		/*
-		 * startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
-		 * endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		 * listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
-		 * endPlace.getMaTinh());
-		 */
-
-		// googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		// googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-		// googleMap.setMyLocationEnabled(true);
-		// googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-		// new LatLng(Double.parseDouble(startPlace.getLat()), Double
-		// .parseDouble(startPlace.getLon())), 7));
-		/*
-		 * googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		 * googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-		 * googleMap.setMyLocationEnabled(true);
-		 * googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( new
-		 * LatLng(Double.parseDouble(startPlace.getLat()), Double
-		 * .parseDouble(startPlace.getLon())), 7));
-		 */
+		
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
 				new LatLng(Double.parseDouble(startPlace.getLat()), Double.parseDouble(startPlace.getLon())), 7));
 
-		showMakerFirst();
-		// googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater));
+		//showMakerFirst();
+		DeviceStatus ds = new DeviceStatus();
+		String a = ds.getCurrentConnection(getActivity());
+		if (a.equals("Wifi") || a.equals("3G")) {
+			getTripPlaces(maDiemPhuot);
+		}
+		
+		googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater, R.layout.info_window_custom));
 
 		mLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
 		mLayout.setPanelSlideListener(new PanelSlideListener() {
@@ -196,8 +147,6 @@ public class TripDetailTripForUser extends Fragment {
 	}
 
 	private void showMakerFirst() {
-		// End
-		Log.d("toEnd", startPlace.getTenTinh() + lstPlace.size());
 		googleMap
 				.addMarker(new MarkerOptions()
 						.position(new LatLng(Double.parseDouble(startPlace.getLat()),
@@ -206,8 +155,6 @@ public class TripDetailTripForUser extends Fragment {
 						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
 						.snippet(startPlace.getMaTinh()));
 
-		// Start
-		Log.d("Startto", endPlace.getTenTinh());
 		googleMap
 				.addMarker(new MarkerOptions()
 						.position(new LatLng(Double.parseDouble(endPlace.getLat()),
@@ -218,15 +165,18 @@ public class TripDetailTripForUser extends Fragment {
 
 		// Diemphuot thuoc Start + end
 		for (Diemphuot dp : lstPlace) {
-			Log.d("StarttoEnd", dp.getTenDiemphuot());
+			MarkerOptions opt = new MarkerOptions()
+					.position(new LatLng(Double.parseDouble(dp.getLat()),
+							Double.parseDouble(dp.getLon())))
+					.title(dp.getTenDiemphuot())
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch));
+			if (dp.getImage() != null) {
+					opt.snippet(dp.getImage());
+			}
 			googleMap
-					.addMarker(
-							new MarkerOptions()
-									.position(new LatLng(Double.parseDouble(dp.getLat()),
-											Double.parseDouble(dp.getLon())))
-									.title(dp.getTenDiemphuot())
-									.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch))
-									.snippet(dp.getDiachi()));
+					.addMarker(opt);
+			
+			Log.d("___", googleMap.toString());
 		}
 	}
 
@@ -261,7 +211,6 @@ public class TripDetailTripForUser extends Fragment {
 	}
 
 	private void listPlace(String response) {
-		ArrayList<Diemphuot> listTemp = new ArrayList<Diemphuot>();
 		try {
 			JSONArray arrObj = new JSONArray(response);
 			for (int i = 0; i < arrObj.length(); i++) {
@@ -278,19 +227,15 @@ public class TripDetailTripForUser extends Fragment {
 				place.setLat(lat);
 				place.setLon(lon);
 				place.setImage(image);
-				listTemp.add(place);
+				
 				lstPlace.add(place);
-
-				// exeQ.insert_tbl_diemphuot_single(place);
 			}
+			showMakerFirst();
+			adapter.notifyDataSetChanged();
 		} catch (JSONException e) {
 			e.printStackTrace();
-			Log.d("listPlace - listPhuotFragment", e.getMessage());
+			Log.d("listPlace - listrip", e.getMessage());
 		}
-		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
-		lvSlide.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
-		showMakerFirst();
 		// loadAnh(listTemp);
 	}
 
@@ -347,13 +292,14 @@ public class TripDetailTripForUser extends Fragment {
 		}
 	}
 
-	class MyInfoWindowAdapter implements InfoWindowAdapter {
+	/*class MyInfoWindowAdapter implements InfoWindowAdapter {
 
 		private final View myContentsView;
-		LayoutInflater li;
+		private LayoutInflater li;
+		private int LayoutId;
 
 		MyInfoWindowAdapter(LayoutInflater li) {
-			myContentsView = li.inflate(R.layout.info_window_custom, null);
+			myContentsView = li.inflate(LayoutId, null);
 		}
 
 		@Override
@@ -386,6 +332,6 @@ public class TripDetailTripForUser extends Fragment {
 			return null;
 		}
 
-	}
+	}*/
 
 }

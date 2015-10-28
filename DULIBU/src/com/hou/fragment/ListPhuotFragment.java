@@ -100,7 +100,7 @@ public class ListPhuotFragment extends Fragment {
 				com.hou.app.Global.savePreference(context,"maDiemPhuot", listPhuot.get(position).getMaDiemphuot());
 				com.hou.app.Global.savePreference(context,"tenDiemPhuot",listPhuot.get(position).getTenDiemphuot());
 				com.hou.app.Global.savePreference(context,"ghiChu",listPhuot.get(position).getGhichu());
-				com.hou.app.Global.savePreference(context,"image",listPhuot.get(position).getImage());
+				com.hou.app.Global.savePreference(context,"imagePhuot",listPhuot.get(position).getImage());
 				com.hou.app.Global.savePreference(context,"lat_diemphuot",listPhuot.get(position).getLat());
 				com.hou.app.Global.savePreference(context,"lon_diemphuot",listPhuot.get(position).getLon());
 				com.hou.app.Global.savePreference(context,"trangThaiChuan",listPhuot.get(position).getTrangthaiChuan()+"");

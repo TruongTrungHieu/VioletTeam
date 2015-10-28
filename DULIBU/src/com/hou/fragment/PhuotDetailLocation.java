@@ -12,6 +12,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.hou.adapters.MyInfoWindowAdapter;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
 import com.hou.model.PhuotDetailComment;
@@ -45,6 +46,7 @@ public class PhuotDetailLocation extends Fragment {
 		String latDiemPhuot = com.hou.app.Global.getPreference(context, "lat_diemphuot", "89");
 		String lonDiemPhuot = com.hou.app.Global.getPreference(context, "lon_diemphuot", "98");
 		String tenDiemPhuot = com.hou.app.Global.getPreference(context, "tenDiemPhuot", "Viet");
+		String image = com.hou.app.Global.getPreference(context, "imagePhuot", "Viet");
 		lat = Double.parseDouble(latDiemPhuot);
 		lng = Double.parseDouble(lonDiemPhuot);
 		diemphuot = com.hou.app.Global.getPreference(getActivity().getApplicationContext(), "tenDiemPhuot",
@@ -64,10 +66,11 @@ public class PhuotDetailLocation extends Fragment {
 		 * mMap.moveCamera(cameraUpdate); mMap.setMyLocationEnabled(true);
 		 */
 		mMap.addMarker(new MarkerOptions().position(latlg).title(tenDiemPhuot)
-				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch)));
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch)).snippet(image));
 		mMap.getUiSettings().setMyLocationButtonEnabled(true);
 		mMap.setMyLocationEnabled(true);
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 7));
+		mMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater, R.layout.info_window_custom));
 		return v;
 	}
 }
