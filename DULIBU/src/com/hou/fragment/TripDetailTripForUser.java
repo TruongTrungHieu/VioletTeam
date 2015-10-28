@@ -19,6 +19,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class TripDetailTripForUser extends Fragment {
 	// setHasOptionsMenu(true);
 	private MyArrayAdapterPlace adapter;
 	// ArrayList<MyPlace> lstPlace;
-	private ArrayList<Diemphuot> lstPlace, listPlace;
+	private ArrayList<Diemphuot> lstPlace;
 	private SlidingUpPanelLayout mLayout;
 	ImageView imgSlide;
 	private ExecuteQuery exeQ;
@@ -62,20 +63,21 @@ public class TripDetailTripForUser extends Fragment {
 	private GoogleMap googleMap;
 	private MapView mMapView;
 	private Tinh_Thanhpho startPlace, endPlace;
-
+	private ListView lvSlide;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-//		exeQ = new ExecuteQuery(getActivity());
-//		exeQ.createDatabase();
-//		exeQ.open();
-//
-//		lstPlace = new ArrayList<Diemphuot>();
-//		lstPlace = exeQ.getAllDiemphuot();
-//
-//		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+		exeQ = new ExecuteQuery(getActivity());
+		exeQ.createDatabase();
+		exeQ.open();
+		//
+		// lstPlace = new ArrayList<Diemphuot>();
+		// lstPlace = exeQ.getAllDiemphuot();
+		//
+		// adapter = new MyArrayAdapterPlace(getActivity(),
+		// R.layout.list_row_slide, lstPlace);
 
 		/*
 		 * loadAnh(adapter, listPhuot);
@@ -89,24 +91,33 @@ public class TripDetailTripForUser extends Fragment {
 		View v = inflater.inflate(R.layout.trip_detail_trip_for_user, container, false);
 
 		imgSlide = (ImageView) v.findViewById(R.id.imgSlide);
-		final ListView lvSlide = (ListView) v.findViewById(R.id.lvSlide);
+		lvSlide = (ListView) v.findViewById(R.id.lvSlide);
 
+		Context context = getActivity().getApplicationContext();
+		String maDiemPhuot = com.hou.app.Global.getPreference(context, Global.TRIP_TRIP_ID, "Viet");
+
+		//adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+		lstPlace = new ArrayList<Diemphuot>();
 		DeviceStatus ds = new DeviceStatus();
 		String a = ds.getCurrentConnection(getActivity());
 		if (a.equals("Wifi") || a.equals("3G")) {
-			getPlacetoServer();
+			getTripPlaces(maDiemPhuot);
+			
 		}
-//		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
-//		lvSlide.setAdapter(adapter);
+		/*exeQ = new ExecuteQuery(getActivity());
+		exeQ.createDatabase();
+		exeQ.open();
+		lstPlace = new ArrayList<Diemphuot>();
+		lstPlace = exeQ.getAllDiemphuot();*/
 
 		mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
-//		try {
-//			MapsInitializer.initialize(getActivity().getApplicationContext());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// MapsInitializer.initialize(getActivity().getApplicationContext());
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 		googleMap = mMapView.getMap();
 
 		/*
@@ -114,37 +125,41 @@ public class TripDetailTripForUser extends Fragment {
 		 * .toString()); endPlace =
 		 * exeQ.getTinhByTentinh(spEndPlace.getSelectedItem() .toString());
 		 */
-//		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
-//		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-//		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
-//				endPlace.getMaTinh());
+		// startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
+		// endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
+		// listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
+		// endPlace.getMaTinh());
 		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
-				endPlace.getMaTinh());
-		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
-		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(), endPlace.getMaTinh());
+		//listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(), endPlace.getMaTinh());
+		/*
+		 * startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
+		 * endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
+		 * listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
+		 * endPlace.getMaTinh());
+		 */
 
-//		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-//		googleMap.setMyLocationEnabled(true);
-//		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-//				new LatLng(Double.parseDouble(startPlace.getLat()), Double
-//						.parseDouble(startPlace.getLon())), 7));
-		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-		googleMap.setMyLocationEnabled(true);
-		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-				new LatLng(Double.parseDouble(startPlace.getLat()), Double
-						.parseDouble(startPlace.getLon())), 7));
+		// googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		// googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+		// googleMap.setMyLocationEnabled(true);
+		// googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+		// new LatLng(Double.parseDouble(startPlace.getLat()), Double
+		// .parseDouble(startPlace.getLon())), 7));
+		/*
+		 * googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		 * googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+		 * googleMap.setMyLocationEnabled(true);
+		 * googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( new
+		 * LatLng(Double.parseDouble(startPlace.getLat()), Double
+		 * .parseDouble(startPlace.getLon())), 7));
+		 */
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
 				new LatLng(Double.parseDouble(startPlace.getLat()), Double.parseDouble(startPlace.getLon())), 7));
 
-		//showMakerFirst();
+		showMakerFirst();
 		// googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater));
 
 		mLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
@@ -182,6 +197,7 @@ public class TripDetailTripForUser extends Fragment {
 
 	private void showMakerFirst() {
 		// End
+		Log.d("toEnd", startPlace.getTenTinh() + lstPlace.size());
 		googleMap
 				.addMarker(new MarkerOptions()
 						.position(new LatLng(Double.parseDouble(startPlace.getLat()),
@@ -191,6 +207,7 @@ public class TripDetailTripForUser extends Fragment {
 						.snippet(startPlace.getMaTinh()));
 
 		// Start
+		Log.d("Startto", endPlace.getTenTinh());
 		googleMap
 				.addMarker(new MarkerOptions()
 						.position(new LatLng(Double.parseDouble(endPlace.getLat()),
@@ -200,7 +217,8 @@ public class TripDetailTripForUser extends Fragment {
 						.snippet(endPlace.getTenTinh()));
 
 		// Diemphuot thuoc Start + end
-		for (Diemphuot dp : listPlace) {
+		for (Diemphuot dp : lstPlace) {
+			Log.d("StarttoEnd", dp.getTenDiemphuot());
 			googleMap
 					.addMarker(
 							new MarkerOptions()
@@ -221,13 +239,17 @@ public class TripDetailTripForUser extends Fragment {
 		}
 	}
 
-	public void getPlacetoServer() {
+	public void getTripPlaces(String tripID) {
 		AsyncHttpClient client = new AsyncHttpClient();
+		Context c = getActivity().getApplicationContext();
 		RequestParams params = new RequestParams();
-		client.get(Global.BASE_URI + "/" + Global.URI_GETPLACE_PATH + "?p=" + p, params,
-				new AsyncHttpResponseHandler() {
+		params.put("id", tripID);
+		client.get(
+				Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH + "?p=" + p + "&access_token="
+						+ Global.getPreference(c, Global.ACCESS_TOKEN, ""),
+				params, new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						Log.e("getPlacetoServer", response);
+						Log.e("getTripPlace", response);
 						listPlace(response);
 					}
 
@@ -247,45 +269,29 @@ public class TripDetailTripForUser extends Fragment {
 				Diemphuot place = new Diemphuot();
 
 				String _id = placeLocationJson.optString("_id");
-				String note = placeLocationJson.optString("note", "");
+				String name = placeLocationJson.optString("name", "");
 				String lat = placeLocationJson.optString("lat");
 				String lon = placeLocationJson.optString("lon");
-				String name = placeLocationJson.optString("name");
 				String image = placeLocationJson.optString("image");
-				String address = placeLocationJson.optString("address");
-				int verify = placeLocationJson.optInt("verify", 0);
-
-				JSONObject objectLocation = placeLocationJson.getJSONObject("location");
-				String id_city = objectLocation.optString("_id");
-				// String lat_city = objectLocation.optString("lat");
-				// String lon_city = objectLocation.optString("lon");
-				String name_city = objectLocation.optString("name");
-
-				if (address.equals("") || address == null) {
-					address = name_city;
-				}
-
 				place.setMaDiemphuot(_id);
-				place.setGhichu(note);
+				place.setTenDiemphuot(name);
 				place.setLat(lat);
 				place.setLon(lon);
-				place.setTenDiemphuot(name);
 				place.setImage(image);
-				place.setDiachi(address);
-				place.setTrangthaiChuan(verify);
-				place.setMaTinh(id_city);
-
 				listTemp.add(place);
 				lstPlace.add(place);
 
-				//exeQ.insert_tbl_diemphuot_single(place);
+				// exeQ.insert_tbl_diemphuot_single(place);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 			Log.d("listPlace - listPhuotFragment", e.getMessage());
 		}
+		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+		lvSlide.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
-		loadAnh(listTemp);
+		showMakerFirst();
+		// loadAnh(listTemp);
 	}
 
 	private void loadAnh(ArrayList<Diemphuot> dps) {

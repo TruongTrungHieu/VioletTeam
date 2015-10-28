@@ -69,7 +69,7 @@ public class MyArrayAdapterPlace extends ArrayAdapter<Diemphuot> {
 				thumbnail.setImageResource(R.drawable.trip1);
 			}
 			
-			txtDiachi.setText(mpl.getDiachi().toString());
+			txtDiachi.setText(mpl.getMaDiemphuot().toString());
 			txtTitle.setText(mpl.getTenDiemphuot().toString());
 			//txtLoaihinh.setText(mpl.getDokho().toString());
 			//thumbnail.setImageDrawable(drawable);
