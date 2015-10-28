@@ -39,7 +39,6 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="bottom"
-                    android:text="Hà Nội - Hà Giang"
                     android:textColor="#FFF"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -50,29 +49,30 @@
                     android:layout_width="80dp"
                     android:layout_height="25dp"
                     android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_alignParentRight="true"
                     android:background="@drawable/button_login_dangky"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Hủy Tham gia"
                     android:textAllCaps="false"
                     android:textSize="9sp"
                     android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btnInvite"
                     style="@style/DefaultButtonText"
                     android:layout_width="50dp"
-                    android:paddingLeft="5dp"
                     android:layout_height="25dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_toLeftOf="@+id/btnLeave"
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/btnLeave"
                     android:background="@drawable/button_login_dangky"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Mời"
                     android:drawableLeft="@drawable/add_user_24"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingLeft="5dp"
+                    android:text="Mời"
                     android:textAllCaps="false"
                     android:textSize="9sp"
                     android:textStyle="bold" />
@@ -129,7 +129,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Nguyễn Văn Tuấn"
                         android:textColor="#505050"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -156,7 +155,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="20/4/2015 - 30/4/2015"
                         android:textColor="#505050"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -186,7 +184,6 @@
                         android:layout_marginLeft="10dp"
                         android:maxLines="2"
                         android:singleLine="false"
-                        android:text="18:00 - 20/4 - Công viên hòa bình - Hà Nội"
                         android:textColor="#505050"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -298,8 +295,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:lineSpacingMultiplier="1.2"
-                        android:text="Tất cả các thành đoàn yêu cầu có mặt đúng thời gian và địa điểm theo quy định.. đoàn không chờ bất cứ ai... Mọi thành viên tham gia vui lòng chuyển khoản theo số tài khoản ngân hàng Agribank" />
+                        android:lineSpacingMultiplier="1.2" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

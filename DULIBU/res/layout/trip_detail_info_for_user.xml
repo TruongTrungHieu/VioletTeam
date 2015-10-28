@@ -39,7 +39,6 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="bottom"
-                    android:text="Hà Nội - Hà Giang"
                     android:textColor="#FFF"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -127,7 +126,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Nguyễn Văn Tuấn"
                         android:textColor="#505050"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -154,7 +152,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="20/4/2015 - 30/4/2015"
                         android:textColor="#505050"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -184,7 +181,6 @@
                         android:layout_marginLeft="10dp"
                         android:maxLines="2"
                         android:singleLine="false"
-                        android:text="18:00 - 20/4 - Công viên hòa bình - Hà Nội"
                         android:textColor="#505050"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -193,6 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal" >
 
@@ -221,44 +218,6 @@
                         android:text=" VND/người"
                         android:textColor="#505050"
                         android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="30dp"
-                        android:background="#0aae44"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="SỰ KIỆN"
-                        android:textAllCaps="true"
-                        android:textColor="#FFF"
-                        android:textSize="8sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Thông tin sự kiện "
-                        android:textColor="#505050"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvBtnOffline1"
-                        android:layout_width="50dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:background="#EA4335"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="Chi tiết"
-                        android:textColor="#FFF"
-                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <TextView
