@@ -17,7 +17,6 @@ import com.hou.dulibu.ProfileManagerActivity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.SettingActivity;
 import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
-import com.hou.fragment.ListTripFragment.getImage;
 import com.hou.model.Trangthai_User;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;

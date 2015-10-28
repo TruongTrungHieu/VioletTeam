@@ -68,14 +68,14 @@ public class TripDetailTripForUser extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		exeQ = new ExecuteQuery(getActivity());
-		exeQ.createDatabase();
-		exeQ.open();
-
-		lstPlace = new ArrayList<Diemphuot>();
-		lstPlace = exeQ.getAllDiemphuot();
-
-		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+//		exeQ = new ExecuteQuery(getActivity());
+//		exeQ.createDatabase();
+//		exeQ.open();
+//
+//		lstPlace = new ArrayList<Diemphuot>();
+//		lstPlace = exeQ.getAllDiemphuot();
+//
+//		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
 
 		/*
 		 * loadAnh(adapter, listPhuot);
@@ -96,17 +96,17 @@ public class TripDetailTripForUser extends Fragment {
 		if (a.equals("Wifi") || a.equals("3G")) {
 			getPlacetoServer();
 		}
-		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
-		lvSlide.setAdapter(adapter);
+//		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+//		lvSlide.setAdapter(adapter);
 
 		mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
-		try {
-			MapsInitializer.initialize(getActivity().getApplicationContext());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			MapsInitializer.initialize(getActivity().getApplicationContext());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		googleMap = mMapView.getMap();
 
 		/*
@@ -114,17 +114,37 @@ public class TripDetailTripForUser extends Fragment {
 		 * .toString()); endPlace =
 		 * exeQ.getTinhByTentinh(spEndPlace.getSelectedItem() .toString());
 		 */
+//		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
+//		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
+//		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
+//				endPlace.getMaTinh());
+		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
+		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
+		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(),
+				endPlace.getMaTinh());
 		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
 		listPlace = exeQ.getAllDiemphuotBy2MaTinh(startPlace.getMaTinh(), endPlace.getMaTinh());
 
+//		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+//		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+//		googleMap.setMyLocationEnabled(true);
+//		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+//				new LatLng(Double.parseDouble(startPlace.getLat()), Double
+//						.parseDouble(startPlace.getLon())), 7));
+		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+		googleMap.setMyLocationEnabled(true);
+		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+				new LatLng(Double.parseDouble(startPlace.getLat()), Double
+						.parseDouble(startPlace.getLon())), 7));
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
 				new LatLng(Double.parseDouble(startPlace.getLat()), Double.parseDouble(startPlace.getLon())), 7));
 
-		showMakerFirst();
+		//showMakerFirst();
 		// googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater));
 
 		mLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
@@ -258,7 +278,7 @@ public class TripDetailTripForUser extends Fragment {
 				listTemp.add(place);
 				lstPlace.add(place);
 
-				exeQ.insert_tbl_diemphuot_single(place);
+				//exeQ.insert_tbl_diemphuot_single(place);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

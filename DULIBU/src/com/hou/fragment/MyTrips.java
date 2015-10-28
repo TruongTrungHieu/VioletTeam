@@ -18,7 +18,6 @@ import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.TripDetailManagerForUser;
-import com.hou.fragment.ListTripFragment.getImage;
 import com.hou.model.Lichtrinh;
 import com.hou.model.LichtrinhMember;
 import com.hou.model.Tinh_Thanhpho;

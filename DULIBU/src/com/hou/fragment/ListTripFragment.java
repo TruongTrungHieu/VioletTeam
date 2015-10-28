@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.games.internal.GamesLog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -42,6 +43,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader.OnLoadCompleteListener;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,7 +73,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	LichtrinhAdapter adapter;
 	private ExecuteQuery exeQ;
 	private Tinh_Thanhpho startPlace, endPlace;
-	ArrayList<LichtrinhMember> arrListUsers ;
+	ArrayList<LichtrinhMember> arrListUsers;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -137,11 +139,11 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		View alertLayout = inflater.inflate(R.layout.search_trip_dialog, null);
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 		final Spinner spStartPlace = (Spinner) alertLayout
-				.findViewById(R.id.spStartPlace);
+				.findViewById(R.id.spStartPlace1);
 		final Spinner spEndPlace = (Spinner) alertLayout
-				.findViewById(R.id.spEndPlace);
+				.findViewById(R.id.spEndPlace1);
 		final EditText txtNameTrip = (EditText) alertLayout
-				.findViewById(R.id.txtNameTrip);
+				.findViewById(R.id.txtNameTrip1);
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
 		alert.setTitle("Tìm kiếm");
@@ -161,23 +163,24 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (startPlace == null) {
-							startPlace = exeQ.getTinhByTentinh(spStartPlace
-									.getSelectedItem().toString());
+							startPlace = exeQ.getTinhByTentinh(spStartPlace.getSelectedItem().toString());
 						}
 						if (endPlace == null) {
 							endPlace = exeQ.getTinhByTentinh(spEndPlace
 									.getSelectedItem().toString());
 						}
+						
+						Log.d("xx__",endPlace.getMaTinh()+startPlace.getMaTinh() );
 						AsyncHttpClient client = new AsyncHttpClient();
 						RequestParams params = new RequestParams();
 
 						params.put("p", "1");
 						params.put("name", txtNameTrip.getText().toString());
 						if (startPlace != null) {
-							params.put("begin_position", startPlace.getMaTinh());
+							params.put("begin_location", startPlace.getMaTinh());
 						}
 						if (endPlace != null) {
-							params.put("end_position", endPlace.getMaTinh());
+							params.put("end_location", endPlace.getMaTinh());
 						}
 
 						client.get(
@@ -299,41 +302,58 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 													long id) {
 												// TODO Auto-generated method
 												// stub
-												
+
 												Global.savePreference(
 														getActivity(),
 														Global.TRIP_TRIP_ID,
 														lichtrinh
 																.get(position)
 																.getMaLichtrinh());
-												
-												getTripMember(lichtrinh.get(position).getMaLichtrinh(), new AsyncHttpResponseHandler() {
-													public void onSuccess(String content) {
-														Log.d("data list trip", content);
-														listMember(content);
-														
-														Intent intent;
-														if (activityDetail) {
-															intent = new Intent(
-																	getActivity(),
-																	TripDetailManagerActivity.class);
-														} else {
-															intent = new Intent(
-																	getActivity(),
-																	TripDetailManagerForUser.class);
-														}
-														
-														startActivity(intent);
-														
-													}
-													public void onFailure(int statusCode, Throwable error, String content) {
-														Log.e("load member false", content+"");
-													}
-												});
-												
-												
-												
-												
+
+												getTripMember(
+														lichtrinh
+																.get(position)
+																.getMaLichtrinh(),
+														new AsyncHttpResponseHandler() {
+															public void onSuccess(
+																	String content) {
+																Log.d("data list trip",
+																		content);
+																try {
+																	JSONObject data_role = new JSONObject(
+																			content);
+																	Intent intent;
+																	if (data_role.optString("role").compareTo(Global.USER_ROLE_USER)>0) {
+																		intent = new Intent(
+																				getActivity(),
+																				TripDetailManagerActivity.class);
+																	} else {
+																		intent = new Intent(
+																				getActivity(),
+																				TripDetailManagerForUser.class);
+																	}
+
+																	startActivity(intent);
+																} catch (JSONException e) {
+																	// TODO
+																	// Auto-generated
+																	// catch
+																	// block
+																	e.printStackTrace();
+																}
+
+															}
+
+															public void onFailure(
+																	int statusCode,
+																	Throwable error,
+																	String content) {
+																Log.e("load member false",
+																		content
+																				+ "");
+															}
+														});
+
 											}
 										});
 							}
@@ -343,7 +363,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 						@Override
 						public void onFailure(int statusCode, Throwable error,
 								String content) {
-							Log.e("Error_get_data", content);
+							Log.e("Error_get_data", content+"sadasd");
 							switch (statusCode) {
 							case 400:
 								Toast.makeText(
@@ -397,6 +417,11 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			}
 			return null;
 		}
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			lvListTrip.setAdapter(adapter);
+		}
 
 	}
 
@@ -440,16 +465,14 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 						chiphicanhans, 0f, "", image, diadiem_xuatphat,
 						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
-				adapter.notifyDataSetChanged();
 			}
 
 		} catch (JSONException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 	}
-
 	private boolean executeWhenSearchSuccess(String response) {
-		lichtrinh = new ArrayList<Lichtrinh>();
+		lichtrinh.clear();
 		try {
 			JSONArray data = new JSONArray(response);
 			for (int i = 0; i < data.length(); i++) {
@@ -474,8 +497,8 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 				String note = item.optString("note");
 				String image = item.optString("image");
 
-				getImage img = new getImage();
-				img.execute(image);
+//				getImage img = new getImage();
+//				img.execute(image);
 
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
@@ -493,54 +516,59 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 
 		return true;
 	}
+
 	private void getTripMember(String tripId, AsyncHttpResponseHandler async) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("id", tripId);
-		params.put("access_token", Global.getPreference(getActivity(),
-				Global.USER_ACCESS_TOKEN, ""));
-		
-		client.get(Global.BASE_URI + "/" + Global.URI_GETLISTMEMBER_PATH, params, async);
+		params.put("user_id", Global.getPreference(getActivity(),
+				Global.USER_MAUSER, "user_id"));
+		String access_token = Global.getPreference(getActivity(),
+				Global.USER_ACCESS_TOKEN, "access_token");
+
+		client.get(Global.BASE_URI + "/" + Global.TRIP_ROLE
+				+ "?access_token=" + access_token, params, async);
 
 	}
-	
+
 	private boolean activityDetail = false;
-	
+
 	private void listMember(String response) {
 
 		arrListUsers.clear();
-		
+
 		activityDetail = false;
-		
-		String maUser = Global.getPreference(getActivity(), Global.USER_MAUSER, "___");
-		
+
+		String maUser = Global.getPreference(getActivity(), Global.USER_MAUSER,
+				"___");
+
 		try {
 			JSONArray arrObj = new JSONArray(response);
-			
+
 			for (int i = 0; i < arrObj.length(); i++) {
 
 				JSONObject memberTripJson = arrObj.getJSONObject(i);
 
 				String _id = memberTripJson.optString("_id", "id");
-				String fullname = memberTripJson.optString("fullname","fullname");
-				String role = memberTripJson.optString("role","role");
-				String avatar = memberTripJson.optString("avatar","ava");
+				String fullname = memberTripJson.optString("fullname",
+						"fullname");
+				String role = memberTripJson.optString("role", "role");
+				String avatar = memberTripJson.optString("avatar", "ava");
 
 				LichtrinhMember lu = new LichtrinhMember();
 				lu.setMaUser(_id);
 				lu.setTenUser(fullname);
 				lu.setQuyen(role);
 				arrListUsers.add(lu);
-				
-				if (_id.equals(maUser) && role.compareTo("1")>0) {
+
+				if (_id.equals(maUser) && role.compareTo("1") > 0) {
 					activityDetail = true;
 				}
 				if (_id.equals(maUser) && role.compareTo("1") == 0) {
 					Global.savePreference(getActivity(), "check_role_1", "1");
 				}
-		
+
 			}
-			
 
 		} catch (JSONException e) {
 			e.printStackTrace();

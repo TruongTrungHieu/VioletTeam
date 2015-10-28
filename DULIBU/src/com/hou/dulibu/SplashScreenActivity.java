@@ -109,7 +109,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 	}
 
 	private ArrayList<Tinh_Thanhpho> listCity(String response) {
-		ArrayList<Tinh_Thanhpho> lstCity = new ArrayList<>();
+		ArrayList<Tinh_Thanhpho> lstCity = new ArrayList<Tinh_Thanhpho>();
 		try {
 			JSONArray arrObj = new JSONArray(response);
 			for (int i = 0; i < arrObj.length(); i++) {

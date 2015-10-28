@@ -33,7 +33,6 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 	LichTrinhSlidingTabLayout tabs;
 	CharSequence Titles[] = { "Info", "Members", "Message", "Trip" };
 	int Numboftabs = 4;
-	Intent serviceGetLocation;
 	
 	public TripDetailManagerActivity() {
 		// TODO Auto-generated constructor stub
@@ -54,8 +53,6 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 			// ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-
-		serviceGetLocation = new Intent(this, GetLocationService.class);
 		
 		// Creating The Toolbar and setting it as the Toolbar for the activity
 
