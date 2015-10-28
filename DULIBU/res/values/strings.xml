@@ -36,6 +36,7 @@
 
     <!-- change_pass -->
     <string name="old_pass">Mật khẩu cũ</string>
+    <string name="change_succes">Đổi mật khẩu thành công</string>
     <string name="new_pass">Mật khẩu mới</string>
     <string name="check_new_pass">Nhập lại mật khẩu mới</string>
     <string name="save_new_pass">Đổi mật khẩu</string>
