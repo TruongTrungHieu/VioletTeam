@@ -327,6 +327,7 @@ public class Global {
 					
 					@Override
 					public void call(Object... arg0) {
+						
 						// TODO Auto-generated method stub
 						JSONObject data = new JSONObject();
 						
@@ -342,7 +343,6 @@ public class Global {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
 					}
 				});
 				

@@ -41,7 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TripDetailInfoForUser extends Fragment implements OnClickListener {
-	TextView tvKinhPhi, tvBtnOffline, tvTitleTrip, tvleader, tvTimeTrip,
+	TextView tvKinhPhi, tvTitleTrip, tvleader, tvTimeTrip,
 			tvTimeStart, tvKinhPhis, tvNotes, tvMoneyTrip, tvLotrinh;
 	Button btnJoinUser, btnLeaveUser;
 	ImageView ivTripBG;
@@ -51,7 +51,6 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.trip_detail_info_for_user, container, false);
 		findViewById(v);
-		tvBtnOffline.setOnClickListener(this);
 		btnJoinUser.setOnClickListener(this);
 		btnLeaveUser.setOnClickListener(this);
 		LoadDataFromServer();
@@ -64,7 +63,6 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 	}
 
 	public void findViewById(View v) {
-		tvBtnOffline = (TextView) v.findViewById(R.id.tvBtnOffline1);
 		btnJoinUser = (Button) v.findViewById(R.id.btnJoin1);
 		btnLeaveUser = (Button) v.findViewById(R.id.btnLeave1);
 

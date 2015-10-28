@@ -177,6 +177,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 				edtUsername.setText(null);
 
 				Log.e("Login fail", statusCode + "");
+				pb.setVisibility(View.GONE);
 
 				switch (statusCode) {
 				case 400:

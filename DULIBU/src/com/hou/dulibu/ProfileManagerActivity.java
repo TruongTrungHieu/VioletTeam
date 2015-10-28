@@ -121,7 +121,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 				public void call(Object... arg0) {
 					// TODO Auto-generated method stub
 					JSONObject data = (JSONObject)arg0[0];
-					
+					Log.d(".Join_check", data.toString());
 					String user_id = Global.getPreference(ProfileManagerActivity.this, Global.USER_MAUSER, "###");
 					try {
 						if (data.getJSONObject("sender").optString("_id").equals(user_id)) {
@@ -129,6 +129,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 								// logout here
 								//Toast.makeText(ProfileManagerActivity.this, "Bị hack cmnr", Toast.LENGTH_SHORT).show();
 								NoticeRegisFalse("Nguy hiểm!", "Tài khoản của bạn đã bị đăng nhập ở một nơi khác!");
+								
 							}
 						}
 					} catch (JSONException e) {
@@ -192,6 +193,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 						Log.e("logoutToServer", response);
 						Global.savePreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, null);
 
+						Global.getSocketServer().disconnect();
 						Intent intent = new Intent(ProfileManagerActivity.this, LoginManagerActivity.class);
 						startActivity(intent);
 
@@ -238,7 +240,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// do something!
-				startActivity(new Intent(ProfileManagerActivity.this,LoginManagerActivity.class));
+				startActivity(new Intent(getBaseContext(),LoginManagerActivity.class));
 			}
 		});
 
