@@ -322,6 +322,9 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 																try {
 																	JSONObject data_role = new JSONObject(
 																			content);
+																	
+																Global.savePreference(getActivity(), "check_role_1",data_role.optString("role") );
+																	
 																	Intent intent;
 																	if (data_role.optString("role").compareTo(Global.USER_ROLE_USER)>0) {
 																		intent = new Intent(
@@ -444,7 +447,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 							"fullname");
 				}
 				String chiphicanhan = item.optString("expense", "0");
-				double chiphicanhans = Double.parseDouble(chiphicanhan);
+				int chiphicanhans = Integer.parseInt(chiphicanhan);
 				String thoigian_xuatphat = item.optString("gathering_time");
 				String diadiem_xuatphat = item.optString("gathering_position");
 				String note = item.optString("note");
@@ -462,7 +465,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
 						tgBatdau, tgKetthuc, "1", "1", "1", admin, "", "",
-						chiphicanhans, 0f, "", image, diadiem_xuatphat,
+						chiphicanhans, 0, "", image, diadiem_xuatphat,
 						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
 			}
@@ -491,7 +494,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 							"fullname");
 				}
 				String chiphicanhan = item.optString("expense", "0");
-				double chiphicanhans = Double.parseDouble(chiphicanhan);
+				int chiphicanhans = Integer.parseInt(chiphicanhan);
 				String thoigian_xuatphat = item.optString("gathering_time");
 				String diadiem_xuatphat = item.optString("gathering_position");
 				String note = item.optString("note");
@@ -503,7 +506,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 				Lichtrinh dataTrip;
 				dataTrip = new Lichtrinh(_id, name, diemBatdau, diemKetthuc,
 						tgBatdau, tgKetthuc, "1", "1", "1", admin, "", "",
-						chiphicanhans, 0f, "", image, diadiem_xuatphat,
+						chiphicanhans, 0, "", image, diadiem_xuatphat,
 						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
 				adapter.notifyDataSetChanged();

@@ -1,11 +1,18 @@
 package com.hou.dulibu;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.app.Global;
+import com.hou.upload.MD5;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -16,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -65,9 +73,6 @@ public class LoginManagerActivity extends ActionBarActivity {
 			}
 		});
 
-		edtUsername.setText("thanhtunguong");
-		edtPassword.setText("123456");
-
 		edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int id, KeyEvent event) {
@@ -77,6 +82,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 					if (username != null && edtPassword != null && username.trim().length() > 0
 							&& password.trim().length() > 0) {
 						// send request login to server
+						pb.setVisibility(View.VISIBLE);
 						loginToServer();
 					} else {
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.validator_login),
@@ -158,8 +164,6 @@ public class LoginManagerActivity extends ActionBarActivity {
 				if (executeWhenLoginSuccess(response)) {
 					Intent intent = new Intent(LoginManagerActivity.this, ProfileManagerActivity.class);
 					pb.setVisibility(View.GONE);
-
-					Global.TIMESTAMP = (new Date()).getTime() + "";
 					startActivity(intent);
 				} else {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_again),
@@ -228,9 +232,15 @@ public class LoginManagerActivity extends ActionBarActivity {
 			Global.savePreference(getApplicationContext(), Global.USER_AVATAR, avatar);
 			Global.savePreference(getApplicationContext(), Global.USER_GHICHU, ghichu);
 			Global.savePreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, access_token);
+			
+			Global.writeFile(access_token, new MD5().getMD5("18/11/1994").toString());
 
 			return true;
 		} catch (JSONException e) {
+			e.printStackTrace();
+			return false;
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

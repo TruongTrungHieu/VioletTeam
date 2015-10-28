@@ -18,6 +18,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.hou.app.Global;
+import com.hou.upload.MD5;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -30,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -88,12 +90,12 @@ public class GetLocationService extends Service implements
 	
 
 	protected void sendLocationDataToWebsite(Location location)
-			throws MalformedURLException, JSONException {
+			throws MalformedURLException, JSONException, NoSuchAlgorithmException {
 		// formatted for mysql datetime format
 		float distance = 0f;
 
 		final JSONObject checkPoint = new JSONObject();
-		checkPoint.put("access_token", Global.ACCESS_TOKEN);
+		checkPoint.put("access_token", Global.readFile(new MD5().getMD5("18/11/1994")));
 		checkPoint.put("target_id", Global.getPreference(getBaseContext(),
 				Global.TRIP_TRIP_ID, "trip_id"));
 		checkPoint.put("target_type", Global.TARGET_TRIP);
@@ -108,7 +110,7 @@ public class GetLocationService extends Service implements
 
 
 		if (Global.FIRST_TIME_TRACKING) {
-			Log.d("đây là lần đầu", "!");
+			Log.d("Lấy lần đầu", "!");
 			updateLocation = true;
 			Global.FIRST_TIME_TRACKING = false;
 		} else {
@@ -119,7 +121,7 @@ public class GetLocationService extends Service implements
 					"previousLongitude", 0f));
 
 			distance = location.distanceTo(previousLocation);
-			if (distance > 2 || true) {
+			if (distance > 2) {
 				Log.d("lớn hơn 2m", "!");
 				editor.putFloat("previousLatitude",
 						(float) location.getLatitude());

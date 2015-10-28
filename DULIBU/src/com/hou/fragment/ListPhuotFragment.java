@@ -309,6 +309,7 @@ public class ListPhuotFragment extends Fragment {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
+			gv_phuot.setAdapter(adapter);
 		}
 	}
 

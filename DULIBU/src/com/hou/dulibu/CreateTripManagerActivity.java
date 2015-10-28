@@ -384,6 +384,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		mMap.getUiSettings().setMyLocationButtonEnabled(true);
 		mMap.setMyLocationEnabled(true);
+		if(startPlace != null)
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
 				new LatLng(Double.parseDouble(startPlace.getLat()), Double
 						.parseDouble(startPlace.getLon())), 7));
@@ -545,6 +546,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				.snippet(startPlace.getMaTinh()));
 
 		// Start
+		if (endPlace != null)
 		mMap.addMarker(new MarkerOptions()
 				.position(
 						new LatLng(Double.parseDouble(endPlace.getLat()),

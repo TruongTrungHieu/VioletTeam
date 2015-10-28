@@ -114,7 +114,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 		this.addSection(mnuAbout);
 		
 		
-		Global.getSocketServer(this)
+		Global.getSocketServer()
 			.on(".join", new Emitter.Listener() {
 				
 				@Override

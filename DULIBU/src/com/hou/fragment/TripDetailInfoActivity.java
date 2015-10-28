@@ -176,7 +176,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 						item.getJSONObject("created_by").optString("_id"));
 			}
 			String chiphicanhan = item.optString("expense", "0");
-			double chiphicanhans = Double.parseDouble(chiphicanhan);
+			int chiphicanhans = Integer.parseInt(chiphicanhan);
 			String thoigian_xuatphat = item.optString("gathering_time");
 			String diadiem_xuatphat = item.optString("gathering_position");
 			String note = item.optString("note");
@@ -184,7 +184,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 
 			Lichtrinh dataTrip = new Lichtrinh(_id, name, diemBatdau,
 					diemKetthuc, tgBatdau, tgKetthuc, "1", "1", "1", admin, "",
-					"", chiphicanhans, 0f, "", image, diadiem_xuatphat,
+					"", chiphicanhans, 0, "", image, diadiem_xuatphat,
 					thoigian_xuatphat, note);
 			if (Global.getPreference(getActivity(), Global.USER_USERNAME, " ")
 					.equalsIgnoreCase(checkJoin)) {

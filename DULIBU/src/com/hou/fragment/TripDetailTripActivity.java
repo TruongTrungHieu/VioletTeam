@@ -127,7 +127,7 @@ public class TripDetailTripActivity extends Fragment implements
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
 		
-		Global.getSocketServer(getActivity()).on("tracking", new Emitter.Listener() {
+		Global.getSocketServer().on("tracking", new Emitter.Listener() {
 			
 			@Override
 			public void call(Object... arg0) {

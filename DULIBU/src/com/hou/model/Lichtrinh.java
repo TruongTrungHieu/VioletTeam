@@ -18,8 +18,8 @@ public class Lichtrinh implements Serializable {
 	private String admin;
 	private String tg_checkserver;
 	private String m_checkserver;
-	private double chiphicanhan;
-	private double chiphicadoan;
+	private int chiphicanhan;
+	private int chiphicadoan;
 	private String thuquy;
 	private String image;
 	private String diadiem_xuatphat;
@@ -36,8 +36,8 @@ public class Lichtrinh implements Serializable {
 			String diemBatdau, String diemKetthuc, String tgBatdau,
 			String tgKetthuc, String trangthai_hienthi,
 			String trangthai_hoatdong, String trangthai_sos, String admin,
-			String tg_checkserver, String m_checkserver, double chiphicanhan,
-			double chiphicadoan, String thuquy, String image,
+			String tg_checkserver, String m_checkserver, int chiphicanhan,
+			int chiphicadoan, String thuquy, String image,
 			String diadiem_xuatphat, String thoigian_xuatphat, String note) {
 		super();
 		this.maLichtrinh = maLichtrinh;
@@ -163,19 +163,19 @@ public class Lichtrinh implements Serializable {
 		this.m_checkserver = m_checkserver;
 	}
 
-	public double getChiphicanhan() {
+	public int getChiphicanhan() {
 		return chiphicanhan;
 	}
 
-	public void setChiphicanhan(double chiphicanhan) {
+	public void setChiphicanhan(int chiphicanhan) {
 		this.chiphicanhan = chiphicanhan;
 	}
 
-	public double getChiphicadoan() {
+	public int getChiphicadoan() {
 		return chiphicadoan;
 	}
 
-	public void setChiphicadoan(double chiphicadoan) {
+	public void setChiphicadoan(int chiphicadoan) {
 		this.chiphicadoan = chiphicadoan;
 	}
 

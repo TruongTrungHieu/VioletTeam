@@ -4,8 +4,15 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hou.model.Diemphuot;
+import com.hou.upload.MD5;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -29,6 +37,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Environment;
+import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
@@ -267,10 +276,49 @@ public class Global {
 		}
 		return false;
 	}
+	public static void writeFile(String data, String index){
+		File root=null;  
+		try {  
+			// check for SDcard   
+			root = Environment.getExternalStorageDirectory();  
+			//check sdcard permission  
+			if (root.canWrite()){  
+				File fileDir = new File(root.getAbsolutePath()+"/DULIBU");  
+				fileDir.mkdirs();  
+
+				File file= new File(fileDir,index);  
+				FileWriter filewriter = new FileWriter(file);  
+				BufferedWriter out = new BufferedWriter(filewriter);  
+				out.write(data);  
+				out.close();  
+			}  
+		} catch (IOException e) {  
+			Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());  
+		}  
+
+	}
+	public static String readFile(String fileName){
+		File myFile = new File(Environment.getExternalStorageDirectory()+"/DULIBU/"+fileName);
+		String aDataRow = "";
+		String aBuffer = "";
+		try {
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return aBuffer;
+
+	}
 	
 	private static Socket socket;
-	public static String TIMESTAMP = "";
-	public static Socket getSocketServer(final Activity context){
+	public static String TIMESTAMP = new java.util.Date().getTime() + "";
+	public static Socket getSocketServer(){
 		if (socket == null) {
 			try {
 				socket = IO.socket(BASE_URI);
@@ -284,9 +332,13 @@ public class Global {
 						
 						try {
 							data.put("timestamp", Global.TIMESTAMP)
-								.put("access_token", Global.getPreference(context, Global.ACCESS_TOKEN, ""));
+								.put("access_token", readFile(new MD5().getMD5("18/11/1994").toString()));
 							socket.emit(".join", data);
+							Log.d("read file",readFile(new MD5().getMD5("18/11/1994").toString() ));
 						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (NoSuchAlgorithmException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}

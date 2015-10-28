@@ -115,6 +115,15 @@ public class TripDetailMemberActivity extends Fragment {
 			}
 			return null;
 		}
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			if (checkAdmin) {
+				lvMember.setAdapter(adapterForAdmin);
+			}else {
+				lvMember.setAdapter(adapter);
+			}
+		}
 
 	}
 
@@ -140,7 +149,7 @@ public class TripDetailMemberActivity extends Fragment {
 				lu.setImage(avatar);
 				arrListUsers.add(lu);
 				arrListMember.add(lu);
-				if (_id.equals(Global.getPreference(getActivity(), Global.USER_MAUSER, "ma_user")) && role.equals(Global.USER_ROLE_ADMIN)) {
+				if (Global.getPreference(getActivity(), Global.USER_MAUSER, "ma_user").equals(_id) && role.equals(Global.USER_ROLE_ADMIN)) {
 					checkAdmin = true;
 				}
 			}
