@@ -4,16 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- <fragment
+    <!--
+         <fragment
         android:id="@+id/map_main"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" /> -->
-    
-   <com.google.android.gms.maps.MapView
+        android:layout_height="wrap_content" />
+    -->
+
+    <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" /> 
+        android:layout_height="fill_parent" />
+
+    <ImageButton
+        android:id="@+id/mapFragmentMapSetting"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/icon_map_setting"
+        android:scaleType="fitXY" />
 
     <RelativeLayout
         android:id="@+id/layoutButtomSide"

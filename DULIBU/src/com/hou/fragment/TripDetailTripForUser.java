@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.hou.dulibu.ChangeMap;
 import com.hou.dulibu.DeviceStatus;
 import com.hou.dulibu.R;
 import com.hou.model.Diemphuot;
@@ -24,11 +25,15 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,6 +70,7 @@ public class TripDetailTripForUser extends Fragment {
 	private MapView mMapView;
 	private Tinh_Thanhpho startPlace, endPlace;
 	private ListView lvSlide;
+	private ImageButton iv;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -113,6 +119,17 @@ public class TripDetailTripForUser extends Fragment {
 		
 		googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater, R.layout.info_window_custom));
 
+		iv = (ImageButton) v.findViewById(R.id.tripMapSetting);
+		iv.setVisibility(View.VISIBLE);
+		iv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogChangeMapType(googleMap);
+			}
+		});
+		
 		mLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
 		mLayout.setPanelSlideListener(new PanelSlideListener() {
 			@Override
@@ -144,6 +161,12 @@ public class TripDetailTripForUser extends Fragment {
 		});
 
 		return v;
+	}
+	private void dialogChangeMapType(GoogleMap gm){
+		FragmentManager fm = getFragmentManager();
+		ChangeMap cm = new ChangeMap(gm);
+		//cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
+		cm.show(fm, "Change map");
 	}
 
 	private void showMakerFirst() {

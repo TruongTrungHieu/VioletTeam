@@ -1,25 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapPhuotLocation"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" /> 
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="bottom"
-        android:layout_weight="0.3"
-        android:background="#FFF" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tvinfoPlace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thông tin địa điểm" />
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapPhuotLocation"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.3"
+            android:background="#FFF" >
+
+            <TextView
+                android:id="@+id/tvinfoPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thông tin địa điểm" />
+        </LinearLayout>
     </LinearLayout>
+    <ImageButton
+        android:id="@+id/phuotMapSetting"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/icon_map_setting"
+        android:scaleType="fitXY" />
 
-</LinearLayout>
+</RelativeLayout>

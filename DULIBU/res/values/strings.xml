@@ -358,6 +358,10 @@
 
     <!-- ChangeMap -->
     <string name="titleMapType">Kiểu bản đồ</string>
+    <string name="satelliteMap">Bản đồ hình ảnh vệ tinh</string>
+    <string name="normalMap">Bản đồ thường</string>
+    <string name="btnMapOk">Đổi</string>
+    <string name="btnMapCancel">Quay lại</string>
 
     <!-- Main Menu -->
     <string name="menuThongTinCaNhan">Thông tin cá nhân</string>

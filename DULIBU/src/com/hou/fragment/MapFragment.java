@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.app.Global;
+import com.hou.dulibu.ChangeMap;
 import com.hou.dulibu.R;
 import com.hou.model.Nearby;
 import com.loopj.android.http.AsyncHttpClient;
@@ -49,14 +50,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class MapFragment extends Fragment implements
-		GoogleApiClient.ConnectionCallbacks,
-		GoogleApiClient.OnConnectionFailedListener,
-		com.google.android.gms.location.LocationListener {
+public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
+		GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 	private ProgressDialog pDialog;
 	private ImageView imgMapWarnning, imgMapHospital, imgMapGas;
 	private int status = 0;
@@ -73,6 +74,7 @@ public class MapFragment extends Fragment implements
 	private MapView mMapView;
 	double lat;
 	double lon;
+	private ImageButton iv;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,8 +88,7 @@ public class MapFragment extends Fragment implements
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.maps_manager, container, false);
 
@@ -160,7 +161,24 @@ public class MapFragment extends Fragment implements
 			}
 		});
 		FixWidthBottom(imgMapWarnning, imgMapHospital, imgMapGas);
+		iv = (ImageButton) v.findViewById(R.id.mapFragmentMapSetting);
+		iv.setVisibility(View.VISIBLE);
+		iv.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogChangeMapType(googleMap);
+			}
+		});
 		return v;
+	}
+
+	private void dialogChangeMapType(GoogleMap gm) {
+		android.support.v4.app.FragmentManager fm = getFragmentManager();
+		ChangeMap cm = new ChangeMap(gm);
+		// cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
+		cm.show(fm, "Change map");
 	}
 
 	private void updateMarked() {
@@ -193,16 +211,14 @@ public class MapFragment extends Fragment implements
 	}
 
 	@SuppressWarnings("unused")
-	public void FixWidthBottom(ImageView warnning, ImageView hospital,
-			ImageView gas) {
+	public void FixWidthBottom(ImageView warnning, ImageView hospital, ImageView gas) {
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		ArrayList<ImageView> arrIv = new ArrayList<ImageView>();
 		arrIv.add(warnning);
 		arrIv.add(hospital);
 		arrIv.add(gas);
 		DisplayMetrics displaymetrics = new DisplayMetrics();
-		getActivity().getWindowManager().getDefaultDisplay()
-				.getMetrics(displaymetrics);
+		getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		int height = displaymetrics.heightPixels;
 		int width = displaymetrics.widthPixels;
 
@@ -294,7 +310,6 @@ public class MapFragment extends Fragment implements
 		}
 	}
 
-
 	private void getNearbyFromGoogle(final String type) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
@@ -306,11 +321,8 @@ public class MapFragment extends Fragment implements
 			}
 
 			@Override
-			public void onFailure(int statusCode, Throwable error,
-					String content) {
-				Toast.makeText(getActivity(),
-						getString(R.string.register_error), Toast.LENGTH_LONG)
-						.show();
+			public void onFailure(int statusCode, Throwable error, String content) {
+				Toast.makeText(getActivity(), getString(R.string.register_error), Toast.LENGTH_LONG).show();
 			}
 		});
 	}
@@ -330,16 +342,12 @@ public class MapFragment extends Fragment implements
 				String vicinity = result.getString("vicinity");
 				String icon = type;
 
-				Nearby n = new Nearby(name, vicinity, Double.parseDouble(lat),
-						Double.parseDouble(lon), icon);
+				Nearby n = new Nearby(name, vicinity, Double.parseDouble(lat), Double.parseDouble(lon), icon);
 
-				int id = getActivity().getResources()
-						.getIdentifier(n.getIcon(), "drawable",
-								getActivity().getPackageName());
-				googleMap.addMarker(new MarkerOptions()
-						.position(new LatLng(n.getLat(), n.getLon()))
-						.title(n.getTen()).snippet(n.getDiachi())
-						.icon(BitmapDescriptorFactory.fromResource(id)));
+				int id = getActivity().getResources().getIdentifier(n.getIcon(), "drawable",
+						getActivity().getPackageName());
+				googleMap.addMarker(new MarkerOptions().position(new LatLng(n.getLat(), n.getLon())).title(n.getTen())
+						.snippet(n.getDiachi()).icon(BitmapDescriptorFactory.fromResource(id)));
 
 				list.add(n);
 			}
@@ -357,16 +365,15 @@ public class MapFragment extends Fragment implements
 			e.printStackTrace();
 		}
 	}
+
 	private void startTracking() {
 
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
 
-			googleApiClient = new GoogleApiClient.Builder(getActivity())
-					.addApi(LocationServices.API).addConnectionCallbacks(this)
-					.addOnConnectionFailedListener(this).build();
+			googleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API)
+					.addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
 
-			if (!googleApiClient.isConnected()
-					|| !googleApiClient.isConnecting()) {
+			if (!googleApiClient.isConnected() || !googleApiClient.isConnecting()) {
 				googleApiClient.connect();
 			}
 		} else {
@@ -375,13 +382,10 @@ public class MapFragment extends Fragment implements
 
 	private void markerShow(ArrayList<Nearby> listNearby) {
 		for (Nearby nearby : listNearby) {
-			int id = getActivity().getResources().getIdentifier(
-					nearby.getIcon(), "drawable",
+			int id = getActivity().getResources().getIdentifier(nearby.getIcon(), "drawable",
 					getActivity().getPackageName());
-			googleMap.addMarker(new MarkerOptions()
-					.position(new LatLng(nearby.getLat(), nearby.getLon()))
-					.title(nearby.getTen()).snippet(nearby.getDiachi())
-					.icon(BitmapDescriptorFactory.fromResource(id)));
+			googleMap.addMarker(new MarkerOptions().position(new LatLng(nearby.getLat(), nearby.getLon()))
+					.title(nearby.getTen()).snippet(nearby.getDiachi()).icon(BitmapDescriptorFactory.fromResource(id)));
 
 		}
 
@@ -392,6 +396,7 @@ public class MapFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		stopLocationUpdates();
 	}
+
 	private void stopLocationUpdates() {
 		if (googleApiClient != null && googleApiClient.isConnected()) {
 			googleApiClient.disconnect();
@@ -409,21 +414,18 @@ public class MapFragment extends Fragment implements
 													// location updates
 		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-		LocationServices.FusedLocationApi.requestLocationUpdates(
-				googleApiClient, locationRequest, this);
-		mLastLocation = LocationServices.FusedLocationApi
-				.getLastLocation(googleApiClient);
+		LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+		mLastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 		if (mLastLocation != null) {
-			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-					new LatLng(mLastLocation.getLatitude(), mLastLocation
-							.getLongitude()), 13));
+			googleMap.animateCamera(CameraUpdateFactory
+					.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 13));
 		}
 	}
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

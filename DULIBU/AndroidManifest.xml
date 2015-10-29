@@ -144,11 +144,6 @@
 
         <service android:name="com.hou.gps.GetLocationService" >
         </service>
-
-        <activity
-            android:name=".ChangeMap"
-            android:label="@string/title_activity_change_map" >
-        </activity>
         <activity
             android:name=".TripDetailManagerUser"
             android:label="@string/title_activity_trip_detail_manager_user" >

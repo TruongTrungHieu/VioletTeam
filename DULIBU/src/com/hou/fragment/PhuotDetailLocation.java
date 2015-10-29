@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.adapters.MyInfoWindowAdapter;
+import com.hou.dulibu.ChangeMap;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
 import com.hou.model.PhuotDetailComment;
@@ -26,6 +27,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 
 public class PhuotDetailLocation extends Fragment {
 	private GoogleMap mMap;
@@ -33,6 +36,7 @@ public class PhuotDetailLocation extends Fragment {
 	private LatLng latlg;
 	Double lat, lng;
 	String diemphuot = "";
+	private ImageButton iv;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -71,6 +75,22 @@ public class PhuotDetailLocation extends Fragment {
 		mMap.setMyLocationEnabled(true);
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 7));
 		mMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater, R.layout.info_window_custom));
+		iv = (ImageButton) v.findViewById(R.id.phuotMapSetting);
+		iv.setVisibility(View.VISIBLE);
+		iv.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogChangeMapType(mMap);
+			}
+		});
 		return v;
+	}
+	private void dialogChangeMapType(GoogleMap gm) {
+		android.support.v4.app.FragmentManager fm = getFragmentManager();
+		ChangeMap cm = new ChangeMap(gm);
+		// cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
+		cm.show(fm, "Change map");
 	}
 }

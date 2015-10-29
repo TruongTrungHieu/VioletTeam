@@ -1,25 +1,55 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:padding="20dp"
+    android:orientation="vertical"
     tools:context="com.hou.dulibu.ChangeMap" >
-
-	<TextView
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
+	<TextView 
 	    android:text="@string/titleMapType"
-	    android:textColor="@color/StatusBarColor"
-	    android:textSize="10dp"
-	    android:textStyle="bold" />
-	<FrameLayout 
-	    android:id="@+id/fwBasicMap"
+	    android:layout_height="wrap_content"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content">
-	    <ImageView 
-	        android:id="@+id/ivBasic"
-	        android:layout_height="200dp"
-	        android:layout_width="100dp"/>
-	</FrameLayout>
+	    android:textSize="11dp"
+	    android:textColor="@color/StatusBarColor"
+	    android:textStyle="bold"/>
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <RadioButton
+            android:id="@+id/radioBtnNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/normalMap" />
+
+        <RadioButton
+            android:id="@+id/radioBtnSatellite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/satelliteMap" />
+    </RadioGroup>
+	<LinearLayout 
+	    android:orientation="horizontal"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:weightSum="2">
+    <Button
+        android:id="@+id/btnMapOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnMapOk"
+        android:layout_weight="1" />
+    <Button
+        android:id="@+id/btnMapCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnMapCancel"
+        android:layout_weight="1" />
+	</LinearLayout>
+</LinearLayout>
