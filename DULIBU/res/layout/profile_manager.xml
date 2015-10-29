@@ -128,6 +128,8 @@
                 android:paddingLeft="15dp"
                 android:text="Birthday"
                 android:textColor="#505050"
+                android:editable="false"
+            	android:focusable="false"
                 android:textSize="14sp" />
 
             <View

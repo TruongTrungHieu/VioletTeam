@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -85,6 +87,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private ImageDownloader downloader;
 	private static Bitmap bmp;
 	String pathAvartar = "";
+	private String email, birthday, contact, fullname, phone;
+	private String email2, birthday2, contact2, fullname2, phone2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		currentData();
 		// TODO Auto-generated method stub
 		View view = inflater
 				.inflate(R.layout.profile_manager, container, false);
@@ -103,28 +108,30 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		getActivity().getWindowManager().getDefaultDisplay()
 				.getSize(screenSize);
-		pathAvartar = Global.getPreference(getActivity(),
-				Global.USER_AVATAR, "");
+		pathAvartar = Global.getPreference(getActivity(), Global.USER_AVATAR,
+				"");
 		initView(view);
 		statusList = new ArrayList<Trangthai_User>();
 		statusList.add(new Trangthai_User("1", "Tot", "brown"));
 		statusList.add(new Trangthai_User("2", "Kha", "green"));
 		statusList.add(new Trangthai_User("3", "Trung binh", "orange"));
 		statusList.add(new Trangthai_User("4", "Yeu", "pink"));
-		File f = ImageUltiFunctions
-				.getFileFromUri(Global.getURI(getFileName(pathAvartar)));
+		File f = ImageUltiFunctions.getFileFromUri(Global
+				.getURI(getFileName(pathAvartar)));
 		if (f != null) {
-			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
+			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
+					500);
 			ivProfile.setImageBitmap(bm);
-		}else{
-			new getAvatarFromUser().execute(getFileName(pathAvartar), pathAvartar);
+		} else {
+			new getAvatarFromUser().execute(getFileName(pathAvartar),
+					pathAvartar);
 		}
 		FillDataProfile();
 
 		return view;
 	}
 
-	public String getFileName(String path) {		
+	public String getFileName(String path) {
 		String[] temp = path.split("/");
 
 		return temp[temp.length - 1];
@@ -132,14 +139,15 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 	public class getAvatarFromUser extends AsyncTask<String, Void, Void> {
 		String fileName;
+
 		@Override
 		protected Void doInBackground(String... params) {
 			// TODO Auto-generated method stub
-					
+
 			try {
 				fileName = params[0];
 				imageOnServer.downloadFileFromServer(params[0], params[1]);
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -153,7 +161,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			super.onPostExecute(result);
 			File file = ImageUltiFunctions.getFileFromUri(Global
 					.getURI(fileName));
-			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file, 500, 500);
+			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file,
+					500, 500);
 			ivProfile.setImageBitmap(bm);
 			ProfileManagerActivity activity = (ProfileManagerActivity) getActivity();
 			MaterialAccount account = activity.getAccount();
@@ -180,6 +189,21 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		etBirthday.setOnClickListener(this);
 	}
 
+	private void currentData() {
+		email = Global.getPreference(getActivity().getApplicationContext(),
+				Global.USER_EMAIL, "");
+		birthday = Global.getPreference(getActivity().getApplicationContext(),
+				Global.USER_NGAYSINH, "");
+		contact = Global.getPreference(getActivity().getApplicationContext(),
+				Global.USER_SDT_LIENHE, "");
+		fullname = Global.getPreference(getActivity().getApplicationContext(),
+				Global.USER_FULLNAME, "");
+		phone = Global.getPreference(getActivity().getApplicationContext(),
+				Global.USER_SDT, "");
+	}
+
+	
+
 	private void FillDataProfile() {
 		tvUserName.setText(Global.getPreference(getActivity(),
 				Global.USER_FULLNAME, ""));
@@ -198,6 +222,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		} else {
 			tvUserName.setCompoundDrawablesWithIntrinsicBounds(
 					R.drawable.icon_female, 0, 0, 0);
+			
 		}
 	}
 
@@ -212,6 +237,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
 		switch (id) {
@@ -223,16 +249,86 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 					.getSystemService(Context.INPUT_METHOD_SERVICE);
 			mgr.showSoftInput(etFullName, InputMethodManager.SHOW_IMPLICIT);
 			etFullName.requestFocus();
+			email = etEmail.getText().toString().toLowerCase();
+			birthday = etBirthday.getText().toString().toLowerCase();
+			contact =  Global.getPreference(getActivity(),
+					Global.USER_SDT_LIENHE, "");
+			fullname = etFullName.getText().toString().toLowerCase();
+			phone = etPhone.getText().toString().toLowerCase();
+		
 			break;
 		case R.id.done_setting_actionbar:
-			currentMenu.getItem(0).setVisible(true);
-			currentMenu.getItem(1).setVisible(false);
-			setDisable();
+			
+			// setDisable();
+			//etBirthday.setError(null);
+			
+			birthday2 = etBirthday.getText().toString().toLowerCase();
+			
+			fullname2 = etFullName.getText().toString().toLowerCase();
+			phone2 = etPhone.getText().toString().toLowerCase();
+			if (fullname2.equals("")) {
+				etFullName.requestFocus();
+				}
+			else{
+				if (birthday2.equals("")) {
+					etBirthday.requestFocus();						
+					}
+				else{
+					if (phone2.equals("")) {
+						etPhone.requestFocus();						
+					}
+					else{
+						if (checkValidateAge()) {			
+							if(checkValidateChanged()){
+								postChangeInfo(Global.getPreference(getActivity(), Global.USER_EMAIL,
+										""), fullname2, birthday2,
+										Global.getPreference(getActivity()
+												.getApplicationContext(), Global.USER_GIOITINH,
+												"1"), phone2, Global.getPreference(getActivity(), Global.USER_SDT_LIENHE,
+														""));
+								currentMenu.getItem(0).setVisible(true);
+								currentMenu.getItem(1).setVisible(false);
+								setDisable();
+							}
+							else{
+								currentMenu.getItem(0).setVisible(true);
+								currentMenu.getItem(1).setVisible(false);
+								//FillDataProfile();
+								setDisable();
+							}
+							
+							
+						} else {
+							etBirthday.setError(getString(R.string.error_tuoi));
+							etBirthday.requestFocus();
+							setDisable();
+							FillDataProfile();
+							
+						}
+					}
+				}
+			}
+				
+			
+			
+			
+			
+			
+			
+			
+
+			// isDataChange();
+
+			// if(isDataChange()){}
+			// else{
+			// Toast.makeText(getActivity(), "cho phep thay doi data ",
+			// Toast.LENGTH_SHORT).show();
+			// }
 			break;
-		/*case R.id.setting:
-			Intent intent = new Intent(getActivity(), SettingActivity.class);
-			startActivity(intent);
-			break;*/
+		/*
+		 * case R.id.setting: Intent intent = new Intent(getActivity(),
+		 * SettingActivity.class); startActivity(intent); break;
+		 */
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -249,6 +345,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			listDialog();
 			break;
 		case R.id.etBirthday:
+			etBirthday.setError(null);
 			showDatePickerDialog(v);
 			etBirthday.setFocusableInTouchMode(true);
 			etBirthday.setFocusable(true);
@@ -256,6 +353,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		}
 
 	}
+
 	public void showDatePickerDialog(View v) {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getChildFragmentManager(), "datePicker");
@@ -290,6 +388,59 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		}
 	}
+
+	@SuppressWarnings("deprecation")
+	private boolean checkValidateAge() {
+		boolean check = true;
+
+		//birthday2 = etBirthday.getText().toString().toLowerCase();
+		
+		
+		int tuoi = 0;
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.US);
+		try {
+			Date date = dateFormat.parse(birthday2);
+			tuoi = (int) (c.get(Calendar.YEAR) - date.getYear());
+			if (c.get(Calendar.MONTH) == date.getMonth()) {
+				if (c.get(Calendar.DATE) >= date.getDate()) {
+					tuoi = tuoi - 1900;
+				} else {
+					tuoi = tuoi - 1901;
+				}
+			} else {
+				if (c.get(Calendar.MONTH) > date.getMonth()) {
+					tuoi = tuoi - 1900;
+				} else {
+					tuoi = tuoi - 1901;
+				}
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (tuoi <= 15) {
+
+			check = false;
+		}
+
+		return check;
+	}
+	private boolean checkValidateChanged() {
+		boolean check = true;
+
+		if(fullname.equals(fullname2) && birthday.equals(birthday2) && phone.equals(phone2) ){
+			check = false;
+		}
+			
+	
+
+
+		return check;
+	}
+
 
 
 	public class ImageDialog extends Dialog implements View.OnClickListener {
@@ -365,7 +516,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == PICK_FROM_FILE) {
-				Uri selectedImage = data.getData();				
+				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
 				// Get the cursor
@@ -379,8 +530,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				cursor.close();
 				// Set the Image in ImageView after decoding the String
 				String fileName = getFileName(imgDecodableString);
-				fromCameraFile = ImageUltiFunctions.getFileFromUri(Global.getURI(fileName));				
-				
+				fromCameraFile = ImageUltiFunctions.getFileFromUri(Global
+						.getURI(fileName));
+
 			} else {
 				path = mImageCaptureUri.getPath();
 			}
@@ -388,14 +540,14 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
 						fromCameraFile, 500, 500);
 				ivProfile.setImageBitmap(bm);
-				
+
 				updateAva();
 			}
 
 		}
 	}
-	
-	public void updateAva(){
+
+	public void updateAva() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		try {
@@ -403,19 +555,31 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
-		client.post(Global.URI_UPDATEAVATAR_PATH +"?access_token=" + Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, ""), params,
+		}
+		client.post(
+				Global.URI_UPDATEAVATAR_PATH
+						+ "?access_token="
+						+ Global.getPreference(getActivity(),
+								Global.USER_ACCESS_TOKEN, ""), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.update_ava_success), Toast.LENGTH_LONG).show();
-					//new File().delete();
-						
+						Toast.makeText(
+								getActivity(),
+								getActivity().getResources().getString(
+										R.string.update_ava_success),
+								Toast.LENGTH_LONG).show();
+						// new File().delete();
+
 					}
 
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
-						Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.update_ava_false), Toast.LENGTH_LONG).show();
+						Toast.makeText(
+								getActivity(),
+								getActivity().getResources().getString(
+										R.string.update_ava_false),
+								Toast.LENGTH_LONG).show();
 					}
 				});
 	}
@@ -543,15 +707,77 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	private void postChangeInfo(final String email, final String fullname,
+			final String bday, final String gender, final String phone,
+			final String phone_contact) {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("email", email);
+		params.put("fullname", fullname);
+		params.put("bday", bday);
+		params.put("gender", gender);
+		params.put("phone", phone);
+		params.put("phone_contact", phone_contact);
+
+		client.post(
+				Global.BASE_URI
+						+ "/"
+						+ Global.URI_UPDATEINFO_PATH
+						+ "?access_token="
+						+ Global.getPreference(getActivity(),
+								Global.ACCESS_TOKEN, " "), params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Log.e("postChangeInfo", response);
+
+						Global.savePreference(getActivity()
+								.getApplicationContext(), Global.USER_FULLNAME,
+								fullname);
+						Global.savePreference(getActivity()
+								.getApplicationContext(), Global.USER_EMAIL,
+								email);
+						Global.savePreference(getActivity()
+								.getApplicationContext(), Global.USER_NGAYSINH,
+								bday);
+						Global.savePreference(getActivity()
+								.getApplicationContext(), Global.USER_SDT,
+								phone);
+
+					
+						etPhone.setText(Global.getPreference(getActivity()
+								.getApplicationContext(), Global.USER_SDT,
+								fullname));
+						etBirthday.setText(Global.getPreference(getActivity()
+								.getApplicationContext(), Global.USER_NGAYSINH,
+								fullname));
+						etFullName.setText(Global.getPreference(getActivity()
+								.getApplicationContext(), Global.USER_FULLNAME,
+								fullname));
+//						etUserName.setText(Global.getPreference(getActivity()
+//								.getApplicationContext(), Global.USER_FULLNAME,
+//								fullname));
+
+					
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Log.e("__Viethhh", content);
+					}
+				});
+	}
+
 	public static class StatusHolder {
 		public TextView name;
 		public CircularImageView icon;
 	}
 
 	public void setEnable() {
-		etEmail.setEnabled(true);
+		etEmail.setEnabled(false);
 		etBirthday.setEnabled(true);
-		etContact.setEnabled(true);
+		etContact.setEnabled(false);
 		etFullName.setEnabled(true);
 		etPhone.setEnabled(true);
 	}
