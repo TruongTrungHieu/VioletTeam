@@ -52,7 +52,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.adapters.MyArrayAdapterPlace;
-import com.hou.adapters.MyInfoWindowAdapter;
 import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -74,7 +73,7 @@ public class TripDetailTripForUser extends Fragment {
 	private ImageButton iv;
 	private Context context;
 	private int map_type;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -86,28 +85,31 @@ public class TripDetailTripForUser extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-			@Nullable Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.trip_detail_trip_for_user, container, false);
+	public View onCreateView(LayoutInflater inflater,
+			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.trip_detail_trip_for_user,
+				container, false);
 
 		imgSlide = (ImageView) v.findViewById(R.id.imgSlide);
 		lvSlide = (ListView) v.findViewById(R.id.lvSlide);
 
 		lstPlace = new ArrayList<Diemphuot>();
-		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
+		adapter = new MyArrayAdapterPlace(getActivity(),
+				R.layout.list_row_slide, lstPlace);
 		lvSlide.setAdapter(adapter);
-		
+
 		context = getActivity().getApplicationContext();
-		String maDiemPhuot = com.hou.app.Global.getPreference(context, Global.TRIP_TRIP_ID, "Viet");
+		String maDiemPhuot = com.hou.app.Global.getPreference(context,
+				Global.TRIP_TRIP_ID, "Viet");
 
 		mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
 		googleMap = mMapView.getMap();
-		
+
 		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
-		
+
 		map_type = Global.getIntPreference(context, "mapType", 0);
 		if(map_type != 0){
 			googleMap.setMapType(map_type);
@@ -118,17 +120,23 @@ public class TripDetailTripForUser extends Fragment {
 		
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
-		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-				new LatLng(Double.parseDouble(startPlace.getLat()), Double.parseDouble(startPlace.getLon())), 7));
+		if (startPlace != null) {
 
-		//showMakerFirst();
+			Log.d("lat_start", startPlace.getLat());
+			
+			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+					new LatLng(Double.parseDouble(startPlace.getLat()), Double
+							.parseDouble(startPlace.getLon())), 7));
+		}
+		// showMakerFirst();
 		DeviceStatus ds = new DeviceStatus();
 		String a = ds.getCurrentConnection(getActivity());
 		if (a.equals("Wifi") || a.equals("3G")) {
 			getTripPlaces(maDiemPhuot);
 		}
-		
-		googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater, R.layout.info_window_custom));
+
+		// googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater,
+		// R.layout.info_window_custom));
 
 		iv = (ImageButton) v.findViewById(R.id.tripMapSetting);
 		iv.setVisibility(View.VISIBLE);
@@ -181,45 +189,51 @@ public class TripDetailTripForUser extends Fragment {
 	}
 
 	private void showMakerFirst() {
-		googleMap
-				.addMarker(new MarkerOptions()
-						.position(new LatLng(Double.parseDouble(startPlace.getLat()),
+		googleMap.addMarker(new MarkerOptions()
+				.position(
+						new LatLng(Double.parseDouble(startPlace.getLat()),
 								Double.parseDouble(startPlace.getLon())))
-						.title(startPlace.getTenTinh())
-						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
-						.snippet(startPlace.getMaTinh()));
+				.title(startPlace.getTenTinh())
+				.icon(BitmapDescriptorFactory
+						.fromResource(R.drawable.marker_start_end_places))
+				.snippet(startPlace.getMaTinh()));
 
-		googleMap
-				.addMarker(new MarkerOptions()
-						.position(new LatLng(Double.parseDouble(endPlace.getLat()),
+		googleMap.addMarker(new MarkerOptions()
+				.position(
+						new LatLng(Double.parseDouble(endPlace.getLat()),
 								Double.parseDouble(endPlace.getLon())))
-						.title(endPlace.getTenTinh())
-						.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start_end_places))
-						.snippet(endPlace.getTenTinh()));
+				.title(endPlace.getTenTinh())
+				.icon(BitmapDescriptorFactory
+						.fromResource(R.drawable.marker_start_end_places))
+				.snippet(endPlace.getTenTinh()));
 
 		// Diemphuot thuoc Start + end
 		for (Diemphuot dp : lstPlace) {
 			MarkerOptions opt = new MarkerOptions()
-					.position(new LatLng(Double.parseDouble(dp.getLat()),
-							Double.parseDouble(dp.getLon())))
+					.position(
+							new LatLng(Double.parseDouble(dp.getLat()), Double
+									.parseDouble(dp.getLon())))
 					.title(dp.getTenDiemphuot())
-					.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch));
+					.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.marker_touch));
 			if (dp.getImage() != null) {
-					opt.snippet(dp.getImage());
+				opt.snippet(dp.getImage());
 			}
-			googleMap
-					.addMarker(opt);
-			
+			googleMap.addMarker(opt);
+
 			Log.d("___", googleMap.toString());
 		}
 	}
 
 	private void markerShow(ArrayList<Nearby> listNearby) {
 		for (Nearby nearby : listNearby) {
-			int id = getActivity().getResources().getIdentifier(nearby.getIcon(), "drawable",
+			int id = getActivity().getResources().getIdentifier(
+					nearby.getIcon(), "drawable",
 					getActivity().getPackageName());
-			googleMap.addMarker(new MarkerOptions().position(new LatLng(nearby.getLat(), nearby.getLon()))
-					.title(nearby.getTen()).snippet(nearby.getDiachi()).icon(BitmapDescriptorFactory.fromResource(id)));
+			googleMap.addMarker(new MarkerOptions()
+					.position(new LatLng(nearby.getLat(), nearby.getLon()))
+					.title(nearby.getTen()).snippet(nearby.getDiachi())
+					.icon(BitmapDescriptorFactory.fromResource(id)));
 		}
 	}
 
@@ -229,8 +243,9 @@ public class TripDetailTripForUser extends Fragment {
 		RequestParams params = new RequestParams();
 		params.put("id", tripID);
 		client.get(
-				Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH + "?p=" + p + "&access_token="
-						+ Global.getPreference(c, Global.ACCESS_TOKEN, ""),
+				Global.BASE_URI + "/" + Global.URI_UPDATETRIPLOCATIONS_PATH
+						+ "?p=" + p + "&access_token="
+						+ Global.getPreference(c, Global.USER_ACCESS_TOKEN, ""),
 				params, new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getTripPlace", response);
@@ -238,8 +253,10 @@ public class TripDetailTripForUser extends Fragment {
 					}
 
 					@Override
-					public void onFailure(int statusCode, Throwable error, String content) {
-						Toast.makeText(getActivity(), getString(R.string.e503), Toast.LENGTH_SHORT).show();
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						Toast.makeText(getActivity(), getString(R.string.e503),
+								Toast.LENGTH_SHORT).show();
 					}
 				});
 	}
@@ -261,7 +278,7 @@ public class TripDetailTripForUser extends Fragment {
 				place.setLat(lat);
 				place.setLon(lon);
 				place.setImage(image);
-				
+
 				lstPlace.add(place);
 			}
 			showMakerFirst();
@@ -298,13 +315,16 @@ public class TripDetailTripForUser extends Fragment {
 						String imageName;
 						if (imageLink.length() > 41) {
 							imageName = imageLink.substring(41);
-							imageOnServer.downloadFileFromServer(imageName, imageLink);
-							Log.d("doInBackGroundListPhuot", "imageName: " + imageName + "imageLink: " + imageLink);
+							imageOnServer.downloadFileFromServer(imageName,
+									imageLink);
+							Log.d("doInBackGroundListPhuot", "imageName: "
+									+ imageName + "imageLink: " + imageLink);
 							publishProgress();
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						Toast.makeText(getActivity(), "ImageLink: \n" + e, Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), "ImageLink: \n" + e,
+								Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
 					}
 				}
@@ -326,46 +346,35 @@ public class TripDetailTripForUser extends Fragment {
 		}
 	}
 
-	/*class MyInfoWindowAdapter implements InfoWindowAdapter {
-
-		private final View myContentsView;
-		private LayoutInflater li;
-		private int LayoutId;
-
-		MyInfoWindowAdapter(LayoutInflater li) {
-			myContentsView = li.inflate(LayoutId, null);
-		}
-
-		@Override
-		public View getInfoContents(Marker marker) {
-
-			TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.customIWtitle));
-			tvTitle.setText(marker.getTitle());
-			ImageView iv = ((ImageView) myContentsView.findViewById(R.id.customIWimage));
-			String imageLink = marker.getSnippet();
-			String imageName;
-			if (imageLink.length() > 41) {
-				imageName = imageLink.substring(41);
-				File f = ImageUltiFunctions.getFileFromUri(Global.getURI(imageName));
-				if (f != null) {
-					Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
-					iv.setImageBitmap(b);
-				} else {
-					iv.setImageResource(R.drawable.trip1);
-				}
-			} else {
-				iv.setImageResource(R.drawable.trip1);
-			}
-
-			return myContentsView;
-		}
-
-		@Override
-		public View getInfoWindow(Marker marker) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-	}*/
+	/*
+	 * class MyInfoWindowAdapter implements InfoWindowAdapter {
+	 * 
+	 * private final View myContentsView; private LayoutInflater li; private int
+	 * LayoutId;
+	 * 
+	 * MyInfoWindowAdapter(LayoutInflater li) { myContentsView =
+	 * li.inflate(LayoutId, null); }
+	 * 
+	 * @Override public View getInfoContents(Marker marker) {
+	 * 
+	 * TextView tvTitle = ((TextView)
+	 * myContentsView.findViewById(R.id.customIWtitle));
+	 * tvTitle.setText(marker.getTitle()); ImageView iv = ((ImageView)
+	 * myContentsView.findViewById(R.id.customIWimage)); String imageLink =
+	 * marker.getSnippet(); String imageName; if (imageLink.length() > 41) {
+	 * imageName = imageLink.substring(41); File f =
+	 * ImageUltiFunctions.getFileFromUri(Global.getURI(imageName)); if (f !=
+	 * null) { Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
+	 * 500); iv.setImageBitmap(b); } else {
+	 * iv.setImageResource(R.drawable.trip1); } } else {
+	 * iv.setImageResource(R.drawable.trip1); }
+	 * 
+	 * return myContentsView; }
+	 * 
+	 * @Override public View getInfoWindow(Marker marker) { // TODO
+	 * Auto-generated method stub return null; }
+	 * 
+	 * }
+	 */
 
 }

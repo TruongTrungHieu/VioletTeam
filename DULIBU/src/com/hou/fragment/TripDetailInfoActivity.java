@@ -233,7 +233,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 						+ Global.TRIP_REGISTER
 						+ "?access_token="
 						+ Global.getPreference(getActivity(),
-								Global.ACCESS_TOKEN, " "), params,
+								Global.USER_ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("DATA", response);
@@ -281,7 +281,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 						+ Global.TRIP_LEAVE
 						+ "?access_token="
 						+ Global.getPreference(getActivity(),
-								Global.ACCESS_TOKEN, " "), params,
+								Global.USER_ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("DATA", response);
@@ -382,7 +382,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 						+ Global.TRIP_INVITE
 						+ "?access_token="
 						+ Global.getPreference(getActivity(),
-								Global.ACCESS_TOKEN, "access_token"), params,
+								Global.USER_ACCESS_TOKEN, "access_token"), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						 Log.e("Invite", response);

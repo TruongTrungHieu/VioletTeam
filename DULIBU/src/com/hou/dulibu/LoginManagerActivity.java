@@ -233,15 +233,9 @@ public class LoginManagerActivity extends ActionBarActivity {
 			Global.savePreference(getApplicationContext(), Global.USER_AVATAR, avatar);
 			Global.savePreference(getApplicationContext(), Global.USER_GHICHU, ghichu);
 			Global.savePreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, access_token);
-			
-			Global.writeFile(access_token, new MD5().getMD5("18/11/1994").toString());
 
 			return true;
 		} catch (JSONException e) {
-			e.printStackTrace();
-			return false;
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

@@ -849,7 +849,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 						+ "/"
 						+ Global.URI_CREATENEWTRIP_PATH
 						+ "?access_token="
-						+ Global.getPreference(this, Global.ACCESS_TOKEN,
+						+ Global.getPreference(this, Global.USER_ACCESS_TOKEN,
 								"none"), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
@@ -938,7 +938,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 								+ Global.URI_UPDATETRIPLOCATIONS_PATH
 								+ "?access_token="
 								+ Global.getPreference(this,
-										Global.ACCESS_TOKEN, "none"), params,
+										Global.USER_ACCESS_TOKEN, "none"), params,
 						new AsyncHttpResponseHandler() {
 							public void onSuccess(String response) {
 								Log.e("send list", response);

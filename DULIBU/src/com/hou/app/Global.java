@@ -8,9 +8,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -25,6 +28,7 @@ import org.json.JSONObject;
 
 import com.hou.model.Diemphuot;
 import com.hou.upload.MD5;
+import com.loopj.android.http.AsyncHttpClient;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -102,7 +106,6 @@ public class Global {
 	public static String USER_SDT_LIENHE = "sdt_lienhe";
 	public static String USER_AVATAR = "avatar";
 	public static String USER_GHICHU = "ghichu";
-	public static String USER_ACCESS_TOKEN = "access_token";
 	
 	//ROLE
 	
@@ -122,7 +125,7 @@ public class Global {
 	public static String MULTI_LANGUAGE_DEFAULT = "vi";
 
 	// Access Token
-	public static String ACCESS_TOKEN = "access_token";
+	public static String USER_ACCESS_TOKEN = "access_token";
 	public static String ACCESS_TOKEN_DEFAULT = "0";
 	//Load number page
 	public static String PAGE_NUMBER = "0";
@@ -313,8 +316,79 @@ public class Global {
 		} catch (IOException e) {  
 			Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());  
 		}  
-
 	}
+	
+	public static void writeFile(Object data, String index){
+		File root=null;  
+		
+		try {  
+			// check for SDcard   
+			root = Environment.getExternalStorageDirectory();  
+			//check sdcard permission  
+			if (root.canWrite()){  
+				File fileDir = new File(root.getAbsolutePath()+"/DULIBU");  
+				fileDir.mkdirs();  
+
+				File file= new File(fileDir,index);  
+				if (file.exists())  {
+					file.delete();
+				}
+				
+				FileOutputStream fileOutputStream = new FileOutputStream(file);
+				ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
+				outputStream.writeObject(data);
+				outputStream.close();
+				fileOutputStream.close();
+			}  
+		} catch (IOException e) {  
+			Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());  
+		}  
+		
+	}
+	public static Object readFileObject(String index) {
+		File root = null;
+		Object result = null;
+		root = Environment.getExternalStorageDirectory();
+		if (root.canRead()) {
+			
+			try {
+			File fileDir = new File(root.getAbsolutePath() + "/DULIBU");
+			
+			File file = new File(fileDir, index);
+			FileInputStream fileInputStream = new FileInputStream(file);
+			ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
+			result = inputStream.readObject();
+			inputStream.close();
+			fileInputStream.close();
+			} catch (IOException e) {
+				Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());  
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+//	
+//	public static Object readFileObject(String fileName){
+//		Object result = null;
+//		File myFile = new File(Environment.getExternalStorageDirectory()+"/DULIBU/"+fileName);
+//		
+//		try {
+//			FileInputStream fIn = new FileInputStream(myFile);
+//			ObjectInputStream inputStream = new ObjectInputStream(fIn);
+//			result = inputStream.readObject();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
+	
+	
+	
 	public static String readFile(String fileName){
 		File myFile = new File(Environment.getExternalStorageDirectory()+"/DULIBU/"+fileName);
 		String aDataRow = "";
@@ -331,7 +405,6 @@ public class Global {
 			e.printStackTrace();
 		}
 		return aBuffer;
-
 	}
 	
 	private static Socket socket;
@@ -379,5 +452,13 @@ public class Global {
 	}
 	
 	
+	
+	
+	public static AsyncHttpClient httpClient = new AsyncHttpClient();
+	
+	{
+		httpClient.setTimeout(20000);
+		httpClient.setMaxConnections(100);
+	}
 
 }

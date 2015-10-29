@@ -95,7 +95,7 @@ public class TripDetailMessageActivity extends Fragment {
 		
 		JSONObject data = new JSONObject();
 		try {
-			data.put("access_token", Global.getPreference(getActivity(), Global.ACCESS_TOKEN, "NONE"));
+			data.put("access_token", Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, "NONE"));
 			data.put("target_type", Global.TARGET_TRIP);
 			data.put("target_id", "5623e80833a5eff517534e74");
 		} catch (JSONException e) {
@@ -277,7 +277,7 @@ public class TripDetailMessageActivity extends Fragment {
 		try {
 			data.put("target_type", Global.TARGET_TRIP);
 			data.put("target_id", "5623e80833a5eff517534e74");
-			data.put("access_token", Global.getPreference(getActivity(), Global.ACCESS_TOKEN, "NONE"));
+			data.put("access_token", Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, "NONE"));
 			data.put("message", message);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

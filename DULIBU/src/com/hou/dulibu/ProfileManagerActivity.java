@@ -67,8 +67,8 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 		String avatarUrl = Global.getPreference(getApplicationContext(), Global.USER_AVATAR, "");
 		String[] temp = avatarUrl.split("/");
 		String fileName = temp[temp.length - 1];
-		setAccount(new MaterialAccount(this.getResources(), fullname.toUpperCase(), "", R.drawable.ic_launcher,
-				R.drawable.default_bg));
+//		setAccount(new MaterialAccount(this.getResources(), fullname.toUpperCase(), "", R.drawable.ic_launcher,
+//				R.drawable.default_bg));
 		File f;
 		f = ImageUltiFunctions.getFileFromUri(Global.getURI(fileName));
 		if (f != null) {
@@ -201,7 +201,10 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 
 					@Override
 					public void onFailure(int statusCode, Throwable error, String content) {
+						Intent intent = new Intent(ProfileManagerActivity.this, LoginManagerActivity.class);
+						startActivity(intent);
 						switch (statusCode) {
+						
 						case 400:
 							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400),
 									Toast.LENGTH_LONG).show();
@@ -221,8 +224,6 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements 
 						default:
 							break;
 						}
-						Intent intent = new Intent(ProfileManagerActivity.this, LoginManagerActivity.class);
-						startActivity(intent);
 					}
 				});
 	}

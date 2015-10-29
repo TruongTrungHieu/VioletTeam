@@ -1,32 +1,18 @@
 package com.hou.dulibu;
 
 import com.hou.adapters.LichtrinhViewPagerAdapter;
-import com.hou.gps.GetLocationService;
 import com.hou.sliding_tab.LichTrinhSlidingTabLayout;
 
-import android.app.ActivityManager;
-import android.app.LocalActivityManager;
-import android.app.TabActivity;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
 public class TripDetailManagerActivity extends ActionBarActivity {
 	private Menu currentMenu;
-	private TabHost tabHost;
-	private TabSpec infoSpec, memberSpec, messageSpec, tripSpec;
-
 	Toolbar toolbar;
 	ViewPager pager;
 	LichtrinhViewPagerAdapter adapter;
@@ -53,18 +39,12 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 			// ColorDrawable(Color.parseColor("#0aae44")));
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-		
-		// Creating The Toolbar and setting it as the Toolbar for the activity
-
-		// Creating The ViewPagerAdapter and Passing Fragment Manager, Titles
-		// fot the Tabs and Number Of Tabs.
+	
 		adapter = new LichtrinhViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs, getBaseContext());
 
-		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) findViewById(R.id.pager);
 		pager.setAdapter(adapter);
 
-		// Assiging the Sliding Tab Layout View
 		tabs = (LichTrinhSlidingTabLayout) findViewById(R.id.tabs);
 		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true,
 										// This makes the tabs Space Evenly in

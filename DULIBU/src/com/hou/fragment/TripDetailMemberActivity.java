@@ -49,6 +49,7 @@ public class TripDetailMemberActivity extends Fragment {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View v = inflater
 				.inflate(R.layout.trip_detail_member, container, false);
+		Log.d("Start_Load_Member", "...");
 		findViewById(v);
 		trangthai = 1;
 		arrListMember = new ArrayList<LichtrinhMember>();
@@ -60,6 +61,7 @@ public class TripDetailMemberActivity extends Fragment {
 		getTripMember(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
 				""));
 
+		Log.d("size_arry_member", arrListMember.size()+""+arrListUsers.size());
 		return v;
 	}
 

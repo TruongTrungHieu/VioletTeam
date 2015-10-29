@@ -95,7 +95,7 @@ public class GetLocationService extends Service implements
 		float distance = 0f;
 
 		final JSONObject checkPoint = new JSONObject();
-		checkPoint.put("access_token", Global.readFile(new MD5().getMD5("18/11/1994")));
+		checkPoint.put("access_token", Global.getPreference(getBaseContext(), Global.USER_ACCESS_TOKEN, "access_token"));
 		checkPoint.put("target_id", Global.getPreference(getBaseContext(),
 				Global.TRIP_TRIP_ID, "trip_id"));
 		checkPoint.put("target_type", Global.TARGET_TRIP);

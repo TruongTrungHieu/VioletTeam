@@ -117,7 +117,7 @@ public class MemberAdapterForAdmin extends ArrayAdapter<LichtrinhMember> {
 								+ Global.TRIP_ROLE
 								+ "?access_token="
 								+ Global.getPreference(context,
-										Global.ACCESS_TOKEN, "access_token"),
+										Global.USER_ACCESS_TOKEN, "access_token"),
 						params, new AsyncHttpResponseHandler() {
 							public void onSuccess(String response) {
 								Log.e("change_role", response);

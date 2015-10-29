@@ -30,11 +30,11 @@ import android.widget.Toast;
 
 public class SplashScreenActivity extends ActionBarActivity {
 
-	private final int SPLASH_DISPLAY_LENGTH = 1000;
+	private final int SPLASH_DISPLAY_LENGTH = 2000;
 	private TextView tvSlogan;
 	private ExecuteQuery exeQ;
 	private Context mContext;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 		if (a.equals("Wifi") || a.equals("3G")) {
 			exeQ.delete_tbl_tinh_thanhpho();
 		}
-		
+
 		for (int i = 1; i < 5; i++) {
 			getListCity(i);
 		}
@@ -66,15 +66,18 @@ public class SplashScreenActivity extends ActionBarActivity {
 		editor.commit();
 
 		mContext = this;
-		final String token = Global.getPreference(mContext, Global.USER_ACCESS_TOKEN, null);
+		final String token = Global.getPreference(mContext,
+				Global.USER_ACCESS_TOKEN, null);
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				if (token != null) {
-					Intent intent = new Intent(SplashScreenActivity.this, ProfileManagerActivity.class);
+					Intent intent = new Intent(SplashScreenActivity.this,
+							ProfileManagerActivity.class);
 					startActivity(intent);
 				} else {
-					Intent intent = new Intent(SplashScreenActivity.this, LoginManagerActivity.class);
+					Intent intent = new Intent(SplashScreenActivity.this,
+							LoginManagerActivity.class);
 					startActivity(intent);
 				}
 			}
@@ -88,7 +91,8 @@ public class SplashScreenActivity extends ActionBarActivity {
 	}
 
 	private void getListCity(int i) {
-		AsyncHttpClient client = new AsyncHttpClient();
+
+		AsyncHttpClient client = Global.httpClient;
 
 		client.get(
 				Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH + "?p=" + i,
@@ -96,6 +100,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 					public void onSuccess(String response) {
 						Log.e("getListCity", response);
 						exeQ.insert_tbl_tinh_thanhpho_multi(listCity(response));
+
 					}
 
 					@Override
@@ -138,6 +143,13 @@ public class SplashScreenActivity extends ActionBarActivity {
 	}
 
 	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		exeQ.close();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.splash_screen, menu);
@@ -156,5 +168,4 @@ public class SplashScreenActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	
 }

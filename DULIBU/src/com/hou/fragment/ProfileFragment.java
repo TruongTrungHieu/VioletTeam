@@ -161,8 +161,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			super.onPostExecute(result);
 			File file = ImageUltiFunctions.getFileFromUri(Global
 					.getURI(fileName));
-			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file,
-					500, 500);
+			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file, 500, 500);
 			ivProfile.setImageBitmap(bm);
 			ProfileManagerActivity activity = (ProfileManagerActivity) getActivity();
 			MaterialAccount account = activity.getAccount();

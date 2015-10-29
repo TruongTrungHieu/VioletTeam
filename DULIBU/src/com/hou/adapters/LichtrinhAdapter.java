@@ -36,46 +36,55 @@ public class LichtrinhAdapter extends ArrayAdapter<Lichtrinh> {
 		this.myArray = arr;
 	}
 
-	public View getView(int position, View convertView, ViewGroup parent) {
+	static class ViewHolder {
+		TextView txtTripTitle, txtTripTimeBegin, txtTripTimeEnd, txtBeginPoint,
+				txtEndPoint;
+		ImageView imgTrip;
+		Lichtrinh sTrip;
+	}
 
-		LayoutInflater inflater = context.getLayoutInflater();
-		convertView = inflater.inflate(layoutId, null);
-		//
+	public View getView(int position, View convertView, ViewGroup parent) {
+		final ViewHolder holder;
+
+		if (convertView == null) {
+			LayoutInflater inflater = context.getLayoutInflater();
+			convertView = inflater.inflate(layoutId, null);
+			holder = new ViewHolder();
+			holder.txtTripTitle = (TextView) convertView
+					.findViewById(R.id.titleTrip);
+			holder.txtTripTimeBegin = (TextView) convertView
+					.findViewById(R.id.tvTimeBeginTrip);
+			holder.txtTripTimeEnd = (TextView) convertView
+					.findViewById(R.id.tvTimeEndTrip);
+			holder.txtBeginPoint = (TextView) convertView
+					.findViewById(R.id.tvBeginPoint);
+			holder.txtEndPoint = (TextView) convertView
+					.findViewById(R.id.tvEndPoint);
+			holder.imgTrip = (ImageView) convertView.findViewById(R.id.imgTrip);
+			convertView.setTag(holder);
+
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
 		if (myArray.size() > 0 && position >= 0) {
 
-			final TextView txtTripTitle = (TextView) convertView
-					.findViewById(R.id.titleTrip);
-			final TextView txtTripTimeBegin = (TextView) convertView
-					.findViewById(R.id.tvTimeBeginTrip);
-			final TextView txtTripTimeEnd = (TextView) convertView
-					.findViewById(R.id.tvTimeEndTrip);
-			// final TextView txtTripNumberMember = (TextView)
-			// convertView.findViewById(R.id.tvCountMember);
-			final TextView txtBeginPoint = (TextView) convertView
-					.findViewById(R.id.tvBeginPoint);
-			final TextView txtEndPoint = (TextView) convertView
-					.findViewById(R.id.tvEndPoint);
+			holder.sTrip = myArray.get(position);
 
-			final Lichtrinh sTrip = myArray.get(position);
-
-			txtTripTitle.setText(sTrip.getTenLichtrinh().toString());
-			txtTripTimeBegin.setText(sTrip.getTgBatdau().toString());
-			txtTripTimeEnd.setText(sTrip.getTgKetthuc().toString());
-			txtBeginPoint.setText(sTrip.getDiemBatdau().toString());
-			txtEndPoint.setText(sTrip.getDiemKetthuc().toString());
-
-			final ImageView imgTrip = (ImageView) convertView
-					.findViewById(R.id.imgTrip);
+			holder.txtTripTitle.setText(holder.sTrip.getTenLichtrinh().toString());
+			holder.txtTripTimeBegin.setText(holder.sTrip.getTgBatdau().toString());
+			holder.txtTripTimeEnd.setText(holder.sTrip.getTgKetthuc().toString());
+			holder.txtBeginPoint.setText(holder.sTrip.getDiemBatdau().toString());
+			holder.txtEndPoint.setText(holder.sTrip.getDiemKetthuc().toString());
 
 			try {
 				File f = ImageUltiFunctions.getFileFromUri(Global
-						.getURI(new MD5().getMD5(sTrip.getImage())));
+						.getURI(new MD5().getMD5(holder.sTrip.getImage())));
 				if (f != null) {
 					Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(
 							f, 500, 500);
-					imgTrip.setImageBitmap(b);
+					holder.imgTrip.setImageBitmap(b);
 				} else {
-					imgTrip.setImageResource(R.drawable.trip1);
+					holder.imgTrip.setImageResource(R.drawable.trip1);
 				}
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block
