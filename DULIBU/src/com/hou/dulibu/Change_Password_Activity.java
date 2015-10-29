@@ -133,6 +133,9 @@ public class Change_Password_Activity extends ActionBarActivity {
 						Log.e("cc", response);
 							Intent intent = new Intent(Change_Password_Activity.this, SettingActivity.class);
 							startActivity(intent);
+							edt_oldpass.setText(null);
+							edt_newpass.setText(null);
+							edt_check_newpass.setText(null);
 							Toast.makeText(getApplicationContext(), R.string.change_succes, Toast.LENGTH_SHORT).show();
 					}
 
