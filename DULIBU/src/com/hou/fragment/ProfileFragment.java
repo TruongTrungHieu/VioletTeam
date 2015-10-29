@@ -301,7 +301,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 						} else {
 							etBirthday.setError(getString(R.string.error_tuoi));
 							etBirthday.requestFocus();
-							setDisable();
+							//setDisable();
 							FillDataProfile();
 							
 						}
