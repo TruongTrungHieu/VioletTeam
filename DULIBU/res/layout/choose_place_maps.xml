@@ -11,6 +11,18 @@
         android:layout_height="wrap_content" />
 
     <ImageButton
+        android:id="@+id/ivhelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="11dp"
+        android:alpha="0.85"
+        android:padding="10dp"
+        android:layout_alignBottom="@+id/map"
+        android:background="@drawable/bg_button_image"
+        android:src="@drawable/icon_share" />
+
+    <ImageButton
         android:id="@+id/btnImDeletePlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

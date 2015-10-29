@@ -24,6 +24,7 @@
     <!-- LoginManagerActivity -->
     <string name="validator_login">Thiếu tên đăng nhập hoặc mật khẩu</string>
     <string name="login_fail">Sai tên đăng nhập hoặc mật khẩu</string>
+     <string name="title_fogot_dialog">Quên mật khẩu</string>
     <string name="login_again">Đăng nhập lại!</string>
     <string name="action_login">Đăng nhập</string>
 

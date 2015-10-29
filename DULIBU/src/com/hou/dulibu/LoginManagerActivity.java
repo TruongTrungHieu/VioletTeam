@@ -258,10 +258,10 @@ public class LoginManagerActivity extends ActionBarActivity {
 		txtActiveCode.setHint(R.string.hintDialogForget);
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
-		alert.setTitle("Quên Mật Khẩu");
-		alert.setNegativeButton("Hủy", null);
+		alert.setTitle(R.string.title_fogot_dialog);
+		alert.setNegativeButton(R.string.confim_cancel, null);
 
-		alert.setPositiveButton("Gửi", null);
+		alert.setPositiveButton(R.string.sendMessage, null);
 		AlertDialog dialog = alert.create();
 
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {

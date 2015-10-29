@@ -60,4 +60,5 @@ public class SettingFragment extends Fragment {
 		dialog.setView(view);
 		dialog.show();
 	}
+	
 }
