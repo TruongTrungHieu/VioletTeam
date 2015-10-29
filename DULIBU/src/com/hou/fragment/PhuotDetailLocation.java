@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.adapters.MyInfoWindowAdapter;
+import com.hou.app.Global;
 import com.hou.dulibu.ChangeMap;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
@@ -37,7 +38,8 @@ public class PhuotDetailLocation extends Fragment {
 	Double lat, lng;
 	String diemphuot = "";
 	private ImageButton iv;
-
+	private Context c;
+	private int map_type;
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 			@Nullable Bundle savedInstanceState) {
@@ -71,10 +73,21 @@ public class PhuotDetailLocation extends Fragment {
 		 */
 		mMap.addMarker(new MarkerOptions().position(latlg).title(tenDiemPhuot)
 				.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_touch)).snippet(image));
+		
+		map_type = Global.getIntPreference(context, "mapType", 0);
+		if(map_type != 0){
+			mMap.setMapType(map_type);
+		}
+		else{
+			mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		}
+		
 		mMap.getUiSettings().setMyLocationButtonEnabled(true);
 		mMap.setMyLocationEnabled(true);
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 7));
 		mMap.setInfoWindowAdapter(new MyInfoWindowAdapter(inflater, R.layout.info_window_custom));
+		
+		c = getActivity().getApplicationContext();
 		iv = (ImageButton) v.findViewById(R.id.phuotMapSetting);
 		iv.setVisibility(View.VISIBLE);
 		iv.setOnClickListener(new OnClickListener() {
@@ -82,14 +95,14 @@ public class PhuotDetailLocation extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				dialogChangeMapType(mMap);
+				dialogChangeMapType(mMap, c, map_type);
 			}
 		});
 		return v;
 	}
-	private void dialogChangeMapType(GoogleMap gm) {
+	private void dialogChangeMapType(GoogleMap gm, Context c, int maptype) {
 		android.support.v4.app.FragmentManager fm = getFragmentManager();
-		ChangeMap cm = new ChangeMap(gm);
+		ChangeMap cm = new ChangeMap(gm, c, maptype);
 		// cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
 		cm.show(fm, "Change map");
 	}

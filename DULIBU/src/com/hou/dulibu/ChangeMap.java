@@ -4,6 +4,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.hou.app.Global;
 
 import android.animation.StateListAnimator;
 import android.app.Dialog;
@@ -29,10 +30,13 @@ public class ChangeMap extends DialogFragment{
 	private Button btnOk, btnCancel;
 	private int maptype;
 	private GoogleMap googleMap;
+	private Context c;
 	
-	public ChangeMap(GoogleMap gm) {
+	public ChangeMap(GoogleMap gm, Context c, int maptype) {
 		// TODO Auto-generated constructor stub
 		this.googleMap = gm;
+		this.c = c;
+		this.maptype = maptype;
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,14 @@ public class ChangeMap extends DialogFragment{
 		rdSate = (RadioButton) v.findViewById(R.id.radioBtnSatellite);
 		btnOk = (Button) v.findViewById(R.id.btnMapOk);
 		btnCancel = (Button) v.findViewById(R.id.btnMapCancel);
+		
+		if(maptype == GoogleMap.MAP_TYPE_NORMAL){
+			rdNormal.setChecked(true);
+		}
+		if(maptype == GoogleMap.MAP_TYPE_SATELLITE){
+			rdSate.setChecked(true);
+		}
+		
 		btnOk.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -76,11 +88,13 @@ public class ChangeMap extends DialogFragment{
 		case R.id.radioBtnNormal:
 			maptype = GoogleMap.MAP_TYPE_NORMAL;
 			googleMap.setMapType(maptype);
+			Global.saveIntPreference(c, "mapType", maptype);
 			this.dismiss();
 			break;
 		case R.id.radioBtnSatellite:
 			maptype = GoogleMap.MAP_TYPE_SATELLITE;
 			googleMap.setMapType(maptype);
+			Global.saveIntPreference(c, "mapType", maptype);
 			this.dismiss();
 		}
 	}

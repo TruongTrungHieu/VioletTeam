@@ -75,6 +75,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 	double lat;
 	double lon;
 	private ImageButton iv;
+	private Context c;
+	private int map_type;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,14 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 			e.printStackTrace();
 		}
 		googleMap = mMapView.getMap();
+		c = getActivity().getApplicationContext();
+		map_type = Global.getIntPreference(c, "mapType", 0);
+		if(map_type != 0){
+			googleMap.setMapType(map_type);
+		}
+		else{
+			googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		}
 		googleMap.setMyLocationEnabled(true);
 		startTracking();
 
@@ -161,6 +171,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 			}
 		});
 		FixWidthBottom(imgMapWarnning, imgMapHospital, imgMapGas);
+		
+		c = getActivity().getApplicationContext();
 		iv = (ImageButton) v.findViewById(R.id.mapFragmentMapSetting);
 		iv.setVisibility(View.VISIBLE);
 		iv.setOnClickListener(new OnClickListener() {
@@ -168,15 +180,15 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				dialogChangeMapType(googleMap);
+				dialogChangeMapType(googleMap, c, map_type);
 			}
 		});
 		return v;
 	}
 
-	private void dialogChangeMapType(GoogleMap gm) {
+	private void dialogChangeMapType(GoogleMap gm, Context c, int maptype) {
 		android.support.v4.app.FragmentManager fm = getFragmentManager();
-		ChangeMap cm = new ChangeMap(gm);
+		ChangeMap cm = new ChangeMap(gm, c, maptype);
 		// cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
 		cm.show(fm, "Change map");
 	}

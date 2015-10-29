@@ -131,6 +131,8 @@ public class Global {
 	public static String TARGET_USER = "USER";
 	//Start tracking first time
 	public static boolean FIRST_TIME_TRACKING = false;
+	//ChangeMap
+	//public String MAP_TYPE = getPreference(Context.MODE_PRIVATE, "lat_diemphuot", "89");
 	/*
 	 * End ShareReferences Key and Default value
 	 */
@@ -158,12 +160,26 @@ public class Global {
 		mEditor.putString(key, value);
 		mEditor.commit();
 	}
+	public static void saveIntPreference(Context mContext, String key, int value) {
+		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
+				XML_FILE_NAME, Context.MODE_PRIVATE);
+		
+		Editor mEditor = mSharedPrefences.edit();
+		mEditor.putInt(key, value);
+		mEditor.commit();
+	}
 
 	public static String getPreference(Context mContext, String key,
 			String defValue) {
 		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
 				XML_FILE_NAME, Context.MODE_PRIVATE);
 		return mSharedPrefences.getString(key, defValue);
+	}
+	public static int getIntPreference(Context mContext, String key,
+			int defValue) {
+		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
+				XML_FILE_NAME, Context.MODE_PRIVATE);
+		return mSharedPrefences.getInt(key, defValue);
 	}
 
 	// Change language

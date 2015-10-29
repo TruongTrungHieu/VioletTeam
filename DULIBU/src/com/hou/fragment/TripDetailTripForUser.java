@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.R.integer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -71,6 +72,9 @@ public class TripDetailTripForUser extends Fragment {
 	private Tinh_Thanhpho startPlace, endPlace;
 	private ListView lvSlide;
 	private ImageButton iv;
+	private Context context;
+	private int map_type;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -93,7 +97,7 @@ public class TripDetailTripForUser extends Fragment {
 		adapter = new MyArrayAdapterPlace(getActivity(), R.layout.list_row_slide, lstPlace);
 		lvSlide.setAdapter(adapter);
 		
-		Context context = getActivity().getApplicationContext();
+		context = getActivity().getApplicationContext();
 		String maDiemPhuot = com.hou.app.Global.getPreference(context, Global.TRIP_TRIP_ID, "Viet");
 
 		mMapView = (MapView) v.findViewById(R.id.map);
@@ -104,7 +108,14 @@ public class TripDetailTripForUser extends Fragment {
 		startPlace = exeQ.getTinhByTentinh(getString(R.string.Hanoi));
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
 		
-		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		map_type = Global.getIntPreference(context, "mapType", 0);
+		if(map_type != 0){
+			googleMap.setMapType(map_type);
+		}
+		else{
+			googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		}
+		
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
@@ -126,7 +137,7 @@ public class TripDetailTripForUser extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				dialogChangeMapType(googleMap);
+				dialogChangeMapType(googleMap, context, map_type);
 			}
 		});
 		
@@ -162,9 +173,9 @@ public class TripDetailTripForUser extends Fragment {
 
 		return v;
 	}
-	private void dialogChangeMapType(GoogleMap gm){
+	private void dialogChangeMapType(GoogleMap gm, Context c, int maptype){
 		FragmentManager fm = getFragmentManager();
-		ChangeMap cm = new ChangeMap(gm);
+		ChangeMap cm = new ChangeMap(gm, c, maptype);
 		//cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
 		cm.show(fm, "Change map");
 	}
