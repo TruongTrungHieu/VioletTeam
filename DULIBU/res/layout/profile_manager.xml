@@ -171,6 +171,7 @@
                 android:paddingLeft="15dp"
                 android:text="Contact"
                 android:textColor="#505050"
+                android:visibility="gone"
                 android:textSize="14sp" />
         </LinearLayout>
 
