@@ -19,16 +19,13 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hou.model.Diemphuot;
 import com.hou.upload.MD5;
-import com.loopj.android.http.AsyncHttpClient;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -39,9 +36,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Environment;
-import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
@@ -132,14 +127,16 @@ public class Global {
 	public static String TARGET_USER = "USER";
 	// Start tracking first time
 	public static boolean FIRST_TIME_TRACKING = false;
+	
+	public static int PAGE_PHUOT;
+	public static int PAGE_PHUOT_DEFAULT = 1;
+	
 	// ChangeMap
 	// public String MAP_TYPE = getPreference(Context.MODE_PRIVATE,
 	// "lat_diemphuot", "89");
 	/*
 	 * End ShareReferences Key and Default value
 	 */
-
-	public static ArrayList<Diemphuot> LIST_DIEMPHUOT = new ArrayList<Diemphuot>();
 
 	public static String getURI(String image) {
 		File mediaStorageDir;
@@ -410,6 +407,7 @@ public class Global {
 	// return result;
 	// }
 
+	@SuppressWarnings("resource")
 	public static String readFile(String fileName) {
 		File myFile = new File(Environment.getExternalStorageDirectory()
 				+ "/DULIBU/" + fileName);

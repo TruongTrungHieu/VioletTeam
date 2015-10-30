@@ -34,41 +34,37 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
 public class ListPhuotFragment extends Fragment {
-	
+
 	private ProgressDialog pDialog;
 	private ArrayList<Diemphuot> listPhuot;
 	private GridView gv_phuot;
 
 	private SwipeRefreshLayout swipeRefreshLayoutPhuot;
 	private ExecuteQuery exeQ;
-	private int p = 1;
-	
+
 	private DiemphuotAdapter adapter;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+
 		exeQ = new ExecuteQuery(getActivity());
 		exeQ.createDatabase();
 		exeQ.open();
-		
+
 		listPhuot = new ArrayList<Diemphuot>();
 		listPhuot = exeQ.getAllDiemphuot();
-		
+
 		adapter = new DiemphuotAdapter(getActivity(), listPhuot);
-		
-		/*
-		 * loadAnh(adapter, listPhuot);
-		 */
-		
 	}
 
 	@Override
@@ -76,49 +72,79 @@ public class ListPhuotFragment extends Fragment {
 			Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.list_phuot_manager,
 				container, false);
-		
+
 		gv_phuot = (GridView) view.findViewById(R.id.gvPhuotGrid);
 		gv_phuot.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				
-				/*Bundle b = new Bundle();
-				b.putString("maDiemPhuot", listPhuot.get(position)
-						.getMaDiemphuot());
-				b.putString("tenDiemPhuot", listPhuot.get(position)
-						.getTenDiemphuot());
-				b.putString("lat_diemphuot", listPhuot.get(position).getLat());
-				b.putString("lon_diemphuot", listPhuot.get(position).getLon());
-				b.putString("ghiChu", listPhuot.get(position).getGhichu());
-				b.putInt("trangThaiChuan", listPhuot.get(position)
-						.getTrangthaiChuan());
-				b.putString("image", listPhuot.get(position).getImage());*/
-				Log.e("OnClickViet","Link anh:" + listPhuot.get(position).getImage() );
+
+				/*
+				 * Bundle b = new Bundle(); b.putString("maDiemPhuot",
+				 * listPhuot.get(position) .getMaDiemphuot());
+				 * b.putString("tenDiemPhuot", listPhuot.get(position)
+				 * .getTenDiemphuot()); b.putString("lat_diemphuot",
+				 * listPhuot.get(position).getLat());
+				 * b.putString("lon_diemphuot",
+				 * listPhuot.get(position).getLon()); b.putString("ghiChu",
+				 * listPhuot.get(position).getGhichu());
+				 * b.putInt("trangThaiChuan", listPhuot.get(position)
+				 * .getTrangthaiChuan()); b.putString("image",
+				 * listPhuot.get(position).getImage());
+				 */
 				Context context = getActivity();
-				com.hou.app.Global.savePreference(context,"maDiemPhuot", listPhuot.get(position).getMaDiemphuot());
-				com.hou.app.Global.savePreference(context,"tenDiemPhuot",listPhuot.get(position).getTenDiemphuot());
-				com.hou.app.Global.savePreference(context,"ghiChu",listPhuot.get(position).getGhichu());
-				com.hou.app.Global.savePreference(context,"imagePhuot",listPhuot.get(position).getImage());
-				com.hou.app.Global.savePreference(context,"lat_diemphuot",listPhuot.get(position).getLat());
-				com.hou.app.Global.savePreference(context,"lon_diemphuot",listPhuot.get(position).getLon());
-				com.hou.app.Global.savePreference(context,"trangThaiChuan",listPhuot.get(position).getTrangthaiChuan()+"");
-				
+				com.hou.app.Global.savePreference(context, "maDiemPhuot",
+						listPhuot.get(position).getMaDiemphuot());
+				com.hou.app.Global.savePreference(context, "tenDiemPhuot",
+						listPhuot.get(position).getTenDiemphuot());
+				com.hou.app.Global.savePreference(context, "ghiChu", listPhuot
+						.get(position).getGhichu());
+				com.hou.app.Global.savePreference(context, "imagePhuot",
+						listPhuot.get(position).getImage());
+				com.hou.app.Global.savePreference(context, "lat_diemphuot",
+						listPhuot.get(position).getLat());
+				com.hou.app.Global.savePreference(context, "lon_diemphuot",
+						listPhuot.get(position).getLon());
+				com.hou.app.Global.savePreference(context, "trangThaiChuan",
+						listPhuot.get(position).getTrangthaiChuan() + "");
+
 				Intent intent = new Intent(getActivity(),
 						PhuotDetailManager.class);
-				//intent.putExtra("myBundle",b);
+				// intent.putExtra("myBundle",b);
 				startActivity(intent);
 			}
 		});
+
+		gv_phuot.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+					int p = Global.getIntPreference(getActivity(),
+							Global.PAGE_NUMBER, Global.PAGE_PHUOT_DEFAULT);
+//					String lastDiemphuot = exeQ.getLastDiemphuot();
+					getPlacetoServer(p);
+				}
+			}
+		});
+
 		gv_phuot.setAdapter(adapter);
-		
+
 		DeviceStatus ds = new DeviceStatus();
 		String a = ds.getCurrentConnection(getActivity());
 		if (a.equals("Wifi") || a.equals("3G")) {
-			getPlacetoServer();
+			int p = Global.getIntPreference(getActivity(), Global.PAGE_NUMBER,
+					Global.PAGE_PHUOT_DEFAULT);
+			getPlacetoServer(p);
 		}
-		
+
 		swipeRefreshLayoutPhuot = (SwipeRefreshLayout) view
 				.findViewById(R.id.swipe_refresh_layout_phuot);
 		swipeRefreshLayoutPhuot.setColorSchemeColors(R.color.StatusBarColor);
@@ -127,12 +153,14 @@ public class ListPhuotFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), "ok, refeshing",
+				Toast.makeText(getActivity().getBaseContext(), getString(R.string.pulltorefresh),
 						Toast.LENGTH_SHORT).show();
 				DeviceStatus ds = new DeviceStatus();
 				String a = ds.getCurrentConnection(getActivity());
 				if (a.equals("Wifi") || a.equals("3G")) {
-					getPlacetoServer();
+					int p = Global.getIntPreference(getActivity(),
+							Global.PAGE_NUMBER, Global.PAGE_PHUOT_DEFAULT);
+					getPlacetoServer(p);
 				} else if (a.equals("NoInternetAccess")) {
 					Toast.makeText(getActivity(),
 							"No connection. Please try again later !",
@@ -188,21 +216,29 @@ public class ListPhuotFragment extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void getPlacetoServer() {
+	public void getPlacetoServer(final int page) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		client.get(Global.BASE_URI + "/" + Global.URI_GETPLACE_PATH + "?p=" + p, params,
-				new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-						Log.e("getPlacetoServer", response);						
-						listPlace(response);						
-					}
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						Toast.makeText(getActivity(), getString(R.string.e503), Toast.LENGTH_SHORT).show();
-					}
-				});
+		client.get(Global.BASE_URI + "/" + Global.URI_GETPLACE_PATH + "?p="
+				+ page, params, new AsyncHttpResponseHandler() {
+			public void onSuccess(String response) {
+				Log.e("getPlacetoServer", response);
+				if (!response.equals("[]")) {
+					int p = Global.getIntPreference(getActivity(),
+							Global.PAGE_NUMBER, Global.PAGE_PHUOT_DEFAULT);
+					Global.saveIntPreference(getActivity(), Global.PAGE_NUMBER,
+							p + 1);
+					listPlace(response);
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Throwable error,
+					String content) {
+				Toast.makeText(getActivity(), getString(R.string.e503),
+						Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 
 	private void listPlace(String response) {
@@ -214,25 +250,25 @@ public class ListPhuotFragment extends Fragment {
 				Diemphuot place = new Diemphuot();
 
 				String _id = placeLocationJson.optString("_id");
-				String note = placeLocationJson.optString("note","");
+				String note = placeLocationJson.optString("note", "");
 				String lat = placeLocationJson.optString("lat");
 				String lon = placeLocationJson.optString("lon");
 				String name = placeLocationJson.optString("name");
 				String image = placeLocationJson.optString("image");
 				String address = placeLocationJson.optString("address");
 				int verify = placeLocationJson.optInt("verify", 0);
-				
+
 				JSONObject objectLocation = placeLocationJson
 						.getJSONObject("location");
 				String id_city = objectLocation.optString("_id");
-//				String lat_city = objectLocation.optString("lat");
-//				String lon_city = objectLocation.optString("lon");
+				// String lat_city = objectLocation.optString("lat");
+				// String lon_city = objectLocation.optString("lon");
 				String name_city = objectLocation.optString("name");
 
 				if (address.equals("") || address == null) {
 					address = name_city;
 				}
-				
+
 				place.setMaDiemphuot(_id);
 				place.setGhichu(note);
 				place.setLat(lat);
@@ -242,10 +278,10 @@ public class ListPhuotFragment extends Fragment {
 				place.setDiachi(address);
 				place.setTrangthaiChuan(verify);
 				place.setMaTinh(id_city);
-				
+
 				listTemp.add(place);
 				listPhuot.add(place);
-				
+
 				exeQ.insert_tbl_diemphuot_single(place);
 			}
 		} catch (JSONException e) {
@@ -256,44 +292,35 @@ public class ListPhuotFragment extends Fragment {
 		loadAnh(listTemp);
 	}
 
-	private void loadAnh(ArrayList<Diemphuot> dps) {
-		getImagePhuot gidp = new getImagePhuot(dps);
-		gidp.execute();
+	private void loadAnh(ArrayList<Diemphuot> list) {
+		for (Diemphuot dp : list) {
+			getImagePhuot gidp = new getImagePhuot(dp);
+			gidp.execute();
+		}
 	}
 
 	public class getImagePhuot extends AsyncTask<Void, Void, Void> {
 
-		ArrayList<Diemphuot> arr;
+		Diemphuot dp;
 
-		public getImagePhuot(ArrayList<Diemphuot> phuots) {
+		public getImagePhuot(Diemphuot phuot) {
 			// TODO Auto-generated constructor stub
-			this.arr = phuots;
+			this.dp = phuot;
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			if (arr.size() > 0) {
-				for (int i = 0; i < arr.size(); i++) {
-					Diemphuot dp = arr.get(i);
-					try {
-						String imageLink = dp.getImage();
-						String imageName;
-						if (imageLink.length() > 41) {
-							imageName = imageLink.substring(41);
-							imageOnServer.downloadFileFromServer(imageName,
-									imageLink);
-							Log.d("doInBackGroundListPhuot", "imageName: "
-									+ imageName + "imageLink: " + imageLink);
-							publishProgress();
-						}
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						Toast.makeText(getActivity(), "ImageLink: \n" + e,
-								Toast.LENGTH_SHORT).show();
-						e.printStackTrace();
-					}
-				}
+			try {
+				String[] arr = dp.getImage().trim().split("/");
+				String imageLink = dp.getImage();
+				String imageName = arr[arr.length - 1];
+				imageOnServer.downloadFileFromServer(imageName, imageLink);
+				Log.d("doInBackGroundListPhuot", "imageName: " + imageName
+						+ "imageLink: " + imageLink);
+				publishProgress();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			return null;
 		}
@@ -302,14 +329,13 @@ public class ListPhuotFragment extends Fragment {
 		protected void onProgressUpdate(Void... values) {
 			// TODO Auto-generated method stub
 			super.onProgressUpdate(values);
-			adapter.notifyDataSetChanged();
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			gv_phuot.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 	}
 

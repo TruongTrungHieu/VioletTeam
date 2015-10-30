@@ -104,6 +104,18 @@ public class ExecuteQuery {
 	 * tbl_diem_phuot
 	 */
 
+	// select top 1
+	public String getLastDiemphuot() {
+		String selectQuery = "SELECT " + ColumnName.TBL_DIEM_PHUOT_MADIEMPHUOT + " FROM " + ColumnName.TBL_DIEM_PHUOT_TABLE + " LIMIT 1";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		String ma = null;
+		if (cursor.moveToFirst()) {
+			ma = cursor.getString(0);
+		}
+		return ma;
+	}
+	
 	// select * from tbl_diemphuot
 	public ArrayList<Diemphuot> getAllDiemphuot() {
 		ArrayList<Diemphuot> listDiemphuot = new ArrayList<Diemphuot>();

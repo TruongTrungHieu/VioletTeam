@@ -396,4 +396,8 @@
     <string name="invite_false">Bạn không thể gửi lời mời tới email này !</string>
     <string name="title_activity_trip_detail_manager_user">Chi tiết chuyến đi</string>
 
+    <!-- ListPhuotFragment -->
+    <string name="pulltorefresh">Đang tải dữ liệu mới...</string>
+    
+    
 </resources>
