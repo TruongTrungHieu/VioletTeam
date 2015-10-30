@@ -153,8 +153,8 @@ public class ListPhuotFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity().getBaseContext(), getString(R.string.pulltorefresh),
-						Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getActivity().getBaseContext(), getString(R.string.pulltorefresh),
+//						Toast.LENGTH_SHORT).show();
 				DeviceStatus ds = new DeviceStatus();
 				String a = ds.getCurrentConnection(getActivity());
 				if (a.equals("Wifi") || a.equals("3G")) {

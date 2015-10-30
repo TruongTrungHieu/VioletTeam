@@ -65,10 +65,10 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.trip_detail_manager, menu);
-		currentMenu = menu;
-		currentMenu.getItem(0).setVisible(true);
-		currentMenu.getItem(1).setVisible(false);
+//		getMenuInflater().inflate(R.menu.trip_detail_manager, menu);
+//		currentMenu = menu;
+//		currentMenu.getItem(0).setVisible(true);
+//		currentMenu.getItem(1).setVisible(false);
 		return true;
 	}
 
@@ -93,12 +93,12 @@ public class TripDetailManagerActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		switch (id) {
-		case R.id.btnSaveTrip:
-			saveAction(currentMenu);
-			break;
-		case R.id.btnUnSaveTrip:
-			UndoSaveAction(currentMenu);
-			break;
+//		case R.id.btnSaveTrip:
+//			saveAction(currentMenu);
+//			break;
+//		case R.id.btnUnSaveTrip:
+//			UndoSaveAction(currentMenu);
+//			break;
 		case android.R.id.home:
 			onBackPressed();
 			break;
