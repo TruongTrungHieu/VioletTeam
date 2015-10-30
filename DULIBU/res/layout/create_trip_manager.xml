@@ -301,18 +301,7 @@
                     android:text="@string/create_place"
                     android:textAllCaps="false" />
 
-                <!--
-                     <Button
-                    android:id="@+id/btnSuggest"
-                    style="@style/DefaultButtonText"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="15dp"
-                    android:layout_weight="0.4"
-                    android:background="@drawable/button_default_bg"
-                    android:text="@string/suggest_place"
-                    android:textAllCaps="false" />
-                -->
+
             </LinearLayout>
         </LinearLayout>
 
