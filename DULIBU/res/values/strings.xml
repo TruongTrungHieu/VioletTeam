@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    
     <string name="app_name">DULIBU</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -30,6 +30,8 @@
 
     <!-- profileFragment -->
     <string name="edit_profile_actionbar"></string>
+    <string name="iamfine">An toàn</string>
+    <string name="iamnotgood">Nguy hiểm</string>
     <string name="done_profile_actionbar"></string>
     <string name="update_ava_success">Avatar đã được cập nhật</string>
     <string name="update_ava_false">Cập nhật avatar thất bại</string>

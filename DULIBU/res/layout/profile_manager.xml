@@ -55,7 +55,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/ivProfile"
                 android:drawablePadding="10dp"
-                android:text="I&apos;m fine"
+                android:text="@string/iamfine"
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />

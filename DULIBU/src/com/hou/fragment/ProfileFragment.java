@@ -112,10 +112,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				"");
 		initView(view);
 		statusList = new ArrayList<Trangthai_User>();
-		statusList.add(new Trangthai_User("1", "Tot", "brown"));
-		statusList.add(new Trangthai_User("2", "Kha", "green"));
-		statusList.add(new Trangthai_User("3", "Trung binh", "orange"));
-		statusList.add(new Trangthai_User("4", "Yeu", "pink"));
+		statusList.add(new Trangthai_User("1", "An toàn", "brown"));
+		statusList.add(new Trangthai_User("2", "Nguy hiểm", "green"));
 		File f = ImageUltiFunctions.getFileFromUri(Global
 				.getURI(getFileName(pathAvartar)));
 		if (f != null) {
@@ -603,26 +601,14 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				// TODO Auto-generated method stub
 				switch (arg2) {
 				case 0:
-					ivStatus.setBackgroundResource(R.drawable.item_brown);
-					ivStatus.setImageResource(R.drawable.icon_about);
+					ivStatus.setBackgroundResource(R.drawable.item_pink);
+					ivStatus.setImageResource(R.drawable.icon_fine);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
 					dialog.dismiss();
 					break;
 				case 1:
 					ivStatus.setBackgroundResource(R.drawable.item_green);
 					ivStatus.setImageResource(R.drawable.icon_address);
-					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
-					dialog.dismiss();
-					break;
-				case 2:
-					ivStatus.setBackgroundResource(R.drawable.item_orange);
-					ivStatus.setImageResource(R.drawable.icon_bday);
-					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
-					dialog.dismiss();
-					break;
-				case 3:
-					ivStatus.setBackgroundResource(R.drawable.item_pink);
-					ivStatus.setImageResource(R.drawable.icon_heart);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
 					dialog.dismiss();
 					break;
@@ -683,20 +669,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			holder.name.setText(status.getTenTrangthai());
 			switch (status.getGhichu()) {
 			case "brown":
-				holder.icon.setBackgroundResource(R.drawable.item_brown);
-				holder.icon.setImageResource(R.drawable.icon_about);
+				holder.icon.setBackgroundResource(R.drawable.item_pink);
+				holder.icon.setImageResource(R.drawable.icon_fine);
 				break;
 			case "green":
 				holder.icon.setBackgroundResource(R.drawable.item_green);
 				holder.icon.setImageResource(R.drawable.icon_address);
-				break;
-			case "orange":
-				holder.icon.setBackgroundResource(R.drawable.item_orange);
-				holder.icon.setImageResource(R.drawable.icon_bday);
-				break;
-			case "pink":
-				holder.icon.setBackgroundResource(R.drawable.item_pink);
-				holder.icon.setImageResource(R.drawable.icon_heart);
 				break;
 			default:
 				holder.icon.setBackgroundResource(R.drawable.item_brown);

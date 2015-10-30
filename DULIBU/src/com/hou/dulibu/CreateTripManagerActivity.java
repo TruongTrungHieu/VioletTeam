@@ -366,6 +366,8 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				.findViewById(R.id.btnImDeletePlace);
 		ImageButton btnImAddPlace = (ImageButton) alertLayout
 				.findViewById(R.id.btnImAddPlace);
+		ImageButton btnHelp = (ImageButton) alertLayout
+				.findViewById(R.id.ivhelp);
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setView(alertLayout);
@@ -448,7 +450,14 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				showMarkerChoice();
 			}
 		});
-
+        btnHelp.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(),"aa" , Toast.LENGTH_SHORT).show();
+			}
+		});
 		btnImAddPlace.setOnClickListener(new OnClickListener() {
 
 			@Override

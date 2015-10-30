@@ -36,11 +36,11 @@
 
     <ImageButton
         android:id="@+id/ivhelp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/map"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignLeft="@+id/map"
         android:layout_alignParentLeft="true"
         android:alpha="0.85"
-        android:background="@drawable/icon_helpme" />
+        android:background="@drawable/warning_icon" />
 
 </RelativeLayout>
