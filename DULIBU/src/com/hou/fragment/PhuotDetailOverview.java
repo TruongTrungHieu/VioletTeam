@@ -71,7 +71,7 @@ public class PhuotDetailOverview extends Fragment {
         String latDiemPhuot = com.hou.app.Global.getPreference(context,"lat_diemphuot","Viet");
         String lonDiemPhuot = com.hou.app.Global.getPreference(context,"lon_diemphuot","Viet");
         String ghiChu = com.hou.app.Global.getPreference(context,"ghiChu","Viet");
-        String image = com.hou.app.Global.getPreference(context,"image","Viet");
+        String image = com.hou.app.Global.getPreference(context,"imagePhuot","Viet");
         String trangThaiChuan = com.hou.app.Global.getPreference(context,"trangThaiChuan","Viet");
        // String tenDiemPhuot = sharedPreferences.getString("tenDiemPhuot",null);
         Log.e("NQViet","Ghi LinhAnh:" + image );
@@ -86,8 +86,11 @@ public class PhuotDetailOverview extends Fragment {
         String imageLink = image;
         Log.e("VietNQ","Link anh: " + imageLink);
 		String imageNameDetail;
+		Log.e("__imageLink",imageLink+"");
 		if (imageLink.length() > 41) {
 			imageNameDetail = imageLink.substring(41);
+			
+			Log.e("__imageNameDetail",imageNameDetail+"");
 			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(imageNameDetail));
 			if (f != null) {
 				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
