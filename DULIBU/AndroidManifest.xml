@@ -72,6 +72,7 @@
         <activity
             android:name=".TripDetailManagerActivity"
             android:label="@string/title_activity_trip_detail_manager"
+            android:noHistory="true"
             android:theme="@style/AccountsLightActivities" >
         </activity>
         <activity
@@ -103,10 +104,11 @@
         <activity
             android:name=".TripDetailManagerForUser"
             android:label="@string/title_activity_trip_detail_manager_for_user"
+            android:noHistory="true"
             android:theme="@style/AccountsLightActivities" >
         </activity>
         <activity
-            android:name=".Offline_Activity"
+            android:name="com.hou.dulibu.Offline_Activity"
             android:label="@string/title_activity_offline_"
             android:theme="@style/CustomActionBarTheme" >
         </activity>
@@ -144,6 +146,10 @@
 
         <service android:name="com.hou.gps.GetLocationService" >
         </service>
+        <activity
+            android:name=".ChangeMap"
+            android:label="@string/title_activity_change_map" >
+        </activity>
         <activity
             android:name=".TripDetailManagerUser"
             android:label="@string/title_activity_trip_detail_manager_user" >
