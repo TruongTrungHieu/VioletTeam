@@ -11,10 +11,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
 import android.location.Address;
 import android.location.Geocoder;
@@ -23,6 +25,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +60,7 @@ public class Offline_Activity extends ActionBarActivity {
 	private EditText edtThoiGian;
 	private static String thoigian_sk = "";
 	EditText txtTenSuKien;
-	static EditText txtThoigian;
+	EditText txtThoigian;
 	EditText txtDiadiem;
 
 	// GoogleMap map;
@@ -93,27 +96,23 @@ public class Offline_Activity extends ActionBarActivity {
 		params.put("lat", lat);
 		params.put("lon", lon);
 		Log.e("createEvent", lat);
-		client.post(
-				Global.BASE_URI
-						+ "/"
-						+ Global.URI_POSTEVENT_PATH
-						+ "?access_token="
-						+ Global.getPreference(getBaseContext(), Global.USER_ACCESS_TOKEN,
-								""), params, new AsyncHttpResponseHandler() {
+		String url = Global.BASE_URI
+				+ "/"
+				+ Global.URI_POSTEVENT_PATH
+				+ "?access_token="
+				+ Global.getPreference(getBaseContext(),
+						Global.USER_ACCESS_TOKEN, "");
+		client.post(url	, params,
+				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("createNewTrip", response);
 
 						if (executeWhenRegisterSuccess(response)) {
-							/*
-							 * Toast.makeText(getApplicationContext(),
-							 * "Tao moi su kien thanh cong",
-							 * Toast.LENGTH_SHORT).show();
-							 */
 
 						} else {
 							Toast.makeText(getApplicationContext(),
-									"Khong tao duoc su kien",
-									Toast.LENGTH_LONG).show();
+									"Khong tao duoc su kien", Toast.LENGTH_LONG)
+									.show();
 
 						}
 					}
@@ -131,7 +130,7 @@ public class Offline_Activity extends ActionBarActivity {
 		RequestParams params = new RequestParams();
 		params.put("id", idTrip);
 		params.put("access_token",
-				Global.getPreference(this, Global.USER_ACCESS_TOKEN, ""));
+				Global.getPreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, ""));
 
 		client.get(Global.BASE_URI + "/" + Global.URI_GETEVENT_PATH, params,
 				new AsyncHttpResponseHandler() {
@@ -213,120 +212,7 @@ public class Offline_Activity extends ActionBarActivity {
 			onBackPressed();
 		}
 		if (id == R.id.action_add) {
-			// Toast.makeText(getApplication(),"Select form add Chi tiet",
-			// Toast.LENGTH_SHORT).show();
-			dialog = new Dialog(getBaseContext());
-			dialog.setContentView(R.layout.dialog_sukien);
-			dialog.setTitle(getString(R.string.titleOfflineDialog));
-			txtTenSuKien = (EditText) dialog.findViewById(R.id.txtTenSuKien);
-			txtThoigian = (EditText) dialog.findViewById(R.id.txtThoiGian);
-			txtDiadiem = (EditText) dialog.findViewById(R.id.txtDiadiem);
-			txtThoigian.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					// datePikerDialog(R.id.dpCreateDatePicker,
-					// R.id.btnDoneCreateTripDatePiker,
-					// R.id.btnCancelCreateTripDatePiker, edtNgaysinh,
-					// R.layout.date_picker, R.string.titleTimeDialog);
-
-					
-					//showTimePickerDialog();
-
-					// TODO Auto-generated method stub
-					timePikerDialog(R.id.tpCreateTripTimePicker,
-							R.id.btnDoneCreateTripTimePiker,
-							R.id.btnCancelCreateTripTimePiker, txtThoigian,
-							R.layout.time_picker, R.string.titleTimeDialog);
-					txtThoigian.setError(null);
-					txtThoigian.setFocusableInTouchMode(true);
-					txtThoigian.setFocusable(true);
-					showDatePickerDialog();
-
-				}
-			});
-
-			Button btnOK = (Button) dialog.findViewById(R.id.btnAdd);
-			// if button is clicked, close the custom dialog
-			btnOK.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-
-					xulyNhap();
-
-					dialog.dismiss();
-				}
-
-				private void xulyNhap() {
-
-					String ten, thoigian, diadiem;
-					String lat = "0";
-					String lon = "0";
-					ten = txtTenSuKien.getText().toString();
-					thoigian = txtThoigian.getText().toString();
-					diadiem = txtDiadiem.getText().toString();
-
-					if (ten.equals("") || thoigian.equals("")
-							|| diadiem.equals("")) {
-						Toast.makeText(getApplication(),
-								"Ban dien thieu thong tin", Toast.LENGTH_SHORT)
-								.show();
-						return;
-					}
-
-					Sukien sk = new Sukien();
-					Address vitri = getLocationFromAddress(diadiem);
-					if (vitri != null) {
-						sk.setLat(vitri.getLatitude() + "");
-						sk.setLon(vitri.getLongitude() + "");
-					} else {
-						/*
-						 * sk.setLat("20.984434"); sk.setLon("105.838914");
-						 */
-						Toast.makeText(getApplication(),
-								"Khong tim thay dia diem", Toast.LENGTH_LONG)
-								.show();
-						return;
-					}
-
-					sk.setTenSukien(ten);
-					sk.setThoigian(thoigian);
-					sk.setDiadiem(diadiem);
-
-					// Sukien sk = new Sukien();
-					// sk.setTenSukien("96 Dinh Cong");
-					// sk.setThoigian("16h");
-					// sk.setDiadiem("96 dinh cong");
-
-					arrSuKien.add(sk);
-					createEvent(maLichTrinh, sk.getTenSukien(),
-							sk.getThoigian(), sk.getLat(), sk.getLon());
-
-					// LatLng latLng=new LatLng(-14.235004,-51.925280);
-					// map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
-					// 13));
-
-					adapter.notifyDataSetChanged();
-
-					// dialog.dismiss();
-
-				}
-
-			});
-			Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
-			btnCancel.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-
-					dialog.dismiss();
-				}
-			});
-
-			dialog.show();
+			addEvent();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -361,12 +247,10 @@ public class Offline_Activity extends ActionBarActivity {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			//txtThoigian.setText(thoigian_sk);
+			// txtThoigian.setText(thoigian_sk);
 
 		}
 	}
-	
-
 
 	public void timePikerDialog(int timePickerID, int btnDoneID,
 			int btnCancelID, final TextView tv, int Layout, int dialogTitle) {
@@ -413,9 +297,6 @@ public class Offline_Activity extends ActionBarActivity {
 		dialog.show();
 	}
 
-
-
-
 	private Address getLocationFromAddress(String strTim) {
 		Geocoder coder = new Geocoder(getBaseContext());
 		List<Address> address = null;
@@ -435,6 +316,241 @@ public class Offline_Activity extends ActionBarActivity {
 		}
 
 		return location;
+
+	}
+
+	private void addEvent() {
+
+		// Toast.makeText(getApplication(),"Select form add Chi tiet",
+		// Toast.LENGTH_SHORT).show();
+		// dialog = new Dialog(getBaseContext());
+		// dialog.setContentView(R.layout.dialog_sukien);
+		// dialog.setTitle(getString(R.string.titleOfflineDialog));
+		// txtTenSuKien = (EditText) dialog.findViewById(R.id.txtTenSuKien);
+		// txtThoigian = (EditText) dialog.findViewById(R.id.txtThoiGian);
+		// txtDiadiem = (EditText) dialog.findViewById(R.id.txtDiadiem);
+		// txtThoigian.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// // TODO Auto-generated method stub
+		// // datePikerDialog(R.id.dpCreateDatePicker,
+		// // R.id.btnDoneCreateTripDatePiker,
+		// // R.id.btnCancelCreateTripDatePiker, edtNgaysinh,
+		// // R.layout.date_picker, R.string.titleTimeDialog);
+		//
+		// // showTimePickerDialog();
+		//
+		// // TODO Auto-generated method stub
+		// timePikerDialog(R.id.tpCreateTripTimePicker,
+		// R.id.btnDoneCreateTripTimePiker,
+		// R.id.btnCancelCreateTripTimePiker, txtThoigian,
+		// R.layout.time_picker, R.string.titleTimeDialog);
+		// txtThoigian.setError(null);
+		// txtThoigian.setFocusableInTouchMode(true);
+		// txtThoigian.setFocusable(true);
+		// showDatePickerDialog();
+		//
+		// }
+		// });
+		//
+		// Button btnOK = (Button) dialog.findViewById(R.id.btnAdd);
+		// // if button is clicked, close the custom dialog
+		// btnOK.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View arg0) {
+		//
+		// xulyNhap();
+		//
+		// dialog.dismiss();
+		// }
+		//
+		// private void xulyNhap() {
+		//
+		// String ten, thoigian, diadiem;
+		// String lat = "0";
+		// String lon = "0";
+		// ten = txtTenSuKien.getText().toString();
+		// thoigian = txtThoigian.getText().toString();
+		// diadiem = txtDiadiem.getText().toString();
+		//
+		// if (ten.equals("") || thoigian.equals("") || diadiem.equals("")) {
+		// Toast.makeText(getApplication(),
+		// "Ban dien thieu thong tin", Toast.LENGTH_SHORT)
+		// .show();
+		// return;
+		// }
+		//
+		// Sukien sk = new Sukien();
+		// Address vitri = getLocationFromAddress(diadiem);
+		// if (vitri != null) {
+		// sk.setLat(vitri.getLatitude() + "");
+		// sk.setLon(vitri.getLongitude() + "");
+		// } else {
+		// /*
+		// * sk.setLat("20.984434"); sk.setLon("105.838914");
+		// */
+		// Toast.makeText(getApplication(), "Khong tim thay dia diem",
+		// Toast.LENGTH_LONG).show();
+		// return;
+		// }
+		//
+		// sk.setTenSukien(ten);
+		// sk.setThoigian(thoigian);
+		// sk.setDiadiem(diadiem);
+		//
+		// // Sukien sk = new Sukien();
+		// // sk.setTenSukien("96 Dinh Cong");
+		// // sk.setThoigian("16h");
+		// // sk.setDiadiem("96 dinh cong");
+		//
+		// arrSuKien.add(sk);
+		// createEvent(maLichTrinh, sk.getTenSukien(), sk.getThoigian(),
+		// sk.getLat(), sk.getLon());
+		//
+		// // LatLng latLng=new LatLng(-14.235004,-51.925280);
+		// // map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
+		// // 13));
+		//
+		// adapter.notifyDataSetChanged();
+		//
+		// // dialog.dismiss();
+		//
+		// }
+		//
+		// });
+		// Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+		// btnCancel.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// // TODO Auto-generated method stub
+		//
+		// dialog.dismiss();
+		// }
+		// });
+		//
+		// dialog.show();
+
+		LayoutInflater inflater = getLayoutInflater();
+		View alertLayout = inflater.inflate(R.layout.dialog_sukien, null);
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		txtTenSuKien = (EditText) alertLayout.findViewById(R.id.txtTenSuKien);
+		txtThoigian = (EditText) alertLayout.findViewById(R.id.txtThoiGian);
+		txtDiadiem = (EditText) alertLayout.findViewById(R.id.txtDiadiem);
+
+		txtThoigian.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				// datePikerDialog(R.id.dpCreateDatePicker,
+				// R.id.btnDoneCreateTripDatePiker,
+				// R.id.btnCancelCreateTripDatePiker, edtNgaysinh,
+				// R.layout.date_picker, R.string.titleTimeDialog);
+
+				// showTimePickerDialog();
+
+				// TODO Auto-generated method stub
+				timePikerDialog(R.id.tpCreateTripTimePicker,
+						R.id.btnDoneCreateTripTimePiker,
+						R.id.btnCancelCreateTripTimePiker, txtThoigian,
+						R.layout.time_picker, R.string.titleTimeDialog);
+				txtThoigian.setError(null);
+				txtThoigian.setFocusableInTouchMode(true);
+				txtThoigian.setFocusable(true);
+				showDatePickerDialog();
+
+			}
+		});
+
+		alert.setView(alertLayout);
+		alert.setCancelable(false);
+		alert.setTitle(getString(R.string.titleOfflineDialog));
+		final AlertDialog dialog = alert.create();
+
+		Button btnOK = (Button) alertLayout.findViewById(R.id.btnAdd);
+		// if button is clicked, close the custom dialog
+		btnOK.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				xulyNhap();
+
+				dialog.dismiss();
+			}
+
+		});
+
+		Button btnCancel = (Button) alertLayout.findViewById(R.id.btnCancel);
+		btnCancel.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				dialog.dismiss();
+			}
+		});
+
+		dialog.show();
+
+	}
+
+	private void xulyNhap() {
+
+		String ten, thoigian, diadiem;
+		String lat = "0";
+		String lon = "0";
+		ten = txtTenSuKien.getText().toString();
+		thoigian = txtThoigian.getText().toString();
+		diadiem = txtDiadiem.getText().toString();
+
+		if (ten.equals("") || thoigian.equals("") || diadiem.equals("")) {
+			Toast.makeText(getApplication(), "Ban dien thieu thong tin",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		Sukien sk = new Sukien();
+		sk.setLat("");
+		sk.setLon("");
+		Address vitri = getLocationFromAddress(diadiem);
+		if (vitri != null) {
+			sk.setLat(vitri.getLatitude() + "");
+			sk.setLon(vitri.getLongitude() + "");
+		} else {
+			/*
+			 * sk.setLat("20.984434"); sk.setLon("105.838914");
+			 */
+			Toast.makeText(getApplication(), "Khong tim thay dia diem",
+					Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		sk.setTenSukien(ten);
+		sk.setThoigian(thoigian);
+		sk.setDiadiem(diadiem);
+
+		// Sukien sk = new Sukien();
+		// sk.setTenSukien("96 Dinh Cong");
+		// sk.setThoigian("16h");
+		// sk.setDiadiem("96 dinh cong");
+
+		arrSuKien.add(sk);
+		adapter.notifyDataSetChanged();
+		createEvent(maLichTrinh, sk.getTenSukien(), sk.getThoigian(),
+				sk.getLat(), sk.getLon());
+
+		// LatLng latLng=new LatLng(-14.235004,-51.925280);
+		// map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
+		// 13));
+
+		adapter.notifyDataSetChanged();
+
+		// dialog.dismiss();
 
 	}
 
