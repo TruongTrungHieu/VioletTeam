@@ -118,14 +118,14 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Log.d("change", Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1"));
-		if (Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1")
-				.equals("1")) {
-			Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "0");
+//		Log.d("change", Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1"));
+//		if (Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1")
+//				.equals("1")) {
+//			Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "0");
 			lichtrinh.clear();
 			LoadDataFromServer();
 
-		}
+//		}
 
 	}
 

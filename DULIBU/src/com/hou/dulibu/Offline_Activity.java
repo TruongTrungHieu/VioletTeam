@@ -47,14 +47,14 @@ import com.loopj.android.http.RequestParams;
 
 public class Offline_Activity extends ActionBarActivity {
 
-	final Context context = this;
 	ArrayList<Sukien> arrSuKien = new ArrayList<Sukien>();
 	ArrayList<Sukien> arrEvent = new ArrayList<Sukien>();
+	Dialog dialog;
 
 	SuKienAdapter adapter = null;
 	ListView lvSukien = null;
 	String maLichTrinh = "";
-	private static EditText edtThoiGian;
+	private EditText edtThoiGian;
 	private static String thoigian_sk = "";
 	EditText txtTenSuKien;
 	static EditText txtThoigian;
@@ -66,8 +66,9 @@ public class Offline_Activity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_offline);
+		adapter = new SuKienAdapter(this, R.layout.sukien_item, arrSuKien);
 
-		maLichTrinh = com.hou.app.Global.getPreference(context,
+		maLichTrinh = com.hou.app.Global.getPreference(getBaseContext(),
 				Global.TRIP_TRIP_ID, "Viet");
 		lvSukien = (ListView) findViewById(R.id.lvMap);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,8 +78,6 @@ public class Offline_Activity extends ActionBarActivity {
 
 	public void loadData() {
 		arrSuKien = arrEvent;
-		adapter = new SuKienAdapter(this, R.layout.sukien_item, arrSuKien);
-
 		lvSukien.setAdapter(adapter);
 
 	}
@@ -99,7 +98,7 @@ public class Offline_Activity extends ActionBarActivity {
 						+ "/"
 						+ Global.URI_POSTEVENT_PATH
 						+ "?access_token="
-						+ Global.getPreference(this, Global.USER_ACCESS_TOKEN,
+						+ Global.getPreference(getBaseContext(), Global.USER_ACCESS_TOKEN,
 								""), params, new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("createNewTrip", response);
@@ -113,7 +112,7 @@ public class Offline_Activity extends ActionBarActivity {
 
 						} else {
 							Toast.makeText(getApplicationContext(),
-									"Khong tao moi duoc su kien",
+									"Khong tao duoc su kien",
 									Toast.LENGTH_LONG).show();
 
 						}
@@ -122,7 +121,7 @@ public class Offline_Activity extends ActionBarActivity {
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
-						Log.d("Tao event that bai", content);
+						Log.d("Tao su kien that bai", content);
 					}
 				});
 	}
@@ -175,7 +174,7 @@ public class Offline_Activity extends ActionBarActivity {
 				eventSK.setThoigian(time);
 
 				eventSK.setMaLichtrinh(com.hou.app.Global.getPreference(
-						context, Global.TRIP_TRIP_ID, "Viet"));
+						getBaseContext(), Global.TRIP_TRIP_ID, "Viet"));
 				arrEvent.add(eventSK);
 				// Log.e("listChiPhiVIet", sotien + "");
 
@@ -216,7 +215,7 @@ public class Offline_Activity extends ActionBarActivity {
 		if (id == R.id.action_add) {
 			// Toast.makeText(getApplication(),"Select form add Chi tiet",
 			// Toast.LENGTH_SHORT).show();
-			final Dialog dialog = new Dialog(context);
+			dialog = new Dialog(getBaseContext());
 			dialog.setContentView(R.layout.dialog_sukien);
 			dialog.setTitle(getString(R.string.titleOfflineDialog));
 			txtTenSuKien = (EditText) dialog.findViewById(R.id.txtTenSuKien);
@@ -418,7 +417,7 @@ public class Offline_Activity extends ActionBarActivity {
 
 
 	private Address getLocationFromAddress(String strTim) {
-		Geocoder coder = new Geocoder(context);
+		Geocoder coder = new Geocoder(getBaseContext());
 		List<Address> address = null;
 		try {
 			address = coder.getFromLocationName(strTim, 1);

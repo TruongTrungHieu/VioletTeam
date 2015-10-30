@@ -99,7 +99,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 				R.drawable.icon_place, new ListPhuotFragment()));
 
 		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi),
-				R.drawable.icon_heart, new ListTripFragment());
+				R.drawable.icon_heart, new MyTrips());
 		this.addSection(mnuMyTrip);
 
 		mnuMyMap = newSection(getString(R.string.menuBanDo),
