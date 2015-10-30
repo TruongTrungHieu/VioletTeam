@@ -64,6 +64,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:text="@string/tvDescription"
+        android:textColor="@color/gray"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:textColor="@color/white"
+        android:textSize="13dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="@string/madeBy"
         android:textColor="@color/gray"
         android:textSize="10dp" />
@@ -93,22 +109,6 @@
         android:textColor="@color/white"
         android:textSize="13dp" />
     <!-- Description -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/tvDescription"
-        android:textColor="@color/gray"
-        android:textSize="10dp" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:textColor="@color/white"
-        android:textSize="13dp" />
 
     <!-- Terms -->
 
