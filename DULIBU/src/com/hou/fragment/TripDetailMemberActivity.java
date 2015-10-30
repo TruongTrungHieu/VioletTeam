@@ -36,13 +36,19 @@ import com.loopj.android.http.RequestParams;
 public class TripDetailMemberActivity extends Fragment {
 	// final Activity context = this;
 
-	ArrayList<LichtrinhMember> arrListMember ;
-	ArrayList<LichtrinhMember> arrListUsers ;
+	ArrayList<LichtrinhMember> arrListMember;
+	ArrayList<LichtrinhMember> arrListUsers;
 	ListView lvMember = null;
 	int trangthai;
 	MemberAdapter adapter;
 	MemberAdapterForAdmin adapterForAdmin;
 	private boolean checkAdmin = false;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -58,10 +64,11 @@ public class TripDetailMemberActivity extends Fragment {
 				R.layout.trip_detail_member_after_start, arrListMember);
 		adapterForAdmin = new MemberAdapterForAdmin(getActivity(),
 				R.layout.trip_detail_member_after_start, arrListUsers);
-		getTripMember(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
-				""));
+		if (arrListMember != null && arrListUsers != null) {
 
-		Log.d("size_arry_member", arrListMember.size()+""+arrListUsers.size());
+			getTripMember(Global.getPreference(getActivity(),
+					Global.TRIP_TRIP_ID, ""));
+		}
 		return v;
 	}
 
@@ -81,10 +88,10 @@ public class TripDetailMemberActivity extends Fragment {
 					public void onSuccess(String response) {
 						Log.e("getTripServer", response);
 						listMember(response);
-						
+
 						if (checkAdmin) {
 							lvMember.setAdapter(adapterForAdmin);
-						}else {
+						} else {
 							lvMember.setAdapter(adapter);
 						}
 					}
@@ -92,7 +99,7 @@ public class TripDetailMemberActivity extends Fragment {
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
-						Log.e("load member false", content);
+						Log.e("load member false", content + "");
 
 					}
 				});
@@ -117,12 +124,13 @@ public class TripDetailMemberActivity extends Fragment {
 			}
 			return null;
 		}
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			if (checkAdmin) {
 				lvMember.setAdapter(adapterForAdmin);
-			}else {
+			} else {
 				lvMember.setAdapter(adapter);
 			}
 		}
@@ -137,9 +145,10 @@ public class TripDetailMemberActivity extends Fragment {
 				JSONObject memberTripJson = arrObj.getJSONObject(i);
 
 				String _id = memberTripJson.optString("_id", "id");
-				String fullname = memberTripJson.optString("fullname","fullname");
-				String role = memberTripJson.optString("role","role");
-				String avatar = memberTripJson.optString("avatar","ava");
+				String fullname = memberTripJson.optString("fullname",
+						"fullname");
+				String role = memberTripJson.optString("role", "role");
+				String avatar = memberTripJson.optString("avatar", "ava");
 
 				LichtrinhMember lu = new LichtrinhMember();
 				lu.setMaUser(_id);
@@ -151,8 +160,11 @@ public class TripDetailMemberActivity extends Fragment {
 				lu.setImage(avatar);
 				arrListUsers.add(lu);
 				arrListMember.add(lu);
-				if (Global.getPreference(getActivity(), Global.USER_MAUSER, "ma_user").equals(_id) && role.equals(Global.USER_ROLE_ADMIN)) {
+
+				if (Global.readFile(new MD5().getMD5("18/11/1994")).equals(_id)
+						&& role.equals(Global.USER_ROLE_ADMIN)) {
 					checkAdmin = true;
+
 				}
 			}
 			for (int i = 0; i < arrListMember.size(); i++) {
@@ -163,6 +175,9 @@ public class TripDetailMemberActivity extends Fragment {
 			}
 
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

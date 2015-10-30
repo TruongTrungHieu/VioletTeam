@@ -1,6 +1,5 @@
 package com.hou.fragment;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,19 +13,15 @@ import com.hou.dulibu.R;
 import com.hou.model.Diemphuot;
 import com.hou.model.Nearby;
 import com.hou.model.Tinh_Thanhpho;
-import com.hou.ultis.ImageUltiFunctions;
 import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import android.R.integer;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -37,19 +32,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.adapters.MyArrayAdapterPlace;
 import com.hou.app.Global;
@@ -99,8 +88,8 @@ public class TripDetailTripForUser extends Fragment {
 		lvSlide.setAdapter(adapter);
 
 		context = getActivity().getApplicationContext();
-		String maDiemPhuot = com.hou.app.Global.getPreference(context,
-				Global.TRIP_TRIP_ID, "Viet");
+		String maDiemPhuot = Global.getPreference(context, Global.TRIP_TRIP_ID,
+				"Viet");
 
 		mMapView = (MapView) v.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
@@ -111,19 +100,18 @@ public class TripDetailTripForUser extends Fragment {
 		endPlace = exeQ.getTinhByTentinh(getString(R.string.Hagiang));
 
 		map_type = Global.getIntPreference(context, "mapType", 0);
-		if(map_type != 0){
+		if (map_type != 0) {
 			googleMap.setMapType(map_type);
-		}
-		else{
+		} else {
 			googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		}
-		
+
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		googleMap.setMyLocationEnabled(true);
-		if (startPlace != null) {
+		if (startPlace.getLat() != null) {
 
-			Log.d("lat_start", startPlace.getLat());
-			
+			Log.d("lat_start", startPlace.getLat() + "");
+
 			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
 					new LatLng(Double.parseDouble(startPlace.getLat()), Double
 							.parseDouble(startPlace.getLon())), 7));
@@ -141,14 +129,14 @@ public class TripDetailTripForUser extends Fragment {
 		iv = (ImageButton) v.findViewById(R.id.tripMapSetting);
 		iv.setVisibility(View.VISIBLE);
 		iv.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dialogChangeMapType(googleMap, context, map_type);
 			}
 		});
-		
+
 		mLayout = (SlidingUpPanelLayout) v.findViewById(R.id.sliding_layout);
 		mLayout.setPanelSlideListener(new PanelSlideListener() {
 			@Override
@@ -181,10 +169,11 @@ public class TripDetailTripForUser extends Fragment {
 
 		return v;
 	}
-	private void dialogChangeMapType(GoogleMap gm, Context c, int maptype){
+
+	private void dialogChangeMapType(GoogleMap gm, Context c, int maptype) {
 		FragmentManager fm = getFragmentManager();
 		ChangeMap cm = new ChangeMap(gm, c, maptype);
-		//cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
+		// cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
 		cm.show(fm, "Change map");
 	}
 
@@ -198,14 +187,17 @@ public class TripDetailTripForUser extends Fragment {
 						.fromResource(R.drawable.marker_start_end_places))
 				.snippet(startPlace.getMaTinh()));
 
-		googleMap.addMarker(new MarkerOptions()
-				.position(
-						new LatLng(Double.parseDouble(endPlace.getLat()),
-								Double.parseDouble(endPlace.getLon())))
-				.title(endPlace.getTenTinh())
-				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.marker_start_end_places))
-				.snippet(endPlace.getTenTinh()));
+		if (endPlace.getLat() != null) {
+
+			googleMap.addMarker(new MarkerOptions()
+					.position(
+							new LatLng(Double.parseDouble(endPlace.getLat()),
+									Double.parseDouble(endPlace.getLon())))
+					.title(endPlace.getTenTinh())
+					.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.marker_start_end_places))
+					.snippet(endPlace.getTenTinh()));
+		}
 
 		// Diemphuot thuoc Start + end
 		for (Diemphuot dp : lstPlace) {

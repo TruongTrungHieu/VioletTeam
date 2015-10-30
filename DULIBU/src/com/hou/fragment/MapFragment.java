@@ -170,7 +170,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 				updateMarked();
 			}
 		});
-		FixWidthBottom(imgMapWarnning, imgMapHospital, imgMapGas);
+		//FixWidthBottom(imgMapWarnning, imgMapHospital, imgMapGas);
 		
 		c = getActivity().getApplicationContext();
 		iv = (ImageButton) v.findViewById(R.id.mapFragmentMapSetting);
@@ -222,31 +222,31 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void FixWidthBottom(ImageView warnning, ImageView hospital, ImageView gas) {
-		Display display = getActivity().getWindowManager().getDefaultDisplay();
-		ArrayList<ImageView> arrIv = new ArrayList<ImageView>();
-		arrIv.add(warnning);
-		arrIv.add(hospital);
-		arrIv.add(gas);
-		DisplayMetrics displaymetrics = new DisplayMetrics();
-		getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-		int height = displaymetrics.heightPixels;
-		int width = displaymetrics.widthPixels;
-
-		if (true) {
-			int t = (width - arrIv.size() * 60) / (arrIv.size() + 1);
-			int b = t;
-
-			for (ImageView imageView : arrIv) {
-				RelativeLayout.LayoutParams arrImageBottom = new RelativeLayout.LayoutParams(
-						imageView.getLayoutParams());
-				arrImageBottom.setMargins(t, 0, 0, 0);
-				imageView.setLayoutParams(arrImageBottom);
-				t = t + 60 + b;
-			}
-		}
-	}
+//	@SuppressWarnings("unused")
+//	public void FixWidthBottom(ImageView warnning, ImageView hospital, ImageView gas) {
+//		Display display = getActivity().getWindowManager().getDefaultDisplay();
+//		ArrayList<ImageView> arrIv = new ArrayList<ImageView>();
+//		arrIv.add(warnning);
+//		arrIv.add(hospital);
+//		arrIv.add(gas);
+//		DisplayMetrics displaymetrics = new DisplayMetrics();
+//		getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+//		int height = displaymetrics.heightPixels;
+//		int width = displaymetrics.widthPixels;
+//
+//		if (true) {
+//			int t = (width - arrIv.size() * 60) / (arrIv.size() + 1);
+//			int b = t;
+//
+//			for (ImageView imageView : arrIv) {
+//				RelativeLayout.LayoutParams arrImageBottom = new RelativeLayout.LayoutParams(
+//						imageView.getLayoutParams());
+//				arrImageBottom.setMargins(t, 0, 0, 0);
+//				imageView.setLayoutParams(arrImageBottom);
+//				t = t + 60 + b;
+//			}
+//		}
+//	}
 
 	@SuppressWarnings("unused")
 	private void removeFragmentMaps() {

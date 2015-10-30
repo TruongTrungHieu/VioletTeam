@@ -92,7 +92,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 
 	private void getListCity(int i) {
 
-		AsyncHttpClient client = Global.httpClient;
+		AsyncHttpClient client = new AsyncHttpClient();
 
 		client.get(
 				Global.BASE_URI + "/" + Global.URI_LISTCITY_PATH + "?p=" + i,

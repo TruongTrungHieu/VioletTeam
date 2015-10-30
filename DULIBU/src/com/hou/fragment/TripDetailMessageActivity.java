@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +28,9 @@ import com.hou.Messages.MessageAdapter;
 import com.hou.app.Global;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -60,11 +64,7 @@ public class TripDetailMessageActivity extends Fragment {
 	private String mUsername;
 	private Socket mSocket;
 	{
-		try {
-			mSocket = IO.socket(Global.BASE_URI);
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
+			mSocket = Global.getSocketServer(getActivity());
 	}
 
 	public TripDetailMessageActivity() {
@@ -82,49 +82,51 @@ public class TripDetailMessageActivity extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
-		mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
-		mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//		mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//		mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 		mSocket.on("new_message", onNewMessage);
 //		mSocket.on("user joined", onUserJoined);
 //		mSocket.on("user left", onUserLeft);
-		mSocket.on("typing", onTyping);
-		mSocket.on("stop typing", onStopTyping);
-		mSocket.on(".join", onJoin);
-		mSocket.on(".error", ERROR);
-		mSocket.connect();
-		
-		JSONObject data = new JSONObject();
-		try {
-			data.put("access_token", Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, "NONE"));
-			data.put("target_type", Global.TARGET_TRIP);
-			data.put("target_id", "5623e80833a5eff517534e74");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		mSocket.emit(".join", data);
+//		mSocket.on("typing", onTyping);
+//		mSocket.on("stop typing", onStopTyping);
+//		mSocket.on(".join", onJoin);
+//		mSocket.on(".error", ERROR);
+//		mSocket.connect();
+//		
+//		JSONObject data = new JSONObject();
+//		try {
+//			data.put("access_token", Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, "NONE"));
+//			data.put("target_type", Global.TARGET_TRIP);
+//			data.put("target_id", "5623e80833a5eff517534e74");
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		mSocket.emit(".join", data);
 		
 		mUsername = Global.getPreference(getActivity(), Global.USER_FULLNAME, "UNKNOWN");
+		getDataMessage();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.trip_detail_message, container, false);
+		
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 
-		mSocket.disconnect();
-		mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-		mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//		mSocket.disconnect();
+//		mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//		mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 		mSocket.off("new message", onNewMessage);
-		mSocket.off("user joined", onUserJoined);
-		mSocket.off("user left", onUserLeft);
-		mSocket.off("typing", onTyping);
-		mSocket.off("stop typing", onStopTyping);
+//		mSocket.off("user joined", onUserJoined);
+//		mSocket.off("user left", onUserLeft);
+//		mSocket.off("typing", onTyping);
+//		mSocket.off("stop typing", onStopTyping);
 	}
 
 	@Override
@@ -227,7 +229,12 @@ public class TripDetailMessageActivity extends Fragment {
 	// addLog(getResources().getQuantityString(R.plurals.message_participants,
 	// numUsers, numUsers));
 	// }
-
+	private void addMessageItem(String username, String message) {
+		mMessages.add(new Message.Builder(Message.TYPE_MESSAGE)
+				.username(username).message(message).build());
+//		scrollToBottom();
+	}
+	
 	private void addMessage(String username, String message) {
 		mMessages.add(new Message.Builder(Message.TYPE_MESSAGE)
 				.username(username).message(message).build());
@@ -276,7 +283,7 @@ public class TripDetailMessageActivity extends Fragment {
 		JSONObject data = new JSONObject();
 		try {
 			data.put("target_type", Global.TARGET_TRIP);
-			data.put("target_id", "5623e80833a5eff517534e74");
+			data.put("target_id", Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "trip_id"));
 			data.put("access_token", Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, "NONE"));
 			data.put("message", message);
 		} catch (JSONException e) {
@@ -284,44 +291,40 @@ public class TripDetailMessageActivity extends Fragment {
 			e.printStackTrace();
 		}
 		mSocket.emit("new_message", data);
+		Log.d("send_message", data.toString());
 	}
 
 	private void scrollToBottom() {
 		mMessagesView.scrollToPosition(mAdapter.getItemCount() - 1);
 	}
 
-	private Emitter.Listener onConnectError = new Emitter.Listener() {
-		@Override
-		public void call(Object... args) {
-			getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(getActivity().getApplicationContext(),
-							"lỗi kết nối", Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	};
 
 	private Emitter.Listener onNewMessage = new Emitter.Listener() {
 		@Override
 		public void call(final Object... args) {
+			if (getActivity() == null) {
+				return;
+			}
 			getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					JSONObject data = (JSONObject) args[0];
+					Log.d("message_____", args[0].toString());
 					String username;
 					String message;
+					String id;
 					try {
-						username = data.getJSONObject("sender").getString("fullname");
+						username = data.getJSONObject("sender").optString("fullname");
+						id = data.getJSONObject("sender").optString("_id");
 						
-						message = data.getString("message");
+						message = data.optString("message");
 					} catch (JSONException e) {
+						Log.e("data message _ null", "_____________ "+e.getMessage());
 						return;
 					}
 
 					removeTyping(username);
-					if (username.equalsIgnoreCase(Global.getPreference(getActivity(), Global.USER_FULLNAME, "  "))) {
+					if (id.equalsIgnoreCase(Global.getPreference(getActivity(), Global.USER_MAUSER, "  "))) {
 						return;
 					}
 					addMessage(username, message);
@@ -416,13 +419,6 @@ public class TripDetailMessageActivity extends Fragment {
 			});
 		}
 	};
-	private Emitter.Listener onJoin = new Emitter.Listener() {
-		@Override
-		public void call(final Object... args) {
-			JSONObject data1 = (JSONObject)args[0];
-			Log.e(".Join", data1.toString());
-		}
-	};
 	private Emitter.Listener ERROR = new Emitter.Listener() {
 		@Override
 		public void call(final Object... args) {
@@ -441,4 +437,32 @@ public class TripDetailMessageActivity extends Fragment {
 			mSocket.emit("stop typing");
 		}
 	};
+	private void getDataMessage(){
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("target_type", Global.TARGET_TRIP);
+		params.put("target_id", Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "id"));
+		params.put("access_token", Global.getPreference(getActivity(), Global.USER_ACCESS_TOKEN, "access"));
+		client.get(Global.BASE_URI+"/messages", params, new AsyncHttpResponseHandler(){
+			@Override
+			public void onSuccess(String content) {
+				// TODO Auto-generated method stub
+				try {
+					JSONArray array = new JSONArray(content);
+					for (int i = 0; i < array.length(); i++) {
+						String userName = array.getJSONObject(i).getJSONObject("sender").getString("fullname");
+						String message = array.getJSONObject(i).getString("message");
+						addMessageItem(userName, message);
+					}
+					
+					mAdapter.notifyItemInserted(mMessages.size() - 1);
+					scrollToBottom();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+	}
 }

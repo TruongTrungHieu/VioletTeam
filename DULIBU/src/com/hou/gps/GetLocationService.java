@@ -95,9 +95,13 @@ public class GetLocationService extends Service implements
 		float distance = 0f;
 
 		final JSONObject checkPoint = new JSONObject();
-		checkPoint.put("access_token", Global.getPreference(getBaseContext(), Global.USER_ACCESS_TOKEN, "access_token"));
+		
+		checkPoint.put("access_token", Global.getPreference(getBaseContext(),
+				Global.USER_ACCESS_TOKEN, "access_token"));
+		
 		checkPoint.put("target_id", Global.getPreference(getBaseContext(),
 				Global.TRIP_TRIP_ID, "trip_id"));
+		
 		checkPoint.put("target_type", Global.TARGET_TRIP);
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -121,7 +125,7 @@ public class GetLocationService extends Service implements
 					"previousLongitude", 0f));
 
 			distance = location.distanceTo(previousLocation);
-			if (distance > 2) {
+			if (distance > 2 || true) {
 				Log.d("lớn hơn 2m", "!");
 				editor.putFloat("previousLatitude",
 						(float) location.getLatitude());

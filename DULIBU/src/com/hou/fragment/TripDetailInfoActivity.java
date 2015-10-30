@@ -13,6 +13,7 @@ import com.hou.dulibu.LoginManagerActivity;
 import com.hou.dulibu.Offline_Activity;
 import com.hou.dulibu.R;
 import com.hou.dulibu.RegisterManagerActivity;
+import com.hou.dulibu.SplashScreenActivity;
 import com.hou.dulibu.TripDetailManagerActivity;
 import com.hou.dulibu.R.layout;
 import com.hou.model.Lichtrinh;
@@ -51,6 +52,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			tvTimeStart, tvKinhPhis, tvNotes, tvMoneyTrip, tvLotrinh;
 	Button btnInviteUser, btnLeaveUser;
 	ImageView ivTripBG;
+	private Lichtrinh lichtrinh;;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -61,7 +63,15 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		tvBtnOffline.setOnClickListener(this);
 		btnInviteUser.setOnClickListener(this);
 		btnLeaveUser.setOnClickListener(this);
-		LoadDataFromServer();
+		try {
+			lichtrinh = (Lichtrinh) Global.readFileObject(new MD5()
+					.getMD5("4/4/1994"));
+		} catch (Exception e) {
+			Intent intent = new Intent(getActivity(),
+					SplashScreenActivity.class);
+			startActivity(intent);
+		}
+		LoadDataInfo();
 
 		return v;
 	}
@@ -95,6 +105,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			inviteUser();
 			break;
 		case R.id.btnLeave:
+			Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "1");
 			leaveTrip(Global.getPreference(getActivity(), Global.TRIP_TRIP_ID,
 					"id"));
 			getActivity().onBackPressed();
@@ -110,84 +121,13 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		}
 	}
 
-	public void LoadDataFromServer() {
-		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(Global.BASE_URI + "/" + Global.URI_TRIP_GET_TRIP + "?id="
-				+ Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, ""),
-				new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-						Log.e("DATA", response);
-						executeWhenSendDataSuccess(response);
+	private void LoadDataInfo() {
 
-					}
+		Lichtrinh dataTrip = lichtrinh;
+		if (dataTrip != null) {
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						switch (statusCode) {
-						case 400:
-							Toast.makeText(getActivity(),
-									getResources().getString(R.string.e400),
-									Toast.LENGTH_LONG).show();
-							break;
-						case 403:
-							Toast.makeText(getActivity(),
-									getResources().getString(R.string.e403),
-									Toast.LENGTH_LONG).show();
-							break;
-						case 404:
-							Toast.makeText(getActivity(),
-									getResources().getString(R.string.e404),
-									Toast.LENGTH_LONG).show();
-							break;
-						case 503:
-							Toast.makeText(getActivity(),
-									getResources().getString(R.string.e503),
-									Toast.LENGTH_LONG).show();
-							break;
-						default:
-							break;
-						}
-					}
-				});
-	}
-
-	private void executeWhenSendDataSuccess(String response) {
-		JSONObject item;
-		try {
-			item = new JSONObject(response);
-			String _id = item.optString("_id");
-			String name = item.optString("name");
-			String diemBatdau = item.optJSONObject("begin_location").optString(
-					"name");
-			String diemKetthuc = item.optJSONObject("end_location").optString(
-					"name");
-			String tgBatdau = item.optString("start_date");
-			String tgKetthuc = item.optString("end_date");
-			String admin = "";
-			String checkJoin = "";
-
-			if (!(item.optString("created_by").equals("")) && !(item.optString("created_by").isEmpty()) ) {
-				admin = item.getJSONObject("created_by").optString("fullname");
-				checkJoin = item.getJSONObject("created_by").optString(
-						"username");
-
-				Global.savePreference(getActivity(), Global.USER_CREATEBY_TRIP,
-						item.getJSONObject("created_by").optString("_id"));
-			}
-			String chiphicanhan = item.optString("expense", "0");
-			int chiphicanhans = Integer.parseInt(chiphicanhan);
-			String thoigian_xuatphat = item.optString("gathering_time");
-			String diadiem_xuatphat = item.optString("gathering_position");
-			String note = item.optString("note");
-			String image = item.optString("image");
-
-			Lichtrinh dataTrip = new Lichtrinh(_id, name, diemBatdau,
-					diemKetthuc, tgBatdau, tgKetthuc, "1", "1", "1", admin, "",
-					"", chiphicanhans, 0, "", image, diadiem_xuatphat,
-					thoigian_xuatphat, note);
-			if (Global.getPreference(getActivity(), Global.USER_USERNAME, " ")
-					.equalsIgnoreCase(checkJoin)) {
+			if (Global.getPreference(getActivity(), "check_role_1", " ")
+					.equals(Global.USER_ROLE_ADMIN)) {
 				btnLeaveUser.setText("Admin");
 				btnLeaveUser.setEnabled(false);
 			}
@@ -203,22 +143,21 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 			Global.savePreference(getActivity(), Global.TRIP_MONEY,
 					dataTrip.getChiphicanhan() + "");
 			tvNotes.setText(dataTrip.getNote());
-			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(new MD5()
-					.getMD5(dataTrip.getImage())));
-			if (f != null) {
-				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
-						500, 500);
-				ivTripBG.setImageBitmap(b);
-			} else {
-				ivTripBG.setImageResource(R.drawable.default_bg_detail);
-			}
 
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				File f = ImageUltiFunctions.getFileFromUri(Global
+						.getURI(new MD5().getMD5(dataTrip.getImage())));
+				if (f != null) {
+					Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(
+							f, 500, 500);
+					ivTripBG.setImageBitmap(b);
+				} else {
+					ivTripBG.setImageResource(R.drawable.default_bg_detail);
+				}
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -321,11 +260,7 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 
 	@SuppressLint("InflateParams")
 	private void inviteUser() {
-		
-		
-		
-		
-		
+
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View alertLayout = inflater.inflate(R.layout.dialog_active_register,
 				null);
@@ -339,33 +274,36 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 		alert.setView(alertLayout);
 		alert.setCancelable(false);
 		alert.setTitle(getString(R.string.title_confirm));
-		alert.setNegativeButton(getString(R.string.confim_cancel),null);
+		alert.setNegativeButton(getString(R.string.confim_cancel), null);
 
-		alert.setPositiveButton(getString(R.string.invite),null);
+		alert.setPositiveButton(getString(R.string.invite), null);
 		AlertDialog dialog = alert.create();
 		dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
-	        @Override
-	        public void onShow(final DialogInterface dialog) {
+			@Override
+			public void onShow(final DialogInterface dialog) {
 
-	            Button b = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-	            b.setOnClickListener(new View.OnClickListener() {
+				Button b = ((AlertDialog) dialog)
+						.getButton(AlertDialog.BUTTON_POSITIVE);
+				b.setOnClickListener(new View.OnClickListener() {
 
-	                @Override
-	                public void onClick(View view) {
-	                    // TODO Do something
-	                	if (!Global.isValidEmail(txtActiveCode.getText().toString())) {
-	            			txtActiveCode.setError(getString(R.string.register_err_email));
-	            			txtActiveCode.requestFocus();
-	            		}else {
-	            			InviteUser(txtActiveCode.getText().toString());
-	            			dialog.dismiss();
-	            			return;
-	            		}
-	                }
-	            });
-	        }
-	    });
+					@Override
+					public void onClick(View view) {
+						// TODO Do something
+						if (!Global.isValidEmail(txtActiveCode.getText()
+								.toString())) {
+							txtActiveCode
+									.setError(getString(R.string.register_err_email));
+							txtActiveCode.requestFocus();
+						} else {
+							InviteUser(txtActiveCode.getText().toString());
+							dialog.dismiss();
+							return;
+						}
+					}
+				});
+			}
+		});
 		dialog.show();
 	}
 
@@ -382,10 +320,10 @@ public class TripDetailInfoActivity extends Fragment implements OnClickListener 
 						+ Global.TRIP_INVITE
 						+ "?access_token="
 						+ Global.getPreference(getActivity(),
-								Global.USER_ACCESS_TOKEN, "access_token"), params,
-				new AsyncHttpResponseHandler() {
+								Global.USER_ACCESS_TOKEN, "access_token"),
+				params, new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						 Log.e("Invite", response);
+						Log.e("Invite", response);
 						NoticeRegisSuccsess(getString(R.string.success),
 								getString(R.string.invite_success));
 

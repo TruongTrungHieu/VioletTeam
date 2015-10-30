@@ -48,6 +48,8 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 	ImageView ivTripBG;
 
 	private Lichtrinh lichtrinh;
+	
+	private boolean changed = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -72,6 +74,9 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 		}
 		btnJoinUser.setOnClickListener(this);
 		btnLeaveUser.setOnClickListener(this);
+		if (changed) {
+			Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "1");
+		}
 
 		return v;
 	}
@@ -96,6 +101,7 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btnJoin1:
+			
 			btnJoinUser.setVisibility(View.INVISIBLE);
 			btnLeaveUser.setVisibility(View.VISIBLE);
 			joinTrip(lichtrinh.getMaLichtrinh());
@@ -168,6 +174,7 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 								Global.USER_ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
+						changed = !changed;
 						Log.e("DATA", response);
 
 					}
@@ -218,13 +225,15 @@ public class TripDetailInfoForUser extends Fragment implements OnClickListener {
 								Global.USER_ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
-						Log.e("DATA", response);
+						Log.e("leave trip", response);
+						changed = !changed;
 
 					}
 
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
+						Log.e("Lỗi hủy tham gia", content+"");
 						switch (statusCode) {
 						case 400:
 							Toast.makeText(getActivity(),

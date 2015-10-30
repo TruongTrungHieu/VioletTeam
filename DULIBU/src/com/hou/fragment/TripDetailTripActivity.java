@@ -3,6 +3,8 @@ package com.hou.fragment;
 import io.socket.emitter.Emitter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.app.Global;
 import com.hou.dulibu.R;
@@ -35,6 +38,7 @@ import com.hou.gps.GetLocationService;
 import com.hou.model.InfoTracking;
 import com.hou.model.LichtrinhMember;
 import com.hou.model.Nearby;
+import com.hou.model.User;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -95,6 +99,8 @@ public class TripDetailTripActivity extends Fragment implements
 	double lat;
 	double lon;
 
+	private Map<String, InfoTracking> userTrackers;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -126,18 +132,20 @@ public class TripDetailTripActivity extends Fragment implements
 		mMapView = (MapView) v.findViewById(R.id.mapView);
 		mMapView.onCreate(savedInstanceState);
 		mMapView.onResume();
-		
-		Global.getSocketServer().on("tracking", new Emitter.Listener() {
-			
-			@Override
-			public void call(Object... arg0) {
-				// TODO Auto-generated method stub
-				getMemberTracking(arg0[0]);
-				
-			}
-		});
-		
-		
+
+		userTrackers = new HashMap<>();
+
+		Global.getSocketServer(getActivity()).on("tracking",
+				new Emitter.Listener() {
+
+					@Override
+					public void call(Object... arg0) {
+						// TODO Auto-generated method stub
+						getMemberTracking(arg0[0]);
+
+					}
+				});
+
 		if (Global.isServiceRunning(getActivity(),
 				getActivity().ACTIVITY_SERVICE)) {
 			ivShareLocation.setVisibility(View.INVISIBLE);
@@ -186,6 +194,32 @@ public class TripDetailTripActivity extends Fragment implements
 
 				mProgressBar.setVisibility(View.VISIBLE);
 				tvShare.setVisibility(View.VISIBLE);
+				
+					String user_id = Global.getPreference(getActivity(), Global.USER_MAUSER, "+++");
+
+					if (!userTrackers.containsKey(user_id)) {
+						String target_id = Global.getPreference(getActivity(), Global.TRIP_TRIP_ID, "0");
+						String target_type = "TRIP";
+
+						String user_fullname = Global.getPreference(getActivity(), Global.USER_FULLNAME, "invalid");
+						String avatar = Global.getPreference(getActivity(), Global.USER_AVATAR, "");
+
+						InfoTracking infoTracking = new InfoTracking(target_id,
+								target_type, user_id, user_fullname, avatar, lat, lon);
+
+						userTrackers.put(user_id, infoTracking);
+					} else {
+						userTrackers.get(user_id).setLat(lat);
+						userTrackers.get(user_id).setLon(lon);
+					}
+
+					Log.d("update_tracking_socket", lat + "," + lon + "uid = "
+							+ user_id);
+
+					updateTracking(user_id);
+					
+				
+				
 
 				Global.StartServiceGetLocation(getActivity(), new Intent(
 						getActivity(), GetLocationService.class));
@@ -278,59 +312,60 @@ public class TripDetailTripActivity extends Fragment implements
 					imgMapGas.setImageResource(R.drawable.map_gas1);
 					getNearbyFromGoogle(Global.NEARBY_GAS);
 				}
+
 				updateMarked();
 			}
 		});
-		FixWidthBottom(imgMapPlace, imgMapWarnning, imgMapTeam, imgMapHospital,
-				imgMapGas);
+		// FixWidthBottom(imgMapPlace, imgMapWarnning, imgMapTeam,
+		// imgMapHospital,
+		// imgMapGas);
 
 		return v;
 
 	}
 
-	public void CheckStatusBottom() {
+	// public void CheckStatusBottom() {
+	//
+	// ArrayList<ImageView> lstImg = new ArrayList<ImageView>();
+	//
+	// lstImg.add(imgMapWarnning);
+	// lstImg.add(imgMapHospital);
+	// lstImg.add(imgMapTeam);
+	// lstImg.add(imgMapGas);
+	// lstImg.add(imgMapPlace);
+	//
+	// for (int i = lstImg.size() - 1; i >= 0; i--) {
+	// lstImg.get(i).setAlpha((((status >> i) & 1) == 0 ? 1f : 0.5f));
+	// }
+	// }
 
-		ArrayList<ImageView> lstImg = new ArrayList<ImageView>();
-
-		lstImg.add(imgMapWarnning);
-		lstImg.add(imgMapHospital);
-		lstImg.add(imgMapTeam);
-		lstImg.add(imgMapGas);
-		lstImg.add(imgMapPlace);
-
-		for (int i = lstImg.size() - 1; i >= 0; i--) {
-			lstImg.get(i).setAlpha((((status >> i) & 1) == 0 ? 1f : 0.5f));
-		}
-
-	}
-
-	// cÄƒn chá»‰nh khi thay Ä‘á»•i kÃ­ch thÆ°á»›c mÃ n hÃ¬nh
-	public void FixWidthBottom(ImageView place, ImageView warnning,
-			ImageView team, ImageView hospital, ImageView gas) {
-		ArrayList<ImageView> arrIv = new ArrayList<ImageView>();
-		arrIv.add(place);
-		arrIv.add(warnning);
-		arrIv.add(team);
-		arrIv.add(hospital);
-		arrIv.add(gas);
-		DisplayMetrics displaymetrics = new DisplayMetrics();
-		getActivity().getWindowManager().getDefaultDisplay()
-				.getMetrics(displaymetrics);
-		int width = displaymetrics.widthPixels;
-
-		if (true) {
-			int t = (width - arrIv.size() * 60) / (6);
-			int b = t;
-
-			for (ImageView imageView : arrIv) {
-				RelativeLayout.LayoutParams arrImageBottom = new RelativeLayout.LayoutParams(
-						imageView.getLayoutParams());
-				arrImageBottom.setMargins(t, 0, 0, 0);
-				imageView.setLayoutParams(arrImageBottom);
-				t = t + 60 + b;
-			}
-		}
-	}
+	// public void FixWidthBottom(ImageView place, ImageView warnning,
+	// ImageView team, ImageView hospital, ImageView gas) {
+	// ArrayList<ImageView> arrIv = new ArrayList<ImageView>();
+	// arrIv.add(place);
+	// arrIv.add(warnning);
+	// arrIv.add(team);
+	// arrIv.add(hospital);
+	// arrIv.add(gas);
+	// DisplayMetrics displaymetrics = new DisplayMetrics();
+	// getActivity().getWindowManager().getDefaultDisplay()
+	// .getMetrics(displaymetrics);
+	// int width = displaymetrics.widthPixels;
+	//
+	// if (true) {
+	// int t = (width - arrIv.size() * 60) / (6);
+	// int b = t;
+	//
+	// for (ImageView imageView : arrIv) {
+	// RelativeLayout.LayoutParams arrImageBottom = new
+	// RelativeLayout.LayoutParams(
+	// imageView.getLayoutParams());
+	// arrImageBottom.setMargins(t, 0, 0, 0);
+	// imageView.setLayoutParams(arrImageBottom);
+	// t = t + 60 + b;
+	// }
+	// }
+	// }
 
 	private void updateMarked() {
 		googleMap.clear();
@@ -469,24 +504,45 @@ public class TripDetailTripActivity extends Fragment implements
 		}
 	}
 
-	private void markerGps(ArrayList<InfoTracking> lstTracking) {
-		if (lstTracking.size() > 0) {
-			for (InfoTracking infoTracking : lstTracking) {
-				int id = getActivity().getResources().getIdentifier(
-						infoTracking.getAvatar(),
-						Environment.getExternalStorageDirectory() + "/"
-								+ "DULIBU", getActivity().getPackageName());
-				googleMap.addMarker(new MarkerOptions()
-						.position(
-								new LatLng(Double.parseDouble(infoTracking
-										.getLat()), Double
-										.parseDouble(infoTracking.getLon())))
-						.title(infoTracking.getUser_fullname())
-						.icon(BitmapDescriptorFactory.fromResource(id)));
-			}
-		}
-
-	}
+//	private void markerGps(final Map<String, InfoTracking> userTrackers) {
+//		getActivity().runOnUiThread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				if (googleMap == null) {
+//					googleMap = mMapView.getMap();
+//				} else {
+//
+////					googleMap.clear();
+//					if (userTrackers.size() > 0) {
+//						for (Map.Entry<String, InfoTracking> entry : userTrackers
+//								.entrySet()) {
+//							InfoTracking user = entry.getValue();
+//							Log.d("lat + lon", ""+user.getLat()+ user
+//													.getLon());
+//
+////							int id = getActivity()
+////									.getResources()
+////									.getIdentifier(
+////											user.getAvatar(),
+////											Environment
+////													.getExternalStorageDirectory()
+////													+ "/" + "DULIBU",
+////											getActivity().getPackageName());
+//							googleMap.addMarker(new MarkerOptions()
+//									.position(
+//											new LatLng(user.getLat(), user
+//													.getLon()))
+//									.title(user.getUser_fullname()));
+//							
+//						mMapView.postInvalidate();
+//						}
+//					}
+//				}
+//			}
+//		});
+//
+//	}
 
 	private void startTracking() {
 
@@ -559,20 +615,112 @@ public class TripDetailTripActivity extends Fragment implements
 
 	private void getMemberTracking(Object resposive) {
 		try {
-			JSONObject data = (JSONObject)resposive;
-			String target_id = data.optString("target_id");
-			String target_type = data.optString("target_type");
+			JSONObject data = (JSONObject) resposive;
 			String user_id = data.getJSONObject("sender").optString("_id");
-			String user_fullname = data.getJSONObject("sender").optString("fullname");
-			String avatar = data.getJSONObject("sender").optString("avatar");
-			String lat = data.optString("lat");
-			String lon = data.optString("lon");
-			InfoTracking infoTracking = new InfoTracking(target_id, target_type, user_id, user_fullname, avatar, lat, lon);
-			lstInforTracking.add(infoTracking);
+
+			double lat = data.optDouble("lat");
+			double lon = data.optDouble("lon");
+
+			if (!userTrackers.containsKey(user_id)) {
+				String target_id = data.optString("target_id");
+				String target_type = data.optString("target_type");
+
+				String user_fullname = data.getJSONObject("sender").optString(
+						"fullname");
+				String avatar = data.getJSONObject("sender")
+						.optString("avatar");
+
+				InfoTracking infoTracking = new InfoTracking(target_id,
+						target_type, user_id, user_fullname, avatar, lat, lon);
+
+				userTrackers.put(user_id, infoTracking);
+			} else {
+				userTrackers.get(user_id).setLat(lat);
+				userTrackers.get(user_id).setLon(lon);
+			}
+
+			Log.d("update_tracking_socket", lat + "," + lon + "uid = "
+					+ user_id);
+
+			updateTracking(user_id);
+			// lstInforTracking.add(infoTracking);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	//
+	// ////
+	// private void convertToMap() {
+	// AsyncHttpClient client = new AsyncHttpClient();
+	// RequestParams params = new RequestParams();
+	// client.get(Global.BASE_URI, params, new AsyncHttpResponseHandler() {
+	// @Override
+	// public void onSuccess(int statusCode, String content) {
+	// // TODO Auto-generated method stub
+	// JSONArray json = new JSONArray(content);
+	// }
+	//
+	// @Override
+	// @Deprecated
+	// public void onFailure(Throwable error, String content) {
+	// // TODO Auto-generated method stub
+	// super.onFailure(error, content);
+	// }
+	// });
+	// }
+	//
+	// //////
+
+	// private void showUserTrackers() {
+	// for (Map.Entry<String, InfoTracking> entry : userTrackers.entrySet()) {
+	// InfoTracking user = entry.getValue();
+	// // new marker
+	// updateTracking(user.getUser_id(), new LatLng(user.getLat(),
+	// user.getLon()));
+	// }
+	// }
+
+	/**
+	 * Cập nhật location cho người có mã user key lên bản đồ
+	 * 
+	 * @param key
+	 * @param latLng
+	 */
+	private void updateTracking(final String key) {
+
+		if (getActivity() == null) {
+			return;
+		}
+		getActivity().runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				// TODO Auto-generated method stub
+				if (userTrackers.containsKey(key)) {
+					InfoTracking tracker = userTrackers.get(key);
+					LatLng ll = new LatLng(tracker.getLat(), tracker.getLon());
+					Marker marker = null;
+					// new user ?
+					 if (tracker.getMarker() == null) {
+					marker = googleMap.addMarker(new MarkerOptions().title(
+							tracker.getUser_fullname()).position(ll));
+					tracker.setMarker(marker);
+					Log.d("update_tracking_socket new", lat + "," + lon
+							+ "uid = " + key);
+					 } else {
+						 Log.d("update_tracking_socket old", lat + "," + lon +
+						 "uid = " + key);
+						 marker = tracker.getMarker();
+						 marker.setPosition(ll);
+					 }
+					 
+				}
+			}
+		});
 
 	}
 

@@ -724,7 +724,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 						+ Global.URI_UPDATEINFO_PATH
 						+ "?access_token="
 						+ Global.getPreference(getActivity(),
-								Global.ACCESS_TOKEN, " "), params,
+								Global.USER_ACCESS_TOKEN, " "), params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("postChangeInfo", response);
