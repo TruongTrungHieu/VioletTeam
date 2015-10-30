@@ -12,16 +12,16 @@
         android:paddingLeft="5dp"
         android:weightSum="5" >
 
-        <EditText
+       <EditText
             android:id="@+id/txtTenSuKien"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:ems="10"
+            android:focusable="true"
             android:hint="Tên"
             android:maxLines="1" >
 
-            <requestFocus />
         </EditText>
     </TableRow>
 
