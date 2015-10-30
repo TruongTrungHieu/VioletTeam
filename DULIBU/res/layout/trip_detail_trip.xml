@@ -19,6 +19,7 @@
         android:background="@drawable/bg_button_image"
         android:padding="10dp"
         android:src="@drawable/icon_share" />
+
     <ImageButton
         android:id="@+id/ivStopShareLocation"
         android:layout_width="wrap_content"
@@ -28,23 +29,23 @@
         android:alpha="0.85"
         android:background="@drawable/bg_image_stop_share"
         android:padding="10dp"
-        android:visibility="gone"
-        android:src="@drawable/icon_share_white" />
+        android:src="@drawable/icon_share_white"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="140dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tvShare"
-            android:text="Đang chia sẻ vị trí..."
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang chia sẻ vị trí..."
             android:textSize="14sp"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/pb"
@@ -61,14 +62,14 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="#FFF"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical|center_horizontal" >
 
         <ImageView
             android:id="@+id/imgMapPlace"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="-10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:padding="15dp"
             android:src="@drawable/map_place" />
 
@@ -76,6 +77,8 @@
             android:id="@+id/imgMapWarnning"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/imgMapPlace"
             android:padding="15dp"
             android:src="@drawable/map_warnning" />
@@ -84,6 +87,8 @@
             android:id="@+id/imgMapTeam"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/imgMapWarnning"
             android:padding="15dp"
             android:src="@drawable/map_team" />
@@ -92,6 +97,8 @@
             android:id="@+id/imgMapHospital"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/imgMapTeam"
             android:padding="15dp"
             android:src="@drawable/map_hospital" />
@@ -100,6 +107,8 @@
             android:id="@+id/imgMapGas"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/imgMapHospital"
             android:padding="15dp"
             android:src="@drawable/map_gas" />
