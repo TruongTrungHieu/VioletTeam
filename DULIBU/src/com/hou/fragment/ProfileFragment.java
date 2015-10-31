@@ -695,15 +695,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 								phone);
 
 					
-						etPhone.setText(Global.getPreference(getActivity()
-								.getApplicationContext(), Global.USER_SDT,
-								fullname));
-						etBirthday.setText(Global.getPreference(getActivity()
-								.getApplicationContext(), Global.USER_NGAYSINH,
-								fullname));
-						etFullName.setText(Global.getPreference(getActivity()
-								.getApplicationContext(), Global.USER_FULLNAME,
-								fullname));
+						etPhone.setText(phone);
+						etBirthday.setText(bday);
+						etFullName.setText(fullname);
 //						etUserName.setText(Global.getPreference(getActivity()
 //								.getApplicationContext(), Global.USER_FULLNAME,
 //								fullname));
