@@ -80,19 +80,6 @@ public class ListPhuotFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 
-				/*
-				 * Bundle b = new Bundle(); b.putString("maDiemPhuot",
-				 * listPhuot.get(position) .getMaDiemphuot());
-				 * b.putString("tenDiemPhuot", listPhuot.get(position)
-				 * .getTenDiemphuot()); b.putString("lat_diemphuot",
-				 * listPhuot.get(position).getLat());
-				 * b.putString("lon_diemphuot",
-				 * listPhuot.get(position).getLon()); b.putString("ghiChu",
-				 * listPhuot.get(position).getGhichu());
-				 * b.putInt("trangThaiChuan", listPhuot.get(position)
-				 * .getTrangthaiChuan()); b.putString("image",
-				 * listPhuot.get(position).getImage());
-				 */
 				Context context = getActivity();
 				com.hou.app.Global.savePreference(context, "maDiemPhuot",
 						listPhuot.get(position).getMaDiemphuot());
@@ -111,7 +98,6 @@ public class ListPhuotFragment extends Fragment {
 
 				Intent intent = new Intent(getActivity(),
 						PhuotDetailManager.class);
-				// intent.putExtra("myBundle",b);
 				startActivity(intent);
 			}
 		});
@@ -153,8 +139,8 @@ public class ListPhuotFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				// TODO Auto-generated method stub
-//				Toast.makeText(getActivity().getBaseContext(), getString(R.string.pulltorefresh),
-//						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity().getBaseContext(), getString(R.string.pulltorefresh),
+						Toast.LENGTH_SHORT).show();
 				DeviceStatus ds = new DeviceStatus();
 				String a = ds.getCurrentConnection(getActivity());
 				if (a.equals("Wifi") || a.equals("3G")) {

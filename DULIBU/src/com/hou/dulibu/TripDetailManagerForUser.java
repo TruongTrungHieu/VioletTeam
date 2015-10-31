@@ -3,11 +3,7 @@ package com.hou.dulibu;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import com.hou.adapters.TripForUserViewPagerAdapter;
-import com.hou.adapters.TripForUserViewPagerAdapter;
-import com.hou.adapters.TripForUserViewPagerAdapter;
-import com.hou.sliding_tab.TripForUserSlidingTabLayout;
 import com.hou.sliding_tab.TripForUserSlidingTabLayout;
 
 import android.graphics.Color;
@@ -15,15 +11,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.Toast;
-import android.widget.TabHost.TabSpec;
 
 public class TripDetailManagerForUser extends ActionBarActivity {
 
 	private Menu currentMenu;
-	private TabHost tabHost;
-	private TabSpec infoSpec, tripSpec;
 
 	Toolbar toolbar;
 	ViewPager pager;
@@ -75,29 +66,30 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 		return true;
 	}
 
-	private void saveAction(Menu menu){
-		currentMenu = menu;
-		currentMenu.getItem(0).setVisible(false);
-		currentMenu.getItem(1).setVisible(true);
-		Toast.makeText(getBaseContext(), getString(R.string.actionSave), Toast.LENGTH_LONG).show();
-	}
-	private void UndoSaveAction(Menu menu){
-		currentMenu = menu;
-		currentMenu.getItem(0).setVisible(true);
-		currentMenu.getItem(1).setVisible(false);
-		Toast.makeText(getBaseContext(), getString(R.string.actionUndoSave), Toast.LENGTH_LONG).show();
-	}
+//	private void saveAction(Menu menu){
+//		currentMenu = menu;
+//		currentMenu.getItem(0).setVisible(false);
+//		currentMenu.getItem(1).setVisible(true);
+//		Toast.makeText(getBaseContext(), getString(R.string.actionSave), Toast.LENGTH_LONG).show();
+//	}
+//	private void UndoSaveAction(Menu menu){
+//		currentMenu = menu;
+//		currentMenu.getItem(0).setVisible(true);
+//		currentMenu.getItem(1).setVisible(false);
+//		Toast.makeText(getBaseContext(), getString(R.string.actionUndoSave), Toast.LENGTH_LONG).show();
+//	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		int id = item.getItemId();
 		switch (id) {
-		case R.id.btnSaveTripForUser:
+		/*case R.id.btnSaveTripForUser:
 			saveAction(currentMenu);
 			break;
 		case R.id.btnUnSaveTripForUser:
 			UndoSaveAction(currentMenu);
-			break;
+			break;*/
 		case android.R.id.home:
 			onBackPressed();
 			break;

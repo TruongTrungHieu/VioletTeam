@@ -1,12 +1,6 @@
 package com.hou.dulibu;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -331,6 +322,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 		});
 	}
 
+	@SuppressWarnings("deprecation")
 	private void NoticeRegisSuccsess(String title, String content) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
@@ -353,6 +345,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 		alertDialog.show();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void NoticeRegisFalse(String title, String content) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 

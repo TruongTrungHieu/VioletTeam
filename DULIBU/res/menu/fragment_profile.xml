@@ -6,12 +6,12 @@
 
     <item
         android:id="@+id/editting_actionbar"
-        android:icon="@drawable/edit_actionbar"
+        android:icon="@drawable/ic_edit_white_36dp"
         android:title="@string/edit_profile_actionbar"
         app:showAsAction="always"/>
     <item
         android:id="@+id/done_setting_actionbar"
-        android:icon="@drawable/done_setting"
+        android:icon="@drawable/ic_done_white_36dp"
         android:title="@string/done_profile_actionbar"
         app:showAsAction="always"/>
 

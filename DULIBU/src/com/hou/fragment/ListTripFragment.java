@@ -95,23 +95,21 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 			@Override
 			public void onRefresh() {
 				// TODO Auto-generated method stub
+				Toast.makeText(getActivity().getBaseContext(), getString(R.string.pulltorefresh),
+						Toast.LENGTH_SHORT).show();
 				lichtrinh.clear();
 				LoadDataFromServer();
 				Handler h = new Handler();
 				h.postDelayed(new Runnable() {
-
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						swipeRefreshLayout.setRefreshing(false);
 					}
 				}, 3000);
-
 			}
 		});
-
 		return view;
-
 	}
 
 	@Override
@@ -124,7 +122,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 //			Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "0");
 			lichtrinh.clear();
 			LoadDataFromServer();
-
 //		}
 
 	}
@@ -234,7 +231,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 																			TripDetailManagerForUser.class);
 																}
 																startActivity(intent);
-
 															}
 														});
 											}
@@ -247,7 +243,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 										Log.e("false_send", content + "");
 									}
 								});
-
 						return;
 					}
 				});
@@ -262,7 +257,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		if (pDialog != null) {
 			pDialog.dismiss();
 		}
-
 	}
 
 	@Override
@@ -272,7 +266,6 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		if (pDialog != null) {
 			pDialog.dismiss();
 		}
-
 	}
 
 	@Override

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hou.dulibu.TripDetailManagerForUser" >
 
-    <item
+   <!--  <item
         android:id="@+id/btnSaveTripForUser"
         android:icon="@drawable/ic_star_outline_black_48dp"
         android:title="@string/save_trip"
@@ -12,5 +12,5 @@
         android:id="@+id/btnUnSaveTripForUser"
         android:icon="@drawable/ic_star_black_48dp"
         android:title="@string/save_trip"
-        app:showAsAction="always"/>
+        app:showAsAction="always"/> -->
 </menu>

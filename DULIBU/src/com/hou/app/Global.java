@@ -128,12 +128,12 @@ public class Global {
 	// Start tracking first time
 	public static boolean FIRST_TIME_TRACKING = false;
 	
-	public static int PAGE_PHUOT;
+	public static String PAGE_PHUOT = "page_phươt";
 	public static int PAGE_PHUOT_DEFAULT = 1;
 	
-	// ChangeMap
-	// public String MAP_TYPE = getPreference(Context.MODE_PRIVATE,
-	// "lat_diemphuot", "89");
+	// TRANG THAI AN TOAN
+	public static String STATUS_SAFE = "status";
+	
 	/*
 	 * End ShareReferences Key and Default value
 	 */

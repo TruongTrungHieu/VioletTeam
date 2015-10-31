@@ -13,29 +13,24 @@ import org.json.JSONObject;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.hou.app.Global;
-import com.hou.fragment.ProfileFragment.ImageDialog;
 import com.hou.ultis.ImageUltiFunctions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.database_handler.ExecuteQuery;
-import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
 import com.hou.model.Diemphuot;
 import com.hou.model.Tinh_Thanhpho;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -71,8 +66,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
 public class CreateTripManagerActivity extends ActionBarActivity implements
 		OnMapReadyCallback {
 	private Spinner spStartPlace;
@@ -407,14 +400,15 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 			public void onMapClick(LatLng arg0) {
 				// TODO Auto-generated method stub
 				listTouch = new ArrayList<Diemphuot>();
+				listTouch.clear();
 				mMap.clear();
 				// Loop for searching Diemphuot
 				for (Diemphuot dp : listAll) {
 					LatLng dpLL = new LatLng(Double.parseDouble(dp.getLat()),
 							Double.parseDouble(dp.getLat()));
 					double distance = CalculationByDistance(arg0, dpLL);
-					// 5km
-					if ((distance > 0) && (distance < 0.001)) {
+					// radius: 100km
+					if ((distance > 0) && (distance < 0.01)) {
 						mMap.addMarker(new MarkerOptions()
 								.position(
 										new LatLng(Double.parseDouble(dp
@@ -423,7 +417,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 								.title(dp.getTenDiemphuot())
 								.icon(BitmapDescriptorFactory
 										.fromResource(R.drawable.marker_touch))
-								.snippet(dp.getMaDiemphuot()));
+								.snippet(dp.getDiachi()));
 						listTouch.add(dp);
 					}
 				}
@@ -486,6 +480,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						listCreate.clear();
 						dialog.dismiss();
 						removeFragmentMaps();
 						return;
@@ -515,7 +510,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 					.title(dp.getTenDiemphuot())
 					.icon(BitmapDescriptorFactory
 							.fromResource(R.drawable.marker_touch))
-					.snippet(dp.getMaDiemphuot()));
+					.snippet(dp.getDiachi()));
 		}
 	}
 
@@ -529,7 +524,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 					.title(dp.getTenDiemphuot())
 					.icon(BitmapDescriptorFactory
 							.fromResource(R.drawable.marker_choice))
-					.snippet(dp.getMaDiemphuot()));
+					.snippet(dp.getDiachi()));
 		}
 	}
 
@@ -541,19 +536,16 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 								Double.parseDouble(startPlace.getLon())))
 				.title(startPlace.getTenTinh())
 				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.marker_start_end_places))
-				.snippet(startPlace.getMaTinh()));
+						.fromResource(R.drawable.marker_start_end_places)));
 
 		// Start
-		if (endPlace != null)
 		mMap.addMarker(new MarkerOptions()
 				.position(
 						new LatLng(Double.parseDouble(endPlace.getLat()),
 								Double.parseDouble(endPlace.getLon())))
 				.title(endPlace.getTenTinh())
 				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.marker_start_end_places))
-				.snippet(endPlace.getMaTinh()));
+						.fromResource(R.drawable.marker_start_end_places)));
 
 		// Diemphuot thuoc Start + end
 		for (Diemphuot dp : listPlace) {
@@ -564,7 +556,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 					.title(dp.getTenDiemphuot())
 					.icon(BitmapDescriptorFactory
 							.fromResource(R.drawable.marker_touch))
-					.snippet(dp.getMaDiemphuot()));
+					.snippet(dp.getDiachi()));
 		}
 	}
 
@@ -869,6 +861,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 				});
 	}
 
+	@SuppressWarnings("deprecation")
 	private void NoticeRegisSuccsess() {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
@@ -891,6 +884,7 @@ public class CreateTripManagerActivity extends ActionBarActivity implements
 		alertDialog.show();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void NoticeRegisFalse() {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 

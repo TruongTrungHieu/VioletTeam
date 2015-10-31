@@ -1,9 +1,7 @@
 package com.hou.fragment;
 
-import com.hou.dulibu.ChangeMap;
 import com.hou.dulibu.Change_Password_Activity;
 import com.hou.dulibu.R;
-import com.hou.dulibu.SettingActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,7 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class SettingFragment extends Fragment {
-	private TextView change_password,dieukhoan, changeMap;
+	private TextView change_password,dieukhoan;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.setting_layout, container, false);
@@ -39,16 +37,6 @@ public class SettingFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				showDialog();
-			}
-		});
-	    changeMap = (TextView) view.findViewById(R.id.tvChangeMap);
-	    changeMap.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(), ChangeMap.class);
-				startActivity(intent);
 			}
 		});
 		return view;

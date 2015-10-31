@@ -36,7 +36,7 @@
     <string name="update_ava_success">Avatar đã được cập nhật</string>
     <string name="update_ava_false">Cập nhật avatar thất bại</string>
     <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
-
+    
     <!-- change_pass -->
     <string name="old_pass">Mật khẩu cũ</string>
     <string name="change_succes">Đổi mật khẩu thành công</string>
@@ -85,7 +85,7 @@
 
     <!-- Setting -->
     <string name="tvNgonNgu">Ngôn ngữ</string>
-    <string name="tvDanhSachNguoiNhan">Danh sách người nhận</string>
+    <string name="tvDanhSachNguoiNhan">Danh sách người thân</string>
     <string name="title_activity_setting">Cài đặt</string>
     <string name="tvAccount">Tài khoản</string>
     <string name="tvChangePassword">Đổi mật khẩu</string>
@@ -176,7 +176,7 @@
     <string name="city_prompt">Chọn địa điểm</string>
 
     <!-- Dialog_active_register -->
-    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào mail của bạn \nVui lòng nhập Email !</string>
+    <string name="hintDialogForgetPass">Mật khẩu mới sẽ được gửi vào email của bạn \nVui lòng nhập Email !</string>
     <string name="hintDialogActive">Mã xác nhận</string>
     <string name="newpass">Mật khẩu mới</string>
     <string name="renewpass">Nhập lại mật khẩu mới</string>
@@ -399,5 +399,8 @@
     <!-- ListPhuotFragment -->
     <string name="pulltorefresh">Đang tải dữ liệu mới...</string>
     
+    <!-- ProfileFragment -->
+    <string name="status_safe">An toàn</string>
+    <string name="status_dangerous">Nguy hiểm</string>
     
 </resources>

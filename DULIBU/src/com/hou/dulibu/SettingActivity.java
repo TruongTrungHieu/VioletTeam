@@ -1,9 +1,9 @@
 package com.hou.dulibu;
 
 import android.support.v7.app.ActionBarActivity;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,22 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SettingActivity extends ActionBarActivity {
-	private TextView tvdieukhoan;
 	private Context context = this;
-    private TextView change_password,dieukhoan;
+	private TextView change_password, dieukhoan;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.setting_layout);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	    change_password = (TextView) findViewById(R.id.changepass);
-	    change_password.setOnClickListener(new OnClickListener() {
-			
+		change_password = (TextView) findViewById(R.id.changepass);
+		change_password.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -35,17 +33,19 @@ public class SettingActivity extends ActionBarActivity {
 				startActivity(intent);
 			}
 		});
-	    dieukhoan = (TextView) findViewById(R.id.txtThongtindieukhoan);
-	    dieukhoan.setOnClickListener(new OnClickListener() {
-			
+		
+		dieukhoan = (TextView) findViewById(R.id.txtThongtindieukhoan);
+		dieukhoan.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				showDialog();
 			}
 		});
-    }
-	
+	}
+
+	@SuppressLint("InflateParams")
 	public void showDialog() {
 		final AlertDialog dialog = new AlertDialog.Builder(context).create();
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,7 +54,6 @@ public class SettingActivity extends ActionBarActivity {
 		dialog.show();
 	}
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -67,7 +67,8 @@
         </activity>
         <activity
             android:name=".RegisterManagerActivity"
-            android:label="@string/title_activity_register_manager" >
+            android:label="@string/title_activity_register_manager" 
+            android:theme="@style/CustomActionBarTheme">
         </activity>
         <activity
             android:name=".TripDetailManagerActivity"

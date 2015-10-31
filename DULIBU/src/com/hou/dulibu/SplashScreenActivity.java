@@ -100,7 +100,6 @@ public class SplashScreenActivity extends ActionBarActivity {
 					public void onSuccess(String response) {
 						Log.e("getListCity", response);
 						exeQ.insert_tbl_tinh_thanhpho_multi(listCity(response));
-
 					}
 
 					@Override

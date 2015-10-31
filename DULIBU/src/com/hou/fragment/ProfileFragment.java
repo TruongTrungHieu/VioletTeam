@@ -5,7 +5,6 @@ import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,13 +16,10 @@ import java.util.Locale;
 import com.hou.app.Global;
 import com.hou.dulibu.ProfileManagerActivity;
 import com.hou.dulibu.R;
-import com.hou.dulibu.SettingActivity;
-import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
 import com.hou.model.Trangthai_User;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
 import com.hou.upload.ImageDownloader;
-import com.hou.upload.MD5;
 import com.hou.upload.imageOnServer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -35,7 +31,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -111,9 +106,21 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		pathAvartar = Global.getPreference(getActivity(), Global.USER_AVATAR,
 				"");
 		initView(view);
+		
+		// STATUS SAFE
 		statusList = new ArrayList<Trangthai_User>();
 		statusList.add(new Trangthai_User("1", "An toàn", "brown"));
 		statusList.add(new Trangthai_User("2", "Nguy hiểm", "green"));
+		if (Global.getIntPreference(getActivity(), Global.STATUS_SAFE, 1) == 1) {
+			ivStatus.setBackgroundResource(R.drawable.sos_ic_fine);
+			ivStatus.setImageResource(R.drawable.sos_ic_fine);
+			tvStatus.setText(getResources().getString(R.string.status_safe));
+		} else {
+			ivStatus.setBackgroundResource(R.drawable.sos_ic_dangerous);
+			ivStatus.setImageResource(R.drawable.sos_ic_dangerous);
+			tvStatus.setText(getResources().getString(R.string.status_dangerous));
+		}
+		
 		File f = ImageUltiFunctions.getFileFromUri(Global
 				.getURI(getFileName(pathAvartar)));
 		if (f != null) {
@@ -256,11 +263,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.done_setting_actionbar:
 			
-			// setDisable();
-			//etBirthday.setError(null);
-			
 			birthday2 = etBirthday.getText().toString().toLowerCase();
-			
 			fullname2 = etFullName.getText().toString().toLowerCase();
 			phone2 = etPhone.getText().toString().toLowerCase();
 			if (fullname2.equals("")) {
@@ -293,8 +296,6 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 								//FillDataProfile();
 								setDisable();
 							}
-							
-							
 						} else {
 							etBirthday.setError(getString(R.string.error_tuoi));
 							etBirthday.requestFocus();
@@ -305,29 +306,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 					}
 				}
 			}
-				
-			
-			
-			
-			
-			
-			
-			
-
-			// isDataChange();
-
-			// if(isDataChange()){}
-			// else{
-			// Toast.makeText(getActivity(), "cho phep thay doi data ",
-			// Toast.LENGTH_SHORT).show();
-			// }
 			break;
-		/*
-		 * case R.id.setting: Intent intent = new Intent(getActivity(),
-		 * SettingActivity.class); startActivity(intent); break;
-		 */
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -389,10 +369,6 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	@SuppressWarnings("deprecation")
 	private boolean checkValidateAge() {
 		boolean check = true;
-
-		//birthday2 = etBirthday.getText().toString().toLowerCase();
-		
-		
 		int tuoi = 0;
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
@@ -425,16 +401,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		return check;
 	}
+	
 	private boolean checkValidateChanged() {
 		boolean check = true;
-
 		if(fullname.equals(fullname2) && birthday.equals(birthday2) && phone.equals(phone2) ){
 			check = false;
 		}
-			
-	
-
-
 		return check;
 	}
 
@@ -601,15 +573,17 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				// TODO Auto-generated method stub
 				switch (arg2) {
 				case 0:
-					ivStatus.setBackgroundResource(R.drawable.item_pink);
-					ivStatus.setImageResource(R.drawable.icon_fine);
+					ivStatus.setBackgroundResource(R.drawable.sos_ic_fine);
+					ivStatus.setImageResource(R.drawable.sos_ic_fine);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
+					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE, 1);
 					dialog.dismiss();
 					break;
 				case 1:
-					ivStatus.setBackgroundResource(R.drawable.item_green);
-					ivStatus.setImageResource(R.drawable.icon_address);
+					ivStatus.setBackgroundResource(R.drawable.sos_ic_dangerous);
+					ivStatus.setImageResource(R.drawable.sos_ic_dangerous);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
+					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE, 2);
 					dialog.dismiss();
 					break;
 				default:
@@ -621,7 +595,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		wmlp.width = (int) (screenSize.x * 0.55);
 		wmlp.gravity = Gravity.TOP | Gravity.LEFT;
 		wmlp.x = ivStatus.getLeft();
-		wmlp.y = ivStatus.getTop() + 230;
+		wmlp.y = ivStatus.getTop() + 400;
 
 		dialog.getWindow().clearFlags(
 				WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -669,16 +643,16 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			holder.name.setText(status.getTenTrangthai());
 			switch (status.getGhichu()) {
 			case "brown":
-				holder.icon.setBackgroundResource(R.drawable.item_pink);
-				holder.icon.setImageResource(R.drawable.icon_fine);
+				holder.icon.setBackgroundResource(R.drawable.sos_ic_fine);
+				holder.icon.setImageResource(R.drawable.sos_ic_fine);
 				break;
 			case "green":
-				holder.icon.setBackgroundResource(R.drawable.item_green);
-				holder.icon.setImageResource(R.drawable.icon_address);
+				holder.icon.setBackgroundResource(R.drawable.sos_ic_dangerous);
+				holder.icon.setImageResource(R.drawable.sos_ic_dangerous);
 				break;
 			default:
-				holder.icon.setBackgroundResource(R.drawable.item_brown);
-				holder.icon.setImageResource(R.drawable.item_brown);
+				holder.icon.setBackgroundResource(R.drawable.sos_ic_fine);
+				holder.icon.setImageResource(R.drawable.sos_ic_fine);
 				break;
 			}
 		}

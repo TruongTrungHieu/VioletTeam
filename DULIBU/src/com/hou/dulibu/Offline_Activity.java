@@ -11,19 +11,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,11 +35,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.hou.adapters.KhoanChiArrayAdapter;
 import com.hou.adapters.SuKienAdapter;
 import com.hou.app.Global;
-import com.hou.dulibu.RegisterManagerActivity.DatePickerFragment;
-import com.hou.model.Chitieu;
 import com.hou.model.Sukien;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -57,7 +51,6 @@ public class Offline_Activity extends ActionBarActivity {
 	SuKienAdapter adapter = null;
 	ListView lvSukien = null;
 	String maLichTrinh = "";
-	private EditText edtThoiGian;
 	private static String thoigian_sk = "";
 	EditText txtTenSuKien;
 	EditText txtThoigian;
@@ -82,7 +75,6 @@ public class Offline_Activity extends ActionBarActivity {
 	public void loadData() {
 		arrSuKien = arrEvent;
 		lvSukien.setAdapter(adapter);
-
 	}
 
 	private void createEvent(String tripId, String name, String time,
@@ -102,57 +94,51 @@ public class Offline_Activity extends ActionBarActivity {
 				+ "?access_token="
 				+ Global.getPreference(getBaseContext(),
 						Global.USER_ACCESS_TOKEN, "");
-		client.post(url	, params,
-				new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-						Log.e("createNewTrip", response);
+		client.post(url, params, new AsyncHttpResponseHandler() {
+			public void onSuccess(String response) {
+				Log.e("createNewTrip", response);
 
-						if (executeWhenRegisterSuccess(response)) {
+				if (executeWhenRegisterSuccess(response)) {
 
-						} else {
-							Toast.makeText(getApplicationContext(),
-									"Khong tao duoc su kien", Toast.LENGTH_LONG)
-									.show();
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"Khong tao duoc su kien", Toast.LENGTH_LONG).show();
 
-						}
-					}
+				}
+			}
 
-					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
-						Log.d("Tao su kien that bai", content);
-					}
-				});
+			@Override
+			public void onFailure(int statusCode, Throwable error,
+					String content) {
+				Log.d("Tao su kien that bai", content);
+			}
+		});
 	}
 
 	public void getEvent(String idTrip) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
 		params.put("id", idTrip);
-		params.put("access_token",
-				Global.getPreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, ""));
+		params.put("access_token", Global.getPreference(
+				getApplicationContext(), Global.USER_ACCESS_TOKEN, ""));
 
 		client.get(Global.BASE_URI + "/" + Global.URI_GETEVENT_PATH, params,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("getEvent", response);
-
 						listEvent(response);
 						loadData();
-
 					}
 
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
 						Log.e("LayListEvent", content);
-
 					}
 				});
 	}
 
 	private String listEvent(String response) {
-
 		try {
 			JSONArray arrObj = new JSONArray(response);
 			for (int i = 0; i < arrObj.length(); i++) {
@@ -319,7 +305,7 @@ public class Offline_Activity extends ActionBarActivity {
 
 	}
 
-	private void addEvent() {
+	@SuppressLint("InflateParams") private void addEvent() {
 
 		// Toast.makeText(getApplication(),"Select form add Chi tiet",
 		// Toast.LENGTH_SHORT).show();
@@ -502,8 +488,6 @@ public class Offline_Activity extends ActionBarActivity {
 	private void xulyNhap() {
 
 		String ten, thoigian, diadiem;
-		String lat = "0";
-		String lon = "0";
 		ten = txtTenSuKien.getText().toString();
 		thoigian = txtThoigian.getText().toString();
 		diadiem = txtDiadiem.getText().toString();
@@ -515,8 +499,8 @@ public class Offline_Activity extends ActionBarActivity {
 		}
 
 		Sukien sk = new Sukien();
-		sk.setLat("");
-		sk.setLon("");
+		sk.setLat("0");
+		sk.setLon("0");
 		Address vitri = getLocationFromAddress(diadiem);
 		if (vitri != null) {
 			sk.setLat(vitri.getLatitude() + "");
