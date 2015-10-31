@@ -60,9 +60,9 @@ public class TripDetailManagerForUser extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.trip_detail_manager_for_user_menu, menu);
 		
-		currentMenu = menu;
-		currentMenu.getItem(0).setVisible(true);
-		currentMenu.getItem(1).setVisible(false);
+//		currentMenu = menu;
+//		currentMenu.getItem(0).setVisible(true);
+//		currentMenu.getItem(1).setVisible(false);
 		return true;
 	}
 
