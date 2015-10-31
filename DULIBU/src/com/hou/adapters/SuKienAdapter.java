@@ -44,7 +44,7 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		LayoutInflater inflater = context.getLayoutInflater();
-		convertView = inflater.inflate(layoutId, parent, false);
+		convertView = inflater.inflate(layoutId, null);
 
 		if (myArray.size() > 0 && position >= 0) {
 

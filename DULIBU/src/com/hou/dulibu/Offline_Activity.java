@@ -62,19 +62,21 @@ public class Offline_Activity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_offline);
-		adapter = new SuKienAdapter(this, R.layout.sukien_item, arrSuKien);
+		
 
 		maLichTrinh = com.hou.app.Global.getPreference(getBaseContext(),
 				Global.TRIP_TRIP_ID, "Viet");
 		lvSukien = (ListView) findViewById(R.id.lvMap);
+		adapter = new SuKienAdapter(this, R.layout.sukien_item, arrEvent);
+		lvSukien.setAdapter(adapter);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		getEvent(maLichTrinh);
 	}
 
 	public void loadData() {
-		arrSuKien = arrEvent;
-		lvSukien.setAdapter(adapter);
+		arrSuKien = arrEvent;		
+		adapter.notifyDataSetChanged();
 	}
 
 	private void createEvent(String tripId, String name, String time,
@@ -127,7 +129,7 @@ public class Offline_Activity extends ActionBarActivity {
 					public void onSuccess(String response) {
 						Log.e("getEvent", response);
 						listEvent(response);
-						loadData();
+						
 					}
 
 					@Override
@@ -135,6 +137,17 @@ public class Offline_Activity extends ActionBarActivity {
 							String content) {
 						Log.e("LayListEvent", content);
 					}
+
+					@Override
+					public void onFinish() {
+						// TODO Auto-generated method stub
+						super.onFinish();
+						
+						//loadData();
+						adapter.notifyDataSetChanged();
+					}
+					
+					
 				});
 	}
 
