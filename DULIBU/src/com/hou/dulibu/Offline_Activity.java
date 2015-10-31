@@ -101,7 +101,8 @@ public class Offline_Activity extends ActionBarActivity {
 				Log.e("createNewTrip", response);
 
 				if (executeWhenRegisterSuccess(response)) {
-
+					Toast.makeText(getApplicationContext(),
+							"Tao su kien thanh cong", Toast.LENGTH_LONG).show();
 				} else {
 					Toast.makeText(getApplicationContext(),
 							"Khong tao duoc su kien", Toast.LENGTH_LONG).show();

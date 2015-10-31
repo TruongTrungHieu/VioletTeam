@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
     android:background="@drawable/shadow_sukien_bg"
     android:orientation="vertical" >
 
-
-
     <com.google.android.gms.maps.MapView
-        xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        map:cameraZoom="25"
-        map:liteMode="true"
-        map:mapType="normal" />
-
-    
-   
+        android:layout_marginRight="5dp" />
 
     <TextView
         android:id="@+id/tvTenSuKien"
@@ -48,9 +38,9 @@
         android:id="@+id/tvThoiGian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
         android:text="@string/str_thoigian"
         android:textColor="@color/ActionBarColor"
         android:textSize="14sp" />
