@@ -83,7 +83,7 @@ public class Offline_Activity extends ActionBarActivity {
 			String lat, String lon) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-
+		final Sukien newSK = new Sukien(tripId,maLichTrinh,name,time,"",lat,lon);		
 		params.put("trip_id", tripId);
 		params.put("name", name);
 		params.put("time", time);
@@ -115,6 +115,16 @@ public class Offline_Activity extends ActionBarActivity {
 					String content) {
 				Log.d("Tao su kien that bai", content);
 			}
+
+			@Override
+			public void onFinish() {
+				// TODO Auto-generated method stub
+				super.onFinish();
+				arrEvent.add(newSK);
+				adapter.notifyDataSetChanged();
+			}
+			
+			
 		});
 	}
 
