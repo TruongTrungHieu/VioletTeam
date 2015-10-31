@@ -23,8 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.dulibu.R;
 import com.hou.model.Sukien;
 
-public class SuKienAdapter extends ArrayAdapter<Sukien> implements
-		OnMapReadyCallback {
+public class SuKienAdapter extends ArrayAdapter<Sukien> implements OnMapReadyCallback{
 
 	Activity context = null;
 	ArrayList<Sukien> myArray = null;

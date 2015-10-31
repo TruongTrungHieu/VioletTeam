@@ -595,7 +595,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		wmlp.width = (int) (screenSize.x * 0.55);
 		wmlp.gravity = Gravity.TOP | Gravity.LEFT;
 		wmlp.x = ivStatus.getLeft();
-		wmlp.y = ivStatus.getTop() + 400;
+		wmlp.y = ivStatus.getTop() + 225;
 
 		dialog.getWindow().clearFlags(
 				WindowManager.LayoutParams.FLAG_DIM_BEHIND);
