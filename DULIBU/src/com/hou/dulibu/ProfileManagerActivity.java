@@ -43,12 +43,11 @@ import it.neokree.materialnavigationdrawer.elements.listeners.MaterialAccountLis
 import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionListener;
 
 @SuppressWarnings("rawtypes")
-public class ProfileManagerActivity extends MaterialNavigationDrawer implements
-		MaterialAccountListener {
+public class ProfileManagerActivity extends MaterialNavigationDrawer implements MaterialAccountListener {
 
 	private MaterialAccount account;
-	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip,
-			mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip, mnuSetting;
+	private MaterialSection<Fragment> mnuInfo, mnuMyMap, mnuMyTrip, mnuDiemPhuot, mnuLogout, mnuAbout, mnuLstTrip,
+			mnuSetting;
 	Bitmap b;
 
 	private File avaFile;
@@ -65,64 +64,53 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 	public void init(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 
-		String fullname = Global.getPreference(getApplicationContext(),
-				Global.USER_FULLNAME, "");
-		String avatarUrl = Global.getPreference(getApplicationContext(),
-				Global.USER_AVATAR, "");
+		String fullname = Global.getPreference(getApplicationContext(), Global.USER_FULLNAME, "");
+		String avatarUrl = Global.getPreference(getApplicationContext(), Global.USER_AVATAR, "");
 		String[] temp = avatarUrl.split("/");
 		String fileName = temp[temp.length - 1];
-		setAccount(new MaterialAccount(this.getResources(),
-				fullname.toUpperCase(), "", R.drawable.ic_launcher,
+		setAccount(new MaterialAccount(this.getResources(), fullname.toUpperCase(), "", R.drawable.ic_launcher,
 				R.drawable.default_bg));
 		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(fileName));
 		if (f != null) {
 			b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500, 500);
 		}
 
-		account = new MaterialAccount(this.getResources(),
-				fullname.toUpperCase(), "", b, R.drawable.default_bg);
+		account = new MaterialAccount(this.getResources(), fullname.toUpperCase(), "", b, R.drawable.default_bg);
 		this.addAccount(account);
 		this.disableLearningPattern();
 
-		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan),
-				R.drawable.icon_profile, new ProfileFragment());
+		mnuInfo = newSection(getString(R.string.menuThongTinCaNhan), R.drawable.icon_profile, new ProfileFragment());
 		this.addSection(mnuInfo);
 
 		// Intent mnuLstTrip = new Intent(ProfileManagerActivity.this,
 		// ListTripFragment.class);
 		// mnuLstTrip.putExtra("NameIntent", "mnuLstTrip");
 
-		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi),
-				R.drawable.icon_list_trip, new ListTripFragment()));
+		this.addSection(newSection(getString(R.string.menuDanhSachChuyenDi), R.drawable.icon_list_trip,
+				new ListTripFragment()));
 
-		this.addSection(newSection(getString(R.string.menuDiemPhuot),
-				R.drawable.icon_place, new ListPhuotFragment()));
+		this.addSection(newSection(getString(R.string.menuDiemPhuot), R.drawable.icon_place, new ListPhuotFragment()));
 
-		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi),
-				R.drawable.icon_heart, new MyTrips());
+		mnuMyTrip = newSection(getString(R.string.menuChuyenDiCuaToi), R.drawable.icon_heart, new MyTrips());
 		this.addSection(mnuMyTrip);
 
-		mnuMyMap = newSection(getString(R.string.menuBanDo),
-				R.drawable.icon_map, new MapFragment());
+		mnuMyMap = newSection(getString(R.string.menuBanDo), R.drawable.icon_map, new MapFragment());
 		this.addSection(mnuMyMap);
 
-		mnuSetting = newSection(getString(R.string.menuCaiDat),
-				R.drawable.icon_setting, new SettingFragment());
+		mnuSetting = newSection(getString(R.string.menuCaiDat), R.drawable.icon_setting, new SettingFragment());
 		this.addSection(mnuSetting);
 
-		mnuLogout = newSection(getString(R.string.menuDangXuat),
-				R.drawable.icon_logout, new MaterialSectionListener() {
+		mnuLogout = newSection(getString(R.string.menuDangXuat), R.drawable.icon_logout, new MaterialSectionListener() {
 
-					@Override
-					public void onClick(MaterialSection section) {
-						// TODO Auto-generated method stub
-						logoutToServer();
-					}
-				});
+			@Override
+			public void onClick(MaterialSection section) {
+				// TODO Auto-generated method stub
+				logoutToServer();
+			}
+		});
 		this.addSection(mnuLogout);
 
-		mnuAbout = newSection(getString(R.string.menuThongTin),
-				R.drawable.icon_about, new ThongTinUngDung());
+		mnuAbout = newSection(getString(R.string.menuThongTin), R.drawable.icon_about, new ThongTinUngDung());
 		this.addSection(mnuAbout);
 
 		Global.getSocketServer(this).on(".join", new Emitter.Listener() {
@@ -134,15 +122,12 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 				Log.d(".Join_check", data.toString());
 				String user_id = Global.readFile("18/11/1994");
 				try {
-					if (data.getJSONObject("sender").optString("_id")
-							.equals(user_id)) {
-						if (data.optString("timestamp").compareTo(
-								Global.TIMESTAMP) != 0) {
+					if (data.getJSONObject("sender").optString("_id").equals(user_id)) {
+						if (data.optString("timestamp").compareTo(Global.TIMESTAMP) != 0) {
 							// logout here
 							// Toast.makeText(ProfileManagerActivity.this,
 							// "Bị hack cmnr", Toast.LENGTH_SHORT).show();
-							NoticeRegisFalse("Nguy hiểm!",
-									"Tài khoản của bạn đã bị đăng nhập ở một nơi khác!");
+							NoticeRegisFalse("Nguy hiểm!", "Tài khoản của bạn đã bị đăng nhập ở một nơi khác!");
 
 						}
 					}
@@ -196,50 +181,41 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		AsyncHttpClient client = new AsyncHttpClient();
 		// RequestParams params = new RequestParams();
 
-		String access_token = Global.getPreference(getApplicationContext(),
-				Global.USER_ACCESS_TOKEN, Global.ACCESS_TOKEN_DEFAULT);
-		Intent intent = new Intent(ProfileManagerActivity.this,
-				LoginManagerActivity.class);
+		String access_token = Global.getPreference(getApplicationContext(), Global.USER_ACCESS_TOKEN,
+				Global.ACCESS_TOKEN_DEFAULT);
+		Intent intent = new Intent(ProfileManagerActivity.this, LoginManagerActivity.class);
 		startActivity(intent);
-
+		finish();
 		// params.put("access_token", access_token);
 
-		client.post(Global.BASE_URI + "/" + Global.URI_DANGXUAT_PATH
-				+ "?access_token=" + access_token,
+		client.post(Global.BASE_URI + "/" + Global.URI_DANGXUAT_PATH + "?access_token=" + access_token,
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("logoutToServer", response);
-						Global.savePreference(getApplicationContext(),
-								Global.USER_ACCESS_TOKEN, null);
+						Global.savePreference(getApplicationContext(), Global.USER_ACCESS_TOKEN, null);
 
-						Global.getSocketServer(ProfileManagerActivity.this)
-								.disconnect();
+						Global.getSocketServer(ProfileManagerActivity.this).disconnect();
 
 					}
 
 					@Override
-					public void onFailure(int statusCode, Throwable error,
-							String content) {
+					public void onFailure(int statusCode, Throwable error, String content) {
 						switch (statusCode) {
 
 						case 400:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e400),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e400),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 403:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e403),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e403),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 404:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e404),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e404),
 									Toast.LENGTH_LONG).show();
 							break;
 						case 503:
-							Toast.makeText(getApplicationContext(),
-									getResources().getString(R.string.e503),
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.e503),
 									Toast.LENGTH_LONG).show();
 							break;
 						default:
@@ -247,6 +223,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 						}
 					}
 				});
+		finish();
 	}
 
 	private void NoticeRegisFalse(String title, String content) {
@@ -263,8 +240,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// do something!
-				startActivity(new Intent(getBaseContext(),
-						LoginManagerActivity.class));
+				startActivity(new Intent(getBaseContext(), LoginManagerActivity.class));
 			}
 		});
 

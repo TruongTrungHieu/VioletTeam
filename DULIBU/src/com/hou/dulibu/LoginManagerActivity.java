@@ -156,6 +156,7 @@ public class LoginManagerActivity extends ActionBarActivity {
 					Intent intent = new Intent(LoginManagerActivity.this, ProfileManagerActivity.class);
 					pb.setVisibility(View.GONE);
 					startActivity(intent);
+					finish();
 				} else {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_again),
 							Toast.LENGTH_LONG).show();
