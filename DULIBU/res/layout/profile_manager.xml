@@ -11,6 +11,14 @@
         android:background="#FFF"
         android:orientation="vertical" >
 
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" 
+            android:visibility="gone"/>
+
         <RelativeLayout
             android:id="@+id/rlImgInfo"
             android:layout_width="match_parent"
@@ -19,7 +27,7 @@
             android:background="@drawable/default_cover"
             android:orientation="vertical" >
 
-            <com.hou.ultis.CircularImageView
+            <com.hou.ultis.CircleImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
@@ -180,7 +188,7 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <com.hou.ultis.CircularImageView
+        <com.hou.ultis.CircleImageView
             android:id="@+id/ivStatus"
             android:layout_width="50dp"
             android:layout_height="50dp"

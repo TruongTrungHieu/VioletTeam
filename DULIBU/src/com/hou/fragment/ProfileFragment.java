@@ -17,6 +17,7 @@ import com.hou.app.Global;
 import com.hou.dulibu.ProfileManagerActivity;
 import com.hou.dulibu.R;
 import com.hou.model.Trangthai_User;
+import com.hou.ultis.CircleImageView;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
 import com.hou.upload.ImageDownloader;
@@ -33,6 +34,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,6 +59,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,13 +68,13 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private Menu currentMenu;
 	public static Point screenSize = new Point();
 	RelativeLayout lnImgInfo;
-	CircularImageView ivProfile;
+	CircleImageView ivProfile;
 	TextView tvUserName, tvStatus;
 	EditText etFullName, etUserName, etEmail;
 	static EditText etBirthday;
 	EditText etPhone;
 	EditText etContact;
-	private CircularImageView ivStatus;
+	private CircleImageView ivStatus;
 	List<Trangthai_User> statusList;
 	private static final int PICK_FROM_CAMERA = 1;
 	private static final int PICK_FROM_FILE = 2;
@@ -84,6 +87,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	String pathAvartar = "";
 	private String email, birthday, contact, fullname, phone;
 	private String email2, birthday2, contact2, fullname2, phone2;
+	ProgressBar ivProfileProgress;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +110,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		pathAvartar = Global.getPreference(getActivity(), Global.USER_AVATAR,
 				"");
 		initView(view);
-		
+
 		// STATUS SAFE
 		statusList = new ArrayList<Trangthai_User>();
 		statusList.add(new Trangthai_User("1", "An toàn", "brown"));
@@ -118,9 +122,10 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		} else {
 			ivStatus.setBackgroundResource(R.drawable.sos_ic_dangerous);
 			ivStatus.setImageResource(R.drawable.sos_ic_dangerous);
-			tvStatus.setText(getResources().getString(R.string.status_dangerous));
+			tvStatus.setText(getResources()
+					.getString(R.string.status_dangerous));
 		}
-		
+
 		File f = ImageUltiFunctions.getFileFromUri(Global
 				.getURI(getFileName(pathAvartar)));
 		if (f != null) {
@@ -146,6 +151,13 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		String fileName;
 
 		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			ivProfileProgress.setVisibility(View.VISIBLE);
+		}
+
+		@Override
 		protected Void doInBackground(String... params) {
 			// TODO Auto-generated method stub
 
@@ -163,30 +175,34 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
-			super.onPostExecute(result);
+			super.onPostExecute(result);			
 			File file = ImageUltiFunctions.getFileFromUri(Global
 					.getURI(fileName));
-			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file, 500, 500);
+			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file,
+					500, 500);
 			ivProfile.setImageBitmap(bm);
 			ProfileManagerActivity activity = (ProfileManagerActivity) getActivity();
 			MaterialAccount account = activity.getAccount();
 			account.setPhoto(bm);
 			activity.setAccount(account);
+			ivProfileProgress.setVisibility(View.GONE);
 		}
 	}
 
 	public void initView(View view) {
 		lnImgInfo = (RelativeLayout) view.findViewById(R.id.rlImgInfo);
-		ivProfile = (CircularImageView) view.findViewById(R.id.ivProfile);
+		ivProfile = (CircleImageView) view.findViewById(R.id.ivProfile);
 		tvUserName = (TextView) view.findViewById(R.id.tvUserName);
 		etFullName = (EditText) view.findViewById(R.id.etFullName);
-		ivStatus = (CircularImageView) view.findViewById(R.id.ivStatus);
+		ivStatus = (CircleImageView) view.findViewById(R.id.ivStatus);
 		tvStatus = (TextView) view.findViewById(R.id.tvStatus);
 
 		etEmail = (EditText) view.findViewById(R.id.etEmail);
 		etBirthday = (EditText) view.findViewById(R.id.etBirthday);
 		etPhone = (EditText) view.findViewById(R.id.etPhone);
 		etContact = (EditText) view.findViewById(R.id.etContact);
+		
+		ivProfileProgress = (ProgressBar) view.findViewById(R.id.progressBar1);
 
 		ivProfile.setOnClickListener(this);
 		ivStatus.setOnClickListener(this);
@@ -205,7 +221,6 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		phone = Global.getPreference(getActivity().getApplicationContext(),
 				Global.USER_SDT, "");
 	}
-	
 
 	private void FillDataProfile() {
 		tvUserName.setText(Global.getPreference(getActivity(),
@@ -225,9 +240,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		} else {
 			tvUserName.setCompoundDrawablesWithIntrinsicBounds(
 					R.drawable.icon_female, 0, 0, 0);
-			
+
 		}
-		
+
 	}
 
 	@Override
@@ -255,53 +270,52 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			etFullName.requestFocus();
 			email = etEmail.getText().toString().toLowerCase();
 			birthday = etBirthday.getText().toString().toLowerCase();
-			contact =  Global.getPreference(getActivity(),
+			contact = Global.getPreference(getActivity(),
 					Global.USER_SDT_LIENHE, "");
 			fullname = etFullName.getText().toString().toLowerCase();
 			phone = etPhone.getText().toString().toLowerCase();
-		
+
 			break;
 		case R.id.done_setting_actionbar:
-			
+
 			birthday2 = etBirthday.getText().toString().toLowerCase();
 			fullname2 = etFullName.getText().toString().toLowerCase();
 			phone2 = etPhone.getText().toString().toLowerCase();
 			if (fullname2.equals("")) {
 				etFullName.requestFocus();
-				}
-			else{
+			} else {
 				if (birthday2.equals("")) {
-					etBirthday.requestFocus();						
-					}
-				else{
+					etBirthday.requestFocus();
+				} else {
 					if (phone2.equals("")) {
-						etPhone.requestFocus();						
-					}
-					else{
-						if (checkValidateAge()) {			
-							if(checkValidateChanged()){
-								postChangeInfo(Global.getPreference(getActivity(), Global.USER_EMAIL,
-										""), fullname2, birthday2,
+						etPhone.requestFocus();
+					} else {
+						if (checkValidateAge()) {
+							if (checkValidateChanged()) {
+								postChangeInfo(Global.getPreference(
+										getActivity(), Global.USER_EMAIL, ""),
+										fullname2, birthday2,
 										Global.getPreference(getActivity()
-												.getApplicationContext(), Global.USER_GIOITINH,
-												"1"), phone2, Global.getPreference(getActivity(), Global.USER_SDT_LIENHE,
-														""));
+												.getApplicationContext(),
+												Global.USER_GIOITINH, "1"),
+										phone2, Global.getPreference(
+												getActivity(),
+												Global.USER_SDT_LIENHE, ""));
 								currentMenu.getItem(0).setVisible(true);
 								currentMenu.getItem(1).setVisible(false);
 								setDisable();
-							}
-							else{
+							} else {
 								currentMenu.getItem(0).setVisible(true);
 								currentMenu.getItem(1).setVisible(false);
-								//FillDataProfile();
+								// FillDataProfile();
 								setDisable();
 							}
 						} else {
 							etBirthday.setError(getString(R.string.error_tuoi));
 							etBirthday.requestFocus();
-							//setDisable();
+							// setDisable();
 							FillDataProfile();
-							
+
 						}
 					}
 				}
@@ -401,16 +415,15 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 
 		return check;
 	}
-	
+
 	private boolean checkValidateChanged() {
 		boolean check = true;
-		if(fullname.equals(fullname2) && birthday.equals(birthday2) && phone.equals(phone2) ){
+		if (fullname.equals(fullname2) && birthday.equals(birthday2)
+				&& phone.equals(phone2)) {
 			check = false;
 		}
 		return check;
 	}
-
-
 
 	public class ImageDialog extends Dialog implements View.OnClickListener {
 		private final TextView tvFromCamera;
@@ -576,14 +589,16 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 					ivStatus.setBackgroundResource(R.drawable.icon_fine);
 					ivStatus.setImageResource(R.drawable.icon_fine);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
-					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE, 1);
+					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE,
+							1);
 					dialog.dismiss();
 					break;
 				case 1:
 					ivStatus.setBackgroundResource(R.drawable.sos_ic_dangerous);
 					ivStatus.setImageResource(R.drawable.sos_ic_dangerous);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
-					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE, 2);
+					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE,
+							2);
 					dialog.dismiss();
 					break;
 				default:
@@ -694,15 +709,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 								.getApplicationContext(), Global.USER_SDT,
 								phone);
 
-					
 						etPhone.setText(phone);
 						etBirthday.setText(bday);
 						etFullName.setText(fullname);
-//						etUserName.setText(Global.getPreference(getActivity()
-//								.getApplicationContext(), Global.USER_FULLNAME,
-//								fullname));
-
-					
+						// etUserName.setText(Global.getPreference(getActivity()
+						// .getApplicationContext(), Global.USER_FULLNAME,
+						// fullname));
 
 					}
 

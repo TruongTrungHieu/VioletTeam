@@ -97,6 +97,7 @@ public class CircularImageView extends ImageView {
 		paintBorder = new Paint();
 		paintBorder.setAntiAlias(true);
 		paintBorder.setStyle(Paint.Style.STROKE);
+		paintBorder.setAlpha(254);
 		paintSelectorBorder = new Paint();
 		paintSelectorBorder.setAntiAlias(true);
 
