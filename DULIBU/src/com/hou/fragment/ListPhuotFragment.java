@@ -59,7 +59,7 @@ public class ListPhuotFragment extends Fragment {
 
 		exeQ = new ExecuteQuery(getActivity());
 		exeQ.createDatabase();
-		exeQ.open();
+		exeQ.open(); 
 
 		listPhuot = new ArrayList<Diemphuot>();
 		listPhuot = exeQ.getAllDiemphuot();
@@ -221,7 +221,8 @@ public class ListPhuotFragment extends Fragment {
 			@Override
 			public void onFailure(int statusCode, Throwable error,
 					String content) {
-				Toast.makeText(getActivity(), getString(R.string.e503),
+				Log.e("lỗi load", statusCode + ""+content);
+				Toast.makeText(getActivity(), getString(R.string.efail),
 						Toast.LENGTH_SHORT).show();
 			}
 		});

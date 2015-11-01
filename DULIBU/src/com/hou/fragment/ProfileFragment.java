@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private Uri mImageCaptureUri;
 	private String path;
 	private static String ngaysinh = "";
-	private ImageDownloader mDownloader;;
+	private ImageDownloader mDownloader;
 	private static Bitmap bmps;
 	String pathAvartar = "";
 	private String email, birthday, contact, fullname, phone;

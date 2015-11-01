@@ -427,6 +427,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 
 	private void executeWhenSendDataSuccess(String response) {
 		lstRoles.clear();
+		lichtrinh.clear();
 		try {
 			JSONArray data = new JSONArray(response);
 			for (int i = 0; i < data.length(); i++) {
