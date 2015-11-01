@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/ic_trip_message_white" android:state_selected="true"></item>
-    <item android:drawable="@drawable/ic_trip_message_black_18dp"></item>
+    <item android:drawable="@drawable/ic_chat_white_36dp" android:state_selected="true"></item>
+    <item android:drawable="@drawable/ic_chat_black_36dp"></item>
 
 </selector>

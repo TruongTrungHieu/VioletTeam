@@ -121,14 +121,15 @@ public class MyTrips extends android.support.v4.app.Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-//		Log.d("change", Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1"));
-//		if (Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1")
-//				.equals("1")) {
-//			Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "0");
-			lichtrinh.clear();
-			LoadDataFromServer();
+		// Log.d("change", Global.getPreference(getActivity(),
+		// Global.USER_ROLE_CHANGE, "1"));
+		// if (Global.getPreference(getActivity(), Global.USER_ROLE_CHANGE, "1")
+		// .equals("1")) {
+		// Global.savePreference(getActivity(), Global.USER_ROLE_CHANGE, "0");
+		lichtrinh.clear();
+		LoadDataFromServer();
 
-//		}
+		// }
 
 	}
 
@@ -163,13 +164,15 @@ public class MyTrips extends android.support.v4.app.Fragment {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.addTripMyTripActionBar:
-			Intent intent = new Intent(getActivity(), CreateTripManagerActivity.class);
+			Intent intent = new Intent(getActivity(),
+					CreateTripManagerActivity.class);
 			startActivity(intent);
 		default:
 			return super.onOptionsItemSelected(item);
 
 		}
 	}
+
 	public void LoadDataFromServer() {
 		progressBar.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -181,7 +184,10 @@ public class MyTrips extends android.support.v4.app.Fragment {
 						+ page
 						+ "&user_id="
 						+ Global.getPreference(getActivity(),
-								Global.USER_MAUSER, "ser_id"),
+								Global.USER_MAUSER, "user_id")
+						+ "&access_token="
+						+ Global.getPreference(getActivity(),
+								Global.USER_ACCESS_TOKEN, "access_token"),
 				new AsyncHttpResponseHandler() {
 					public void onSuccess(String response) {
 						Log.e("DATA", response);

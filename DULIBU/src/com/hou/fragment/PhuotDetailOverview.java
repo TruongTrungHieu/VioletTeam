@@ -28,16 +28,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PhuotDetailOverview extends Fragment {
 	TextView tvPhuotName, tvGhiChu, tvDiaChi, tvMaDiaPhuong, tvTrangThaiChuan;
 	ArrayList<PhuotDetailComment> cmtArr = new ArrayList<PhuotDetailComment>();
 	ListView lvComment;
+	Button btnPostCmt;
 	ImageView im,ivRecommended;
+	EditText txtComment;
 	
 	
 	@Override
@@ -51,6 +55,17 @@ public class PhuotDetailOverview extends Fragment {
         tvTrangThaiChuan = (TextView)v.findViewById(R.id.tvTrangThaiChuan);
         im = (ImageView) v.findViewById(R.id.ivPhuotImage);
         ivRecommended = (ImageView) v.findViewById(R.id.ivRecommended);
+        btnPostCmt = (Button) v.findViewById(R.id.btnPostCmt);
+        txtComment = (EditText) v.findViewById(R.id.txtComment);
+        btnPostCmt.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				txtComment.setText("");
+				Toast.makeText(getActivity(), "Bình luận của bạn đang chờ kiểm duyệt...", Toast.LENGTH_LONG);
+			}
+		});
         
     /*    Bundle bundlePDO = getArguments();
         if(bundlePDO!=null){
@@ -78,10 +93,10 @@ public class PhuotDetailOverview extends Fragment {
         tvPhuotName.setText(tenDiemPhuot);
         tvGhiChu.setText(ghiChu);
         if(trangThaiChuan.equals("1")){
-        	ivRecommended.setImageResource(R.drawable.checked);
+        	ivRecommended.setImageResource(R.drawable.icon_tick);
         }
         else{
-        	ivRecommended.setImageResource(R.drawable.map_place1);
+        	ivRecommended.setImageResource(R.drawable.icon_admin);
         }
         String imageLink = image;
         Log.e("VietNQ","Link anh: " + imageLink);
@@ -113,7 +128,7 @@ public class PhuotDetailOverview extends Fragment {
 		}
         PhuotDetailCommentAdapter adapter = new PhuotDetailCommentAdapter(getActivity(), R.layout.phuot_detail_overview_comment_item, cmtArr);
         lvComment = (ListView) v.findViewById(R.id.lvComments);
-        lvComment.setAdapter(adapter);
+        //lvComment.setAdapter(adapter);
         return v;
     }
 }

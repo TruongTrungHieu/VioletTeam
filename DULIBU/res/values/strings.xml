@@ -125,6 +125,8 @@
     <string name="dateOff">Ngày</string>
     <string name="place_off">Địa điểm</string>
     <string name="place_start">Khởi hành</string>
+    <string name="comment">BÌNH LUẬN</string>
+    <string name="deital_info">THÔNG TIN CHI TIẾT</string>
     <string name="note">Ghi chú</string>
     <string name="creatTrip">Lưu</string>
     <string name="maps_actionbar">Map</string>
@@ -144,7 +146,7 @@
     <string name="titleSetTime">00:00</string>
     <string name="titleTimeDialog">Đặt thời gian</string>
     <string name="str_ten">Tên</string>
-    <string name="str_tg">Thời gian</string>
+    <string name="str_tg">THỜI GIAN</string>
     <string name="str_bando">Bản đồ</string>
     <string name="str_tensukien">Tên sự kiện</string>
     <string name="str_thoigian">Thời gian cụ thể </string>
@@ -254,7 +256,7 @@
         <item>Phú Yên</item>
     </string-array>
     <string-array name="city_arrays_search">
-        <item>Chọn địa điểm</item>
+        <item>Chọn điểm</item>
         <item>An Giang</item>
         <item>Bà Rịa - Vũng Tàu</item>
         <item>Bắc Giang</item>

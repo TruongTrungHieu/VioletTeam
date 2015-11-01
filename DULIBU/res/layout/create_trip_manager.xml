@@ -425,6 +425,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edittext_default_bg"
                 android:inputType="textMultiLine"
+                android:gravity="top|left"
                 android:imeOptions="actionDone"
                 android:lines="8"
                 android:maxLines="10"

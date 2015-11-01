@@ -11,13 +11,14 @@
 
     <ImageButton
         android:id="@+id/mapFragmentMapSetting"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="9dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/icon_map_setting"
-        android:scaleType="fitXY" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="11dp"
+        android:alpha="0.85"
+        android:background="@drawable/bg_button_image"
+        android:padding="10dp"
+        android:src="@drawable/icon_setting_map" />
 
     <RelativeLayout
         android:id="@+id/layoutButtomSide"

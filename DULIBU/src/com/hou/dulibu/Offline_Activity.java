@@ -1,12 +1,15 @@
 package com.hou.dulibu;
 
 import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -41,6 +45,7 @@ import com.hou.model.Sukien;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 
 public class Offline_Activity extends ActionBarActivity {
 
@@ -72,7 +77,31 @@ public class Offline_Activity extends ActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		getEvent(maLichTrinh);
+		
 	}
+//	private void deleteOnserver() {
+//		// TODO Auto-generated method stub
+//		AsyncHttpClient client = new AsyncHttpClient();
+//		RequestParams params = new RequestParams();
+//		client.get(Global.BASE_URI + "/" + Global.URI_GETEVENT_PATH, params,
+//				new AsyncHttpResponseHandler() {
+//					public void onSuccess(String response) {
+//						Log.e("getEvent", response);
+//						listEvent(response);
+//						
+//					}
+//
+//					@Override
+//					public void onFailure(int statusCode, Throwable error,
+//							String content) {
+//						Log.e("LayListEvent", content);
+//					}
+//					
+//					
+//				});
+//		
+//		
+//	}
 
 	public void loadData() {
 		arrSuKien = arrEvent;		

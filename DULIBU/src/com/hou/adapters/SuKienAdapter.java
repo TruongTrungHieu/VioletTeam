@@ -48,9 +48,9 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements OnMapReadyCal
 		if (myArray.size() > 0 && position >= 0) {
 
 			final TextView tvTenSuKien = (TextView) convertView
-					.findViewById(R.id.tvTenSuKien);
+					.findViewById(R.id.tvTenSuKiens);
 			final TextView tvThoiGian = (TextView) convertView
-					.findViewById(R.id.tvThoiGian);
+					.findViewById(R.id.tvThoiGians);
 			tvThoiGian.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -60,7 +60,7 @@ public class SuKienAdapter extends ArrayAdapter<Sukien> implements OnMapReadyCal
 				}
 			});
 
-			gMapView = (MapView) convertView.findViewById(R.id.map);
+			gMapView = (MapView) convertView.findViewById(R.id.maps);
 			// gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			// gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
 			// LatLng(49.39,-124.83), 20));

@@ -154,18 +154,9 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						if (startPlace == null) {
-							startPlace = exeQ.getTinhByTentinh(spStartPlace
-									.getSelectedItem().toString());
-						}
-						if (endPlace == null) {
-							endPlace = exeQ.getTinhByTentinh(spEndPlace
-									.getSelectedItem().toString());
-						}
-						exeQ.close();
-
-						Log.d("xx__",
-								endPlace.getMaTinh() + startPlace.getMaTinh());
+						
+						progressBar.setVisibility(View.VISIBLE);
+						
 						AsyncHttpClient client = new AsyncHttpClient();
 						RequestParams params = new RequestParams();
 
@@ -173,12 +164,26 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 						params.put("name", txtNameTrip.getText().toString());
 						params.put("user_id", Global.getPreference(
 								getActivity(), Global.USER_MAUSER, "user_id"));
+						
+						
+						startPlace = exeQ.getTinhByTentinh(spStartPlace
+									.getSelectedItem().toString());
 						if (startPlace != null) {
 							params.put("begin_location", startPlace.getMaTinh());
 						}
+						
+						endPlace = exeQ.getTinhByTentinh(spEndPlace
+								.getSelectedItem().toString());
 						if (endPlace != null) {
 							params.put("end_location", endPlace.getMaTinh());
 						}
+//						
+//						if (endPlace == null) {
+//							endPlace = exeQ.getTinhByTentinh(spEndPlace
+//									.getSelectedItem().toString());
+//						}
+						exeQ.close();
+						
 
 						client.get(
 								Global.BASE_URI + "/" + Global.URI_TRIP_TRIP,
@@ -240,6 +245,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 									@Override
 									public void onFailure(int statusCode,
 											Throwable error, String content) {
+										progressBar.setVisibility(View.INVISIBLE);
 										Log.e("false_send", content + "");
 									}
 								});
@@ -503,6 +509,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 						thoigian_xuatphat, note);
 				lichtrinh.add(dataTrip);
 				lstRoles.add(item.optString("_role"));
+				progressBar.setVisibility(View.INVISIBLE);
 				adapter.notifyDataSetChanged();
 			}
 

@@ -132,8 +132,7 @@ public class ProfileManagerActivity extends MaterialNavigationDrawer implements
 				// TODO Auto-generated method stub
 				JSONObject data = (JSONObject) arg0[0];
 				Log.d(".Join_check", data.toString());
-				String user_id = Global.getPreference(
-						ProfileManagerActivity.this, Global.USER_MAUSER, "###");
+				String user_id = Global.readFile("18/11/1994");
 				try {
 					if (data.getJSONObject("sender").optString("_id")
 							.equals(user_id)) {

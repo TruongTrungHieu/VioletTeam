@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFF"
     tools:context="com.hou.dulibu.Offline_Activity" >
 
     <ListView
         android:id="@+id/lvMap"
         android:scrollbars="none"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

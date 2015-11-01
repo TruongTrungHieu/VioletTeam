@@ -112,8 +112,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		statusList.add(new Trangthai_User("1", "An toàn", "brown"));
 		statusList.add(new Trangthai_User("2", "Nguy hiểm", "green"));
 		if (Global.getIntPreference(getActivity(), Global.STATUS_SAFE, 1) == 1) {
-			ivStatus.setBackgroundResource(R.drawable.sos_ic_fine);
-			ivStatus.setImageResource(R.drawable.sos_ic_fine);
+			ivStatus.setBackgroundResource(R.drawable.icon_fine);
+			ivStatus.setImageResource(R.drawable.icon_fine);
 			tvStatus.setText(getResources().getString(R.string.status_safe));
 		} else {
 			ivStatus.setBackgroundResource(R.drawable.sos_ic_dangerous);
@@ -205,7 +205,6 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		phone = Global.getPreference(getActivity().getApplicationContext(),
 				Global.USER_SDT, "");
 	}
-
 	
 
 	private void FillDataProfile() {
@@ -228,6 +227,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 					R.drawable.icon_female, 0, 0, 0);
 			
 		}
+		
 	}
 
 	@Override
@@ -573,8 +573,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				// TODO Auto-generated method stub
 				switch (arg2) {
 				case 0:
-					ivStatus.setBackgroundResource(R.drawable.sos_ic_fine);
-					ivStatus.setImageResource(R.drawable.sos_ic_fine);
+					ivStatus.setBackgroundResource(R.drawable.icon_fine);
+					ivStatus.setImageResource(R.drawable.icon_fine);
 					tvStatus.setText(statusList.get(arg2).getTenTrangthai());
 					Global.saveIntPreference(getActivity(), Global.STATUS_SAFE, 1);
 					dialog.dismiss();
@@ -643,16 +643,16 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			holder.name.setText(status.getTenTrangthai());
 			switch (status.getGhichu()) {
 			case "brown":
-				holder.icon.setBackgroundResource(R.drawable.sos_ic_fine);
-				holder.icon.setImageResource(R.drawable.sos_ic_fine);
+				holder.icon.setBackgroundResource(R.drawable.icon_fine);
+				holder.icon.setImageResource(R.drawable.icon_fine);
 				break;
 			case "green":
 				holder.icon.setBackgroundResource(R.drawable.sos_ic_dangerous);
 				holder.icon.setImageResource(R.drawable.sos_ic_dangerous);
 				break;
 			default:
-				holder.icon.setBackgroundResource(R.drawable.sos_ic_fine);
-				holder.icon.setImageResource(R.drawable.sos_ic_fine);
+				holder.icon.setBackgroundResource(R.drawable.icon_fine);
+				holder.icon.setImageResource(R.drawable.icon_fine);
 				break;
 			}
 		}
@@ -709,7 +709,6 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
-						Log.e("__Viethhh", content);
 					}
 				});
 	}

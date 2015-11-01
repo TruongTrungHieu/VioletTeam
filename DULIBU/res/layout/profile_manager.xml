@@ -72,9 +72,9 @@
                 android:id="@+id/btnSOS"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:background="@drawable/button_sos_bg"
                 android:gravity="center"
                 android:text="SOS"
-                android:background="@drawable/button_sos_bg"
                 android:textColor="#FFF"
                 android:textSize="32sp" />
 
@@ -88,6 +88,7 @@
                 android:enabled="false"
                 android:padding="15dp"
                 android:paddingLeft="15dp"
+                android:singleLine="true"
                 android:text="Full Name"
                 android:textColor="#505050"
                 android:textSize="14sp" />
@@ -107,6 +108,7 @@
                 android:enabled="false"
                 android:padding="15dp"
                 android:paddingLeft="15dp"
+                android:singleLine="true"
                 android:text="Email"
                 android:textColor="#505050"
                 android:textSize="14sp" />
@@ -123,13 +125,14 @@
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_dob_green"
                 android:drawablePadding="50dp"
+                android:editable="false"
                 android:enabled="false"
+                android:focusable="false"
                 android:padding="15dp"
                 android:paddingLeft="15dp"
+                android:singleLine="true"
                 android:text="Birthday"
                 android:textColor="#505050"
-                android:editable="false"
-            	android:focusable="false"
                 android:textSize="14sp" />
 
             <View
@@ -144,10 +147,11 @@
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_phone_green"
                 android:drawablePadding="50dp"
-                android:inputType="number"
                 android:enabled="false"
+                android:inputType="number"
                 android:padding="15dp"
                 android:paddingLeft="15dp"
+                android:singleLine="true"
                 android:text="Phone"
                 android:textColor="#505050"
                 android:textSize="14sp" />
@@ -164,15 +168,16 @@
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_contact_green"
                 android:drawablePadding="50dp"
-                android:inputType="number"
                 android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
                 android:enabled="false"
+                android:inputType="number"
                 android:padding="15dp"
                 android:paddingLeft="15dp"
+                android:singleLine="true"
                 android:text="Contact"
                 android:textColor="#505050"
-                android:visibility="gone"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <com.hou.ultis.CircularImageView

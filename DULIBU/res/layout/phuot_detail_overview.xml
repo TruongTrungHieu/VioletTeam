@@ -30,6 +30,31 @@
                     android:scaleType="fitXY" />
             </FrameLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deital_info"
+                    android:textAllCaps="true"
+                    android:textColor="#505050"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#d2d2d2" />
+            </LinearLayout>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -44,8 +69,9 @@
                     android:weightSum="100" >
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
                         android:layout_weight="100"
                         android:orientation="vertical" >
 
@@ -53,6 +79,7 @@
                             android:id="@+id/tvPhuotName"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:maxLines="2"
                             android:padding="4dp"
                             android:text="Mù Cang Chải"
@@ -63,26 +90,10 @@
                             android:id="@+id/tvGhiChu"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="@string/MCC_note" />
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/MCC_note"
+                            android:textSize="15sp" />
                     </LinearLayout>
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-              
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="100"
-                        android:background="@color/ActionBarColor" />
                 </TableRow>
 
                 <TableRow
@@ -101,24 +112,23 @@
                             android:id="@+id/tvTrangThaiChuan"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"
+                            android:textStyle="bold"
                             android:text="Đề xuất" />
-                        <ImageView 
+
+                        <ImageView
+                            android:id="@+id/ivRecommended"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:id="@+id/ivRecommended"
-                            android:src="@drawable/checked"/>
+                            android:src="@drawable/icon_tick" />
                     </LinearLayout>
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                   
 
                     <TextView
                         android:layout_width="0dp"
@@ -131,6 +141,31 @@
                         android:layout_weight="100"
                         android:background="@color/ActionBarColor" />
                 </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/comment"
+                        android:textAllCaps="true"
+                        android:textColor="#505050"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#d2d2d2" />
+                </LinearLayout>
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -146,11 +181,10 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                             >
+                            android:gravity="center_vertical"
+                            android:orientation="vertical" >
 
                             <EditText
                                 android:id="@+id/txtComment"
@@ -158,13 +192,13 @@
                                 android:layout_height="100dp"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="5dp"
-                                android:layout_weight="80"
                                 android:background="@drawable/comment_edittext"
+                                android:gravity="top|left"
                                 android:hint="Bình luận của bạn..."
                                 android:inputType="textImeMultiLine"
+                                android:padding="10dp"
                                 android:paddingLeft="15dp"
-                            	android:paddingRight="15dp"
-                                android:textCursorDrawable="@null"
+                                android:paddingRight="15dp"
                                 android:textSize="13dp" />
 
                             <LinearLayout
@@ -172,29 +206,31 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginRight="5dp"
-                                android:orientation="horizontal" >
+                                android:layout_marginTop="10dp"
+                                android:gravity="right" >
 
-                                <Button
+                                <!--
+                                     <Button
                                     android:id="@+id/btnClearCmt"
                                     style="@style/DefaultButtonText"
                                     android:layout_width="0dp"
                                     android:layout_height="30dp"
                                     android:layout_gravity="right"
-                                    android:layout_weight="20"
-                                    android:background="@color/ActionBarColor"
+                                    android:layout_weight="0.5"
                                     android:gravity="center"
+                                    android:background="@drawable/button_default_bg"
                                     android:text="Xóa"
                                     android:textColor="@color/white" />
+                                -->
 
                                 <Button
                                     android:id="@+id/btnPostCmt"
                                     style="@style/DefaultButtonText"
-                                    android:layout_width="0dp"
+                                    android:layout_width="120dp"
                                     android:layout_height="30dp"
                                     android:layout_gravity="right"
-                                    android:layout_weight="20"
-                                    android:background="@color/ActionBarColor"
-                                    android:gravity="center"
+                                    android:layout_marginBottom="20dp"
+                                    android:background="@drawable/button_default_bg"
                                     android:text="Bình luận"
                                     android:textColor="@color/white" />
                             </LinearLayout>
@@ -203,7 +239,8 @@
                         <ListView
                             android:id="@+id/lvComments"
                             android:layout_width="match_parent"
-                            android:layout_height="500dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="50dp"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp" >

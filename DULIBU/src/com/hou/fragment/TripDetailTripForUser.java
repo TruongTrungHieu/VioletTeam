@@ -178,14 +178,17 @@ public class TripDetailTripForUser extends Fragment {
 	}
 
 	private void showMakerFirst() {
-		googleMap.addMarker(new MarkerOptions()
-				.position(
-						new LatLng(Double.parseDouble(startPlace.getLat()),
-								Double.parseDouble(startPlace.getLon())))
-				.title(startPlace.getTenTinh())
-				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.marker_start_end_places))
-				.snippet(startPlace.getMaTinh()));
+
+		if (startPlace != null) {
+			googleMap.addMarker(new MarkerOptions()
+					.position(
+							new LatLng(Double.parseDouble(startPlace.getLat()),
+									Double.parseDouble(startPlace.getLon())))
+					.title(startPlace.getTenTinh())
+					.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.marker_start_end_places))
+					.snippet(startPlace.getMaTinh()));
+		}
 
 		if (endPlace.getLat() != null) {
 
