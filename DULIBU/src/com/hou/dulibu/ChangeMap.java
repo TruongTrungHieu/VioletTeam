@@ -48,11 +48,11 @@ public class ChangeMap extends DialogFragment {
 		rdSate = (RadioButton) v.findViewById(R.id.radioBtnSatellite);
 		btnOk = (Button) v.findViewById(R.id.btnMapOk);
 		btnCancel = (Button) v.findViewById(R.id.btnMapCancel);
-
-		if (maptype == GoogleMap.MAP_TYPE_NORMAL) {
+		int map = Global.getIntPreference(c, "mapType", 0);
+		if (map == GoogleMap.MAP_TYPE_NORMAL) {
 			rdNormal.setChecked(true);
 		}
-		if (maptype == GoogleMap.MAP_TYPE_SATELLITE) {
+		if (map == GoogleMap.MAP_TYPE_SATELLITE) {
 			rdSate.setChecked(true);
 		}
 
