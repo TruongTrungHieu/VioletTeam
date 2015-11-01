@@ -420,7 +420,7 @@ public class ListTripFragment extends android.support.v4.app.Fragment {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			lvListTrip.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 
 	}
