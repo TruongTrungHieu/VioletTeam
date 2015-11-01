@@ -13,6 +13,7 @@ import org.w3c.dom.ls.LSSerializer;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hou.app.Global;
+import com.hou.dulibu.ChangeMap;
 import com.hou.dulibu.R;
 import com.hou.dulibu.R.layout;
 import com.hou.dulibu.TripDetailManagerActivity;
@@ -64,6 +66,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -79,7 +82,7 @@ public class TripDetailTripActivity extends Fragment implements
 	private ProgressDialog pDialog;
 	private LocationRequest locationRequest;
 	private GoogleApiClient googleApiClient;
-	ImageButton ivShareLocation, ivStopShareLocation;
+	ImageButton ivShareLocation, ivStopShareLocation, ivMapChange;
 	ImageView imgMapPlace, imgMapWarnning, imgMapTeam, imgMapHospital,
 			imgMapGas;
 	private Location mLastLocation;
@@ -98,6 +101,8 @@ public class TripDetailTripActivity extends Fragment implements
 	private MapView mMapView;
 	double lat;
 	double lon;
+	int map_type;
+	Context context;
 
 	private Map<String, InfoTracking> userTrackers;
 
@@ -159,7 +164,26 @@ public class TripDetailTripActivity extends Fragment implements
 		}
 		googleMap = mMapView.getMap();
 		googleMap.setMyLocationEnabled(true);
+		
+		context = getActivity().getApplicationContext();
+		map_type = Global.getIntPreference(context, "mapType", 0);
+		if (map_type != 0) {
+			googleMap.setMapType(map_type);
+		} else {
+			googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		}
+		
+		ivMapChange = (ImageButton) v.findViewById(R.id.tripMemberMapSetting);
+		ivMapChange.setVisibility(View.VISIBLE);
+		ivMapChange.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogChangeMapType(googleMap, context, map_type);
+			}
+		});
+		
 		ivStopShareLocation.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -322,6 +346,12 @@ public class TripDetailTripActivity extends Fragment implements
 
 		return v;
 
+	}
+	private void dialogChangeMapType(GoogleMap gm, Context c, int maptype) {
+		FragmentManager fm = getFragmentManager();
+		ChangeMap cm = new ChangeMap(gm, c, maptype);
+		// cm.setStyle(R.style.dialogFragment, R.style.dialogFragment);
+		cm.show(fm, "Change map");
 	}
 
 	// public void CheckStatusBottom() {
@@ -684,7 +714,7 @@ public class TripDetailTripActivity extends Fragment implements
 	// }
 
 	/**
-	 * Cập nhật location cho người có mã user key lên bản đồ
+	 * Cáº­p nháº­t location cho ngÆ°á»�i cÃ³ mÃ£ user key lÃªn báº£n Ä‘á»“
 	 * 
 	 * @param key
 	 * @param latLng
