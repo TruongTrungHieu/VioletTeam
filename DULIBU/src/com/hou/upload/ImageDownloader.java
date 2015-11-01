@@ -32,14 +32,23 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 	private Context c;
 	private ImageView img;
 	private Bitmap bmp;
+	private ImageLoaderListener listener;
 
 	/*--- constructor ---*/
-	public ImageDownloader(String url, ImageView img, Context c, Bitmap bmp) {
+	public ImageDownloader(String url, ImageView img, Context c, Bitmap bmp,
+			ImageLoaderListener listener) {
 		/*--- we need to pass some objects we are going to work with ---*/
 		this.url = url;
 		this.c = c;
 		this.img = img;
 		this.bmp = bmp;
+		this.listener = listener;
+	}
+
+	public interface ImageLoaderListener {
+
+		void onImageDownloaded(Bitmap bmp);
+
 	}
 
 	@Override
@@ -57,6 +66,9 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected void onPostExecute(Void result) {
+		if (listener != null) {
+			listener.onImageDownloaded(bmp);
+			}
 		img.setImageBitmap(bmp);
 		super.onPostExecute(result);
 	}

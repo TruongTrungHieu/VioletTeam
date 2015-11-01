@@ -82,8 +82,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	private Uri mImageCaptureUri;
 	private String path;
 	private static String ngaysinh = "";
-	private ImageDownloader downloader;
-	private static Bitmap bmp;
+	private ImageDownloader mDownloader;;
+	private static Bitmap bmps;
 	String pathAvartar = "";
 	private String email, birthday, contact, fullname, phone;
 	private String email2, birthday2, contact2, fullname2, phone2;
@@ -129,10 +129,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		File f = ImageUltiFunctions.getFileFromUri(Global
 				.getURI(getFileName(pathAvartar)));
 		if (f != null) {
+
 			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
 			ivProfile.setImageBitmap(bm);
 		} else {
+			downloadAvartar();
 			new getAvatarFromUser().execute(getFileName(pathAvartar),
 					pathAvartar);
 		}
@@ -175,12 +177,12 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		@Override
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
-			super.onPostExecute(result);			
+			super.onPostExecute(result);
 			File file = ImageUltiFunctions.getFileFromUri(Global
 					.getURI(fileName));
 			Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(file,
 					500, 500);
-			ivProfile.setImageBitmap(bm);
+			// ivProfile.setImageBitmap(bm);
 			ProfileManagerActivity activity = (ProfileManagerActivity) getActivity();
 			MaterialAccount account = activity.getAccount();
 			account.setPhoto(bm);
@@ -201,7 +203,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		etBirthday = (EditText) view.findViewById(R.id.etBirthday);
 		etPhone = (EditText) view.findViewById(R.id.etPhone);
 		etContact = (EditText) view.findViewById(R.id.etContact);
-		
+
 		ivProfileProgress = (ProgressBar) view.findViewById(R.id.progressBar1);
 
 		ivProfile.setOnClickListener(this);
@@ -500,6 +502,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			if (requestCode == PICK_FROM_FILE) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Log.d("link image", filePathColumn + "");
 
 				// Get the cursor
 				Cursor cursor = getActivity().getContentResolver().query(
@@ -510,10 +513,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 				String imgDecodableString = cursor.getString(columnIndex);
 				cursor.close();
-				// Set the Image in ImageView after decoding the String
-				String fileName = getFileName(imgDecodableString);
-				fromCameraFile = ImageUltiFunctions.getFileFromUri(Global
-						.getURI(fileName));
+				
+				fromCameraFile = new File(imgDecodableString);
 
 			} else {
 				path = mImageCaptureUri.getPath();
@@ -744,5 +745,20 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 		etContact.setEnabled(false);
 		etFullName.setEnabled(false);
 		etPhone.setEnabled(false);
+	}
+
+	private void downloadAvartar() {
+		mDownloader = new ImageDownloader(pathAvartar, ivProfile,
+				getActivity(), bmps, new ImageDownloader.ImageLoaderListener() {
+
+					@Override
+					public void onImageDownloaded(Bitmap bmps) {
+						// TODO Auto-generated method stub
+						ProfileFragment.bmps = bmps;
+					}
+				});
+
+		/*--- we need to call execute() since nothing will happen otherwise ---*/
+		mDownloader.execute();
 	}
 }
